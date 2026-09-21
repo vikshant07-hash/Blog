@@ -7,224 +7,115 @@
 <meta name="description" content="Thoughtful articles on technology, design, culture and life.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --primary:#7c3aed;--primary-dark:#6d28d9;--primary-light:#ede9fe;
-  --accent:#ec4899;--accent-2:#f59e0b;
-  --text:#0f172a;--text-light:#64748b;--text-muted:#94a3b8;
-  --bg:#ffffff;--bg-soft:#fafaf9;--bg-card:#ffffff;
-  --border:#e7e5e4;
-  --success:#10b981;--danger:#ef4444;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.05);
-  --shadow:0 4px 20px rgba(15,23,42,.06);
-  --shadow-md:0 10px 40px rgba(15,23,42,.08);
-  --shadow-lg:0 25px 60px rgba(15,23,42,.12);
-  --radius:20px;
-  --gradient:linear-gradient(135deg,#7c3aed 0%,#ec4899 50%,#f59e0b 100%);
-}
-body.dark{
-  --text:#f8fafc;--text-light:#cbd5e1;--text-muted:#94a3b8;
-  --bg:#0a0a0f;--bg-soft:#111118;--bg-card:#16161f;
-  --border:#252533;--primary-light:#2e1065;
-}
-html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .4s,color .4s;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;line-height:1.15;font-weight:700;letter-spacing:-.02em}
-a{text-decoration:none;color:inherit;transition:color .2s}
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--text:#1a1a2e;--text-light:#64748b;--bg:#fff;--bg-soft:#f8fafc;--border:#e2e8f0;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12);--radius:16px}
+body.dark{--text:#f1f5f9;--text-light:#94a3b8;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
+a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
-button{font-family:inherit;cursor:pointer;border:none;outline:none;background:none}
-.container{max-width:1280px;margin:0 auto;padding:0 24px}
-
-/* SCROLL PROGRESS */
-#progress{position:fixed;top:0;left:0;height:3px;background:var(--gradient);z-index:9999;width:0%;transition:width .1s}
-
-/* HEADER */
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);transition:all .3s}
-body.dark header{background:rgba(10,10,15,.85)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-.logo{font-family:'Fraunces',serif;font-size:28px;font-weight:900;letter-spacing:-1px;position:relative;display:inline-flex;align-items:center;gap:2px}
-.logo span{background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.logo::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:2px;background:var(--gradient);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.logo:hover::after{transform:scaleX(1)}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-weight:500;font-size:15px;color:var(--text-light);position:relative;padding:6px 0}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:var(--gradient);transition:all .3s;transform:translateX(-50%)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;letter-spacing:-.5px}
+.logo span{color:var(--primary)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-weight:500;font-size:15px;color:var(--text-light);transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--primary)}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%}
-.nav-actions{display:flex;align-items:center;gap:12px}
-.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text);display:grid;place-items:center;transition:all .3s cubic-bezier(.4,0,.2,1);font-size:16px}
-.icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px) rotate(8deg);box-shadow:0 8px 20px rgba(124,58,237,.35)}
-.btn{padding:11px 24px;border-radius:50px;font-weight:600;font-size:14px;transition:all .3s cubic-bezier(.4,0,.2,1);display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden}
-.btn-primary{background:var(--gradient);color:#fff;background-size:200% 200%}
-.btn-primary:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,58,237,.4)}
-.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .6s}
-.btn-primary:hover::before{left:100%}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;display:grid;place-items:center;transition:all .2s;font-size:16px}
+.icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn{padding:10px 22px;border-radius:50px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .2s;display:inline-block;font-family:inherit}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(99,102,241,.35)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
 .menu-toggle{display:none}
-
-/* MOBILE MENU */
-.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:200;padding:24px;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.mobile-menu.open{transform:translateX(0)}
-.mobile-menu .close{align-self:flex-end;font-size:28px;color:var(--text);width:44px;height:44px;display:grid;place-items:center}
-.mobile-menu ul{list-style:none;margin-top:48px}
-.mobile-menu li{margin-bottom:8px;opacity:0;transform:translateX(20px);transition:all .3s}
-.mobile-menu.open li{opacity:1;transform:translateX(0)}
-.mobile-menu.open li:nth-child(1){transition-delay:.1s}
-.mobile-menu.open li:nth-child(2){transition-delay:.15s}
-.mobile-menu.open li:nth-child(3){transition-delay:.2s}
-.mobile-menu.open li:nth-child(4){transition-delay:.25s}
-.mobile-menu.open li:nth-child(5){transition-delay:.3s}
-.mobile-menu a{font-size:28px;font-family:'Fraunces',serif;font-weight:700;padding:12px 0;display:block}
-
-/* HERO */
-.hero{padding:100px 0 80px;position:relative;overflow:hidden;background:var(--bg-soft)}
-.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 70%);border-radius:50%;animation:float 15s ease-in-out infinite;pointer-events:none}
-.hero::after{content:'';position:absolute;bottom:-50%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(236,72,153,.1) 0%,transparent 70%);border-radius:50%;animation:float 20s ease-in-out infinite reverse;pointer-events:none}
-@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,30px) scale(1.05)}}
-.hero-content{position:relative;z-index:1;text-align:center;max-width:820px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;background:rgba(124,58,237,.1);color:var(--primary);font-size:13px;font-weight:600;margin-bottom:28px;letter-spacing:.3px;border:1px solid rgba(124,58,237,.15);animation:fadeInUp .8s ease both}
-.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.hero h1{font-size:clamp(40px,7vw,76px);margin-bottom:24px;animation:fadeInUp .8s ease .1s both}
-.hero h1 em{font-style:italic;background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:clamp(16px,2vw,19px);color:var(--text-light);margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto;animation:fadeInUp .8s ease .2s both}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.search-box{display:flex;align-items:center;background:var(--bg-card);border:1px solid var(--border);border-radius:60px;padding:8px 8px 8px 28px;max-width:600px;margin:0 auto;box-shadow:var(--shadow-md);transition:all .3s;animation:fadeInUp .8s ease .3s both}
-.search-box:focus-within{border-color:var(--primary);box-shadow:0 12px 40px rgba(124,58,237,.2);transform:translateY(-2px)}
-.search-box input{flex:1;border:none;background:transparent;font-size:16px;color:var(--text);padding:14px 0;font-family:inherit;outline:none}
-.search-box input::placeholder{color:var(--text-muted)}
-.search-box button{background:var(--gradient);color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:14px;transition:all .3s}
-.search-box button:hover{transform:scale(1.02)}
-
-/* AD */
-.ad-slot{margin:40px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:16px;overflow:hidden;color:var(--text-muted);font-size:13px}
-
-/* CATEGORIES */
-.categories-wrap{padding:60px 0 20px;text-align:center}
-.section-label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
-.section-title{font-size:clamp(28px,4vw,40px);margin-bottom:16px;letter-spacing:-.5px}
-.section-title em{font-style:italic;color:var(--primary)}
-.section-desc{color:var(--text-light);font-size:16px;max-width:600px;margin:0 auto 40px}
-
-.categories{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding-bottom:20px}
-.cat-btn{padding:10px 22px;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-light);font-weight:500;font-size:14px;transition:all .3s;white-space:nowrap}
-.cat-btn:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px)}
-.cat-btn.active{background:var(--gradient);color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(124,58,237,.3)}
-
-/* SECTION */
-section{padding:40px 0}
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;gap:16px;flex-wrap:wrap}
-.section-head h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.5px}
-.section-head a{color:var(--primary);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;transition:gap .3s}
-.section-head a:hover{gap:10px}
-
-/* FEATURED */
-.featured{display:grid;grid-template-columns:1.2fr 1fr;border-radius:24px;overflow:hidden;background:var(--bg-card);border:1px solid var(--border);box-shadow:var(--shadow);transition:all .4s;cursor:pointer}
-.featured:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-.featured-img{min-height:420px;overflow:hidden;position:relative}
-.featured-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.4,0,.2,1)}
-.featured:hover .featured-img img{transform:scale(1.06)}
-.featured-content{padding:48px 42px;display:flex;flex-direction:column;justify-content:center}
-.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:14px;padding:5px 12px;background:var(--primary-light);border-radius:50px;width:fit-content}
-.featured-content h2{font-size:clamp(24px,2.5vw,34px);margin-bottom:16px;line-height:1.2}
-.featured-content p{color:var(--text-light);margin-bottom:24px;font-size:16px}
-
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;padding:24px;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu .close{align-self:flex-end;font-size:28px;background:none;border:none;color:var(--text);cursor:pointer}
+.mobile-menu ul{list-style:none;margin-top:40px}
+.mobile-menu li{margin-bottom:24px}
+.mobile-menu a{font-size:24px;font-family:'Playfair Display',serif;font-weight:700}
+.hero{padding:70px 0 50px;text-align:center;background:linear-gradient(180deg,var(--bg-soft) 0%,var(--bg) 100%)}
+.hero-badge{display:inline-block;padding:6px 16px;border-radius:50px;background:rgba(99,102,241,.1);color:var(--primary);font-size:13px;font-weight:600;margin-bottom:20px;letter-spacing:.5px}
+.hero h1{font-size:clamp(36px,6vw,62px);margin-bottom:18px;letter-spacing:-1px}
+.hero h1 em{color:var(--primary);font-style:italic}
+.hero p{max-width:600px;margin:0 auto 32px;color:var(--text-light);font-size:17px}
+.search-box{max-width:560px;margin:0 auto;display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:50px;padding:6px 6px 6px 22px;box-shadow:var(--shadow)}
+.search-box:focus-within{border-color:var(--primary)}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--text);font-size:15px;padding:12px 0;font-family:inherit}
+.search-box button{background:var(--primary);color:#fff;border:none;padding:12px 26px;border-radius:50px;font-weight:600;cursor:pointer;font-family:inherit}
+.search-box button:hover{background:var(--primary-dark)}
+.categories{padding:30px 0 15px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.cat-btn{padding:9px 20px;border-radius:50px;background:var(--bg-soft);border:1px solid var(--border);color:var(--text-light);font-weight:500;font-size:14px;cursor:pointer;transition:all .2s;font-family:inherit}
+.cat-btn:hover{border-color:var(--primary);color:var(--primary)}
+.cat-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+section{padding:30px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:28px}
+.section-head h2{font-size:30px}
+.section-head a{color:var(--primary);font-weight:600;font-size:14px}
+.featured{display:grid;grid-template-columns:1.2fr 1fr;border-radius:var(--radius);overflow:hidden;background:var(--bg-soft);border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;transition:transform .3s}
+.featured:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.featured-img{min-height:380px;overflow:hidden}
+.featured-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.featured:hover .featured-img img{transform:scale(1.05)}
+.featured-content{padding:42px 36px;display:flex;flex-direction:column;justify-content:center}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.featured-content h2{font-size:30px;margin-bottom:14px}
+.featured-content p{color:var(--text-light);margin-bottom:22px}
 .author{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text-light)}
-.avatar{width:44px;height:44px;border-radius:50%;background:var(--gradient);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;overflow:hidden}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#a855f7);display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.author-info b{color:var(--text);display:block;font-weight:600;font-size:14.5px}
-.author-info span{font-size:13px;color:var(--text-muted)}
-
-/* POSTS GRID */
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px}
-.post-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;position:relative}
-.post-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent}
-.post-thumb{height:220px;overflow:hidden;position:relative}
-.post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.4,0,.2,1)}
-.post-card:hover .post-thumb img{transform:scale(1.1)}
-.post-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.05))}
-.post-body{padding:26px;flex:1;display:flex;flex-direction:column}
-.post-body h3{font-size:21px;margin-bottom:12px;transition:color .3s;line-height:1.3}
+.author-info b{color:var(--text);display:block;font-weight:600;font-size:14px}
+.author-info span{font-size:12.5px}
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+.post-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s;display:flex;flex-direction:column}
+.post-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.post-thumb{height:200px;overflow:hidden}
+.post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.post-card:hover .post-thumb img{transform:scale(1.08)}
+.post-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.post-body h3{font-size:20px;margin-bottom:12px;transition:color .2s}
 .post-card:hover h3{color:var(--primary)}
-.post-body p{color:var(--text-light);font-size:14.5px;margin-bottom:20px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.post-meta{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--text-muted);gap:12px}
-.post-meta .author{gap:10px}
-.post-meta .avatar{width:34px;height:34px;font-size:12px}
-.post-meta .author-info b{font-size:13px}
-.post-meta .author-info span{font-size:11.5px}
-
-/* PAGINATION */
-.pagination{display:flex;justify-content:center;gap:8px;margin:50px 0}
-.page-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-weight:600;transition:all .3s}
-.page-btn:hover:not(:disabled):not(.active){border-color:var(--primary);color:var(--primary);transform:translateY(-2px)}
-.page-btn.active{background:var(--gradient);color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(124,58,237,.3)}
-.page-btn:disabled{opacity:.4;cursor:not-allowed}
-
-/* NEWSLETTER */
-.newsletter{margin:80px 0;background:var(--gradient);background-size:200% 200%;animation:gradientMove 12s ease infinite;border-radius:28px;padding:70px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
-@keyframes gradientMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.newsletter::before,.newsletter::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}
-.newsletter::before{width:300px;height:300px;top:-100px;right:-100px}
-.newsletter::after{width:400px;height:400px;bottom:-180px;left:-100px}
-.newsletter-content{position:relative;z-index:1;max-width:640px;margin:0 auto}
-.newsletter h2{font-size:clamp(28px,4vw,42px);margin-bottom:16px;color:#fff}
-.newsletter p{opacity:.95;margin-bottom:36px;font-size:17px}
-.newsletter form{display:flex;gap:12px;max-width:500px;margin:0 auto;background:rgba(255,255,255,.15);padding:8px;border-radius:60px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2)}
-.newsletter input{flex:1;padding:14px 22px;border-radius:50px;border:none;outline:none;font-size:15px;font-family:inherit;background:rgba(255,255,255,.95);color:#0f172a}
-.newsletter button{padding:14px 32px;border-radius:50px;background:#0f172a;color:#fff;font-weight:600;font-size:14.5px;transition:all .3s}
-.newsletter button:hover{background:#1e293b;transform:translateY(-2px)}
-
-/* FOOTER */
-footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:70px 0 30px;margin-top:60px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-.footer-brand p{color:var(--text-light);font-size:14.5px;margin:18px 0 24px;max-width:320px;line-height:1.7}
+.post-body p{color:var(--text-light);font-size:14.5px;margin-bottom:18px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-meta{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--text-light)}
+.post-meta .avatar{width:32px;height:32px;font-size:12px}
+.ad-slot{margin:24px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:12px;overflow:hidden;font-size:13px;color:var(--text-light)}
+.newsletter{margin:60px 0 20px;background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);border-radius:24px;padding:60px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.newsletter::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:rgba(255,255,255,.1);border-radius:50%}
+.newsletter h2{font-size:38px;margin-bottom:14px;position:relative}
+.newsletter p{opacity:.9;margin-bottom:30px;position:relative;max-width:500px;margin-left:auto;margin-right:auto}
+.newsletter form{display:flex;gap:12px;max-width:480px;margin:0 auto;position:relative}
+.newsletter input{flex:1;padding:15px 22px;border-radius:50px;border:none;outline:none;font-size:15px;font-family:inherit}
+.newsletter button{padding:15px 30px;border-radius:50px;background:#1a1a2e;color:#fff;border:none;font-weight:600;cursor:pointer;font-family:inherit}
+footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:60px 0 30px;margin-top:60px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand p{color:var(--text-light);font-size:14px;margin:16px 0 20px;max-width:300px}
 .socials{display:flex;gap:10px}
-.socials a{width:40px;height:40px;border-radius:12px;background:var(--bg-card);border:1px solid var(--border);display:grid;place-items:center;transition:all .3s;font-size:16px;color:var(--text-light)}
-.socials a:hover{background:var(--gradient);color:#fff;border-color:transparent;transform:translateY(-3px);box-shadow:0 8px 20px rgba(124,58,237,.3)}
-.footer-col h4{font-size:15px;margin-bottom:20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--text)}
+.socials a{width:38px;height:38px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:grid;place-items:center;transition:all .2s;font-size:15px}
+.socials a:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.footer-col h4{font-size:15px;margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
 .footer-col ul{list-style:none}
-.footer-col li{margin-bottom:12px}
-.footer-col a{color:var(--text-light);font-size:14.5px;transition:all .2s}
-.footer-col a:hover{color:var(--primary);padding-left:4px}
-.footer-bottom{padding-top:32px;border-top:1px solid var(--border);text-align:center;color:var(--text-muted);font-size:13.5px}
-
-/* LOADER */
-.loader{text-align:center;padding:80px 20px;color:var(--text-muted);grid-column:1/-1}
-.spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:var(--text-light);font-size:14px}
+.footer-col a:hover{color:var(--primary)}
+.footer-bottom{padding-top:30px;border-top:1px solid var(--border);text-align:center;color:var(--text-light);font-size:13.5px}
+.loader{text-align:center;padding:60px;color:var(--text-light)}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* REVEAL ANIMATION */
-.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.4,0,.2,1)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .featured{grid-template-columns:1fr}
-  .featured-img{min-height:280px}
-  .featured-content{padding:32px 28px}
-  .footer-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:640px){
-  .nav-links{display:none}
-  .menu-toggle{display:grid}
-  .hero{padding:60px 0 50px}
-  .search-box{flex-direction:column;padding:10px;border-radius:20px}
-  .search-box input{padding:12px 16px;width:100%;text-align:center}
-  .search-box button{width:100%}
-  .section-head{flex-direction:column;align-items:flex-start;gap:8px}
-  .newsletter{padding:50px 24px;margin:60px 0;border-radius:20px}
-  .newsletter form{flex-direction:column;padding:12px;border-radius:20px}
-  .newsletter input,.newsletter button{width:100%}
-  .footer-grid{grid-template-columns:1fr;gap:32px}
-  .posts-grid{grid-template-columns:1fr}
-  .post-meta{flex-wrap:wrap}
-}
+.pagination{display:flex;justify-content:center;gap:8px;margin:40px 0}
+.page-btn{width:40px;height:40px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-weight:600;transition:all .2s;font-family:inherit}
+.page-btn:hover:not(:disabled){border-color:var(--primary);color:var(--primary)}
+.page-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.page-btn:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:900px){.featured{grid-template-columns:1fr}.featured-img{min-height:240px}.featured-content{padding:28px 24px}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.nav-links{display:none}.menu-toggle{display:grid}.hero{padding:50px 0 40px}.search-box{flex-direction:column;padding:8px;border-radius:20px}.search-box input{padding:12px 16px;width:100%}.search-box button{width:100%}.section-head{flex-direction:column;align-items:start;gap:8px}.newsletter{padding:40px 24px}.newsletter h2{font-size:28px}.newsletter form{flex-direction:column}.footer-grid{grid-template-columns:1fr}.posts-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<div id="progress"></div>
 
 <header>
   <div class="container nav">
@@ -236,8 +127,8 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:70px
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle" title="Theme">🌙</button>
-      <a href="admin/login.html" class="btn btn-primary">Admin</a>
+      <button class="icon-btn" id="themeToggle">🌙</button>
+      <a href="login.html" class="btn btn-primary" id="loginBtn">Login</a>
       <button class="icon-btn menu-toggle" id="menuOpen">☰</button>
     </div>
   </div>
@@ -250,229 +141,141 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:70px
     <li><a href="category.html">Categories</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="admin/login.html">Admin</a></li>
+    <li><a href="login.html">Login</a></li>
   </ul>
 </div>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="container hero-content">
-    <div class="hero-badge"><span class="dot"></span> NEW ARTICLES EVERY WEEK</div>
+  <div class="container">
+    <span class="hero-badge">✨ NEW ARTICLES EVERY WEEK</span>
     <h1>Stories that <em>inspire</em>,<br>ideas that matter.</h1>
-    <p>Discover thoughtful articles on technology, design, culture and life — written by curious minds, for curious minds.</p>
+    <p>Discover thoughtful articles on technology, design, culture and life — written by curious minds.</p>
     <div class="search-box">
-      <input type="text" id="heroSearch" placeholder="Search articles, topics, authors...">
+      <input type="text" id="searchInput" placeholder="Search articles, topics, authors...">
       <button onclick="goSearch()">Search</button>
     </div>
   </div>
 </section>
 
-<!-- HEADER AD -->
+<div class="container"><div class="ad-slot" id="ad-header" data-position="header" style="display:none"></div></div>
+
 <div class="container">
-  <div class="ad-slot" id="ad-header" data-position="header" style="display:none"></div>
+  <div class="categories" id="categories"><button class="cat-btn active" data-slug="">All Posts</button></div>
 </div>
 
-<!-- CATEGORIES -->
-<section class="categories-wrap">
-  <div class="container">
-    <span class="section-label">Explore</span>
-    <h2 class="section-title">Browse by <em>category</em></h2>
-    <p class="section-desc">Find stories that match your interests</p>
-    <div class="categories" id="categories">
-      <button class="cat-btn active" data-slug="">All Posts</button>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURED -->
 <section class="container" id="featuredSection" style="display:none">
   <div class="section-head"><h2>Featured Story</h2></div>
   <article class="featured" id="featuredCard"></article>
 </section>
 
-<!-- LATEST POSTS -->
 <section class="container">
-  <div class="section-head">
-    <h2>Latest Articles</h2>
-    <a href="#" onclick="scrollToCategories();return false;">Browse categories →</a>
-  </div>
+  <div class="section-head"><h2>Latest Articles</h2></div>
   <div id="postsGrid" class="posts-grid">
-    <div class="loader"><div class="spinner"></div><p>Loading stories...</p></div>
+    <div class="loader" style="grid-column:1/-1"><div class="spinner"></div><p>Loading articles...</p></div>
   </div>
   <div class="pagination" id="pagination"></div>
 </section>
 
-<!-- IN-ARTICLE AD -->
-<div class="container">
-  <div class="ad-slot" id="ad-in-article" data-position="in-article" style="display:none"></div>
-</div>
+<div class="container"><div class="ad-slot" id="ad-in-article" data-position="in-article" style="display:none"></div></div>
 
-<!-- NEWSLETTER -->
 <section class="container">
   <div class="newsletter">
-    <div class="newsletter-content">
-      <h2>Join 12,000+ curious readers</h2>
-      <p>Get our best articles delivered to your inbox. No spam, ever.</p>
-      <form id="newsletterForm">
-        <input type="email" placeholder="your@email.com" required>
-        <button type="submit">Subscribe</button>
-      </form>
-    </div>
+    <h2>Join 12,000+ readers</h2>
+    <p>Get our best articles delivered straight to your inbox. No spam, unsubscribe anytime.</p>
+    <form id="newsletterForm">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">Ink<span>Well</span></a>
         <p>A digital publication celebrating ideas, culture, and the craft of thoughtful writing.</p>
-        <div class="socials">
-          <a href="#" title="Twitter">𝕏</a>
-          <a href="#" title="Instagram">📷</a>
-          <a href="#" title="LinkedIn">in</a>
-          <a href="#" title="YouTube">▶</a>
-        </div>
+        <div class="socials"><a href="#">𝕏</a><a href="#">📷</a><a href="#">in</a><a href="#">▶</a></div>
       </div>
-      <div class="footer-col">
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="category.html">Categories</a></li>
-          <li><a href="search.html">Search</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="#">Advertise</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Cookies</a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li><li><a href="category.html">Categories</a></li><li><a href="search.html">Search</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li>
+      </ul></div>
     </div>
-    <div class="footer-bottom">© 2025 InkWell. All rights reserved. Crafted with ❤️ for curious minds.</div>
+    <div class="footer-bottom">© 2025 InkWell. All rights reserved.</div>
   </div>
 </footer>
 
 <script>
-// ============================================================
-// CONFIG
-// ============================================================
-const API = 'https://gsssshilla.onrender.com/api';
-const UPLOAD = 'https://gsssshilla.onrender.com';
+// ============ CONFIG ============
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api/blog',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com',
+  ENABLE_ADS: true
+};
 
-// ============================================================
-// HELPERS
-// ============================================================
-const imgUrl = (p) => !p ? 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80' : (p.startsWith('http') ? p : UPLOAD + p);
-const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
-const getInitials = (n) => (n || 'A').split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase();
+// ============ HELPERS ============
+const imgUrl = (p) => !p ? 'https://via.placeholder.com/600x400?text=No+Image' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
 
-// Relative Time — "2 min ago", "3 hours ago", "just now"
+const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : '';
+
 const timeAgo = (dateStr) => {
   if (!dateStr) return '';
   const now = new Date();
-  const past = new Date(dateStr);
-  const diff = Math.floor((now - past) / 1000); // seconds
-
-  if (diff < 10) return 'just now';
-  if (diff < 60) return `${diff} sec ago`;
-  if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
-  if (diff < 86400) {
-    const h = Math.floor(diff / 3600);
-    return `${h} hour${h > 1 ? 's' : ''} ago`;
-  }
-  if (diff < 604800) {
-    const d = Math.floor(diff / 86400);
-    return `${d} day${d > 1 ? 's' : ''} ago`;
-  }
-  if (diff < 2592000) {
-    const w = Math.floor(diff / 604800);
-    return `${w} week${w > 1 ? 's' : ''} ago`;
-  }
-  return past.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: past.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+  const then = new Date(dateStr);
+  const diff = Math.floor((now - then) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' hour' + (Math.floor(diff/3600) > 1 ? 's' : '') + ' ago';
+  if (diff < 604800) return Math.floor(diff / 86400) + ' day' + (Math.floor(diff/86400) > 1 ? 's' : '') + ' ago';
+  if (diff < 2592000) return Math.floor(diff / 604800) + ' week' + (Math.floor(diff/604800) > 1 ? 's' : '') + ' ago';
+  return formatDate(dateStr);
 };
 
+const escapeHtml = (s) => { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
+const getInitials = (n) => (n||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+
 async function apiFetch(endpoint) {
-  const res = await fetch(API + endpoint);
+  const res = await fetch(CONFIG.API_URL + endpoint);
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Failed');
+  if(!res.ok) throw new Error(data.error || 'Failed');
   return data;
 }
 
-// ============================================================
-// THEME
-// ============================================================
+// ============ THEME ============
 const themeToggle = document.getElementById('themeToggle');
-if (localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark');
-  themeToggle.textContent = '☀️';
-}
+if(localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
 themeToggle.onclick = () => {
   document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  themeToggle.textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  const d = document.body.classList.contains('dark');
+  themeToggle.textContent = d ? '☀️' : '🌙';
+  localStorage.setItem('theme', d ? 'dark' : 'light');
 };
 
-// ============================================================
-// MOBILE MENU
-// ============================================================
+// ============ MOBILE MENU ============
 document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
 document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
 
-// ============================================================
-// SCROLL PROGRESS
-// ============================================================
-window.addEventListener('scroll', () => {
-  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-  document.getElementById('progress').style.width = scrolled + '%';
-});
+// ============ LOGIN STATE ============
+if (localStorage.getItem('token')) {
+  const loginBtn = document.getElementById('loginBtn');
+  loginBtn.textContent = 'Dashboard';
+  loginBtn.href = 'admin.html';
+}
 
-// ============================================================
-// SEARCH
-// ============================================================
+// ============ SEARCH ============
 function goSearch() {
-  const q = document.getElementById('heroSearch').value.trim();
-  if (q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+  const q = document.getElementById('searchInput').value.trim();
+  if(q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
 }
-document.getElementById('heroSearch').addEventListener('keypress', e => {
-  if (e.key === 'Enter') goSearch();
-});
+document.getElementById('searchInput').addEventListener('keypress', e => { if(e.key === 'Enter') goSearch(); });
 
-function scrollToCategories() {
-  document.getElementById('categories').scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-// ============================================================
-// REVEAL ANIMATION
-// ============================================================
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-function observeReveals() {
-  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
-}
-
-// ============================================================
-// LOAD CATEGORIES
-// ============================================================
+// ============ CATEGORIES ============
 async function loadCategories() {
   try {
     const cats = await apiFetch('/categories');
@@ -480,16 +283,15 @@ async function loadCategories() {
     cats.forEach(c => {
       const btn = document.createElement('button');
       btn.className = 'cat-btn';
+      btn.dataset.slug = c.slug;
       btn.textContent = `${c.name} (${c.post_count})`;
       btn.onclick = () => window.location.href = `category.html?slug=${c.slug}`;
       container.appendChild(btn);
     });
-  } catch (e) { console.warn('Categories failed:', e); }
+  } catch(e) { console.error('Categories:', e); }
 }
 
-// ============================================================
-// RENDER POST CARD
-// ============================================================
+// ============ RENDER POST CARD ============
 function renderPostCard(p) {
   const initials = getInitials(p.author_name);
   const avatarHtml = p.author_avatar
@@ -497,14 +299,12 @@ function renderPostCard(p) {
     : `<div class="avatar">${initials}</div>`;
 
   return `
-    <article class="post-card reveal" onclick="location.href='post.html?slug=${p.slug}'">
-      <div class="post-thumb">
-        <img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy">
-      </div>
+    <article class="post-card" onclick="location.href='post.html?slug=${p.slug}'">
+      <div class="post-thumb"><img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>
       <div class="post-body">
-        ${p.category_name ? `<span class="tag">${escapeHtml(p.category_name)}</span>` : ''}
+        <span class="tag">${escapeHtml(p.category_name || 'Uncategorized')}</span>
         <h3>${escapeHtml(p.title)}</h3>
-        <p>${escapeHtml(p.excerpt || 'Click to read the full story...')}</p>
+        <p>${escapeHtml(p.excerpt || '')}</p>
         <div class="post-meta">
           <div class="author">
             ${avatarHtml}
@@ -513,164 +313,104 @@ function renderPostCard(p) {
               <span>${timeAgo(p.published_at || p.created_at)}</span>
             </div>
           </div>
-          <span>${p.read_time || 3} min</span>
+          <span>${p.like_count||0} ❤️ ${p.comment_count||0} 💬</span>
         </div>
       </div>
     </article>
   `;
 }
 
-// ============================================================
-// LOAD POSTS
-// ============================================================
+// ============ LOAD POSTS ============
 async function loadPosts(page = 1) {
   const grid = document.getElementById('postsGrid');
-  grid.innerHTML = '<div class="loader"><div class="spinner"></div><p>Loading stories...</p></div>';
+  grid.innerHTML = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div><p>Loading...</p></div>';
 
   try {
     const data = await apiFetch(`/posts?page=${page}&limit=9`);
     const posts = data.posts || [];
 
-    if (!posts.length) {
-      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:80px;color:var(--text-muted)">No stories yet. Check back soon!</p>';
+    if(!posts.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-light)">No articles yet. Be the first to publish!</p>';
       document.getElementById('pagination').innerHTML = '';
       return;
     }
 
-    // Featured = first post
-    if (page === 1 && posts[0]) {
+    if(page === 1 && posts[0]) {
       const f = posts[0];
       const initials = getInitials(f.author_name);
       const avatarHtml = f.author_avatar
         ? `<div class="avatar"><img src="${imgUrl(f.author_avatar)}" alt="${escapeHtml(f.author_name)}"></div>`
         : `<div class="avatar">${initials}</div>`;
-
       document.getElementById('featuredSection').style.display = 'block';
-      const card = document.getElementById('featuredCard');
-      card.innerHTML = `
+      document.getElementById('featuredCard').innerHTML = `
         <div class="featured-img"><img src="${imgUrl(f.cover_image)}" alt="${escapeHtml(f.title)}"></div>
         <div class="featured-content">
-          ${f.category_name ? `<span class="tag">${escapeHtml(f.category_name)}</span>` : ''}
+          <span class="tag">${escapeHtml(f.category_name || 'Featured')}</span>
           <h2>${escapeHtml(f.title)}</h2>
-          <p>${escapeHtml(f.excerpt || 'Click to read the full story...')}</p>
+          <p>${escapeHtml(f.excerpt || '')}</p>
           <div class="author">
             ${avatarHtml}
             <div class="author-info">
               <b>${escapeHtml(f.author_name)}</b>
-              <span>${timeAgo(f.published_at || f.created_at)} · ${f.read_time || 3} min read</span>
+              <span>${timeAgo(f.published_at || f.created_at)}</span>
             </div>
           </div>
         </div>
       `;
-      card.onclick = () => location.href = `post.html?slug=${f.slug}`;
+      document.getElementById('featuredCard').onclick = () => location.href = `post.html?slug=${f.slug}`;
     }
 
     grid.innerHTML = posts.map(renderPostCard).join('');
     renderPagination(data.pagination);
-    setTimeout(observeReveals, 50);
-  } catch (e) {
+  } catch(e) {
     console.error(e);
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px">
-      <h3 style="font-family:Fraunces,serif;font-size:24px;margin-bottom:12px">Could not load stories</h3>
-      <p style="color:var(--text-muted);margin-bottom:20px">${e.message}</p>
-      <button class="btn btn-primary" onclick="loadPosts(1)">Try Again</button>
-    </div>`;
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:60px;color:var(--danger)">Failed to load posts: ${e.message}</p>`;
   }
 }
 
-// ============================================================
-// PAGINATION
-// ============================================================
 function renderPagination(p) {
-  const el = document.getElementById('pagination');
-  if (!p || p.totalPages <= 1) { el.innerHTML = ''; return; }
-
-  let html = `<button class="page-btn" ${p.page === 1 ? 'disabled' : ''} onclick="loadPosts(${p.page - 1})">←</button>`;
-
-  const start = Math.max(1, p.page - 2);
-  const end = Math.min(p.totalPages, p.page + 2);
-
-  if (start > 1) html += `<button class="page-btn" onclick="loadPosts(1)">1</button>`;
-  if (start > 2) html += `<span style="align-self:center;color:var(--text-muted)">…</span>`;
-
-  for (let i = start; i <= end; i++) {
-    html += `<button class="page-btn ${i === p.page ? 'active' : ''}" onclick="loadPosts(${i})">${i}</button>`;
-  }
-
-  if (end < p.totalPages - 1) html += `<span style="align-self:center;color:var(--text-muted)">…</span>`;
-  if (end < p.totalPages) html += `<button class="page-btn" onclick="loadPosts(${p.totalPages})">${p.totalPages}</button>`;
-
-  html += `<button class="page-btn" ${p.page === p.totalPages ? 'disabled' : ''} onclick="loadPosts(${p.page + 1})">→</button>`;
-  el.innerHTML = html;
+  if(!p || p.totalPages <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+  const c = document.getElementById('pagination');
+  let html = `<button class="page-btn" ${p.page===1?'disabled':''} onclick="loadPosts(${p.page-1})">←</button>`;
+  for(let i=1; i<=p.totalPages; i++) html += `<button class="page-btn ${i===p.page?'active':''}" onclick="loadPosts(${i})">${i}</button>`;
+  html += `<button class="page-btn" ${p.page===p.totalPages?'disabled':''} onclick="loadPosts(${p.page+1})">→</button>`;
+  c.innerHTML = html;
 }
 
-// ============================================================
-// ADS LOADER
-// ============================================================
+// ============ ADS ============
 async function loadAd(position) {
+  if(!CONFIG.ENABLE_ADS) return;
   const slot = document.getElementById(`ad-${position}`);
-  if (!slot) return;
+  if(!slot) return;
   try {
     const ad = await apiFetch(`/ads/${position}`);
-    if (!ad) return;
+    if(!ad) return;
     slot.style.display = 'flex';
-    slot.removeAttribute('data-position');
-
-    if (ad.type === 'custom_html') slot.innerHTML = ad.content || '';
-    else if (ad.type === 'image' && ad.image_url)
-      slot.innerHTML = `<a href="${ad.link_url || '#'}" target="_blank" onclick="trackAdClick(${ad.id})"><img src="${imgUrl(ad.image_url)}" alt="${escapeHtml(ad.name)}" style="max-width:100%"></a>`;
-    else if (ad.type === 'adsense' && ad.content) slot.innerHTML = ad.content;
-  } catch (e) { /* silent */ }
+    if(ad.type === 'custom_html') slot.innerHTML = ad.content || '';
+    else if(ad.type === 'image' && ad.image_url) slot.innerHTML = `<a href="${ad.link_url||'#'}" target="_blank"><img src="${imgUrl(ad.image_url)}" alt="${escapeHtml(ad.name)}"></a>`;
+    else if(ad.type === 'adsense' && ad.content) slot.innerHTML = ad.content;
+  } catch {}
 }
 
-function trackAdClick(id) {
-  fetch(`${API}/ads/${id}/click`, { method: 'POST' }).catch(() => {});
-}
-
-// ============================================================
-// NEWSLETTER
-// ============================================================
+// ============ NEWSLETTER ============
 document.getElementById('newsletterForm').onsubmit = async (e) => {
   e.preventDefault();
-  const input = e.target.querySelector('input');
-  const btn = e.target.querySelector('button');
-  const email = input.value.trim();
-
-  btn.disabled = true;
-  btn.textContent = 'Subscribing...';
-
+  const email = e.target.querySelector('input').value;
   try {
-    const res = await fetch(`${API}/subscribe`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch(`${CONFIG.API_URL}/subscribe`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Failed');
-
-    btn.textContent = '✓ Subscribed!';
-    btn.style.background = '#10b981';
-    input.value = '';
-    setTimeout(() => {
-      btn.textContent = 'Subscribe';
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3000);
-  } catch (err) {
-    alert('❌ ' + err.message);
-    btn.disabled = false;
-    btn.textContent = 'Subscribe';
-  }
+    if(res.ok) { alert('Subscribed! 🎉'); e.target.reset(); }
+    else alert('Failed. Try again.');
+  } catch { alert('Failed. Try again.'); }
 };
 
-// ============================================================
-// INIT
-// ============================================================
+// ============ INIT ============
 loadCategories();
 loadPosts(1);
 loadAd('header');
 loadAd('in-article');
 </script>
-
 </body>
 </html>
