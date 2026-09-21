@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search — InkWell</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--text:#1a1a2e;--text-light:#64748b;--bg:#fff;--bg-soft:#f8fafc;--border:#e2e8f0;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12);--radius:16px}
+body.dark{--text:#f1f5f9;--text-light:#94a3b8;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;letter-spacing:-.5px}
+.logo span{color:var(--primary)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-weight:500;font-size:15px;color:var(--text-light);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--primary)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;display:grid;place-items:center;transition:all .2s;font-size:16px}
+.icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.menu-toggle{display:none}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;padding:24px;flex-direction:column}
+.mobile-menu.open{display:flex}
+.mobile-menu .close{align-self:flex-end;font-size:28px;background:none;border:none;color:var(--text);cursor:pointer}
+.mobile-menu ul{list-style:none;margin-top:40px}
+.mobile-menu li{margin-bottom:24px}
+.mobile-menu a{font-size:24px;font-family:'Playfair Display',serif;font-weight:700}
+
+.page-head{padding:50px 0 30px;text-align:center;background:linear-gradient(180deg,var(--bg-soft) 0%,var(--bg) 100%)}
+.page-head h1{font-size:clamp(28px,4vw,42px);margin-bottom:20px;letter-spacing:-.5px}
+.search-box{max-width:600px;margin:0 auto;display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:50px;padding:6px 6px 6px 22px;box-shadow:var(--shadow)}
+.search-box:focus-within{border-color:var(--primary)}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--text);font-size:16px;padding:12px 0;font-family:inherit}
+.search-box button{background:var(--primary);color:#fff;border:none;padding:12px 26px;border-radius:50px;font-weight:600;cursor:pointer;font-family:inherit}
+.search-box button:hover{background:var(--primary-dark)}
+
+.result-info{text-align:center;padding:20px 0;color:var(--text-light);font-size:15px}
+.result-info strong{color:var(--text)}
+
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px;padding:20px 0 40px}
+.post-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s;display:flex;flex-direction:column}
+.post-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.post-thumb{height:200px;overflow:hidden}
+.post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.post-card:hover .post-thumb img{transform:scale(1.08)}
+.post-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:10px}
+.post-body h3{font-size:19px;margin-bottom:12px;transition:color .2s}
+.post-card:hover h3{color:var(--primary)}
+.post-body p{color:var(--text-light);font-size:14.5px;margin-bottom:16px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-meta{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--text-light)}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#a855f7);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0}
+.author{display:flex;align-items:center;gap:10px}
+.author-info b{color:var(--text);font-size:13px;display:block}
+.author-info span{font-size:12px}
+
+.empty{text-align:center;padding:80px 20px;color:var(--text-light)}
+.empty h2{font-size:26px;color:var(--text);margin-bottom:12px}
+.empty p{margin-bottom:24px}
+.btn{padding:12px 28px;border-radius:50px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .2s;display:inline-block;background:var(--primary);color:#fff;font-family:inherit}
+.btn:hover{background:var(--primary-dark)}
+
+.loader{text-align:center;padding:80px;color:var(--text-light)}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.ad-slot{margin:24px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:12px;overflow:hidden;font-size:13px;color:var(--text-light)}
+
+footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px 0 30px;margin-top:60px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand p{color:var(--text-light);font-size:14px;margin:16px 0 20px;max-width:300px}
+.footer-col h4{font-size:15px;margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:var(--text-light);font-size:14px}
+.footer-bottom{padding-top:30px;border-top:1px solid var(--border);text-align:center;color:var(--text-light);font-size:13.5px}
+
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.nav-links{display:none}.menu-toggle{display:grid}.footer-grid{grid-template-columns:1fr}.posts-grid{grid-template-columns:1fr}.search-box{flex-direction:column;padding:8px;border-radius:20px}.search-box input{padding:12px 16px;width:100%}.search-box button{width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo">Ink<span>Well</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="category.html">Categories</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle">🌙</button>
+      <button class="icon-btn menu-toggle" id="menuOpen">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" id="menuClose">✕</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="category.html">Categories</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<div class="page-head">
+  <div class="container">
+    <h1>Search Articles</h1>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search articles, topics, authors...">
+      <button onclick="doSearch()">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="ad-slot" id="ad-header" data-position="header" style="display:none"></div>
+</div>
+
+<div class="container">
+  <div class="result-info" id="resultInfo"></div>
+  <div id="content"></div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">Ink<span>Well</span></a>
+        <p>A digital publication celebrating ideas, culture, and the craft of thoughtful writing.</p>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="category.html">Categories</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">© 2025 InkWell. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const CONFIG = { API_URL: 'http://localhost:3000/api', UPLOAD_URL: 'http://localhost:3000', ENABLE_ADS: true };
+const imgUrl = (p) => !p ? 'https://via.placeholder.com/600x400' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : '';
+const escapeHtml = (s) => { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
+const getInitials = (n) => (n||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+async function apiFetch(endpoint) {
+  const res = await fetch(CONFIG.API_URL + endpoint);
+  const data = await res.json();
+  if(!res.ok) throw new Error(data.error || 'Failed');
+  return data;
+}
+
+// THEME
+const themeToggle = document.getElementById('themeToggle');
+if(localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
+themeToggle.onclick = () => {
+  document.body.classList.toggle('dark');
+  const d = document.body.classList.contains('dark');
+  themeToggle.textContent = d ? '☀️' : '🌙';
+  localStorage.setItem('theme', d ? 'dark' : 'light');
+};
+document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
+document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
+
+const params = new URLSearchParams(location.search);
+const initialQuery = params.get('q') || '';
+document.getElementById('searchInput').value = initialQuery;
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if(q) location.href = `search.html?q=${encodeURIComponent(q)}`;
+}
+document.getElementById('searchInput').addEventListener('keypress', e => { if(e.key==='Enter') doSearch(); });
+
+async function search(q) {
+  const content = document.getElementById('content');
+  const info = document.getElementById('resultInfo');
+  if(!q) { content.innerHTML = ''; info.innerHTML = ''; return; }
+  content.innerHTML = '<div class="loader"><div class="spinner"></div><p>Searching...</p></div>';
+  try {
+    const data = await apiFetch(`/posts?search=${encodeURIComponent(q)}&limit=50`);
+    document.title = `"${q}" — Search — InkWell`;
+    if(!data.posts.length) {
+      info.innerHTML = '';
+      content.innerHTML = `
+        <div class="empty">
+          <h2>No results for "${escapeHtml(q)}"</h2>
+          <p>Try different keywords or browse categories.</p>
+          <a href="category.html" class="btn">Browse Categories</a>
+        </div>
+      `;
+      return;
+    }
+    info.innerHTML = `Found <strong>${data.posts.length}</strong> result${data.posts.length===1?'':'s'} for "<strong>${escapeHtml(q)}</strong>"`;
+    content.innerHTML = `<div class="posts-grid">${data.posts.map(renderPost).join('')}</div>`;
+  } catch(e) {
+    content.innerHTML = `<div class="empty"><h2>Search failed</h2><p>${e.message}</p></div>`;
+  }
+}
+
+function renderPost(p) {
+  const initials = getInitials(p.author_name);
+  return `
+    <article class="post-card" onclick="location.href='post.html?slug=${p.slug}'">
+      <div class="post-thumb"><img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>
+      <div class="post-body">
+        <span class="tag">${escapeHtml(p.category_name||'')}</span>
+        <h3>${escapeHtml(p.title)}</h3>
+        <p>${escapeHtml(p.excerpt||'')}</p>
+        <div class="post-meta">
+          <div class="author">
+            <div class="avatar">${initials}</div>
+            <div class="author-info">
+              <b>${escapeHtml(p.author_name)}</b>
+              <span>${formatDate(p.published_at||p.created_at)}</span>
+            </div>
+          </div>
+          <span>${p.views||0} views</span>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+async function loadAd(position) {
+  if(!CONFIG.ENABLE_ADS) return;
+  const slot = document.getElementById(`ad-${position}`);
+  if(!slot) return;
+  try {
+    const ad = await apiFetch(`/ads/${position}`);
+    if(!ad) return;
+    slot.style.display = 'flex';
+    if(ad.type === 'custom_html') slot.innerHTML = ad.content || '';
+  } catch {}
+}
+
+if(initialQuery) search(initialQuery);
+loadAd('header');
+</script>
+
+</body>
+</html>
