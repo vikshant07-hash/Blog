@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — InkWell Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#7c3aed;--accent:#ec4899;--accent-2:#f59e0b;
+  --text:#0f172a;--text-light:#64748b;
+  --bg:#fff;--border:#e7e5e4;
+  --gradient:linear-gradient(135deg,#7c3aed 0%,#ec4899 50%,#f59e0b 100%);
+}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  min-height:100vh;display:grid;place-items:center;
+  background:linear-gradient(135deg,#7c3aed 0%,#ec4899 50%,#f59e0b 100%);
+  background-size:400% 400%;
+  animation:gradientMove 15s ease infinite;
+  padding:24px;overflow:hidden;
+}
+@keyframes gradientMove{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+body::before,body::after{
+  content:'';position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.1);pointer-events:none;
+}
+body::before{width:500px;height:500px;top:-200px;left:-200px;animation:float 12s ease-in-out infinite}
+body::after{width:400px;height:400px;bottom:-150px;right:-150px;animation:float 15s ease-in-out infinite reverse}
+@keyframes float{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(40px,40px)}
+}
+
+.login-box{
+  background:rgba(255,255,255,.98);
+  backdrop-filter:blur(20px);
+  border-radius:24px;padding:48px 40px;
+  max-width:440px;width:100%;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
+  position:relative;z-index:1;
+  animation:slideUp .8s cubic-bezier(.4,0,.2,1);
+}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.logo{
+  font-family:'Fraunces',serif;font-size:36px;font-weight:900;
+  text-align:center;margin-bottom:8px;letter-spacing:-1px;
+}
+.logo span{
+  background:var(--gradient);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.subtitle{
+  text-align:center;color:var(--text-light);
+  font-size:14.5px;margin-bottom:36px;
+}
+h1{font-family:'Fraunces',serif;font-size:24px;color:var(--text);margin-bottom:6px;text-align:center}
+
+.form-group{margin-bottom:20px;position:relative}
+.form-group label{
+  display:block;font-size:13px;font-weight:600;
+  color:var(--text);margin-bottom:8px;letter-spacing:.2px;
+}
+.form-group input{
+  width:100%;padding:14px 18px;
+  border:2px solid var(--border);border-radius:12px;
+  font-size:15px;font-family:inherit;
+  transition:all .3s;background:#fafaf9;color:var(--text);
+}
+.form-group input:focus{
+  outline:none;border-color:var(--primary);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(124,58,237,.1);
+}
+.form-group input.error{border-color:#ef4444;animation:shake .4s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+
+.btn-login{
+  width:100%;padding:16px;border-radius:12px;
+  background:var(--gradient);background-size:200% 200%;
+  color:#fff;font-weight:700;font-size:15px;
+  transition:all .3s;position:relative;overflow:hidden;
+  letter-spacing:.3px;
+}
+.btn-login:hover:not(:disabled){
+  background-position:100% 0;
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(124,58,237,.4);
+}
+.btn-login:disabled{opacity:.7;cursor:not-allowed}
+.btn-login .spinner{
+  display:none;width:18px;height:18px;
+  border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto;
+}
+.btn-login.loading .spinner{display:block}
+.btn-login.loading .text{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.error-msg{
+  background:#fef2f2;color:#dc2626;
+  padding:12px 16px;border-radius:10px;
+  font-size:13.5px;margin-bottom:16px;
+  display:none;align-items:center;gap:8px;
+  border-left:3px solid #dc2626;
+  animation:slideDown .3s ease;
+}
+.error-msg.show{display:flex}
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.demo-info{
+  margin-top:24px;padding:14px;
+  background:#f8fafc;border-radius:10px;
+  text-align:center;font-size:13px;color:var(--text-light);
+  border:1px dashed var(--border);
+}
+.demo-info b{color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+  <div class="logo">Ink<span>Well</span></div>
+  <p class="subtitle">Admin Panel</p>
+  
+  <h1>Welcome Back</h1>
+  <p style="text-align:center;color:var(--text-light);font-size:14px;margin-bottom:28px;">Sign in to manage your blog</p>
+
+  <div class="error-msg" id="errorMsg">
+    <span>⚠️</span>
+    <span id="errorText"></span>
+  </div>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" placeholder="admin@blog.com" required autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn-login" id="loginBtn">
+      <span class="text">Sign In →</span>
+      <div class="spinner"></div>
+    </button>
+  </form>
+
+  <div class="demo-info">
+    Demo: <b>admin@blog.com</b> / <b>admin123</b>
+  </div>
+</div>
+
+<script>
+const API = 'https://gsssshilla.onrender.com/api';
+
+// Auto-redirect if already logged in
+if (localStorage.getItem('admin_token')) {
+  window.location.href = 'dashboard.html';
+}
+
+document.getElementById('loginForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('errorMsg');
+  const errText = document.getElementById('errorText');
+  
+  err.classList.remove('show');
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  try {
+    const res = await fetch(`${API}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Login failed');
+
+    localStorage.setItem('admin_token', data.token);
+    localStorage.setItem('admin_user', JSON.stringify(data.user));
+    
+    btn.querySelector('.text').textContent = '✓ Success!';
+    setTimeout(() => window.location.href = 'dashboard.html', 600);
+  } catch (error) {
+    errText.textContent = error.message;
+    err.classList.add('show');
+    document.getElementById('password').classList.add('error');
+    setTimeout(() => document.getElementById('password').classList.remove('error'), 500);
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+};
+</script>
+</body>
+</html>
