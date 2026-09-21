@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — InkWell</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--text:#1a1a2e;--text-light:#64748b;--bg:#f8fafc;--bg-card:#fff;--border:#e2e8f0;--sidebar:#1e293b;--sidebar-text:#94a3b8}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,textarea,select{font-family:inherit;outline:none}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#667eea,#764ba2);padding:24px}
+.login-box{background:#fff;border-radius:20px;padding:44px 36px;max-width:420px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+.login-box h1{font-size:28px;margin-bottom:8px;color:#1a1a2e}
+.login-box p{color:#64748b;font-size:14px;margin-bottom:28px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#334155}
+.form-group input{width:100%;padding:12px 16px;border:1px solid #e2e8f0;border-radius:10px;font-size:15px;transition:border .2s;background:#fff}
+.form-group input:focus{border-color:#6366f1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;transition:all .2s}
+.btn-primary{background:#6366f1;color:#fff;width:100%}
+.btn-primary:hover{background:#4f46e5}
+.btn-sm{padding:8px 16px;font-size:13px;border-radius:8px}
+.btn-danger{background:#ef4444;color:#fff}
+.btn-danger:hover{background:#dc2626}
+.btn-success{background:#10b981;color:#fff}
+.btn-outline{background:transparent;border:1px solid #e2e8f0;color:#334155}
+.btn-outline:hover{border-color:#6366f1;color:#6366f1}
+.error-msg{background:#fee;color:#c00;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px}
+
+/* LAYOUT */
+.app{display:none;min-height:100vh}
+.app.active{display:grid;grid-template-columns:260px 1fr}
+.sidebar{background:#1e293b;color:#fff;padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar .brand{padding:0 24px 24px;font-size:22px;font-weight:800;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px}
+.sidebar .brand span{color:#818cf8}
+.sidebar nav a{display:flex;align-items:center;gap:12px;padding:12px 24px;color:#94a3b8;font-weight:500;font-size:14.5px;transition:all .2s;cursor:pointer}
+.sidebar nav a:hover{background:rgba(255,255,255,.05);color:#fff}
+.sidebar nav a.active{background:#6366f1;color:#fff}
+.sidebar nav a .icon{font-size:18px;width:22px;text-align:center}
+
+.main{padding:32px 40px;overflow-y:auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.topbar h1{font-size:28px;color:#1a1a2e}
+.topbar .user{display:flex;align-items:center;gap:12px;font-size:14px;color:#64748b}
+.topbar .user .avatar{width:36px;height:36px;background:#6366f1;color:#fff;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:32px}
+.stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:22px}
+.stat-card .label{font-size:13px;color:#64748b;font-weight:500;margin-bottom:6px}
+.stat-card .value{font-size:28px;font-weight:800;color:#1a1a2e}
+.stat-card .icon{float:right;font-size:26px;opacity:.5}
+
+/* TABLES */
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:24px}
+.card-head{padding:18px 22px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.card-head h2{font-size:18px;color:#1a1a2e}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:14px 18px;text-align:left;border-bottom:1px solid #f1f5f9}
+th{background:#f8fafc;font-weight:600;color:#334155;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+tr:hover td{background:#f8fafc}
+td .title-cell{font-weight:600;color:#1a1a2e;display:block;margin-bottom:3px}
+td .sub{font-size:12.5px;color:#94a3b8}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-success{background:#d1fae5;color:#065f46}
+.badge-warning{background:#fef3c7;color:#92400e}
+.badge-danger{background:#fee2e2;color:#991b1b}
+.badge-info{background:#dbeafe;color:#1e40af}
+.row-actions{display:flex;gap:6px;flex-wrap:wrap}
+.empty-state{padding:60px;text-align:center;color:#94a3b8}
+.loading{padding:60px;text-align:center;color:#94a3b8}
+.spinner{width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:#6366f1;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EDITOR */
+.editor-grid{display:grid;grid-template-columns:1fr 320px;gap:24px}
+.editor-main{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px}
+.editor-side{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;height:fit-content;position:sticky;top:24px}
+.editor-main input[type=text],.editor-main input[type=url],.editor-side input,.editor-side select,.editor-side textarea{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:10px;font-size:14.5px;margin-bottom:14px}
+.editor-main input.title-input{font-size:22px;font-weight:700;padding:16px;margin-bottom:16px}
+.editor-main textarea{width:100%;padding:14px;border:1px solid #e2e8f0;border-radius:10px;font-family:inherit;font-size:14.5px;min-height:100px;margin-bottom:14px;resize:vertical}
+.editor-main .content-area{min-height:400px;font-family:'SF Mono',Monaco,monospace;font-size:14px}
+.editor-side label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#334155}
+.editor-side h3{font-size:15px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #e2e8f0}
+.editor-actions{display:flex;gap:10px;margin-top:16px}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;place-items:center;padding:24px}
+.modal-overlay.active{display:grid}
+.modal{background:#fff;border-radius:16px;padding:32px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto}
+.modal h2{font-size:22px;margin-bottom:20px;color:#1a1a2e}
+.modal .close{float:right;font-size:24px;color:#94a3b8;background:none;line-height:1}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.modal label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;color:#334155}
+.modal input,.modal textarea,.modal select{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:10px;font-size:14.5px}
+.modal textarea{min-height:100px;resize:vertical;font-family:inherit}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#1e293b;color:#fff;padding:14px 20px;border-radius:10px;font-size:14px;z-index:2000;transform:translateY(100px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:#10b981}
+.toast.error{background:#ef4444}
+
+@media(max-width:900px){
+  .app.active{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:-260px;z-index:100;transition:left .3s;width:260px}
+  .sidebar.open{left:0}
+  .main{padding:20px}
+  .editor-grid{grid-template-columns:1fr}
+  .editor-side{position:static}
+  .menu-btn{display:block !important}
+}
+.menu-btn{display:none;background:#6366f1;color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <h1>InkWell Admin</h1>
+    <p>Sign in to manage your blog</p>
+    <div id="loginError"></div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" value="admin@blog.com" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" value="admin123" required>
+      </div>
+      <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+    </form>
+    <p style="text-align:center; margin-top:16px; font-size:13px; color:#94a3b8;">
+      Demo: admin@blog.com / admin123
+    </p>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">Ink<span>Well</span> Admin</div>
+    <nav>
+      <a data-page="dashboard" class="active"><span class="icon">📊</span> Dashboard</a>
+      <a data-page="posts"><span class="icon">📝</span> Posts</a>
+      <a data-page="new-post"><span class="icon">➕</span> New Post</a>
+      <a data-page="categories"><span class="icon">📂</span> Categories</a>
+      <a data-page="comments"><span class="icon">💬</span> Comments</a>
+      <a data-page="ads"><span class="icon">📢</span> Ads</a>
+      <a data-page="subscribers"><span class="icon">📧</span> Subscribers</a>
+      <a href="index.html" target="_blank"><span class="icon">🌐</span> View Site</a>
+      <a id="logoutBtn"><span class="icon">🚪</span> Logout</a>
+    </nav>
+  </aside>
+  
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="user">
+        <div class="avatar" id="userAvatar">A</div>
+        <span id="userName">Admin</span>
+      </div>
+    </div>
+    
+    <div id="view"></div>
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
+};
+
+let token = localStorage.getItem('admin_token');
+let currentUser = null;
+
+// ============================================================
+// HELPERS
+// ============================================================
+const escapeHtml = (s) => { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
+const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : '';
+const formatDateTime = (d) => d ? new Date(d).toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+
+async function api(endpoint, options = {}) {
+  const headers = { ...(options.headers || {}) };
+  if (options.body && !(options.body instanceof FormData)) headers['Content-Type'] = 'application/json';
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  
+  const res = await fetch(CONFIG.API_URL + endpoint, { ...options, headers });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+  return data;
+}
+
+function toast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast ' + type, 3000);
+}
+
+// ============================================================
+// LOGIN
+// ============================================================
+document.getElementById('loginForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginError');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  err.innerHTML = '';
+  
+  try {
+    const data = await api('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      })
+    });
+    token = data.token;
+    currentUser = data.user;
+    localStorage.setItem('admin_token', token);
+    localStorage.setItem('admin_user', JSON.stringify(currentUser));
+    initApp();
+  } catch (e) {
+    err.innerHTML = `<div class="error-msg">${e.message}</div>`;
+  } finally {
+    btn.disabled = false; btn.textContent = 'Sign In';
+  }
+};
+
+document.getElementById('logoutBtn').onclick = () => {
+  localStorage.removeItem('admin_token');
+  localStorage.removeItem('admin_user');
+  location.reload();
+};
+
+// ============================================================
+// APP INIT
+// ============================================================
+function initApp() {
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('app').classList.add('active');
+  document.getElementById('userName').textContent = currentUser?.name || 'Admin';
+  document.getElementById('userAvatar').textContent = (currentUser?.name || 'A')[0].toUpperCase();
+  navigate('dashboard');
+}
+
+// Auto-login if token exists
+if (token) {
+  const saved = localStorage.getItem('admin_user');
+  if (saved) {
+    try { currentUser = JSON.parse(saved); initApp(); } catch {}
+  }
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+document.querySelectorAll('.sidebar nav a[data-page]').forEach(a => {
+  a.onclick = () => {
+    document.querySelectorAll('.sidebar nav a').forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+    navigate(a.dataset.page);
+    document.getElementById('sidebar').classList.remove('open');
+  };
+});
+document.getElementById('menuBtn').onclick = () => document.getElementById('sidebar').classList.toggle('open');
+
+function setTitle(t) { document.getElementById('pageTitle').textContent = t; }
+
+function navigate(page) {
+  const view = document.getElementById('view');
+  view.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+  switch(page) {
+    case 'dashboard': setTitle('Dashboard'); loadDashboard(); break;
+    case 'posts': setTitle('All Posts'); loadPosts(); break;
+    case 'new-post': setTitle('New Post'); loadEditor(); break;
+    case 'categories': setTitle('Categories'); loadCategories(); break;
+    case 'comments': setTitle('Comments'); loadComments(); break;
+    case 'ads': setTitle('Ads Manager'); loadAds(); break;
+    case 'subscribers': setTitle('Subscribers'); loadSubscribers(); break;
+  }
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+async function loadDashboard() {
+  try {
+    const s = await api('/stats');
+    document.getElementById('view').innerHTML = `
+      <div class="stats">
+        <div class="stat-card"><span class="icon">📝</span><div class="label">Total Posts</div><div class="value">${s.posts.total||0}</div></div>
+        <div class="stat-card"><span class="icon">✅</span><div class="label">Published</div><div class="value">${s.posts.published||0}</div></div>
+        <div class="stat-card"><span class="icon">📄</span><div class="label">Drafts</div><div class="value">${s.posts.drafts||0}</div></div>
+        <div class="stat-card"><span class="icon">👁️</span><div class="label">Total Views</div><div class="value">${s.posts.total_views||0}</div></div>
+        <div class="stat-card"><span class="icon">💬</span><div class="label">Comments</div><div class="value">${s.comments.total||0}</div></div>
+        <div class="stat-card"><span class="icon">⏳</span><div class="label">Pending</div><div class="value">${s.comments.pending||0}</div></div>
+        <div class="stat-card"><span class="icon">📧</span><div class="label">Subscribers</div><div class="value">${s.subscribers||0}</div></div>
+        <div class="stat-card"><span class="icon">📢</span><div class="label">Ad Impressions</div><div class="value">${s.ads?.impressions||0}</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Quick Actions</h2></div>
+        <div style="padding:22px;display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="navigate('new-post');document.querySelector('[data-page=new-post]').click()">➕ Write New Post</button>
+          <button class="btn btn-outline" onclick="navigate('comments');document.querySelector('[data-page=comments]').click()">💬 Moderate Comments</button>
+          <button class="btn btn-outline" onclick="navigate('ads');document.querySelector('[data-page=ads]').click()">📢 Manage Ads</button>
+        </div>
+      </div>
+    `;
+  } catch (e) {
+    document.getElementById('view').innerHTML = `<div class="empty-state">Failed to load: ${e.message}</div>`;
+  }
+}
+
+// ============================================================
+// POSTS
+// ============================================================
+async function loadPosts() {
+  try {
+    const posts = await api('/posts/admin/all');
+    const view = document.getElementById('view');
+    if (!posts.length) {
+      view.innerHTML = `<div class="card"><div class="empty-state">No posts yet. <a href="#" onclick="navigate('new-post');return false" style="color:#6366f1;font-weight:600">Write your first post →</a></div></div>`;
+      return;
+    }
+    view.innerHTML = `
+      <div class="card">
+        <div class="card-head">
+          <h2>All Posts (${posts.length})</h2>
+          <button class="btn btn-primary btn-sm" onclick="document.querySelector('[data-page=new-post]').click()">➕ New Post</button>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Views</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody>
+            ${posts.map(p => `
+              <tr>
+                <td>
+                  <span class="title-cell">${escapeHtml(p.title)}</span>
+                  <span class="sub">by ${escapeHtml(p.author_name||'Unknown')}</span>
+                </td>
+                <td>${escapeHtml(p.category_name||'—')}</td>
+                <td><span class="badge ${p.status==='published'?'badge-success':'badge-warning'}">${p.status}</span></td>
+                <td>${p.views||0}</td>
+                <td>${formatDate(p.created_at)}</td>
+                <td>
+                  <div class="row-actions">
+                    <button class="btn btn-outline btn-sm" onclick="editPost(${p.id})">✏️ Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deletePost(${p.id}, '${escapeHtml(p.title).replace(/'/g,"\\'")}')">🗑️</button>
+                  </div>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } catch (e) {
+    document.getElementById('view').innerHTML = `<div class="empty-state">Failed: ${e.message}</div>`;
+  }
+}
+
+async function deletePost(id, title) {
+  if (!confirm(`Delete "${title}"?`)) return;
+  try {
+    await api(`/posts/${id}`, { method: 'DELETE' });
+    toast('Post deleted', 'success');
+    loadPosts();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+// ============================================================
+// EDITOR
+// ============================================================
+let editingPostId = null;
+let categoriesCache = [];
+
+async function loadEditor(postId = null) {
+  editingPostId = postId;
+  let post = { title:'', excerpt:'', content:'', cover_image:'', category_id:'', status:'draft', tags:[], meta_title:'', meta_description:'' };
+  
+  try {
+    const cats = await api('/categories');
+    categoriesCache = cats;
+    
+    if (postId) {
+      const all = await api('/posts/admin/all');
+      const found = all.find(p => p.id == postId);
+      if (found) {
+        post = found;
+        // load tags
+        try {
+          const p = await api(`/posts/${found.slug}`);
+          post.tags = p.tags?.map(t => t.name) || [];
+        } catch {}
+      }
+    }
+  } catch (e) {
+    toast('Failed to load editor data', 'error');
+  }
+  
+  document.getElementById('view').innerHTML = `
+    <div class="editor-grid">
+      <div class="editor-main">
+        <input type="text" class="title-input" id="edTitle" placeholder="Post title..." value="${escapeHtml(post.title)}">
+        <textarea id="edExcerpt" placeholder="Short excerpt (optional)..." style="min-height:80px">${escapeHtml(post.excerpt||'')}</textarea>
+        <label style="font-size:13px;font-weight:600;color:#334155;display:block;margin-bottom:6px">Content (HTML supported)</label>
+        <textarea id="edContent" class="content-area" placeholder="<h2>Write your story...</h2>">${escapeHtml(post.content||'')}</textarea>
+        <div class="editor-actions">
+          <button class="btn btn-primary" id="saveBtn">💾 Save</button>
+          <button class="btn btn-outline" onclick="previewPost()">👁️ Preview</button>
+          <button class="btn btn-outline" onclick="navigate('posts');document.querySelector('[data-page=posts]').click()">Cancel</button>
+        </div>
+      </div>
+      
+      <div class="editor-side">
+        <h3>Publish</h3>
+        <label>Status</label>
+        <select id="edStatus">
+          <option value="draft" ${post.status==='draft'?'selected':''}>Draft</option>
+          <option value="published" ${post.status==='published'?'selected':''}>Published</option>
+        </select>
+        
+        <h3>Category</h3>
+        <select id="edCategory">
+          <option value="">— None —</option>
+          ${categoriesCache.map(c => `<option value="${c.id}" ${post.category_id==c.id?'selected':''}>${escapeHtml(c.name)}</option>`).join('')}
+        </select>
+        
+        <h3>Featured Image</h3>
+        <input type="text" id="edCover" placeholder="Image URL or upload..." value="${escapeHtml(post.cover_image||'')}">
+        <input type="file" id="edCoverFile" accept="image/*" style="font-size:12px;margin-bottom:14px">
+        
+        <h3>Tags</h3>
+        <input type="text" id="edTags" placeholder="tag1, tag2, tag3" value="${(post.tags||[]).join(', ')}">
+        
+        <h3>SEO</h3>
+        <label>Meta Title</label>
+        <input type="text" id="edMetaTitle" placeholder="SEO title" value="${escapeHtml(post.meta_title||'')}">
+        <label>Meta Description</label>
+        <textarea id="edMetaDesc" placeholder="SEO description" style="min-height:70px">${escapeHtml(post.meta_description||'')}</textarea>
+      </div>
+    </div>
+  `;
+  
+  document.getElementById('saveBtn').onclick = savePost;
+  
+  // Image upload
+  document.getElementById('edCoverFile').onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const fd = new FormData();
+    fd.append('image', file);
+    try {
+      const res = await fetch(CONFIG.API_URL + '/upload', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      document.getElementById('edCover').value = data.url;
+      toast('Image uploaded', 'success');
+    } catch (e) { toast('Upload failed: ' + e.message, 'error'); }
+  };
+}
+
+function editPost(id) {
+  document.querySelector('[data-page=posts]').click();
+  navigate('new-post'); // will reuse editor
+  loadEditor(id);
+}
+
+async function savePost() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  
+  const payload = {
+    title: document.getElementById('edTitle').value.trim(),
+    excerpt: document.getElementById('edExcerpt').value.trim(),
+    content: document.getElementById('edContent').value.trim(),
+    cover_image: document.getElementById('edCover').value.trim(),
+    category_id: document.getElementById('edCategory').value || null,
+    status: document.getElementById('edStatus').value,
+    meta_title: document.getElementById('edMetaTitle').value.trim(),
+    meta_description: document.getElementById('edMetaDesc').value.trim(),
+    tags: document.getElementById('edTags').value.split(',').map(t => t.trim()).filter(Boolean)
+  };
+  
+  if (!payload.title || !payload.content) {
+    toast('Title and content required', 'error');
+    btn.disabled = false; btn.textContent = '💾 Save';
+    return;
+  }
+  
+  try {
+    if (editingPostId) {
+      await api(`/posts/${editingPostId}`, { method: 'PUT', body: JSON.stringify(payload) });
+      toast('Post updated ✅', 'success');
+    } else {
+      const r = await api('/posts', { method: 'POST', body: JSON.stringify(payload) });
+      toast('Post created ✅', 'success');
+      editingPostId = r.id;
+    }
+  } catch (e) { toast(e.message, 'error'); }
+  finally { btn.disabled = false; btn.textContent = '💾 Save'; }
+}
+
+function previewPost() {
+  const content = document.getElementById('edContent').value;
+  const w = window.open('', '_blank');
+  w.document.write(`<html><head><title>Preview</title><style>body{font-family:Inter,sans-serif;max-width:720px;margin:40px auto;padding:24px;line-height:1.7;color:#1a1a2e}img{max-width:100%}h1,h2,h3{font-family:Georgia,serif}</style></head><body><h1>${escapeHtml(document.getElementById('edTitle').value)}</h1>${content}</body></html>`);
+}
+
+// ============================================================
+// CATEGORIES
+// ============================================================
+async function loadCategories() {
+  try {
+    const cats = await api('/categories');
+    document.getElementById('view').innerHTML = `
+      <div class="card">
+        <div class="card-head">
+          <h2>Categories (${cats.length})</h2>
+          <button class="btn btn-primary btn-sm" onclick="showCategoryModal()">➕ New Category</button>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Name</th><th>Slug</th><th>Posts</th><th>Actions</th></tr></thead>
+          <tbody>
+            ${cats.length ? cats.map(c => `
+              <tr>
+                <td><b>${escapeHtml(c.name)}</b></td>
+                <td><code>${escapeHtml(c.slug)}</code></td>
+                <td>${c.post_count}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteCategory(${c.id}, '${escapeHtml(c.name)}')">🗑️</button></td>
+              </tr>
+            `).join('') : '<tr><td colspan="4" style="text-align:center;padding:40px;color:#94a3b8">No categories yet</td></tr>'}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } catch (e) { document.getElementById('view').innerHTML = `<div class="empty-state">${e.message}</div>`; }
+}
+
+function showCategoryModal() {
+  const modal = document.getElementById('modalOverlay');
+  document.getElementById('modalContent').innerHTML = `
+    <button class="close" onclick="closeModal()">✕</button>
+    <h2>New Category</h2>
+    <label>Name *</label>
+    <input type="text" id="catName" placeholder="e.g. Technology">
+    <label>Description</label>
+    <textarea id="catDesc" placeholder="Optional description..."></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCategory()">Create</button>
+    </div>
+  `;
+  modal.classList.add('active');
+}
+
+async function saveCategory() {
+  const name = document.getElementById('catName').value.trim();
+  const description = document.getElementById('catDesc').value.trim();
+  if (!name) return toast('Name required', 'error');
+  try {
+    await api('/categories', { method: 'POST', body: JSON.stringify({ name, description }) });
+    toast('Category created ✅', 'success');
+    closeModal();
+    loadCategories();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+async function deleteCategory(id, name) {
+  if (!confirm(`Delete category "${name}"?`)) return;
+  try {
+    await api(`/categories/${id}`, { method: 'DELETE' });
+    toast('Deleted', 'success');
+    loadCategories();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+// ============================================================
+// COMMENTS
+// ============================================================
+async function loadComments() {
+  try {
+    const comments = await api('/comments');
+    document.getElementById('view').innerHTML = `
+      <div class="card">
+        <div class="card-head"><h2>Comments (${comments.length})</h2></div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Author</th><th>Comment</th><th>Post</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody>
+            ${comments.length ? comments.map(c => `
+              <tr>
+                <td>
+                  <b>${escapeHtml(c.author_name)}</b>
+                  <div class="sub">${escapeHtml(c.author_email)}</div>
+                </td>
+                <td style="max-width:320px">${escapeHtml(c.content).slice(0,120)}${c.content.length>120?'...':''}</td>
+                <td><a href="post.html?slug=${c.post_slug}" target="_blank" style="color:#6366f1">${escapeHtml(c.post_title||'').slice(0,30)}</a></td>
+                <td><span class="badge ${c.status==='approved'?'badge-success':c.status==='spam'?'badge-danger':'badge-warning'}">${c.status}</span></td>
+                <td>${formatDate(c.created_at)}</td>
+                <td>
+                  <div class="row-actions">
+                    ${c.status!=='approved' ? `<button class="btn btn-success btn-sm" onclick="setCommentStatus(${c.id},'approved')">✓ Approve</button>`:''}
+                    ${c.status!=='spam' ? `<button class="btn btn-outline btn-sm" onclick="setCommentStatus(${c.id},'spam')">🚫 Spam</button>`:''}
+                    <button class="btn btn-danger btn-sm" onclick="deleteComment(${c.id})">🗑️</button>
+                  </div>
+                </td>
+              </tr>
+            `).join('') : '<tr><td colspan="6" style="text-align:center;padding:40px;color:#94a3b8">No comments yet</td></tr>'}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } catch (e) { document.getElementById('view').innerHTML = `<div class="empty-state">${e.message}</div>`; }
+}
+
+async function setCommentStatus(id, status) {
+  try {
+    await api(`/comments/${id}`, { method: 'PUT', body: JSON.stringify({ status }) });
+    toast('Updated', 'success');
+    loadComments();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+async function deleteComment(id) {
+  if (!confirm('Delete this comment?')) return;
+  try {
+    await api(`/comments/${id}`, { method: 'DELETE' });
+    toast('Deleted', 'success');
+    loadComments();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+// ============================================================
+// ADS
+// ============================================================
+async function loadAds() {
+  try {
+    const ads = await api('/ads');
+    document.getElementById('view').innerHTML = `
+      <div class="stats">
+        <div class="stat-card"><div class="label">Total Ads</div><div class="value">${ads.length}</div></div>
+        <div class="stat-card"><div class="label">Active</div><div class="value">${ads.filter(a=>a.is_active).length}</div></div>
+        <div class="stat-card"><div class="label">Impressions</div><div class="value">${ads.reduce((s,a)=>s+(a.impressions||0),0)}</div></div>
+        <div class="stat-card"><div class="label">Clicks</div><div class="value">${ads.reduce((s,a)=>s+(a.clicks||0),0)}</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h2>All Ads</h2>
+          <button class="btn btn-primary btn-sm" onclick="showAdModal()">➕ New Ad</button>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Name</th><th>Position</th><th>Type</th><th>Impressions</th><th>Clicks</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            ${ads.length ? ads.map(a => `
+              <tr>
+                <td><b>${escapeHtml(a.name)}</b></td>
+                <td><span class="badge badge-info">${escapeHtml(a.position)}</span></td>
+                <td>${escapeHtml(a.type)}</td>
+                <td>${a.impressions||0}</td>
+                <td>${a.clicks||0}</td>
+                <td><span class="badge ${a.is_active?'badge-success':'badge-danger'}">${a.is_active?'Active':'Paused'}</span></td>
+                <td>
+                  <div class="row-actions">
+                    <button class="btn btn-outline btn-sm" onclick='editAd(${JSON.stringify(a).replace(/'/g,"&apos;")})'>✏️</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteAd(${a.id})">🗑️</button>
+                  </div>
+                </td>
+              </tr>
+            `).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;color:#94a3b8">No ads yet</td></tr>'}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } catch (e) { document.getElementById('view').innerHTML = `<div class="empty-state">${e.message}</div>`; }
+}
+
+function showAdModal(ad = null) {
+  const isEdit = !!ad;
+  const modal = document.getElementById('modalOverlay');
+  document.getElementById('modalContent').innerHTML = `
+    <button class="close" onclick="closeModal()">✕</button>
+    <h2>${isEdit ? 'Edit Ad' : 'New Ad'}</h2>
+    <label>Name *</label>
+    <input type="text" id="adName" value="${escapeHtml(ad?.name||'')}" placeholder="e.g. Header Banner">
+    <label>Position *</label>
+    <select id="adPosition">
+      ${['header','sidebar','in-article','footer','post-top','post-bottom'].map(p => `<option value="${p}" ${ad?.position===p?'selected':''}>${p}</option>`).join('')}
+    </select>
+    <label>Type *</label>
+    <select id="adType" onchange="toggleAdFields()">
+      <option value="custom_html" ${ad?.type==='custom_html'?'selected':''}>Custom HTML</option>
+      <option value="image" ${ad?.type==='image'?'selected':''}>Image</option>
+      <option value="adsense" ${ad?.type==='adsense'?'selected':''}>AdSense Code</option>
+    </select>
+    <div id="adFields"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveAd(${ad?.id||'null'})">${isEdit?'Update':'Create'}</button>
+    </div>
+  `;
+  modal.classList.add('active');
+  setTimeout(() => {
+    if (ad) {
+      document.getElementById('adContent').value = ad.content || '';
+      document.getElementById('adImage').value = ad.image_url || '';
+      document.getElementById('adLink').value = ad.link_url || '';
+      document.getElementById('adActive').checked = ad.is_active;
+    }
+    toggleAdFields();
+  }, 50);
+}
+
+function toggleAdFields() {
+  const type = document.getElementById('adType').value;
+  const f = document.getElementById('adFields');
+  f.innerHTML = `
+    <label>Content</label>
+    <textarea id="adContent" placeholder="${type==='adsense'?'Paste AdSense code...':'HTML content...'}" style="min-height:120px"></textarea>
+    ${type==='image' ? `
+      <label>Image URL</label>
+      <input type="text" id="adImage" placeholder="https://...">
+      <label>Link URL</label>
+      <input type="text" id="adLink" placeholder="https://...">
+    ` : ''}
+    <label style="display:flex;align-items:center;gap:8px;margin-top:14px">
+      <input type="checkbox" id="adActive" checked style="width:auto;margin:0"> Active
+    </label>
+  `;
+}
+
+function editAd(ad) {
+  showAdModal(ad);
+}
+
+async function saveAd(id) {
+  const type = document.getElementById('adType').value;
+  const payload = {
+    name: document.getElementById('adName').value.trim(),
+    position: document.getElementById('adPosition').value,
+    type,
+    content: document.getElementById('adContent')?.value || '',
+    image_url: document.getElementById('adImage')?.value || null,
+    link_url: document.getElementById('adLink')?.value || null,
+    is_active: document.getElementById('adActive')?.checked ?? true
+  };
+  if (!payload.name) return toast('Name required', 'error');
+  try {
+    if (id) await api(`/ads/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+    else await api('/ads', { method: 'POST', body: JSON.stringify(payload) });
+    toast(id ? 'Updated ✅' : 'Created ✅', 'success');
+    closeModal();
+    loadAds();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+async function deleteAd(id) {
+  if (!confirm('Delete this ad?')) return;
+  try {
+    await api(`/ads/${id}`, { method: 'DELETE' });
+    toast('Deleted', 'success');
+    loadAds();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+// ============================================================
+// SUBSCRIBERS
+// ============================================================
+async function loadSubscribers() {
+  // Note: Backend endpoint needed - agar nahi hai to placeholder dikhayein
+  document.getElementById('view').innerHTML = `
+    <div class="card">
+      <div class="card-head"><h2>Email Subscribers</h2></div>
+      <div class="empty-state">
+        Subscribers list — backend mein <code>/api/subscribers</code> endpoint add karein.<br><br>
+        Ya TiDB SQL Editor mein run karein:<br>
+        <code style="display:block;margin-top:12px;background:#f8fafc;padding:14px;border-radius:8px;font-size:13px;text-align:left">SELECT * FROM subscribers ORDER BY created_at DESC;</code>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+document.getElementById('modalOverlay').onclick = (e) => {
+  if (e.target.id === 'modalOverlay') closeModal();
+};
+</script>
+
+</body>
+</html>
