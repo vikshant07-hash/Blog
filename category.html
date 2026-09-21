@@ -4,91 +4,102 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Categories — InkWell</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--primary:#6366f1;--primary-dark:#4f46e5;--text:#1a1a2e;--text-light:#64748b;--bg:#fff;--bg-soft:#f8fafc;--border:#e2e8f0;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12);--radius:16px}
-body.dark{--text:#f1f5f9;--text-light:#94a3b8;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
-h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
-a{text-decoration:none;color:inherit}
+:root{--primary:#7c3aed;--primary-dark:#6d28d9;--primary-light:#ede9fe;--accent:#ec4899;--text:#0f172a;--text-light:#64748b;--text-muted:#94a3b8;--bg:#fff;--bg-soft:#fafaf9;--bg-card:#fff;--border:#e7e5e4;--shadow:0 4px 20px rgba(15,23,42,.06);--shadow-lg:0 25px 60px rgba(15,23,42,.12);--radius:20px;--gradient:linear-gradient(135deg,#7c3aed 0%,#ec4899 50%,#f59e0b 100%)}
+body.dark{--text:#f8fafc;--text-light:#cbd5e1;--text-muted:#94a3b8;--bg:#0a0a0f;--bg-soft:#111118;--bg-card:#16161f;--border:#252533;--primary-light:#2e1065}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .4s,color .4s}
+h1,h2,h3{font-family:'Fraunces',serif;line-height:1.15;font-weight:700;letter-spacing:-.02em}
+a{text-decoration:none;color:inherit;transition:color .2s}
 img{max-width:100%;display:block}
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
-header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;letter-spacing:-.5px}
-.logo span{color:var(--primary)}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{font-weight:500;font-size:15px;color:var(--text-light);transition:color .2s}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;background:none}
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+body.dark header{background:rgba(10,10,15,.85)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-family:'Fraunces',serif;font-size:28px;font-weight:900;letter-spacing:-1px}
+.logo span{background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-weight:500;font-size:15px;color:var(--text-light);padding:6px 0}
 .nav-links a:hover,.nav-links a.active{color:var(--primary)}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;display:grid;place-items:center;transition:all .2s;font-size:16px}
-.icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text);display:grid;place-items:center;transition:all .3s;font-size:16px}
+.icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px) rotate(8deg)}
 .menu-toggle{display:none}
-.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;padding:24px;flex-direction:column}
-.mobile-menu.open{display:flex}
-.mobile-menu .close{align-self:flex-end;font-size:28px;background:none;border:none;color:var(--text);cursor:pointer}
-.mobile-menu ul{list-style:none;margin-top:40px}
-.mobile-menu li{margin-bottom:24px}
-.mobile-menu a{font-size:24px;font-family:'Playfair Display',serif;font-weight:700}
+.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:200;padding:24px;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu .close{align-self:flex-end;font-size:28px;width:44px;height:44px;display:grid;place-items:center}
+.mobile-menu ul{list-style:none;margin-top:48px}
+.mobile-menu li{margin-bottom:8px}
+.mobile-menu a{font-size:28px;font-family:'Fraunces',serif;font-weight:700;padding:12px 0;display:block}
 
-.page-head{padding:50px 0 30px;text-align:center;background:linear-gradient(180deg,var(--bg-soft) 0%,var(--bg) 100%)}
-.page-head h1{font-size:clamp(32px,5vw,52px);margin-bottom:12px;letter-spacing:-.5px}
-.page-head p{color:var(--text-light);font-size:16px}
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;padding:40px 0}
-.cat-card{padding:32px 24px;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);text-align:center;cursor:pointer;transition:all .3s}
-.cat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--primary)}
-.cat-card h3{font-size:22px;margin-bottom:8px;color:var(--text)}
-.cat-card:hover h3{color:var(--primary)}
-.cat-card .count{font-size:13px;color:var(--text-light);font-weight:500}
-.cat-card .icon{font-size:32px;margin-bottom:12px}
+.page-head{padding:70px 0 40px;text-align:center;background:var(--bg-soft);position:relative;overflow:hidden}
+.page-head::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.page-head .badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:16px;position:relative}
+.page-head h1{font-size:clamp(32px,5vw,52px);margin-bottom:12px;letter-spacing:-.5px;position:relative}
+.page-head p{color:var(--text-light);font-size:17px;max-width:600px;margin:0 auto;position:relative}
 
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px;padding:20px 0 40px}
-.post-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s;display:flex;flex-direction:column}
-.post-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-.post-thumb{height:200px;overflow:hidden}
-.post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.post-card:hover .post-thumb img{transform:scale(1.08)}
-.post-body{padding:22px;flex:1;display:flex;flex-direction:column}
-.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:10px}
-.post-body h3{font-size:19px;margin-bottom:12px;transition:color .2s}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;padding:60px 0}
+.cat-card{padding:36px 28px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;text-align:center;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cat-color,var(--primary));transform:scaleX(0);transition:transform .4s}
+.cat-card:hover::before{transform:scaleX(1)}
+.cat-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent}
+.cat-card .icon{width:64px;height:64px;border-radius:18px;background:var(--cat-color,var(--primary));color:#fff;display:grid;place-items:center;font-size:28px;margin:0 auto 20px;transition:transform .4s}
+.cat-card:hover .icon{transform:scale(1.1) rotate(-8deg)}
+.cat-card h3{font-size:22px;margin-bottom:8px}
+.cat-card:hover h3{color:var(--cat-color,var(--primary))}
+.cat-card .count{font-size:13.5px;color:var(--text-muted);font-weight:500}
+
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;padding:20px 0 40px}
+.post-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:all .4s;display:flex;flex-direction:column}
+.post-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent}
+.post-thumb{height:220px;overflow:hidden}
+.post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.post-card:hover .post-thumb img{transform:scale(1.1)}
+.post-body{padding:24px;flex:1;display:flex;flex-direction:column}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:10px;padding:5px 12px;background:var(--primary-light);border-radius:50px;width:fit-content}
+.post-body h3{font-size:20px;margin-bottom:12px;transition:color .2s;line-height:1.3}
 .post-card:hover h3{color:var(--primary)}
-.post-body p{color:var(--text-light);font-size:14.5px;margin-bottom:16px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.post-meta{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--text-light)}
-.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#a855f7);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0}
+.post-body p{color:var(--text-light);font-size:14.5px;margin-bottom:18px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-meta{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-muted)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--gradient);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;overflow:hidden;flex-shrink:0}
+.avatar img{width:100%;height:100%;object-fit:cover}
 .author{display:flex;align-items:center;gap:10px}
-.author-info b{color:var(--text);font-size:13px;display:block}
-.author-info span{font-size:12px}
+.author-info b{color:var(--text);font-size:13px;display:block;font-weight:600}
+.author-info span{font-size:11.5px}
 
-.ad-slot{margin:24px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:12px;overflow:hidden;font-size:13px;color:var(--text-light)}
+.ad-slot{margin:24px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:16px;overflow:hidden;color:var(--text-muted);font-size:13px}
 
-.loader{text-align:center;padding:80px;color:var(--text-light)}
-.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+.loader{text-align:center;padding:80px;color:var(--text-muted)}
+.spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .pagination{display:flex;justify-content:center;gap:8px;margin:40px 0}
-.page-btn{width:40px;height:40px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-weight:600;transition:all .2s}
-.page-btn:hover:not(:disabled){border-color:var(--primary);color:var(--primary)}
-.page-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.page-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-weight:600;transition:all .3s}
+.page-btn:hover:not(:disabled):not(.active){border-color:var(--primary);color:var(--primary);transform:translateY(-2px)}
+.page-btn.active{background:var(--gradient);color:#fff;border-color:transparent}
 .page-btn:disabled{opacity:.4;cursor:not-allowed}
 
-footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px 0 30px;margin-top:60px}
+footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:60px 0 30px;margin-top:80px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-brand p{color:var(--text-light);font-size:14px;margin:16px 0 20px;max-width:300px}
-.footer-col h4{font-size:15px;margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
+.footer-brand p{color:var(--text-light);font-size:14.5px;margin:16px 0 20px;max-width:320px;line-height:1.7}
+.footer-col h4{font-size:15px;margin-bottom:18px;font-weight:700}
 .footer-col ul{list-style:none}
 .footer-col li{margin-bottom:10px}
-.footer-col a{color:var(--text-light);font-size:14px}
+.footer-col a{color:var(--text-light);font-size:14.5px}
 .footer-col a:hover{color:var(--primary)}
-.footer-bottom{padding-top:30px;border-top:1px solid var(--border);text-align:center;color:var(--text-light);font-size:13.5px}
+.footer-bottom{padding-top:30px;border-top:1px solid var(--border);text-align:center;color:var(--text-muted);font-size:13.5px}
 
 @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){
   .nav-links{display:none}
   .menu-toggle{display:grid}
-  .footer-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:30px}
   .cat-grid{grid-template-columns:1fr 1fr}
   .posts-grid{grid-template-columns:1fr}
+  .page-head{padding:50px 0 30px}
 }
 </style>
 </head>
@@ -122,8 +133,9 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
 
 <div class="page-head">
   <div class="container">
+    <div class="badge" id="pageBadge">Explore</div>
     <h1 id="pageTitle">Categories</h1>
-    <p id="pageDesc">Browse articles by topic</p>
+    <p id="pageDesc">Browse stories by topic</p>
   </div>
 </div>
 
@@ -162,21 +174,37 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
 </footer>
 
 <script>
-const CONFIG = { API_URL: 'http://localhost:3000/api', UPLOAD_URL: 'http://localhost:3000', ENABLE_ADS: true };
-const imgUrl = (p) => !p ? 'https://via.placeholder.com/600x400' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
-const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : '';
-const escapeHtml = (s) => { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
-const getInitials = (n) => (n||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+const API = 'https://gsssshilla.onrender.com/api';
+const UPLOAD = 'https://gsssshilla.onrender.com';
+
+const imgUrl = (p) => !p ? 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80' : (p.startsWith('http') ? p : UPLOAD + p);
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const getInitials = (n) => (n || 'A').split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase();
+
+const timeAgo = (dateStr) => {
+  if (!dateStr) return '';
+  const now = new Date();
+  const past = new Date(dateStr);
+  const diff = Math.floor((now - past) / 1000);
+  if (diff < 10) return 'just now';
+  if (diff < 60) return `${diff} sec ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} hour${Math.floor(diff / 3600) > 1 ? 's' : ''} ago`;
+  if (diff < 604800) return `${Math.floor(diff / 86400)} day${Math.floor(diff / 86400) > 1 ? 's' : ''} ago`;
+  if (diff < 2592000) return `${Math.floor(diff / 604800)} week${Math.floor(diff / 604800) > 1 ? 's' : ''} ago`;
+  return past.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: past.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+};
+
 async function apiFetch(endpoint) {
-  const res = await fetch(CONFIG.API_URL + endpoint);
+  const res = await fetch(API + endpoint);
   const data = await res.json();
-  if(!res.ok) throw new Error(data.error || 'Failed');
+  if (!res.ok) throw new Error(data.error || 'Failed');
   return data;
 }
 
 // THEME
 const themeToggle = document.getElementById('themeToggle');
-if(localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
+if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
 themeToggle.onclick = () => {
   document.body.classList.toggle('dark');
   const d = document.body.classList.contains('dark');
@@ -186,86 +214,95 @@ themeToggle.onclick = () => {
 document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
 document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
 
-// URL params
 const params = new URLSearchParams(location.search);
 const slug = params.get('slug');
 
+const categoryIcons = {
+  technology: '💻', design: '🎨', lifestyle: '🌿', travel: '✈️',
+  food: '🍕', culture: '🎭', business: '💼', health: '💚',
+  science: '🔬', sports: '⚽', music: '🎵', art: '🖼️'
+};
+
 async function init() {
-  if(slug) {
-    // Show category posts
-    document.getElementById('pageTitle').textContent = 'Category';
-    document.getElementById('pageDesc').textContent = 'Articles in this category';
-    loadCategoryPosts(slug, 1);
-  } else {
-    // Show all categories
-    loadCategoriesList();
-  }
+  if (slug) await loadCategoryPosts(slug, 1);
+  else await loadCategoriesList();
 }
 
 async function loadCategoriesList() {
   try {
     const cats = await apiFetch('/categories');
-    const icons = { technology:'💻', design:'🎨', lifestyle:'🌿', travel:'✈️', food:'🍕', culture:'🎭' };
     document.getElementById('content').innerHTML = `
       <div class="cat-grid">
         ${cats.map(c => `
-          <div class="cat-card" onclick="location.href='category.html?slug=${c.slug}'">
-            <div class="icon">${icons[c.slug] || '📁'}</div>
+          <div class="cat-card" style="--cat-color:${c.color || '#7c3aed'}" onclick="location.href='category.html?slug=${c.slug}'">
+            <div class="icon">${categoryIcons[c.slug] || '📁'}</div>
             <h3>${escapeHtml(c.name)}</h3>
-            <div class="count">${c.post_count} article${c.post_count===1?'':'s'}</div>
+            <div class="count">${c.post_count} article${c.post_count === 1 ? '' : 's'}</div>
           </div>
         `).join('')}
       </div>
     `;
-  } catch(e) {
-    document.getElementById('content').innerHTML = `<p style="text-align:center;padding:60px;color:var(--danger)">Failed to load categories.</p>`;
+  } catch (e) {
+    document.getElementById('content').innerHTML = `<div style="text-align:center;padding:80px;color:var(--text-muted)">Failed to load categories.</div>`;
   }
 }
 
 async function loadCategoryPosts(catSlug, page = 1) {
   const content = document.getElementById('content');
-  content.innerHTML = '<div class="loader"><div class="spinner"></div><p>Loading...</p></div>';
+  content.innerHTML = '<div class="loader"><div class="spinner"></div><p>Loading articles...</p></div>';
+
   try {
     const cats = await apiFetch('/categories');
     const cat = cats.find(c => c.slug === catSlug);
-    if(cat) {
+    if (cat) {
       document.title = `${cat.name} — InkWell`;
+      document.getElementById('pageBadge').textContent = 'Category';
       document.getElementById('pageTitle').textContent = cat.name;
-      document.getElementById('pageDesc').textContent = cat.description || `${cat.post_count} articles`;
+      document.getElementById('pageDesc').textContent = cat.description || `${cat.post_count} article${cat.post_count === 1 ? '' : 's'} in this category`;
     }
 
     const data = await apiFetch(`/posts?category=${catSlug}&page=${page}&limit=9`);
-    if(!data.posts.length) {
-      content.innerHTML = '<p style="text-align:center;padding:60px;color:var(--text-light)">No posts in this category yet.</p>';
+
+    if (!data.posts.length) {
+      content.innerHTML = `<div style="text-align:center;padding:100px 20px;color:var(--text-muted)">
+        <div style="font-size:56px;margin-bottom:16px;opacity:.5">📭</div>
+        <h3 style="font-family:Fraunces,serif;font-size:22px;color:var(--text);margin-bottom:8px">No articles yet</h3>
+        <p>This category doesn't have any published stories.</p>
+        <a href="category.html" style="display:inline-block;margin-top:20px;padding:12px 28px;border-radius:50px;background:var(--gradient);color:#fff;font-weight:600">Browse other categories</a>
+      </div>`;
       document.getElementById('pagination').innerHTML = '';
       return;
     }
 
     content.innerHTML = `<div class="posts-grid">${data.posts.map(renderPost).join('')}</div>`;
     renderPagination(data.pagination, catSlug);
-  } catch(e) {
-    content.innerHTML = `<p style="text-align:center;padding:60px;color:var(--danger)">Failed to load.</p>`;
+  } catch (e) {
+    content.innerHTML = `<div style="text-align:center;padding:80px;color:var(--text-muted)">Failed to load articles.</div>`;
   }
 }
 
 function renderPost(p) {
   const initials = getInitials(p.author_name);
+  const avatarHtml = p.author_avatar
+    ? `<div class="avatar"><img src="${imgUrl(p.author_avatar)}" alt="${escapeHtml(p.author_name)}"></div>`
+    : `<div class="avatar">${initials}</div>`;
+
   return `
     <article class="post-card" onclick="location.href='post.html?slug=${p.slug}'">
       <div class="post-thumb"><img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>
       <div class="post-body">
-        <span class="tag">${escapeHtml(p.category_name||'')}</span>
+        ${p.category_name ? `<span class="tag">${escapeHtml(p.category_name)}</span>` : ''}
         <h3>${escapeHtml(p.title)}</h3>
-        <p>${escapeHtml(p.excerpt||'')}</p>
+        <p>${escapeHtml(p.excerpt || 'Click to read more...')}</p>
         <div class="post-meta">
           <div class="author">
-            <div class="avatar">${initials}</div>
+            ${avatarHtml}
             <div class="author-info">
               <b>${escapeHtml(p.author_name)}</b>
-              <span>${formatDate(p.published_at||p.created_at)}</span>
+              <span>${timeAgo(p.published_at || p.created_at)}</span>
             </div>
           </div>
-          <span>${p.views||0} views</span>
+          <span>${p.read_time || 3} min</span>
         </div>
       </div>
     </article>
@@ -273,24 +310,29 @@ function renderPost(p) {
 }
 
 function renderPagination(p, catSlug) {
-  if(!p || p.totalPages <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
-  const c = document.getElementById('pagination');
-  let html = `<button class="page-btn" ${p.page===1?'disabled':''} onclick="loadCategoryPosts('${catSlug}',${p.page-1})">←</button>`;
-  for(let i=1;i<=p.totalPages;i++) html += `<button class="page-btn ${i===p.page?'active':''}" onclick="loadCategoryPosts('${catSlug}',${i})">${i}</button>`;
-  html += `<button class="page-btn" ${p.page===p.totalPages?'disabled':''} onclick="loadCategoryPosts('${catSlug}',${p.page+1})">→</button>`;
-  c.innerHTML = html;
+  const el = document.getElementById('pagination');
+  if (!p || p.totalPages <= 1) { el.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" ${p.page === 1 ? 'disabled' : ''} onclick="loadCategoryPosts('${catSlug}',${p.page - 1})">←</button>`;
+  for (let i = 1; i <= p.totalPages; i++) {
+    html += `<button class="page-btn ${i === p.page ? 'active' : ''}" onclick="loadCategoryPosts('${catSlug}',${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" ${p.page === p.totalPages ? 'disabled' : ''} onclick="loadCategoryPosts('${catSlug}',${p.page + 1})">→</button>`;
+  el.innerHTML = html;
 }
 
 async function loadAd(position) {
-  if(!CONFIG.ENABLE_ADS) return;
   const slot = document.getElementById(`ad-${position}`);
-  if(!slot) return;
+  if (!slot) return;
   try {
     const ad = await apiFetch(`/ads/${position}`);
-    if(!ad) return;
+    if (!ad) return;
     slot.style.display = 'flex';
-    if(ad.type === 'custom_html') slot.innerHTML = ad.content || '';
-  } catch {}
+    if (ad.type === 'custom_html') slot.innerHTML = ad.content || '';
+    else if (ad.type === 'image' && ad.image_url)
+      slot.innerHTML = `<a href="${ad.link_url || '#'}" target="_blank"><img src="${imgUrl(ad.image_url)}" alt="${escapeHtml(ad.name)}" style="max-width:100%"></a>`;
+    else if (ad.type === 'adsense' && ad.content) slot.innerHTML = ad.content;
+  } catch (e) {}
 }
 
 init();
