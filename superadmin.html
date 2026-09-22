@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1e1b4b">
+<title>👑 Super Admin — InkWell</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --primary:#7c3aed;--primary-dark:#6d28d9;--primary-soft:#f5f3ff;
+  --verified:#3b82f6;--verified-bg:#dbeafe;
+  --success:#10b981;--danger:#ef4444;--warning:#f59e0b;
+  --text:#111827;--text-light:#6b7280;--text-mute:#9ca3af;
+  --bg:#f9fafb;--border:#e5e7eb;--sidebar:#1e1b4b;
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden}
+body.locked{overflow:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;outline:none;font-family:inherit;font-weight:600;background:none}
+input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;appearance:none}
+
+/* LOGIN */
+.login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#7c3aed 0%,#4c1d95 60%,#1e1b4b 100%);padding:24px;position:relative;overflow:hidden}
+.login-screen::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,.4) 0%,transparent 70%);border-radius:50%}
+.login-screen::after{content:'';position:absolute;bottom:-150px;left:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.5) 0%,transparent 70%);border-radius:50%}
+.login-card{background:#fff;border-radius:20px;padding:40px 30px;max-width:420px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.4);position:relative;z-index:1}
+.crown-icon{text-align:center;font-size:48px;margin-bottom:8px}
+.login-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;text-align:center;margin-bottom:6px;color:#1e1b4b}
+.login-sub{text-align:center;color:var(--text-light);font-size:13.5px;margin-bottom:26px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#374151}
+.field input,.field textarea,.field select{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:#fff;color:var(--text);transition:all .15s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(124,58,237,.12)}
+.field textarea{min-height:80px;resize:vertical;line-height:1.5}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:600;transition:all .15s;white-space:nowrap;line-height:1.2}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.3)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-verified{background:var(--verified);color:#fff;box-shadow:0 4px 14px rgba(59,130,246,.3)}
+.btn-verified:hover{background:#2563eb;transform:translateY(-1px)}
+.btn-success{background:var(--success);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-outline{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.btn-sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
+.btn-xs{padding:5px 10px;font-size:11.5px;border-radius:7px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.alert{padding:12px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px;display:none;line-height:1.5}
+.alert.show{display:block}
+.alert-error{background:#fef2f2;color:#b91c1c;border-left:3px solid var(--danger)}
+
+/* LAYOUT */
+.app{display:none;min-height:100vh;min-height:100dvh}
+.app.active{display:block}
+.sidebar{background:var(--sidebar);color:#fff;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:260px;overflow-y:auto;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sidebar-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sidebar-brand .crown{font-size:22px;margin-bottom:2px}
+.sidebar-brand .name{font-family:'Playfair Display',serif;font-size:20px;font-weight:900}
+.sidebar-brand .name span{color:#a78bfa}
+.sidebar-brand .role{font-size:10px;font-weight:700;color:#93c5fd;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;background:linear-gradient(135deg,rgba(59,130,246,.2),rgba(124,58,237,.15));padding:4px 10px;border-radius:20px;display:inline-block;border:1px solid rgba(59,130,246,.3)}
+.sidebar nav{padding:12px 0;flex:1}
+.sidebar nav .group{padding:12px 20px 6px;font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:1.2px}
+.sidebar nav a{display:flex;align-items:center;gap:11px;padding:10px 20px;color:#a5b4fc;font-size:13.5px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.sidebar nav a:hover{background:rgba(255,255,255,.05);color:#fff}
+.sidebar nav a.active{background:rgba(124,58,237,.25);color:#fff;border-left-color:#a78bfa}
+.sidebar nav a .ic{width:20px;text-align:center;font-size:15px;flex-shrink:0}
+.sidebar nav a .badge-pill{margin-left:auto;background:var(--danger);color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center}
+.sidebar-footer{padding:14px 18px 18px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sidebar-user{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sidebar-user .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#ec4899);display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden;border:2px solid rgba(59,130,246,.5)}
+.sidebar-user .av img{width:100%;height:100%;object-fit:cover}
+.sidebar-user .info{flex:1;min-width:0}
+.sidebar-user b{display:block;font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-user span{display:block;font-size:11px;color:#93c5fd}
+.logout-btn{width:100%;padding:9px;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:8px;font-size:12.5px;font-weight:600;transition:all .15s}
+.logout-btn:hover{background:rgba(239,68,68,.3);color:#fff}
+
+.main{min-height:100vh;min-height:100dvh;padding:24px 32px 80px;margin-left:260px}
+.mobile-bar{display:none;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:11px 16px;align-items:center;justify-content:space-between;z-index:50;gap:12px}
+.mobile-bar .menu-icon{width:38px;height:38px;border-radius:10px;background:var(--primary-soft);display:grid;place-items:center;font-size:17px;color:var(--primary)}
+.mobile-bar .brand{font-family:'Playfair Display',serif;font-size:19px;font-weight:900}
+.mobile-bar .brand span{color:var(--primary)}
+.mobile-bar .crown-badge{background:linear-gradient(135deg,#3b82f6,#7c3aed);color:#fff;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.overlay{display:none;position:fixed;inset:0;background:rgba(17,24,39,.5);z-index:99;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+.page-head{margin-bottom:22px}
+.page-head h1{font-size:25px;font-weight:800;letter-spacing:-.5px}
+.page-head .sub{color:var(--text-light);font-size:13.5px;margin-top:3px}
+.page-head-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+
+.section{display:none;animation:fadeIn .25s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;transition:all .2s;cursor:pointer;position:relative;overflow:hidden}
+.stat:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,58,237,.08);border-color:#c4b5fd}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--verified));opacity:0;transition:opacity .2s}
+.stat:hover::before{opacity:1}
+.stat .lbl{font-size:12px;color:var(--text-light);font-weight:500;margin-bottom:6px}
+.stat .val{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.stat .sub{font-size:11.5px;color:var(--text-mute);margin-top:4px}
+.stat.highlight{background:linear-gradient(135deg,#fef3c7,#fed7aa);border-color:#fbbf24}
+.stat.highlight .val{color:#92400e}
+.stat.primary{background:linear-gradient(135deg,var(--primary),var(--verified));color:#fff;border:none}
+.stat.primary .lbl,.stat.primary .sub{color:rgba(255,255,255,.85)}
+.stat.primary .val{color:#fff}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.card-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.card-head h2{font-size:15.5px;font-weight:700}
+.card-head .count{font-size:12.5px;color:var(--text-mute);font-weight:500}
+
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+th{background:#fafbfc;font-weight:600;font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#fafbfc}
+.title-cell{font-weight:600;display:block;margin-bottom:2px;color:var(--text);line-height:1.3}
+.sub-cell{font-size:11.5px;color:var(--text-mute)}
+.avatar-mini{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:12px;overflow:hidden;vertical-align:middle;flex-shrink:0}
+.avatar-mini img{width:100%;height:100%;object-fit:cover}
+.user-cell{display:flex;align-items:center;gap:9px}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.badge-success{background:#d1fae5;color:#065f46}
+.badge-warning{background:#fef3c7;color:#92400e}
+.badge-danger{background:#fee2e2;color:#991b1b}
+.badge-info{background:#e0e7ff;color:#3730a3}
+.badge-verified{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e40af;border:1px solid #93c5fd}
+.badge-verified::before{display:none}
+
+/* ⭐ VERIFIED TICK — Facebook/WhatsApp style */
+.verified-tick{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:var(--verified);border-radius:50%;color:#fff;font-size:10px;font-weight:900;margin-left:5px;vertical-align:middle;flex-shrink:0;box-shadow:0 1px 3px rgba(59,130,246,.4)}
+.verified-tick svg{width:10px;height:10px;fill:#fff}
+.verified-tick.lg{width:20px;height:20px;font-size:12px}
+.verified-tick.lg svg{width:12px;height:12px}
+
+.row-actions{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap}
+
+.empty{padding:50px 20px;text-align:center;color:var(--text-light)}
+.empty .icon{font-size:44px;opacity:.35;margin-bottom:10px}
+.empty h3{font-size:15.5px;font-weight:700;color:var(--text);margin-bottom:5px}
+.empty p{font-size:13px;margin-bottom:16px}
+
+.loader{padding:50px;text-align:center;color:var(--text-light)}
+.spinner{width:34px;height:34px;border:3px solid #e5e7eb;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.tabs{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap;background:#fff;padding:5px;border-radius:12px;border:1px solid var(--border);width:fit-content;max-width:100%}
+.tabs button{padding:7px 14px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--text-light);transition:all .15s;white-space:nowrap}
+.tabs button:hover{color:var(--text)}
+.tabs button.active{background:var(--primary);color:#fff}
+
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(17,24,39,.6);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(3px)}
+.modal-bg.active{display:flex}
+.modal{background:#fff;border-radius:16px;padding:24px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.modal-head h2{font-size:17px;font-weight:700}
+.modal-head .close{width:32px;height:32px;border-radius:9px;background:#f3f4f6;display:grid;place-items:center;font-size:15px;color:var(--text-light)}
+.modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
+
+.toast{position:fixed;bottom:24px;left:24px;right:24px;max-width:400px;margin-left:auto;background:#111827;color:#fff;padding:13px 18px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:2000;transform:translateY(120px);opacity:0;transition:all .3s;box-shadow:0 15px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:var(--success)}
+.toast.error{background:var(--danger)}
+.toast.verified{background:linear-gradient(135deg,var(--verified),var(--primary))}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.3)}
+  .main{margin-left:0;padding:0 16px 100px}
+  .mobile-bar{display:flex}
+  .page-head{padding:20px 0 0}
+  .page-head h1{font-size:22px}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat{padding:14px}
+  .stat .val{font-size:22px}
+  th,td{padding:11px 14px;font-size:12.5px}
+  .modal{padding:22px}
+  .modal-bg{padding:12px;align-items:flex-start;padding-top:24px}
+}
+@media(max-width:640px){
+  .main{padding:0 12px 100px}
+  .mobile-bar{padding:10px 12px}
+  .page-head{padding:16px 0 0}
+  .stats{gap:8px;margin-bottom:18px}
+  .stat{padding:12px}
+  .stat .lbl{font-size:11.5px}
+  .stat .val{font-size:20px}
+  .card{border-radius:12px}
+  .card-head h2{font-size:15px}
+  .row-actions{flex-direction:column;align-items:stretch}
+  .row-actions .btn{width:100%}
+  .tabs{width:100%;overflow-x:auto;flex-wrap:nowrap;padding:4px}
+  .tabs button{padding:7px 12px;font-size:12px}
+  .toast{left:12px;right:12px;bottom:12px;padding:12px 14px;font-size:13px}
+  .table-wrap{margin:0 -16px}
+  table{font-size:12.5px;min-width:520px}
+  th,td{padding:10px 12px}
+  .modal-actions{flex-direction:column-reverse}
+  .modal-actions .btn{width:100%}
+}
+@media(max-width:380px){
+  .stats{grid-template-columns:1fr}
+  .sidebar{width:250px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="crown-icon">👑</div>
+    <div class="login-title">Super Admin</div>
+    <p class="login-sub">Full control panel — Owner access only</p>
+    <div class="alert alert-error" id="loginError"></div>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input type="email" id="email" placeholder="admin@blog.com" required autocomplete="email"></div>
+      <div class="field"><label>Password</label><input type="password" id="password" placeholder="Your password" required autocomplete="current-password"></div>
+      <button type="submit" class="btn btn-primary btn-block" id="loginBtn" style="padding:13px;font-size:14.5px">🔓 Sign In as Owner</button>
+    </form>
+    <div style="text-align:center;margin-top:16px;font-size:12.5px;color:var(--text-light)">
+      <a href="admin.html" style="color:var(--primary);font-weight:600">← Regular Admin Panel</a>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="crown">👑</div>
+      <div class="name">Ink<span>Well</span></div>
+      <div class="role">Super Admin</div>
+    </div>
+    <nav id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="av" id="sbAv">A</div>
+        <div class="info">
+          <b id="sbName">Owner</b>
+          <span id="sbRole">👑 Super Admin</span>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="mobile-bar">
+    <button class="menu-icon" onclick="toggleSidebar()">☰</button>
+    <div class="brand">Ink<span>Well</span></div>
+    <div class="crown-badge">👑 Owner</div>
+  </div>
+
+  <main class="main">
+    <div id="pageHeader"></div>
+    <div id="sec-dashboard" class="section"></div>
+    <div id="sec-users" class="section"></div>
+    <div id="sec-posts" class="section"></div>
+    <div id="sec-comments" class="section"></div>
+    <div id="sec-categories" class="section"></div>
+    <div id="sec-ads" class="section"></div>
+    <div id="sec-subscribers" class="section"></div>
+    <div id="sec-profile" class="section"></div>
+  </main>
+</div>
+
+<div class="modal-bg" id="modalBg"><div class="modal" id="modalBody"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api/blog',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
+};
+
+let token = localStorage.getItem('token');
+let currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+let pendingCount = 0;
+let userFilter = 'all';
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const esc = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const fmtDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+const timeAgo = (d) => {
+  if (!d) return '';
+  const diff = Math.floor((new Date() - new Date(d)) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return fmtDate(d);
+};
+const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+
+// ⭐ VERIFIED TICK — Facebook/WhatsApp style
+const verifiedTick = (size = '') => `
+  <span class="verified-tick ${size}" title="Verified account">
+    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+  </span>
+`;
+
+async function api(endpoint, opts = {}) {
+  const headers = { ...(opts.headers || {}) };
+  if (opts.body && !(opts.body instanceof FormData)) headers['Content-Type'] = 'application/json';
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const res = await fetch(CONFIG.API_URL + endpoint, { ...opts, headers });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+  return data;
+}
+
+function toast(msg, type='') {
+  const t = document.getElementById('toast');
+  const icons = { success: '✓', error: '✕', verified: '✅', '': 'ℹ' };
+  t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ'}</span> <span>${esc(msg)}</span>`;
+  t.className = 'toast show ' + type;
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.className = 'toast ' + type, 3200);
+}
+
+// ═══════════════════════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════════════════════
+document.getElementById('loginForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginError');
+  err.classList.remove('show');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  try {
+    const res = await fetch(`${CONFIG.API_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    if (data.user.role !== 'admin') throw new Error('This panel is for Super Admin only. Please use admin.html');
+    token = data.token;
+    currentUser = data.user;
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    initApp();
+  } catch(e) {
+    err.textContent = e.message;
+    err.classList.add('show');
+    btn.disabled = false; btn.textContent = '🔓 Sign In as Owner';
+  }
+};
+
+function logout() {
+  if (!confirm('Sign out from Super Admin?')) return;
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  location.reload();
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+function initApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('app').classList.add('active');
+  document.getElementById('sbName').textContent = currentUser?.name || 'Owner';
+  const initials = (currentUser?.name || 'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+  if (currentUser?.avatar_url) {
+    document.getElementById('sbAv').innerHTML = `<img src="${imgUrl(currentUser.avatar_url)}" alt="">`;
+  } else {
+    document.getElementById('sbAv').textContent = initials;
+  }
+  buildSidebar();
+  show('dashboard');
+}
+
+if (token && currentUser && currentUser.role === 'admin') initApp();
+else document.getElementById('loginScreen').style.display = 'flex';
+
+// ═══════════════════════════════════════════════════════════
+// SIDEBAR
+// ═══════════════════════════════════════════════════════════
+function buildSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  nav.innerHTML = `
+    <div class="group">Overview</div>
+    <a data-sec="dashboard"><span class="ic">📊</span> Dashboard</a>
+
+    <div class="group">Content Control</div>
+    <a data-sec="posts"><span class="ic">📝</span> All Posts</a>
+    <a data-sec="comments"><span class="ic">💬</span> Comments</a>
+    <a data-sec="categories"><span class="ic">📁</span> Categories</a>
+
+    <div class="group">Users & Access</div>
+    <a data-sec="users"><span class="ic">👥</span> Users <span class="badge-pill" id="pendingBadge" style="display:none"></span></a>
+
+    <div class="group">Monetization</div>
+    <a data-sec="ads"><span class="ic">📢</span> Ads Manager</a>
+    <a data-sec="subscribers"><span class="ic">✉️</span> Subscribers</a>
+
+    <div class="group">Account</div>
+    <a data-sec="profile"><span class="ic">👤</span> My Profile</a>
+    <a href="index.html" target="_blank"><span class="ic">🌐</span> View Site</a>
+  `;
+  nav.querySelectorAll('a[data-sec]').forEach(a => {
+    a.onclick = () => { show(a.dataset.sec); closeSidebar(); };
+  });
+  loadPendingBadge();
+}
+
+async function loadPendingBadge() {
+  try {
+    const users = await api('/admin/users?status=pending');
+    pendingCount = users.length;
+    const badge = document.getElementById('pendingBadge');
+    if (badge && users.length > 0) {
+      badge.textContent = users.length;
+      badge.style.display = 'inline-block';
+    }
+  } catch {}
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+  document.body.classList.toggle('locked');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+  document.body.classList.remove('locked');
+}
+document.getElementById('overlay').onclick = closeSidebar;
+
+// ═══════════════════════════════════════════════════════════
+// ROUTER
+// ═══════════════════════════════════════════════════════════
+function show(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar nav a[data-sec]').forEach(a => a.classList.toggle('active', a.dataset.sec === name));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+
+  const titles = {
+    dashboard: ['Dashboard', 'Full control overview'],
+    posts: ['All Posts', 'Every article from every author'],
+    comments: ['Comments', 'Moderate all discussions'],
+    categories: ['Categories', 'Organize content'],
+    users: ['Users', 'Manage authors & access'],
+    ads: ['Ads Manager', 'Monetization control'],
+    subscribers: ['Subscribers', 'Newsletter audience'],
+    profile: ['My Profile', 'Owner account']
+  };
+  const [t, s] = titles[name] || ['Dashboard', ''];
+  document.getElementById('pageHeader').innerHTML = `
+    <div class="page-head">
+      <h1>${t}</h1>
+      <p class="sub">${s}</p>
+    </div>
+  `;
+
+  switch(name) {
+    case 'dashboard': loadDashboard(); break;
+    case 'posts': loadPosts(); break;
+    case 'comments': loadComments(); break;
+    case 'categories': loadCategories(); break;
+    case 'users': loadUsers(); break;
+    case 'ads': loadAds(); break;
+    case 'subscribers': loadSubscribers(); break;
+    case 'profile': loadProfile(); break;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════
+async function loadDashboard() {
+  const el = document.getElementById('sec-dashboard');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  try {
+    const s = await api('/admin/stats');
+    el.innerHTML = `
+      <div class="stats">
+        <div class="stat primary" onclick="show('posts')"><div class="lbl">Total Posts</div><div class="val">${s.posts.total||0}</div><div class="sub">All authors</div></div>
+        <div class="stat" onclick="show('posts')"><div class="lbl">Published</div><div class="val">${s.posts.published||0}</div></div>
+        <div class="stat" onclick="show('posts')"><div class="lbl">Drafts</div><div class="val">${s.posts.drafts||0}</div></div>
+        <div class="stat" onclick="show('posts')"><div class="lbl">Total Views</div><div class="val">${(s.posts.total_views||0).toLocaleString()}</div></div>
+        <div class="stat" onclick="show('users')"><div class="lbl">Users</div><div class="val">${s.users.total||0}</div><div class="sub">${s.users.verified||0} verified</div></div>
+        ${s.users.pending > 0 ? `<div class="stat highlight" onclick="show('users')"><div class="lbl">⚠ Pending Approval</div><div class="val">${s.users.pending}</div><div class="sub">Action needed</div></div>` : ''}
+        <div class="stat" onclick="show('comments')"><div class="lbl">Comments</div><div class="val">${s.comments.total||0}</div>${s.comments.pending>0?`<div class="sub">${s.comments.pending} pending</div>`:''}</div>
+        <div class="stat"><div class="lbl">Reactions</div><div class="val">${s.reactions||0}</div></div>
+        <div class="stat" onclick="show('subscribers')"><div class="lbl">Subscribers</div><div class="val">${s.subscribers||0}</div></div>
+        <div class="stat" onclick="show('ads')"><div class="lbl">Ad Views</div><div class="val">${s.ads?.impressions||0}</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Quick Actions</h2></div>
+        <div style="padding:16px 18px;display:flex;gap:9px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="show('users')">👥 Manage Users</button>
+          <button class="btn btn-outline" onclick="show('posts')">📝 All Posts</button>
+          <button class="btn btn-outline" onclick="show('ads')">📢 Ads</button>
+        </div>
+      </div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed to load</h3><p>${esc(e.message)}</p></div>`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// USERS
+// ═══════════════════════════════════════════════════════════
+async function loadUsers() {
+  const el = document.getElementById('sec-users');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  try {
+    const users = await api('/admin/users');
+    const pending = users.filter(u => u.status === 'pending').length;
+    pendingCount = pending;
+    const filtered = userFilter === 'all' ? users : users.filter(u => u.status === userFilter);
+
+    el.innerHTML = `
+      <div class="tabs">
+        <button class="${userFilter==='all'?'active':''}" onclick="setFilter('all')">All (${users.length})</button>
+        <button class="${userFilter==='pending'?'active':''}" onclick="setFilter('pending')">⏳ Pending (${pending})</button>
+        <button class="${userFilter==='approved'?'active':''}" onclick="setFilter('approved')">✓ Approved (${users.filter(u=>u.status==='approved').length})</button>
+        <button class="${userFilter==='rejected'?'active':''}" onclick="setFilter('rejected')">✕ Rejected (${users.filter(u=>u.status==='rejected').length})</button>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Users <span class="count">(${filtered.length})</span></h2></div>
+        ${filtered.length ? `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>User</th><th>Status</th><th>Joined</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            ${filtered.map(u => {
+              const initials = (u.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+              const avatar = u.avatar_url ? `<img src="${imgUrl(u.avatar_url)}" alt="">` : initials;
+              return `
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar-mini">${avatar}</div>
+                    <div style="flex:1;min-width:0">
+                      <b style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+                        ${esc(u.name)}
+                        ${u.is_verified ? verifiedTick() : ''}
+                      </b>
+                      <div class="sub-cell">${esc(u.email)}</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge ${u.status==='approved'?'badge-success':u.status==='rejected'?'badge-danger':'badge-warning'}">${u.status}</span></td>
+                <td><span class="sub-cell">${timeAgo(u.created_at)}</span></td>
+                <td>
+                  <div class="row-actions">
+                    ${u.status!=='approved' ? `<button class="btn btn-success btn-xs" onclick="setStatus(${u.id},'approved')">✓ Approve</button>`:''}
+                    ${u.status!=='rejected' ? `<button class="btn btn-outline btn-xs" onclick="setStatus(${u.id},'rejected')">✕ Reject</button>`:''}
+                    ${u.is_verified 
+                      ? `<button class="btn btn-outline btn-xs" onclick="toggleVerify(${u.id},false)" title="Remove verified badge">✕ Unverify</button>`
+                      : `<button class="btn btn-verified btn-xs" onclick="toggleVerify(${u.id},true)" title="Give verified badge">✅ Verify</button>`
+                    }
+                    <button class="btn btn-danger btn-xs" onclick="delUser(${u.id})">🗑</button>
+                  </div>
+                </td>
+              </tr>
+            `}).join('')}
+          </tbody>
+        </table>
+        </div>` : `<div class="empty"><div class="icon">👥</div><h3>No users</h3><p>No users match this filter.</p></div>`}
+      </div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+  }
+}
+
+function setFilter(f) { userFilter = f; loadUsers(); }
+
+async function setStatus(id, status) {
+  try {
+    await api(`/admin/users/${id}/status`, { method:'PUT', body: JSON.stringify({ status }) });
+    toast(`User ${status}`, 'success');
+    loadUsers();
+    loadPendingBadge();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function toggleVerify(id, verified) {
+  try {
+    const res = await api(`/admin/users/${id}/verify`, { method:'PUT', body: JSON.stringify({ verified }) });
+    toast(res.message, 'verified');
+    loadUsers();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function delUser(id) {
+  if (!confirm('Delete this user permanently? All their posts will also be deleted.')) return;
+  try {
+    await api(`/admin/users/${id}`, { method:'DELETE' });
+    toast('User deleted', 'success');
+    loadUsers();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// POSTS (all authors)
+// ═══════════════════════════════════════════════════════════
+async function loadPosts() {
+  const el = document.getElementById('sec-posts');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  try {
+    const posts = await api('/admin/posts/all');
+    if (!posts.length) {
+      el.innerHTML = `<div class="card"><div class="empty"><div class="icon">📝</div><h3>No posts yet</h3><p>Authors haven't published anything yet.</p></div></div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="card">
+        <div class="card-head"><h2>All Posts <span class="count">(${posts.length})</span></h2></div>
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Views</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            ${posts.map(p => {
+              const initials = (p.author_name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+              const avatar = p.author_avatar ? `<img src="${imgUrl(p.author_avatar)}" alt="">` : initials;
+              return `
+              <tr>
+                <td>
+                  <span class="title-cell">${esc(p.title)}</span>
+                  <span class="sub-cell">${p.category_name ? esc(p.category_name) + ' · ' : ''}${timeAgo(p.created_at)}</span>
+                </td>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar-mini">${avatar}</div>
+                    <div>
+                      <b style="font-size:12.5px;display:flex;align-items:center;gap:3px">${esc(p.author_name)}${p.author_verified ? verifiedTick() : ''}</b>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge ${p.status==='published'?'badge-success':'badge-warning'}">${p.status}</span></td>
+                <td>${p.views||0}</td>
+                <td>
+                  <div class="row-actions">
+                    <button class="btn btn-outline btn-xs" onclick="window.open('post.html?slug=${p.slug}','_blank')">👁 View</button>
+                    <button class="btn btn-danger btn-xs" onclick="delPost(${p.id})">🗑 Delete</button>
+                  </div>
+                </td>
+              </tr>
+            `}).join('')}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+  }
+}
+
+async function delPost(id) {
+  if (!confirm('Delete this post permanently? This cannot be undone.')) return;
+  try {
+    await api(`/admin/posts/${id}`, { method:'DELETE' });
+    toast('Post deleted', 'success');
+    loadPosts();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// COMMENTS
+// ═══════════════════════════════════════════════════════════
+async function loadComments() {
+  const el = document.getElementById('sec-comments');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  try {
+    const comments = await api('/comments');
+    el.innerHTML = `
+      <div class="card">
+        <div class="card-head"><h2>Comments <span class="count">(${comments.length})</span></h2></div>
+        ${comments.length ? `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Author</th><th>Comment</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            ${comments.map(c => `
+              <tr>
+                <td><b>${esc(c.author_name)}</b><div class="sub-cell">${esc(c.author_email)}</div></td>
+                <td style="max-width:320px">${esc(c.content).slice(0,100)}${c.content.length>100?'...':''}</td>
+                <td><span class="badge ${c.status==='approved'?'badge-success':c.status==='spam'?'badge-danger':'badge-warning'}">${c.status}</span></td>
+                <td>
+                  <div class="row-actions">
+                    ${c.status!=='approved' ? `<button class="btn btn-success btn-xs" onclick="setCmt(${c.id},'approved')">✓</button>`:''}
+                    ${c.status!=='spam' ? `<button class="btn btn-outline btn-xs" onclick="setCmt(${c.id},'spam')">🚫</button>`:''}
+                    <button class="btn btn-danger btn-xs" onclick="delCmt(${c.id})">🗑</button>
+                  </div>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>` : `<div class="empty"><div class="icon">💬</div><h3>No comments</h3><p>Comments will appear here for moderation.</p></div>`}
+      </div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+  }
+}
+
+async function setCmt(id, status) {
+  try { await api(`/comments/${id}`, { method:'PUT', body: JSON.stringify({ status }) }); toast('Updated', 'success'); loadComments(); }
+  catch(e) { toast(e.message, 'error'); }
+}
+async function delCmt(id) {
+  if (!confirm('Delete comment?')) return;
+  try { await api(`/comments/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadComments(); }
+  catch(e) { toast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// CATEGORIES
+// ═══════════════════════════════════════════════════════════
+async function loadCategories() {
+  const el = document.getElementById('sec-categories');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  document.getElementById('pageHeader').innerHTML = `
+    <div class="page-head-row">
+      <div><h1>Categories</h1><p class="sub">Organize content</p></div>
+      <button class="btn btn-primary" onclick="showCatModal()">+ New</button>
+    </div>
+  `;
+  try {
+    const cats = await api('/categories');
+    el.innerHTML = `
+      <div class="card">
+        <div class="card-head"><h2>Categories <span class="count">(${cats.length})</span></h2></div>
+        ${cats.length ? `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Slug</th><th>Posts</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            ${cats.map(c => `
+              <tr>
+                <td><b>${esc(c.name)}</b></td>
+                <td><span class="sub-cell">${esc(c.slug)}</span></td>
+                <td>${c.post_count}</td>
+                <td><div class="row-actions"><button class="btn btn-danger btn-xs" onclick="delCat(${c.id})">Delete</button></div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>` : `<div class="empty"><div class="icon">📁</div><h3>No categories</h3></div>`}
+      </div>
+    `;
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+}
+
+function showCatModal() {
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-head"><h2>New Category</h2><button class="close" onclick="closeModal()">✕</button></div>
+    <div class="field"><label>Name *</label><input type="text" id="catName" placeholder="e.g. Technology"></div>
+    <div class="field"><label>Description</label><textarea id="catDesc" rows="3"></textarea></div>
+    <div class="field"><label>Color</label><input type="color" id="catColor" value="#7c3aed" style="height:48px;padding:6px;cursor:pointer"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCat()">Create</button>
+    </div>
+  `;
+  document.getElementById('modalBg').classList.add('active');
+}
+
+async function saveCat() {
+  const name = document.getElementById('catName').value.trim();
+  if (!name) return toast('Name required', 'error');
+  try {
+    await api('/categories', { method:'POST', body: JSON.stringify({
+      name, description: document.getElementById('catDesc').value.trim(),
+      color: document.getElementById('catColor').value
+    })});
+    toast('Category created ✅', 'success');
+    closeModal(); loadCategories();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function delCat(id) {
+  if (!confirm('Delete category?')) return;
+  try { await api(`/categories/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadCategories(); }
+  catch(e) { toast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// ADS
+// ═══════════════════════════════════════════════════════════
+async function loadAds() {
+  const el = document.getElementById('sec-ads');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  document.getElementById('pageHeader').innerHTML = `
+    <div class="page-head-row">
+      <div><h1>Ads Manager</h1><p class="sub">Monetization control</p></div>
+      <button class="btn btn-primary" onclick="showAdModal()">+ New Ad</button>
+    </div>
+  `;
+  try {
+    const ads = await api('/ads');
+    el.innerHTML = `
+      <div class="stats">
+        <div class="stat"><div class="lbl">Total Ads</div><div class="val">${ads.length}</div></div>
+        <div class="stat"><div class="lbl">Active</div><div class="val">${ads.filter(a=>a.is_active).length}</div></div>
+        <div class="stat"><div class="lbl">Impressions</div><div class="val">${ads.reduce((s,a)=>s+(a.impressions||0),0).toLocaleString()}</div></div>
+        <div class="stat"><div class="lbl">Clicks</div><div class="val">${ads.reduce((s,a)=>s+(a.clicks||0),0)}</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>All Ads <span class="count">(${ads.length})</span></h2></div>
+        ${ads.length ? `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Position</th><th>Type</th><th>Views</th><th>Clicks</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            ${ads.map(a => `
+              <tr>
+                <td><b>${esc(a.name)}</b></td>
+                <td><span class="badge badge-info">${esc(a.position)}</span></td>
+                <td>${esc(a.type)}</td>
+                <td>${a.impressions||0}</td>
+                <td>${a.clicks||0}</td>
+                <td><span class="badge ${a.is_active?'badge-success':'badge-danger'}">${a.is_active?'Active':'Paused'}</span></td>
+                <td><div class="row-actions"><button class="btn btn-danger btn-xs" onclick="delAd(${a.id})">Delete</button></div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>` : `<div class="empty"><div class="icon">📢</div><h3>No ads yet</h3></div>`}
+      </div>
+    `;
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+}
+
+function showAdModal() {
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-head"><h2>New Ad</h2><button class="close" onclick="closeModal()">✕</button></div>
+    <div class="field"><label>Name *</label><input type="text" id="adName" placeholder="Header Banner"></div>
+    <div class="field"><label>Position *</label>
+      <select id="adPosition">
+        <option value="header">Header</option><option value="in-article">In-Article</option>
+        <option value="post-top">Post Top</option><option value="post-bottom">Post Bottom</option>
+        <option value="sidebar">Sidebar</option><option value="footer">Footer</option>
+      </select>
+    </div>
+    <div class="field"><label>Type *</label>
+      <select id="adType">
+        <option value="custom_html">Custom HTML</option>
+        <option value="image">Image Banner</option>
+        <option value="adsense">AdSense Code</option>
+      </select>
+    </div>
+    <div class="field"><label>Content</label><textarea id="adContent" rows="4" placeholder="<div>Ad code</div>"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveAd()">Create</button>
+    </div>
+  `;
+  document.getElementById('modalBg').classList.add('active');
+}
+
+async function saveAd() {
+  const name = document.getElementById('adName').value.trim();
+  if (!name) return toast('Name required', 'error');
+  try {
+    await api('/ads', { method:'POST', body: JSON.stringify({
+      name, position: document.getElementById('adPosition').value,
+      type: document.getElementById('adType').value,
+      content: document.getElementById('adContent').value
+    })});
+    toast('Ad created ✅', 'success');
+    closeModal(); loadAds();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function delAd(id) {
+  if (!confirm('Delete ad?')) return;
+  try { await api(`/ads/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadAds(); }
+  catch(e) { toast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// SUBSCRIBERS
+// ═══════════════════════════════════════════════════════════
+async function loadSubscribers() {
+  const el = document.getElementById('sec-subscribers');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  try {
+    const subs = await api('/subscribers');
+    el.innerHTML = `
+      <div class="card">
+        <div class="card-head"><h2>Subscribers <span class="count">(${subs.length})</span></h2></div>
+        ${subs.length ? `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Email</th><th>Name</th><th>Status</th><th>Subscribed</th></tr></thead>
+          <tbody>
+            ${subs.map(s => `
+              <tr>
+                <td><b>${esc(s.email)}</b></td>
+                <td>${esc(s.name||'—')}</td>
+                <td><span class="badge badge-success">${s.status}</span></td>
+                <td><span class="sub-cell">${timeAgo(s.created_at)}</span></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>` : `<div class="empty"><div class="icon">✉️</div><h3>No subscribers</h3></div>`}
+      </div>
+    `;
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+}
+
+// ═══════════════════════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════════════════════
+async function loadProfile() {
+  const el = document.getElementById('sec-profile');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  try {
+    const user = await api('/auth/me');
+    const initials = (user.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+    el.innerHTML = `
+      <div class="card" style="padding:24px">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+          <div style="text-align:center">
+            <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#3b82f6);display:grid;place-items:center;color:#fff;font-size:36px;font-weight:700;overflow:hidden;margin:0 auto 10px;border:3px solid #3b82f6">
+              ${user.avatar_url ? `<img src="${imgUrl(user.avatar_url)}" style="width:100%;height:100%;object-fit:cover">` : initials}
+            </div>
+            <input type="file" id="avatarFile" accept="image/*" style="display:none">
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('avatarFile').click()">Change</button>
+          </div>
+          <div style="flex:1;min-width:240px">
+            <div class="field"><label>Name</label><input type="text" id="pfName" value="${esc(user.name)}"></div>
+            <div class="field"><label>Email</label><input type="email" value="${esc(user.email)}" disabled style="background:#f9fafb;color:var(--text-light)"></div>
+            <button class="btn btn-primary" onclick="saveProfile()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.getElementById('avatarFile').onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const fd = new FormData();
+      fd.append('avatar', file);
+      try {
+        const res = await fetch(`${CONFIG.API_URL}/auth/avatar`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: fd
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        currentUser.avatar_url = data.url;
+        localStorage.setItem('user', JSON.stringify(currentUser));
+        toast('Photo updated ✅', 'success');
+        loadProfile();
+      } catch(e) { toast(e.message, 'error'); }
+    };
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+}
+
+async function saveProfile() {
+  try {
+    await api('/auth/profile', { method:'PUT', body: JSON.stringify({
+      name: document.getElementById('pfName').value
+    })});
+    currentUser.name = document.getElementById('pfName').value;
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    document.getElementById('sbName').textContent = currentUser.name;
+    toast('Profile saved ✅', 'success');
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// MODAL & EXPORTS
+// ═══════════════════════════════════════════════════════════
+function closeModal() { document.getElementById('modalBg').classList.remove('active'); }
+document.getElementById('modalBg').onclick = (e) => { if (e.target.id === 'modalBg') closeModal(); };
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+window.logout = logout;
+window.toggleSidebar = toggleSidebar;
+window.show = show;
+window.setFilter = setFilter;
+window.setStatus = setStatus;
+window.toggleVerify = toggleVerify;
+window.delUser = delUser;
+window.delPost = delPost;
+window.setCmt = setCmt;
+window.delCmt = delCmt;
+window.showCatModal = showCatModal;
+window.saveCat = saveCat;
+window.delCat = delCat;
+window.showAdModal = showAdModal;
+window.saveAd = saveAd;
+window.delAd = delAd;
+window.saveProfile = saveProfile;
+window.closeModal = closeModal;
+</script>
+</body>
+</html>
