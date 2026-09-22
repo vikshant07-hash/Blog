@@ -2,37 +2,753 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 — Page Not Found | InkWell</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f2">
+<title>Page Not Found — InkWell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--primary:#6366f1;--text:#1a1a2e;--text-light:#64748b;--bg:#fff;--bg-soft:#f8fafc;--border:#e2e8f0}
-body.dark{--text:#f1f5f9;--text-light:#94a3b8;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s;display:grid;place-items:center;min-height:100vh;padding:24px}
-.error{text-align:center;max-width:500px}
-.error .code{font-family:'Playfair Display',serif;font-size:clamp(100px,20vw,180px);font-weight:900;color:var(--primary);line-height:1;letter-spacing:-5px}
-.error h1{font-family:'Playfair Display',serif;font-size:32px;margin:16px 0 12px}
-.error p{color:var(--text-light);font-size:16px;margin-bottom:32px}
-.btn{padding:14px 32px;border-radius:50px;font-weight:600;font-size:15px;cursor:pointer;border:none;transition:all .2s;display:inline-block;background:var(--primary);color:#fff;text-decoration:none;font-family:inherit}
-.btn:hover{background:#4f46e5;transform:translateY(-2px)}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);margin-left:8px}
-.btn-outline:hover{border-color:var(--primary);color:var(--primary);background:transparent}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#faf7f2;--cream-2:#f2ece1;--paper:#ffffff;
+  --ink:#1c1917;--ink-2:#44403c;--ink-3:#78716c;--ink-4:#a8a29e;
+  --line:#e7e1d5;--line-2:#d6cebd;
+  --accent:#c2410c;--accent-2:#ea580c;--accent-soft:#fef3e6;
+  --verified:#0ea5e9;--success:#10b981;--danger:#dc2626;--warn:#f59e0b;
+  --radius:14px;--radius-lg:20px;
+}
+body.dark{
+  --cream:#0f0e0c;--cream-2:#1a1815;--paper:#181613;
+  --ink:#f5f1ea;--ink-2:#d6cebd;--ink-3:#a8a29e;--ink-4:#78716c;
+  --line:#292522;--line-2:#3a3430;--accent-soft:#2a1a0f;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Manrope',-apple-system,sans-serif;
+  background:var(--cream);color:var(--ink);
+  line-height:1.6;overflow-x:hidden;
+  transition:background .3s,color .3s;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.02em}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;color:inherit}
+input{font-family:inherit;outline:none;border:none}
+
+.container{width:100%;max-width:1140px;margin:0 auto;padding:0 32px}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,247,242,.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+body.dark header{background:rgba(15,14,12,.92)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px}
+.logo{
+  font-family:'Fraunces',serif;font-size:26px;font-weight:900;
+  letter-spacing:-.04em;display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.logo-img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.logo-text{display:flex;align-items:center;gap:2px;white-space:nowrap}
+.logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{
+  font-weight:500;font-size:14px;color:var(--ink-3);
+  transition:color .2s;position:relative;padding:4px 0;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:1.5px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .25s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);
+  display:grid;place-items:center;transition:all .2s;
+  font-size:15px;color:var(--ink);flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.btn{
+  padding:11px 22px;border-radius:100px;
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;border:1px solid transparent;cursor:pointer;
+}
+.btn i{font-size:13px}
+.btn-primary{background:var(--ink);color:var(--cream)}
+.btn-primary:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-sm{padding:8px 16px;font-size:12.5px}
+.menu-toggle{display:none}
+
+.mobile-menu{
+  display:none;position:fixed;inset:0;
+  background:var(--cream);z-index:200;
+  padding:24px 20px;flex-direction:column;overflow-y:auto;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu .close{
+  align-self:flex-end;width:44px;height:44px;
+  border-radius:50%;background:var(--cream-2);
+  display:grid;place-items:center;font-size:20px;
+}
+.mobile-menu ul{list-style:none;margin-top:40px}
+.mobile-menu li{margin-bottom:16px}
+.mobile-menu a{
+  font-family:'Fraunces',serif;font-size:24px;font-weight:600;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.mobile-menu a i{font-size:18px;color:var(--accent);width:24px;text-align:center}
+
+/* 404 WRAP */
+.error-wrap{
+  min-height:calc(100vh - 73px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 0;
+  position:relative;
+  overflow:hidden;
+}
+.error-wrap::before{
+  content:'';position:absolute;top:-300px;left:50%;
+  transform:translateX(-50%);
+  width:900px;height:900px;
+  background:radial-gradient(circle,rgba(194,65,12,.08),transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+.error-wrap::after{
+  content:'';position:absolute;bottom:-300px;right:-200px;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(234,88,12,.06),transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+
+.error-content{
+  position:relative;z-index:1;
+  text-align:center;
+  max-width:640px;
+  padding:0 24px;
+}
+
+/* Big 404 */
+.error-code{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:clamp(100px,20vw,220px);
+  line-height:0.9;
+  letter-spacing:-.06em;
+  background:linear-gradient(135deg,var(--ink) 0%,var(--accent) 50%,var(--accent-2) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:16px;
+  position:relative;
+  display:inline-block;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.error-code span{
+  display:inline-block;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+
+/* Ghost/Illustration */
+.error-illustration{
+  margin:0 auto 28px;
+  width:120px;height:120px;
+  border-radius:50%;
+  background:var(--accent-soft);
+  display:grid;place-items:center;
+  position:relative;
+  animation:float 3s ease-in-out infinite;
+}
+.error-illustration i{
+  font-size:52px;
+  color:var(--accent);
+}
+
+/* Confetti dots */
+.dots-bg{
+  position:absolute;inset:0;
+  pointer-events:none;overflow:hidden;
+  z-index:0;
+}
+.dot-float{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  opacity:.15;
+  animation:rise 8s linear infinite;
+}
+@keyframes rise{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+  10%{opacity:.15}
+  90%{opacity:.15}
+  100%{transform:translateY(-100px) rotate(360deg);opacity:0}
+}
+
+.error-title{
+  font-size:clamp(26px,4vw,40px);
+  font-weight:600;letter-spacing:-.03em;
+  margin-bottom:16px;line-height:1.15;
+}
+.error-title em{
+  font-style:italic;font-weight:400;color:var(--accent);
+}
+
+.error-msg{
+  color:var(--ink-3);
+  font-size:16px;
+  margin-bottom:36px;
+  line-height:1.7;
+  max-width:480px;
+  margin-left:auto;margin-right:auto;
+}
+
+/* Actions */
+.error-actions{
+  display:flex;gap:12px;justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:40px;
+}
+
+.btn-hero{
+  padding:14px 28px;border-radius:100px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14.5px;
+  transition:all .2s;
+  display:inline-flex;align-items:center;gap:10px;
+  cursor:pointer;
+}
+.btn-hero i{font-size:14px}
+.btn-hero:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 12px 24px rgba(194,65,12,.25)}
+.btn-hero.outline{
+  background:transparent;
+  border:1.5px solid var(--line);
+  color:var(--ink);
+}
+.btn-hero.outline:hover{
+  background:var(--paper);
+  border-color:var(--ink);
+  color:var(--ink);
+  box-shadow:0 12px 24px rgba(28,25,23,.08);
+}
+
+/* Search */
+.error-search{
+  max-width:480px;margin:0 auto 40px;
+  display:flex;align-items:center;gap:8px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:100px;
+  padding:5px 5px 5px 20px;
+  transition:all .2s;
+}
+.error-search:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(194,65,12,.08)}
+.error-search i{color:var(--ink-4);font-size:14px}
+.error-search input{
+  flex:1;background:transparent;
+  font-size:14.5px;color:var(--ink);
+  padding:10px 0;min-width:0;
+}
+.error-search input::placeholder{color:var(--ink-4)}
+.error-search button{
+  background:var(--ink);color:var(--cream);
+  padding:10px 20px;border-radius:100px;
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;flex-shrink:0;
+}
+.error-search button:hover{background:var(--accent)}
+
+/* Quick links */
+.quick-links{
+  display:flex;justify-content:center;
+  gap:10px;flex-wrap:wrap;
+  margin-bottom:40px;
+}
+.quick-link{
+  padding:8px 16px;
+  border-radius:100px;
+  background:var(--cream-2);
+  border:1px solid transparent;
+  font-size:13px;font-weight:600;
+  color:var(--ink-2);
+  transition:all .2s;
+  display:inline-flex;align-items:center;gap:6px;
+  cursor:pointer;
+}
+.quick-link i{font-size:12px;color:var(--accent)}
+.quick-link:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft)}
+
+/* Divider */
+.section-divider{
+  display:flex;align-items:center;gap:16px;
+  color:var(--ink-4);
+  font-size:12px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;
+  max-width:520px;margin:0 auto 24px;
+}
+.section-divider::before,.section-divider::after{
+  content:'';flex:1;height:1px;background:var(--line);
+}
+
+/* Popular posts */
+.popular-strip{
+  margin-top:8px;
+}
+.popular-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+  max-width:760px;
+  margin:0 auto;
+  text-align:left;
+}
+.popular-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  cursor:pointer;
+  transition:all .2s;
+  display:flex;gap:12px;align-items:center;
+}
+.popular-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent);
+  box-shadow:0 12px 24px rgba(28,25,23,.06);
+}
+.popular-thumb{
+  width:52px;height:52px;
+  border-radius:10px;
+  background:var(--cream-2);
+  overflow:hidden;flex-shrink:0;
+}
+.popular-thumb img{width:100%;height:100%;object-fit:cover}
+.popular-thumb .placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;
+  color:#fff;font-size:20px;opacity:.8;
+}
+.popular-info{flex:1;min-width:0}
+.popular-info h4{
+  font-family:'Manrope',sans-serif;
+  font-size:13.5px;font-weight:600;
+  color:var(--ink);
+  line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:4px;
+}
+.popular-info span{
+  font-size:11.5px;color:var(--ink-4);
+}
+
+/* Skeleton */
+.skeleton-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  height:80px;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:.6}
+  50%{opacity:1}
+}
+
+/* FOOTER */
+footer{
+  background:var(--cream-2);
+  border-top:1px solid var(--line);
+  padding:56px 0 28px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:36px;
+}
+.footer-brand .logo{margin-bottom:14px}
+.footer-brand p{
+  color:var(--ink-3);font-size:13.5px;
+  margin-bottom:20px;max-width:300px;
+  line-height:1.7;
+}
+.socials{display:flex;gap:8px}
+.socials a{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--line);
+  display:grid;place-items:center;
+  transition:all .2s;font-size:14px;color:var(--ink);
+}
+.socials a:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.footer-col h4{
+  font-family:'Manrope',sans-serif;
+  font-size:12px;margin-bottom:16px;
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink-4);
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:var(--ink-2);font-size:14px;transition:color .2s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  padding-top:24px;border-top:1px solid var(--line);
+  text-align:center;color:var(--ink-4);font-size:13px;
+}
+.footer-bottom i{color:var(--accent)}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  padding:14px 22px;border-radius:12px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:9999;animation:toastIn .3s;
+  max-width:90vw;
+}
+.toast.error{background:#ef4444;color:#fff}
+@keyframes toastIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .container{padding:0 20px}
+  .nav{padding:14px 0}
+  .logo{font-size:22px;gap:6px}
+  .logo-img{width:32px;height:32px}
+  .nav-links{display:none}
+  .menu-toggle{display:grid}
+  .error-wrap{padding:40px 0 60px}
+  .error-content{padding:0 20px}
+  .error-code{font-size:clamp(80px,25vw,140px)}
+  .error-illustration{width:90px;height:90px;margin-bottom:20px}
+  .error-illustration i{font-size:40px}
+  .error-title{font-size:clamp(22px,7vw,30px)}
+  .error-msg{font-size:15px;margin-bottom:28px}
+  .error-actions{flex-direction:column;margin-bottom:32px}
+  .btn-hero{width:100%;justify-content:center;padding:13px}
+  .error-search{padding:4px 4px 4px 16px;margin-bottom:32px}
+  .error-search input{padding:9px 0;font-size:14px}
+  .error-search button{padding:9px 16px;font-size:12.5px}
+  .quick-links{margin-bottom:32px}
+  .quick-link{padding:7px 13px;font-size:12.5px}
+  .popular-grid{grid-template-columns:1fr;gap:10px}
+  .popular-card{padding:12px}
+  .footer-grid{grid-template-columns:1fr;gap:28px;text-align:center}
+  .footer-brand .logo{justify-content:center}
+  .footer-brand p{margin:0 auto 20px}
+  .socials{justify-content:center}
+  .toast{bottom:20px;right:20px;left:20px;text-align:center}
+}
 </style>
 </head>
 <body>
 
-<div class="error">
-  <div class="code">404</div>
-  <h1>Page Not Found</h1>
-  <p>The page you're looking for doesn't exist or has been moved.</p>
-  <a href="index.html" class="btn">← Go Home</a>
-  <a href="category.html" class="btn btn-outline">Browse Articles</a>
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Ink<em>well</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html">Explore</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+      <button class="icon-btn menu-toggle" id="menuOpen"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" id="menuClose"><i class="fa-solid fa-xmark"></i></button>
+  <ul>
+    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="blog.html"><i class="fa-solid fa-compass"></i> Explore</a></li>
+    <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
+    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+  </ul>
 </div>
 
-<script>
-if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-</script>
+<!-- 404 WRAP -->
+<main class="error-wrap">
+  <!-- Floating dots background -->
+  <div class="dots-bg" id="dotsBg"></div>
 
+  <div class="error-content">
+
+    <!-- Illustration -->
+    <div class="error-illustration">
+      <i class="fa-solid fa-compass"></i>
+    </div>
+
+    <!-- Big 404 -->
+    <div class="error-code" id="errorCode">
+      <span>4</span><span>0</span><span>4</span>
+    </div>
+
+    <h1 class="error-title">
+      Looks like you've wandered <em>off the page</em>
+    </h1>
+
+    <p class="error-msg">
+      The page you're looking for doesn't exist, has been moved, or is temporarily unavailable.
+      Let's get you back on track.
+    </p>
+
+    <!-- Actions -->
+    <div class="error-actions">
+      <a href="index.html" class="btn-hero">
+        <i class="fa-solid fa-house"></i>
+        <span>Back to Home</span>
+      </a>
+      <a href="blog.html" class="btn-hero outline">
+        <i class="fa-solid fa-compass"></i>
+        <span>Explore Articles</span>
+      </a>
+    </div>
+
+    <!-- Search -->
+    <div class="error-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search for articles...">
+      <button onclick="doSearch()">Search</button>
+    </div>
+
+    <!-- Quick links -->
+    <div class="quick-links">
+      <a href="blog.html?sort=views" class="quick-link">
+        <i class="fa-solid fa-fire"></i> Trending
+      </a>
+      <a href="blog.html" class="quick-link">
+        <i class="fa-solid fa-newspaper"></i> Latest
+      </a>
+      <a href="bookmarks.html" class="quick-link">
+        <i class="fa-solid fa-bookmark"></i> Bookmarks
+      </a>
+      <a href="login.html" class="quick-link">
+        <i class="fa-solid fa-right-to-bracket"></i> Sign In
+      </a>
+    </div>
+
+    <!-- Popular posts -->
+    <div class="section-divider">Popular right now</div>
+
+    <div class="popular-strip">
+      <div class="popular-grid" id="popularGrid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
+          <span class="logo-text">Ink<em>well</em></span>
+        </a>
+        <p>A digital publication celebrating ideas, culture, and thoughtful writing.</p>
+        <div class="socials">
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">All Posts</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Sign Up</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">© 2026 InkWell — Made with <i class="fa-solid fa-heart"></i> for curious minds.</div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api/blog',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
+};
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const $ = (id) => document.getElementById(id);
+const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ═══════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════
+const themeToggle = $('themeToggle');
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+  themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+themeToggle.onclick = () => {
+  document.body.classList.toggle('dark');
+  const d = document.body.classList.contains('dark');
+  themeToggle.innerHTML = d ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+  localStorage.setItem('theme', d ? 'dark' : 'light');
+};
+
+$('menuOpen').onclick = () => $('mobileMenu').classList.add('open');
+$('menuClose').onclick = () => $('mobileMenu').classList.remove('open');
+
+// ═══════════════════════════════════════════════════════════
+// FLOATING DOTS BACKGROUND
+// ═══════════════════════════════════════════════════════════
+(function createDots() {
+  const bg = $('dotsBg');
+  const count = window.innerWidth < 640 ? 12 : 20;
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot-float';
+    dot.style.left = Math.random() * 100 + '%';
+    dot.style.width = dot.style.height = (4 + Math.random() * 8) + 'px';
+    dot.style.animationDelay = Math.random() * 8 + 's';
+    dot.style.animationDuration = (6 + Math.random() * 6) + 's';
+    // random colors
+    const colors = ['var(--accent)', 'var(--accent-2)', 'var(--verified)', 'var(--warn)'];
+    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+    bg.appendChild(dot);
+  }
+})();
+
+// ═══════════════════════════════════════════════════════════
+// 404 ANIMATION (subtle)
+// ═══════════════════════════════════════════════════════════
+(function animateCode() {
+  const spans = document.querySelectorAll('#errorCode span');
+  spans.forEach((s, i) => {
+    s.style.transition = 'transform .5s cubic-bezier(.4,0,.2,1)';
+    setTimeout(() => {
+      s.style.transform = 'translateY(-8px)';
+      setTimeout(() => {
+        s.style.transform = 'translateY(0)';
+      }, 300);
+    }, i * 200);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════════════
+function doSearch() {
+  const q = $('searchInput').value.trim();
+  if (!q) {
+    showToast('Enter a search query', 'error');
+    return;
+  }
+  window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+}
+
+$('searchInput').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') doSearch();
+});
+
+// ═══════════════════════════════════════════════════════════
+// LOAD POPULAR POSTS
+// ═══════════════════════════════════════════════════════════
+async function loadPopular() {
+  try {
+    const res = await fetch(`${CONFIG.API_URL}/posts/trending?days=30&limit=4`);
+    if (!res.ok) throw new Error('Failed');
+    const posts = await res.json();
+
+    if (!posts || !posts.length) {
+      // Fallback: just show latest posts
+      const res2 = await fetch(`${CONFIG.API_URL}/posts?limit=4`);
+      const data2 = await res2.json();
+      renderPopular(data2.posts || []);
+    } else {
+      renderPopular(posts);
+    }
+  } catch (e) {
+    // Silent fail — hide section
+    $('popularGrid').closest('.popular-strip').style.display = 'none';
+    document.querySelector('.section-divider').style.display = 'none';
+  }
+}
+
+function renderPopular(posts) {
+  const grid = $('popularGrid');
+  if (!posts.length) {
+    grid.closest('.popular-strip').style.display = 'none';
+    document.querySelector('.section-divider').style.display = 'none';
+    return;
+  }
+  grid.innerHTML = posts.slice(0, 4).map(p => `
+    <div class="popular-card" onclick="location.href='post.html?slug=${encodeURIComponent(p.slug)}'">
+      <div class="popular-thumb">
+        ${p.cover_image
+          ? `<img src="${imgUrl(p.cover_image)}" alt="" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📝</div>'">`
+          : `<div class="placeholder">📝</div>`}
+      </div>
+      <div class="popular-info">
+        <h4>${escapeHtml(p.title)}</h4>
+        <span>${p.views || 0} views · ${p.read_time || 1} min</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+// LOG 404 in console (for analytics)
+// ═══════════════════════════════════════════════════════════
+console.log('404 — Page not found:', location.pathname + location.search);
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+loadPopular();
+</script>
 </body>
 </html>
