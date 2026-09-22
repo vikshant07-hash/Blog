@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f2">
+<title>Dashboard — InkWell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#faf7f2;--cream-2:#f2ece1;--paper:#ffffff;
+  --ink:#1c1917;--ink-2:#44403c;--ink-3:#78716c;--ink-4:#a8a29e;
+  --line:#e7e1d5;--line-2:#d6cebd;
+  --accent:#c2410c;--accent-2:#ea580c;--accent-soft:#fef3e6;
+  --verified:#0ea5e9;--success:#10b981;--danger:#dc2626;--warn:#f59e0b;
+  --radius:14px;--radius-lg:20px;
+}
+body.dark{
+  --cream:#0f0e0c;--cream-2:#1a1815;--paper:#181613;
+  --ink:#f5f1ea;--ink-2:#d6cebd;--ink-3:#a8a29e;--ink-4:#78716c;
+  --line:#292522;--line-2:#3a3430;--accent-soft:#2a1a0f;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Manrope',-apple-system,sans-serif;
+  background:var(--cream);color:var(--ink);
+  line-height:1.6;overflow-x:hidden;
+  transition:background .3s,color .3s;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;letter-spacing:-.02em}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;color:inherit}
+input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;border:none}
+
+/* ═══════════ LAYOUT ═══════════ */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+
+/* Sidebar */
+.sidebar{
+  background:var(--paper);
+  border-right:1px solid var(--line);
+  padding:24px 16px;
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;
+  overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+.side-logo{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:900;
+  letter-spacing:-.04em;display:flex;align-items:center;gap:8px;
+  padding:8px 10px;margin-bottom:24px;text-decoration:none;
+}
+.side-logo-img{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.side-logo-text{display:flex;align-items:center;gap:2px;white-space:nowrap}
+.side-logo em{font-style:italic;font-weight:400;color:var(--accent)}
+
+.side-user{
+  display:flex;align-items:center;gap:10px;
+  padding:12px;
+  background:var(--cream-2);
+  border-radius:12px;
+  margin-bottom:24px;
+  min-width:0;
+}
+.side-user .avatar{
+  width:40px;height:40px;font-size:14px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  display:grid;place-items:center;
+  color:#fff;font-weight:700;flex-shrink:0;
+  overflow:hidden;
+}
+.side-user .avatar img{width:100%;height:100%;object-fit:cover}
+.side-user-info{flex:1;min-width:0;overflow:hidden}
+.side-user-info b{
+  display:block;font-size:13.5px;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.side-user-info span{
+  display:block;font-size:11.5px;color:var(--ink-4);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.side-nav{list-style:none;flex:1}
+.side-nav li{margin-bottom:4px}
+.side-nav a{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 14px;border-radius:10px;
+  font-size:14px;font-weight:500;
+  color:var(--ink-3);
+  transition:all .2s;
+  cursor:pointer;
+}
+.side-nav a:hover{background:var(--cream-2);color:var(--ink)}
+.side-nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.side-nav a i{width:18px;text-align:center;font-size:15px}
+.side-nav .badge{
+  margin-left:auto;
+  background:var(--accent);color:#fff;
+  font-size:10.5px;font-weight:700;
+  padding:2px 8px;border-radius:100px;
+  min-width:20px;text-align:center;
+}
+
+.side-footer{margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+
+/* Main */
+.main{
+  min-width:0;
+  padding:24px 32px 48px;
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+/* Topbar */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;margin-bottom:28px;
+  flex-wrap:wrap;
+}
+.topbar h1{
+  font-size:28px;font-weight:600;
+  letter-spacing:-.02em;
+  display:flex;align-items:center;gap:10px;
+}
+.topbar h1 i{font-size:24px;color:var(--accent)}
+.topbar-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.btn{
+  padding:10px 20px;border-radius:100px;
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;border:1.5px solid transparent;
+  cursor:pointer;
+}
+.btn i{font-size:13px}
+.btn-primary{background:var(--ink);color:var(--cream)}
+.btn-primary:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-sm{padding:7px 14px;font-size:12.5px}
+.btn-sm i{font-size:12px}
+
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);
+  display:grid;place-items:center;transition:all .2s;
+  font-size:14px;color:var(--ink);flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+
+/* ═══════════ PAGES ═══════════ */
+.page{display:none}
+.page.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Stats Cards */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;
+  margin-bottom:32px;
+}
+.stat-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  position:relative;
+  overflow:hidden;
+  transition:all .3s;
+}
+.stat-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(28,25,23,.06);
+  border-color:var(--line-2);
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;right:0;
+  width:80px;height:80px;
+  background:radial-gradient(circle,var(--accent-soft),transparent 70%);
+  border-radius:50%;
+}
+.stat-icon{
+  width:44px;height:44px;
+  border-radius:12px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  display:grid;place-items:center;
+  font-size:18px;margin-bottom:14px;
+  position:relative;
+}
+.stat-value{
+  font-family:'Fraunces',serif;
+  font-size:32px;font-weight:600;
+  letter-spacing:-.02em;line-height:1;
+  margin-bottom:6px;
+}
+.stat-label{
+  font-size:13px;color:var(--ink-3);
+  font-weight:500;
+}
+
+/* Section */
+.section{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  margin-bottom:24px;
+}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:20px;flex-wrap:wrap;
+}
+.section-head h2{
+  font-size:20px;font-weight:600;
+  display:flex;align-items:center;gap:10px;
+}
+.section-head h2 i{font-size:18px;color:var(--accent)}
+
+/* Posts Table */
+.posts-list{display:flex;flex-direction:column;gap:12px}
+.post-row{
+  display:flex;align-items:center;gap:16px;
+  padding:14px;
+  background:var(--cream-2);
+  border-radius:12px;
+  transition:all .2s;
+}
+.post-row:hover{background:var(--cream)}
+.post-thumb{
+  width:80px;height:60px;
+  border-radius:8px;
+  background:var(--paper);
+  overflow:hidden;flex-shrink:0;
+}
+.post-thumb img{width:100%;height:100%;object-fit:cover}
+.post-thumb .placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;
+  font-size:24px;color:#fff;opacity:.7;
+}
+.post-info{flex:1;min-width:0}
+.post-info h3{
+  font-size:15.5px;font-weight:600;
+  margin-bottom:6px;line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:1;
+  -webkit-box-orient:vertical;overflow:hidden;
+  font-family:'Manrope',sans-serif;
+}
+.post-info .meta{
+  display:flex;gap:14px;font-size:12.5px;color:var(--ink-4);
+  flex-wrap:wrap;align-items:center;
+}
+.post-info .meta span{display:inline-flex;align-items:center;gap:4px}
+.post-status{
+  font-size:10.5px;font-weight:700;
+  padding:3px 10px;border-radius:100px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.post-status.published{background:#d1fae5;color:#065f46}
+.post-status.draft{background:#fef3c7;color:#92400e}
+.post-status.scheduled{background:#dbeafe;color:#1e40af}
+.post-status.archived{background:#fee2e2;color:#991b1b}
+body.dark .post-status.published{background:#064e3b;color:#6ee7b7}
+body.dark .post-status.draft{background:#451a03;color:#fcd34d}
+body.dark .post-status.scheduled{background:#0c1a3a;color:#93c5fd}
+body.dark .post-status.archived{background:#450a0a;color:#fca5a5}
+
+.post-actions{
+  display:flex;gap:6px;align-items:center;flex-shrink:0;
+}
+.post-actions .icon-btn{
+  width:34px;height:34px;font-size:13px;
+}
+
+/* Empty state */
+.empty{
+  text-align:center;padding:60px 20px;
+  color:var(--ink-3);
+}
+.empty i{
+  font-size:52px;opacity:.25;
+  margin-bottom:16px;color:var(--ink-4);
+}
+.empty h3{
+  font-size:18px;font-weight:600;
+  color:var(--ink);margin-bottom:8px;
+}
+.empty p{font-size:14px;margin-bottom:20px}
+
+/* Loader */
+.loader{text-align:center;padding:60px 20px;color:var(--ink-4)}
+.spinner{
+  width:36px;height:36px;
+  border:2.5px solid var(--line);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ═══════════ EDITOR ═══════════ */
+.editor-wrap{
+  max-width:900px;
+}
+.form-group{margin-bottom:20px}
+.form-label{
+  display:block;font-size:12.5px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.form-label .req{color:var(--accent)}
+.form-input,.form-textarea,.form-select{
+  width:100%;
+  padding:13px 16px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  font-size:14.5px;color:var(--ink);
+  transition:all .2s;
+  font-family:inherit;
+}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.6}
+.form-textarea.content{min-height:400px;font-family:'Menlo',monospace;font-size:14px}
+.form-input:focus,.form-textarea:focus,.form-select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(194,65,12,.08);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-hint{font-size:12px;color:var(--ink-4);margin-top:6px}
+
+/* Rich toolbar */
+.toolbar{
+  display:flex;gap:4px;flex-wrap:wrap;
+  padding:8px;
+  background:var(--cream-2);
+  border:1.5px solid var(--line);
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+}
+.toolbar button{
+  width:34px;height:34px;
+  border-radius:6px;
+  display:grid;place-items:center;
+  font-size:13px;color:var(--ink-2);
+  transition:all .2s;
+}
+.toolbar button:hover{background:var(--paper);color:var(--accent)}
+.toolbar .divider{
+  width:1px;height:24px;
+  background:var(--line-2);
+  margin:5px 4px;
+}
+.toolbar + .form-textarea{
+  border-radius:0 0 10px 10px;
+  border-top:1px solid var(--line);
+}
+
+/* Cover upload */
+.cover-upload{
+  border:2px dashed var(--line-2);
+  border-radius:12px;
+  padding:32px 20px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  background:var(--cream-2);
+  position:relative;
+  overflow:hidden;
+}
+.cover-upload:hover{border-color:var(--accent);background:var(--accent-soft)}
+.cover-upload.has-image{padding:0;border-style:solid}
+.cover-upload input{display:none}
+.cover-upload i{font-size:32px;color:var(--ink-4);margin-bottom:10px;display:block}
+.cover-upload p{font-size:13.5px;color:var(--ink-3)}
+.cover-upload p b{color:var(--accent)}
+.cover-preview{
+  width:100%;aspect-ratio:16/9;object-fit:cover;
+  display:none;
+}
+.cover-upload.has-image .cover-preview{display:block}
+.cover-upload.has-image .cover-placeholder{display:none}
+
+/* Tag input */
+.tags-input-wrap{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:8px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  min-height:48px;
+  align-items:center;
+}
+.tags-input-wrap:focus-within{border-color:var(--accent)}
+.tag-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:100px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:12.5px;font-weight:600;
+}
+.tag-chip button{color:inherit;font-size:11px;opacity:.7}
+.tag-chip button:hover{opacity:1}
+.tags-input{
+  flex:1;min-width:100px;
+  padding:6px 8px;
+  border:none;background:transparent;
+  font-size:14px;color:var(--ink);
+}
+
+/* Action bar */
+.editor-actions{
+  display:flex;gap:10px;justify-content:flex-end;
+  padding-top:24px;margin-top:24px;
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
+}
+
+/* ═══════════ PROFILE ═══════════ */
+.profile-header{
+  display:flex;align-items:center;gap:24px;
+  margin-bottom:32px;flex-wrap:wrap;
+}
+.profile-avatar-wrap{position:relative}
+.profile-avatar{
+  width:100px;height:100px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  color:#fff;font-weight:700;font-size:32px;
+  display:grid;place-items:center;
+  overflow:hidden;flex-shrink:0;
+}
+.profile-avatar img{width:100%;height:100%;object-fit:cover}
+.avatar-edit{
+  position:absolute;bottom:0;right:0;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:grid;place-items:center;
+  font-size:13px;cursor:pointer;
+  border:3px solid var(--paper);
+  transition:all .2s;
+}
+.avatar-edit:hover{background:var(--accent-2);transform:scale(1.05)}
+.profile-info h2{
+  font-size:26px;font-weight:600;
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:4px;flex-wrap:wrap;
+}
+.profile-info p{
+  font-size:14px;color:var(--ink-3);
+  margin-bottom:4px;
+  word-wrap:break-word;
+}
+.profile-badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.badge-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:100px;
+  font-size:12px;font-weight:600;
+  background:var(--accent-soft);color:var(--accent);
+}
+.badge-pill.verified{background:#dbeafe;color:#1e40af}
+body.dark .badge-pill.verified{background:#0c1a3a;color:#93c5fd}
+
+/* ═══════════ COMMENTS MOD ═══════════ */
+.comments-list{display:flex;flex-direction:column;gap:12px}
+.comment-row{
+  padding:16px;
+  background:var(--cream-2);
+  border-radius:12px;
+  display:flex;gap:14px;
+  align-items:flex-start;
+}
+.comment-row .avatar{
+  width:40px;height:40px;font-size:14px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  color:#fff;font-weight:700;
+  display:grid;place-items:center;
+  overflow:hidden;flex-shrink:0;
+}
+.comment-row .avatar img{width:100%;height:100%;object-fit:cover}
+.comment-row .body{flex:1;min-width:0}
+.comment-row .head{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:6px;flex-wrap:wrap;
+}
+.comment-row .head b{font-size:14px;font-weight:600}
+.comment-row .head .time{font-size:12px;color:var(--ink-4)}
+.comment-row .text{
+  font-size:14px;color:var(--ink-2);
+  line-height:1.6;margin-bottom:10px;
+  word-wrap:break-word;
+}
+.comment-row .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ═══════════ TOAST ═══════════ */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  padding:14px 22px;border-radius:12px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:9999;animation:toastIn .3s;
+  max-width:90vw;
+}
+.toast.success{background:#10b981;color:#fff}
+.toast.error{background:#ef4444;color:#fff}
+@keyframes toastIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(28,25,23,.5);
+  backdrop-filter:blur(4px);
+  display:none;place-items:center;
+  z-index:9998;padding:20px;
+}
+.modal-overlay.show{display:grid}
+.modal{
+  background:var(--paper);
+  border-radius:var(--radius-lg);
+  padding:28px;
+  max-width:440px;width:100%;
+  animation:modalIn .25s;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.modal h3 i{color:var(--danger);font-size:20px}
+.modal p{font-size:14.5px;color:var(--ink-3);margin-bottom:24px;line-height:1.6}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+/* Mobile nav toggle */
+.mobile-nav-toggle{
+  display:none;
+  position:fixed;bottom:20px;right:20px;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--ink);color:var(--cream);
+  z-index:99;font-size:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{
+    position:fixed;top:0;left:0;
+    width:280px;height:100vh;z-index:200;
+    transform:translateX(-100%);
+    transition:transform .3s;
+    box-shadow:8px 0 24px rgba(0,0,0,.1);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{padding:20px 20px 40px}
+  .mobile-nav-toggle{display:grid}
+  .form-row{grid-template-columns:1fr}
+}
+
+@media(max-width:640px){
+  .main{padding:16px 16px 32px}
+  .topbar h1{font-size:22px}
+  .topbar h1 i{font-size:20px}
+  .stat-card{padding:18px}
+  .stat-value{font-size:26px}
+  .section{padding:18px}
+  .post-row{flex-wrap:wrap}
+  .post-thumb{width:100%;height:140px}
+  .post-actions{width:100%;justify-content:flex-end}
+  .editor-actions{flex-direction:column-reverse}
+  .editor-actions .btn{width:100%;justify-content:center}
+  .profile-header{text-align:center;justify-content:center}
+  .toast{bottom:20px;right:20px;left:20px;text-align:center}
+  .toolbar button{width:30px;height:30px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="side-logo">
+      <!-- 🔽 APNA LOGO URL YAHAN PASTE KARO -->
+      <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="side-logo-img" onerror="this.style.display='none'">
+      <span class="side-logo-text">Ink<em>well</em></span>
+    </a>
+
+    <div class="side-user">
+      <div class="avatar" id="sideAvatar">U</div>
+      <div class="side-user-info">
+        <b id="sideName">Loading...</b>
+        <span id="sideRole">User</span>
+      </div>
+    </div>
+
+    <ul class="side-nav">
+      <li><a data-page="overview" class="active"><i class="fa-solid fa-chart-pie"></i> Overview</a></li>
+      <li><a data-page="posts"><i class="fa-solid fa-file-lines"></i> My Posts</a></li>
+      <li><a data-page="comments"><i class="fa-solid fa-comments"></i> Comments <span class="badge" id="pendingCommentsBadge" style="display:none">0</span></a></li>
+      <li><a data-page="editor"><i class="fa-solid fa-plus"></i> New Post</a></li>
+      <li><a data-page="profile"><i class="fa-solid fa-user-gear"></i> Profile</a></li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> View Site</a></li>
+    </ul>
+
+    <div class="side-footer">
+      <a class="side-nav" style="display:block">
+        <button class="btn btn-outline btn-sm" id="themeToggle" style="width:100%;justify-content:center">
+          <i class="fa-solid fa-moon"></i> Dark Mode
+        </button>
+      </a>
+      <button class="btn btn-outline btn-sm" id="logoutBtn" style="width:100%;justify-content:center;margin-top:8px">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ═══════ OVERVIEW ═══════ -->
+    <div class="page active" id="page-overview">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-chart-pie"></i> Overview</h1>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="goToPage('editor')">
+            <i class="fa-solid fa-plus"></i> New Post
+          </button>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2><i class="fa-solid fa-file-lines"></i> Recent Posts</h2>
+          <a class="btn btn-outline btn-sm" onclick="goToPage('posts')">View All</a>
+        </div>
+        <div class="posts-list" id="recentPosts">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ POSTS ═══════ -->
+    <div class="page" id="page-posts">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-file-lines"></i> My Posts</h1>
+        <div class="topbar-actions">
+          <select class="form-select" id="statusFilter" style="width:auto;padding:10px 16px">
+            <option value="">All Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="scheduled">Scheduled</option>
+          </select>
+          <button class="btn btn-primary" onclick="goToPage('editor')">
+            <i class="fa-solid fa-plus"></i> New Post
+          </button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="posts-list" id="allPostsList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ COMMENTS ═══════ -->
+    <div class="page" id="page-comments">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-comments"></i> Comments</h1>
+      </div>
+
+      <div class="section">
+        <div class="comments-list" id="commentsList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ EDITOR ═══════ -->
+    <div class="page" id="page-editor">
+      <div class="topbar">
+        <h1 id="editorTitle"><i class="fa-solid fa-pen-nib"></i> New Post</h1>
+        <div class="topbar-actions">
+          <button class="btn btn-outline" onclick="cancelEdit()">
+            <i class="fa-solid fa-xmark"></i> Cancel
+          </button>
+        </div>
+      </div>
+
+      <div class="editor-wrap">
+        <form id="postForm">
+
+          <div class="form-group">
+            <label class="form-label">Title <span class="req">*</span></label>
+            <input type="text" class="form-input" id="postTitle" placeholder="Enter a compelling title..." maxlength="200" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Excerpt / Summary</label>
+            <textarea class="form-textarea" id="postExcerpt" placeholder="A short description (shown in cards and search results)" maxlength="300" style="min-height:80px"></textarea>
+            <div class="form-hint"><span id="excerptCount">0</span>/300 characters</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cover Image</label>
+            <label class="cover-upload" id="coverUpload">
+              <input type="file" id="coverInput" accept="image/*">
+              <div class="cover-placeholder">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <p>Click to upload cover image<br><b>PNG, JPG up to 5MB</b></p>
+              </div>
+              <img class="cover-preview" id="coverPreview" alt="">
+            </label>
+            <div class="form-hint">Recommended: 1600×900px (16:9 ratio)</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select class="form-select" id="postCategory">
+                <option value="">Select category</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="postStatus">
+                <option value="draft">Draft</option>
+                <option value="published">Publish Now</option>
+                <option value="scheduled">Schedule</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" id="scheduleGroup" style="display:none">
+            <label class="form-label">Schedule Date & Time</label>
+            <input type="datetime-local" class="form-input" id="postSchedule">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tags</label>
+            <div class="tags-input-wrap" id="tagsWrap">
+              <input type="text" class="tags-input" id="tagsInput" placeholder="Type tag and press Enter...">
+            </div>
+            <div class="form-hint">Press Enter to add tags</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Content <span class="req">*</span></label>
+            <div class="toolbar">
+              <button type="button" data-cmd="bold" title="Bold"><i class="fa-solid fa-bold"></i></button>
+              <button type="button" data-cmd="italic" title="Italic"><i class="fa-solid fa-italic"></i></button>
+              <button type="button" data-cmd="underline" title="Underline"><i class="fa-solid fa-underline"></i></button>
+              <span class="divider"></span>
+              <button type="button" data-cmd="h2" title="Heading 2"><i class="fa-solid fa-heading"></i></button>
+              <button type="button" data-cmd="quote" title="Quote"><i class="fa-solid fa-quote-left"></i></button>
+              <button type="button" data-cmd="code" title="Code"><i class="fa-solid fa-code"></i></button>
+              <span class="divider"></span>
+              <button type="button" data-cmd="ul" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+              <button type="button" data-cmd="ol" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+              <span class="divider"></span>
+              <button type="button" data-cmd="link" title="Link"><i class="fa-solid fa-link"></i></button>
+              <button type="button" id="imageUploadBtn" title="Image"><i class="fa-solid fa-image"></i></button>
+              <span class="divider"></span>
+              <button type="button" data-cmd="preview" title="Preview"><i class="fa-solid fa-eye"></i></button>
+            </div>
+            <textarea class="form-textarea content" id="postContent" placeholder="Write your story here... (HTML supported)" required></textarea>
+          </div>
+
+          <div class="editor-actions">
+            <button type="button" class="btn btn-outline" onclick="saveDraft()">
+              <i class="fa-regular fa-floppy-disk"></i> Save Draft
+            </button>
+            <button type="button" class="btn btn-outline" onclick="previewPost()">
+              <i class="fa-solid fa-eye"></i> Preview
+            </button>
+            <button type="submit" class="btn btn-primary" id="publishBtn">
+              <i class="fa-solid fa-paper-plane"></i> Publish
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ═══════ PROFILE ═══════ -->
+    <div class="page" id="page-profile">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-user-gear"></i> Profile Settings</h1>
+      </div>
+
+      <div class="section">
+        <div class="profile-header">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <label class="avatar-edit">
+              <i class="fa-solid fa-camera"></i>
+              <input type="file" id="avatarInput" accept="image/*" style="display:none">
+            </label>
+          </div>
+          <div class="profile-info">
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileEmail">—</p>
+            <div class="profile-badges" id="profileBadges"></div>
+          </div>
+        </div>
+
+        <form id="profileForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" id="profileNameInput" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="profileEmailInput" readonly style="opacity:.6">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Bio</label>
+            <textarea class="form-textarea" id="profileBioInput" placeholder="Tell readers about yourself..." maxlength="300"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Website</label>
+              <input type="url" class="form-input" id="profileWebsiteInput" placeholder="https://yourwebsite.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Twitter / X</label>
+              <input type="text" class="form-input" id="profileTwitterInput" placeholder="@username">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">LinkedIn</label>
+            <input type="url" class="form-input" id="profileLinkedinInput" placeholder="https://linkedin.com/in/username">
+          </div>
+
+          <div class="editor-actions">
+            <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+              <i class="fa-solid fa-check"></i> Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2><i class="fa-solid fa-lock"></i> Change Password</h2>
+        </div>
+        <form id="passwordForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <input type="password" class="form-input" id="currentPassword" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" class="form-input" id="newPassword" required minlength="6">
+            </div>
+          </div>
+          <div class="editor-actions">
+            <button type="submit" class="btn btn-primary" id="changePwBtn">
+              <i class="fa-solid fa-lock"></i> Update Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<button class="mobile-nav-toggle" id="mobileNavToggle"><i class="fa-solid fa-bars"></i></button>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3><i class="fa-solid fa-triangle-exclamation"></i> Delete Post?</h3>
+    <p>This will move the post to trash. You can restore it later from the trash.</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Image Upload Modal -->
+<input type="file" id="inlineImageInput" accept="image/*" style="display:none">
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api/blog',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
+};
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const $ = (id) => document.getElementById(id);
+const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const getInitials = (n) => (n || 'U').split(' ').map(x => x[0]).join('').slice(0,2).toUpperCase();
+
+const getToken = () => localStorage.getItem('token');
+const getUser = () => { try { return JSON.parse(localStorage.getItem('user')); } catch { return null; } };
+
+function setUser(u) { localStorage.setItem('user', JSON.stringify(u)); }
+
+async function apiFetch(endpoint, opts = {}) {
+  const headers = { ...(opts.headers || {}) };
+  if (getToken()) headers['Authorization'] = 'Bearer ' + getToken();
+  if (!headers['Content-Type'] && !(opts.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
+  const res = await fetch(CONFIG.API_URL + endpoint, { ...opts, headers });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+function timeAgo(s) {
+  if (!s) return '';
+  const t = new Date(s.includes('Z') || s.includes('+') ? s : s.replace(' ','T') + '+05:30');
+  const diff = Math.floor((Date.now() - t.getTime())/1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return t.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTH CHECK
+// ═══════════════════════════════════════════════════════════
+(function init() {
+  const token = getToken();
+  const user = getUser();
+  if (!token || !user) {
+    window.location.href = 'login.html';
+    return;
+  }
+  if (user.status === 'pending') {
+    alert('Your account is pending approval.');
+    window.location.href = 'index.html';
+    return;
+  }
+  // Admin → redirect to superadmin
+  if (user.role === 'admin') {
+    window.location.href = 'superadmin.html';
+    return;
+  }
+  // Non-author → show notice
+  if (user.role_type !== 'author') {
+    alert('You need to be an author to access the dashboard. Contact admin.');
+    window.location.href = 'index.html';
+    return;
+  }
+
+  setupUserUI(user);
+  setupTheme();
+  setupNav();
+  loadOverview();
+  loadCategories();
+  loadProfile();
+
+  $('statusFilter').onchange = () => loadAllPosts();
+})();
+
+function setupUserUI(u) {
+  $('sideName').textContent = u.name || 'User';
+  $('sideRole').textContent = u.role_type === 'author' ? 'Author ✍️' : 'User';
+  $('profileName').textContent = u.name || 'User';
+  $('profileEmail').textContent = u.email || '';
+
+  const av = $('sideAvatar');
+  const pav = $('profileAvatar');
+  if (u.avatar_url) {
+    av.innerHTML = `<img src="${imgUrl(u.avatar_url)}" alt="">`;
+    pav.innerHTML = `<img src="${imgUrl(u.avatar_url)}" alt="">`;
+  } else {
+    const ini = getInitials(u.name);
+    av.textContent = ini;
+    pav.textContent = ini;
+  }
+
+  let badges = '';
+  if (u.is_verified) badges += '<span class="badge-pill verified"><i class="fa-solid fa-check-circle"></i> Verified</span>';
+  badges += `<span class="badge-pill"><i class="fa-solid fa-pen-nib"></i> Author</span>`;
+  $('profileBadges').innerHTML = badges;
+}
+
+// ═══════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════
+function setupTheme() {
+  const btn = $('themeToggle');
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+  }
+  btn.onclick = () => {
+    document.body.classList.toggle('dark');
+    const d = document.body.classList.contains('dark');
+    btn.innerHTML = d ? '<i class="fa-solid fa-sun"></i> Light Mode' : '<i class="fa-solid fa-moon"></i> Dark Mode';
+    localStorage.setItem('theme', d ? 'dark' : 'light');
+  };
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════
+function setupNav() {
+  document.querySelectorAll('.side-nav a[data-page]').forEach(a => {
+    a.onclick = () => goToPage(a.dataset.page);
+  });
+  $('mobileNavToggle').onclick = () => $('sidebar').classList.toggle('open');
+  $('logoutBtn').onclick = () => {
+    if (confirm('Logout from your account?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = 'index.html';
+    }
+  };
+}
+
+function goToPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.side-nav a[data-page]').forEach(a => a.classList.remove('active'));
+  const el = $('page-' + page);
+  if (el) el.classList.add('active');
+  const link = document.querySelector(`.side-nav a[data-page="${page}"]`);
+  if (link) link.classList.add('active');
+  $('sidebar').classList.remove('open');
+
+  if (page === 'posts') loadAllPosts();
+  if (page === 'comments') loadComments();
+  if (page === 'profile') loadProfile();
+  if (page === 'editor' && !editingPostId) resetEditor();
+}
+
+// ═══════════════════════════════════════════════════════════
+// OVERVIEW / STATS
+// ═══════════════════════════════════════════════════════════
+async function loadOverview() {
+  try {
+    const stats = await apiFetch('/author/stats');
+    const p = stats.posts || {};
+
+    $('statsGrid').innerHTML = `
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-file-lines"></i></div>
+        <div class="stat-value">${p.total || 0}</div>
+        <div class="stat-label">Total Posts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#d1fae5;color:#065f46"><i class="fa-solid fa-check-circle"></i></div>
+        <div class="stat-value">${p.published || 0}</div>
+        <div class="stat-label">Published</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#dbeafe;color:#1e40af"><i class="fa-solid fa-eye"></i></div>
+        <div class="stat-value">${formatNum(p.total_views || 0)}</div>
+        <div class="stat-label">Total Views</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fee2e2;color:#991b1b"><i class="fa-solid fa-heart"></i></div>
+        <div class="stat-value">${formatNum(stats.reactions || 0)}</div>
+        <div class="stat-label">Reactions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fef3c7;color:#92400e"><i class="fa-solid fa-comments"></i></div>
+        <div class="stat-value">${formatNum(stats.comments?.total || 0)}</div>
+        <div class="stat-label">Comments</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#e0e7ff;color:#3730a3"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-value">${formatNum(stats.followers || 0)}</div>
+        <div class="stat-label">Followers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fce7f3;color:#9d174d"><i class="fa-solid fa-bookmark"></i></div>
+        <div class="stat-value">${formatNum(stats.bookmarks || 0)}</div>
+        <div class="stat-label">Bookmarks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#f3e8ff;color:#6b21a8"><i class="fa-solid fa-pen"></i></div>
+        <div class="stat-value">${p.drafts || 0}</div>
+        <div class="stat-label">Drafts</div>
+      </div>
+    `;
+
+    // Pending comments badge
+    const pending = stats.comments?.pending || 0;
+    if (pending > 0) {
+      $('pendingCommentsBadge').textContent = pending;
+      $('pendingCommentsBadge').style.display = 'inline-block';
+    }
+
+    // Recent posts
+    const posts = await apiFetch('/author/my-posts');
+    const recent = (posts || []).slice(0, 5);
+    $('recentPosts').innerHTML = recent.length
+      ? recent.map(renderPostRow).join('')
+      : `<div class="empty"><i class="fa-regular fa-file-lines"></i><h3>No posts yet</h3><p>Create your first post!</p></div>`;
+    setupPostRowActions();
+
+  } catch (e) {
+    console.error(e);
+    showToast(e.message, 'error');
+  }
+}
+
+function formatNum(n) {
+  n = Number(n) || 0;
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n;
+}
+
+// ═══════════════════════════════════════════════════════════
+// POSTS LIST
+// ═══════════════════════════════════════════════════════════
+async function loadAllPosts() {
+  const list = $('allPostsList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  try {
+    const status = $('statusFilter').value;
+    const posts = await apiFetch('/author/my-posts' + (status ? `?status=${status}` : ''));
+    if (!posts || !posts.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-file-lines"></i><h3>No posts found</h3><p>Create your first post to get started.</p></div>`;
+      return;
+    }
+    list.innerHTML = posts.map(renderPostRow).join('');
+    setupPostRowActions();
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3><p>${escapeHtml(e.message)}</p></div>`;
+  }
+}
+
+function renderPostRow(p) {
+  const cover = p.cover_image
+    ? `<img src="${imgUrl(p.cover_image)}" alt="" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📝</div>'">`
+    : `<div class="placeholder">📝</div>`;
+  const statusClass = p.status || 'draft';
+  return `
+    <div class="post-row" data-id="${p.id}">
+      <div class="post-thumb">${cover}</div>
+      <div class="post-info">
+        <h3>${escapeHtml(p.title)}</h3>
+        <div class="meta">
+          <span class="post-status ${statusClass}">${statusClass}</span>
+          <span><i class="fa-solid fa-eye"></i> ${p.views || 0}</span>
+          <span><i class="fa-solid fa-heart"></i> ${p.reaction_count || 0}</span>
+          <span><i class="fa-solid fa-comment"></i> ${p.comment_count || 0}</span>
+          <span>${timeAgo(p.created_at)}</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        ${p.status === 'published' ? `<a href="post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" class="icon-btn" title="View"><i class="fa-solid fa-eye"></i></a>` : ''}
+        <button class="icon-btn" data-edit="${p.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+        <button class="icon-btn" data-delete="${p.id}" title="Delete" style="color:var(--danger)"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `;
+}
+
+let deleteTargetId = null;
+function setupPostRowActions() {
+  document.querySelectorAll('[data-edit]').forEach(b => {
+    b.onclick = () => editPost(b.dataset.edit);
+  });
+  document.querySelectorAll('[data-delete]').forEach(b => {
+    b.onclick = () => openDeleteModal(b.dataset.delete);
+  });
+}
+
+function openDeleteModal(id) {
+  deleteTargetId = id;
+  $('deleteModal').classList.add('show');
+}
+function closeDeleteModal() {
+  deleteTargetId = null;
+  $('deleteModal').classList.remove('show');
+}
+$('confirmDeleteBtn').onclick = async () => {
+  if (!deleteTargetId) return;
+  try {
+    await apiFetch('/posts/' + deleteTargetId, { method: 'DELETE' });
+    showToast('Post deleted', 'success');
+    closeDeleteModal();
+    loadAllPosts();
+    loadOverview();
+  } catch (e) { showToast(e.message, 'error'); }
+};
+
+// ═══════════════════════════════════════════════════════════
+// EDITOR
+// ═══════════════════════════════════════════════════════════
+let editingPostId = null;
+let currentTags = [];
+let coverData = { url: null, publicId: null };
+
+function resetEditor() {
+  editingPostId = null;
+  currentTags = [];
+  coverData = { url: null, publicId: null };
+  $('editorTitle').innerHTML = '<i class="fa-solid fa-pen-nib"></i> New Post';
+  $('postTitle').value = '';
+  $('postExcerpt').value = '';
+  $('postContent').value = '';
+  $('postCategory').value = '';
+  $('postStatus').value = 'draft';
+  $('postSchedule').value = '';
+  $('scheduleGroup').style.display = 'none';
+  $('coverUpload').classList.remove('has-image');
+  $('coverPreview').src = '';
+  $('coverInput').value = '';
+  renderTags();
+  updateExcerptCount();
+  $('publishBtn').innerHTML = '<i class="fa-solid fa-paper-plane"></i> Publish';
+}
+
+function cancelEdit() {
+  if (confirm('Discard changes?')) {
+    resetEditor();
+    goToPage('overview');
+  }
+}
+
+async function editPost(id) {
+  try {
+    const post = await apiFetch('/posts/id/' + id);
+    editingPostId = post.id;
+    $('editorTitle').innerHTML = '<i class="fa-solid fa-pen"></i> Edit Post';
+    $('postTitle').value = post.title || '';
+    $('postExcerpt').value = post.excerpt || '';
+    $('postContent').value = post.content || '';
+    $('postCategory').value = post.category_id || '';
+    $('postStatus').value = post.status || 'draft';
+    $('postSchedule').value = post.scheduled_at ? toLocalDatetime(post.scheduled_at) : '';
+    if (post.status === 'scheduled') $('scheduleGroup').style.display = 'block';
+    else $('scheduleGroup').style.display = 'none';
+
+    if (post.cover_image) {
+      coverData = { url: post.cover_image, publicId: post.cover_public_id };
+      $('coverPreview').src = imgUrl(post.cover_image);
+      $('coverUpload').classList.add('has-image');
+    } else {
+      coverData = { url: null, publicId: null };
+      $('coverUpload').classList.remove('has-image');
+    }
+
+    currentTags = (post.tags || []).map(t => t.name);
+    renderTags();
+    updateExcerptCount();
+
+    $('publishBtn').innerHTML = '<i class="fa-solid fa-check"></i> Update';
+    goToPage('editor');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+function toLocalDatetime(s) {
+  const d = new Date(s.includes('Z') || s.includes('+') ? s : s.replace(' ','T') + '+05:30');
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// Cover upload
+$('coverInput').onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) return showToast('Image too large (max 5MB)', 'error');
+
+  showToast('Uploading cover...', 'success');
+  const fd = new FormData();
+  fd.append('file', file);
+
+  try {
+    const res = await fetch(CONFIG.API_URL + '/upload/cover', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: fd
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    coverData = { url: data.url, publicId: data.public_id };
+    $('coverPreview').src = imgUrl(data.url);
+    $('coverUpload').classList.add('has-image');
+    showToast('Cover uploaded!', 'success');
+  } catch (e) { showToast(e.message, 'error'); }
+};
+
+// Excerpt counter
+function updateExcerptCount() {
+  $('excerptCount').textContent = $('postExcerpt').value.length;
+}
+$('postExcerpt').addEventListener('input', updateExcerptCount);
+
+// Schedule toggle
+$('postStatus').addEventListener('change', () => {
+  $('scheduleGroup').style.display = $('postStatus').value === 'scheduled' ? 'block' : 'none';
+});
+
+// Tags
+function renderTags() {
+  const wrap = $('tagsWrap');
+  wrap.querySelectorAll('.tag-chip').forEach(t => t.remove());
+  currentTags.forEach((t, i) => {
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+    chip.innerHTML = `${escapeHtml(t)} <button type="button">×</button>`;
+    chip.querySelector('button').onclick = () => {
+      currentTags.splice(i, 1);
+      renderTags();
+    };
+    wrap.insertBefore(chip, $('tagsInput'));
+  });
+}
+$('tagsInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const v = e.target.value.trim().toLowerCase();
+    if (v && !currentTags.includes(v)) {
+      currentTags.push(v);
+      renderTags();
+    }
+    e.target.value = '';
+  }
+});
+
+// Toolbar
+document.querySelectorAll('.toolbar button[data-cmd]').forEach(btn => {
+  btn.onclick = () => {
+    const ta = $('postContent');
+    const cmd = btn.dataset.cmd;
+    wrapText(ta, cmd);
+  };
+});
+
+function wrapText(ta, cmd) {
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  let before = ta.value.substring(0, start);
+  let after = ta.value.substring(end);
+  let insert = '';
+
+  switch(cmd) {
+    case 'bold': insert = `<strong>${sel || 'bold text'}</strong>`; break;
+    case 'italic': insert = `<em>${sel || 'italic text'}</em>`; break;
+    case 'underline': insert = `<u>${sel || 'underlined'}</u>`; break;
+    case 'h2': insert = `\n<h2>${sel || 'Heading'}</h2>\n`; break;
+    case 'quote': insert = `\n<blockquote>${sel || 'Quote'}</blockquote>\n`; break;
+    case 'code': insert = `<code>${sel || 'code'}</code>`; break;
+    case 'ul': insert = `\n<ul>\n  <li>${sel || 'Item 1'}</li>\n  <li>Item 2</li>\n</ul>\n`; break;
+    case 'ol': insert = `\n<ol>\n  <li>${sel || 'Item 1'}</li>\n  <li>Item 2</li>\n</ol>\n`; break;
+    case 'link':
+      const url = prompt('Enter URL:', 'https://');
+      if (!url) return;
+      insert = `<a href="${url}">${sel || url}</a>`;
+      break;
+    case 'preview':
+      previewPost();
+      return;
+  }
+  ta.value = before + insert + after;
+  ta.focus();
+  ta.setSelectionRange(start + insert.length, start + insert.length);
+}
+
+// Inline image upload
+$('imageUploadBtn').onclick = () => $('inlineImageInput').click();
+$('inlineImageInput').onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  showToast('Uploading image...', 'success');
+  const fd = new FormData();
+  fd.append('file', file);
+
+  try {
+    const res = await fetch(CONFIG.API_URL + '/upload/content', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: fd
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    const ta = $('postContent');
+    const insert = `\n<img src="${data.url}" alt="image">\n`;
+    const pos = ta.selectionStart;
+    ta.value = ta.value.substring(0, pos) + insert + ta.value.substring(pos);
+    showToast('Image inserted!', 'success');
+  } catch (e) { showToast(e.message, 'error'); }
+};
+
+// Preview
+function previewPost() {
+  const html = `<!DOCTYPE html>
+<html><head><title>Preview — ${escapeHtml($('postTitle').value)}</title>
+<style>
+body{font-family:'Manrope',sans-serif;max-width:720px;margin:40px auto;padding:20px;line-height:1.7;color:#1c1917;background:#faf7f2}
+h1{font-family:'Fraunces',serif;font-size:36px;line-height:1.15;margin-bottom:20px}
+h2{font-family:'Fraunces',serif;margin:30px 0 15px}
+blockquote{border-left:4px solid #c2410c;padding-left:20px;font-style:italic;color:#44403c}
+img{max-width:100%;border-radius:12px;margin:20px 0}
+</style></head>
+<body>
+<h1>${escapeHtml($('postTitle').value || 'Untitled')}</h1>
+${$('postContent').value || '<p>No content yet.</p>'}
+</body></html>`;
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+}
+
+// Save draft
+async function saveDraft() {
+  await savePost('draft');
+}
+
+// Form submit
+$('postForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const status = $('postStatus').value;
+  if (status === 'scheduled' && !$('postSchedule').value) {
+    return showToast('Please select a schedule date/time', 'error');
+  }
+  await savePost(status);
+};
+
+async function savePost(status) {
+  const title = $('postTitle').value.trim();
+  const content = $('postContent').value.trim();
+  if (!title || !content) return showToast('Title and content are required', 'error');
+
+  const btn = $('publishBtn');
+  const origHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+  const body = {
+    title,
+    excerpt: $('postExcerpt').value.trim(),
+    content,
+    cover_image: coverData.url,
+    cover_public_id: coverData.publicId,
+    category_id: $('postCategory').value || null,
+    status,
+    tags: currentTags,
+    scheduled_at: status === 'scheduled' ? $('postSchedule').value : null
+  };
+
+  try {
+    let res;
+    if (editingPostId) {
+      res = await apiFetch('/posts/' + editingPostId, { method: 'PUT', body: JSON.stringify(body) });
+      showToast('Post updated!', 'success');
+    } else {
+      res = await apiFetch('/posts', { method: 'POST', body: JSON.stringify(body) });
+      showToast('Post created!', 'success');
+      editingPostId = res.id;
+    }
+    setTimeout(() => {
+      resetEditor();
+      goToPage('posts');
+    }, 800);
+  } catch (e) {
+    showToast(e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = origHtml;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// CATEGORIES
+// ═══════════════════════════════════════════════════════════
+async function loadCategories() {
+  try {
+    const cats = await apiFetch('/categories');
+    const sel = $('postCategory');
+    sel.innerHTML = '<option value="">Select category</option>' +
+      cats.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+  } catch {}
+}
+
+// ═══════════════════════════════════════════════════════════
+// COMMENTS
+// ═══════════════════════════════════════════════════════════
+async function loadComments() {
+  const list = $('commentsList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  try {
+    const comments = await apiFetch('/comments');
+    if (!comments || !comments.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-comments"></i><h3>No comments yet</h3></div>`;
+      return;
+    }
+    list.innerHTML = comments.map(renderCommentRow).join('');
+    setupCommentRowActions();
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
+}
+
+function renderCommentRow(c) {
+  const ini = getInitials(c.author_name);
+  const av = c.author_avatar ? `<img src="${imgUrl(c.author_avatar)}" alt="">` : ini;
+  return `
+    <div class="comment-row" data-id="${c.id}">
+      <div class="avatar">${av}</div>
+      <div class="body">
+        <div class="head">
+          <b>${escapeHtml(c.author_name)}</b>
+          <span class="time">${timeAgo(c.created_at)}</span>
+          <span class="post-status ${c.status === 'approved' ? 'published' : c.status === 'spam' ? 'archived' : 'draft'}" style="font-size:10px">${c.status}</span>
+        </div>
+        <p style="font-size:12.5px;color:var(--ink-4);margin-bottom:6px">
+          on <a href="post.html?slug=${escapeHtml(c.post_slug)}" target="_blank" style="color:var(--accent)">${escapeHtml(c.post_title)}</a>
+        </p>
+        <div class="text">${escapeHtml(c.content)}</div>
+        <div class="actions">
+          ${c.status !== 'approved' ? `<button class="btn btn-sm btn-primary" data-approve="${c.id}"><i class="fa-solid fa-check"></i> Approve</button>` : ''}
+          ${c.status !== 'spam' ? `<button class="btn btn-sm btn-outline" data-spam="${c.id}"><i class="fa-solid fa-ban"></i> Spam</button>` : ''}
+          <button class="btn btn-sm btn-danger" data-del="${c.id}"><i class="fa-solid fa-trash"></i> Delete</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function setupCommentRowActions() {
+  document.querySelectorAll('[data-approve]').forEach(b => {
+    b.onclick = async () => {
+      await apiFetch('/comments/' + b.dataset.approve, { method: 'PUT', body: JSON.stringify({ status: 'approved' }) });
+      showToast('Approved', 'success');
+      loadComments();
+    };
+  });
+  document.querySelectorAll('[data-spam]').forEach(b => {
+    b.onclick = async () => {
+      await apiFetch('/comments/' + b.dataset.spam, { method: 'PUT', body: JSON.stringify({ status: 'spam' }) });
+      showToast('Marked as spam', 'success');
+      loadComments();
+    };
+  });
+  document.querySelectorAll('[data-del]').forEach(b => {
+    b.onclick = async () => {
+      if (!confirm('Delete this comment?')) return;
+      await apiFetch('/comments/' + b.dataset.del, { method: 'DELETE' });
+      showToast('Deleted', 'success');
+      loadComments();
+    };
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════════════════════
+async function loadProfile() {
+  try {
+    const me = await apiFetch('/auth/me');
+    setUser(me);
+    setupUserUI(me);
+
+    $('profileNameInput').value = me.name || '';
+    $('profileEmailInput').value = me.email || '';
+    $('profileBioInput').value = me.bio || '';
+    $('profileWebsiteInput').value = me.website || '';
+    $('profileTwitterInput').value = me.twitter || '';
+    $('profileLinkedinInput').value = me.linkedin || '';
+  } catch (e) { console.error(e); }
+}
+
+$('profileForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = $('saveProfileBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+  try {
+    await apiFetch('/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify({
+        name: $('profileNameInput').value.trim(),
+        bio: $('profileBioInput').value.trim(),
+        website: $('profileWebsiteInput').value.trim(),
+        twitter: $('profileTwitterInput').value.trim(),
+        linkedin: $('profileLinkedinInput').value.trim()
+      })
+    });
+    showToast('Profile updated!', 'success');
+    loadProfile();
+  } catch (e) { showToast(e.message, 'error'); }
+  finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Save Changes';
+  }
+};
+
+$('avatarInput').onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  showToast('Uploading avatar...', 'success');
+  const fd = new FormData();
+  fd.append('avatar', file);
+  try {
+    const res = await fetch(CONFIG.API_URL + '/auth/avatar', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: fd
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    showToast('Avatar updated!', 'success');
+    const u = getUser();
+    u.avatar_url = data.url;
+    setUser(u);
+    setupUserUI(u);
+  } catch (e) { showToast(e.message, 'error'); }
+};
+
+$('passwordForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = $('changePwBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Updating...';
+  try {
+    await apiFetch('/auth/password', {
+      method: 'PUT',
+      body: JSON.stringify({
+        current_password: $('currentPassword').value,
+        new_password: $('newPassword').value
+      })
+    });
+    showToast('Password updated!', 'success');
+    $('passwordForm').reset();
+  } catch (e) { showToast(e.message, 'error'); }
+  finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-lock"></i> Update Password';
+  }
+};
+</script>
+</body>
+</html>
