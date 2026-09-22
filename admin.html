@@ -3,61 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<title>Studio — InkWell</title>
+<title>Author Studio — InkWell</title>
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --primary:#4f46e5;
-  --primary-dark:#4338ca;
-  --primary-soft:#eef2ff;
-  --success:#10b981;
-  --danger:#ef4444;
-  --warning:#f59e0b;
-  --text:#111827;
-  --text-light:#6b7280;
-  --text-mute:#9ca3af;
-  --bg:#f9fafb;
-  --bg-card:#fff;
-  --border:#e5e7eb;
-  --sidebar-bg:#111827;
-  --radius:12px;
-  --radius-lg:16px;
-}
-html{-webkit-text-size-adjust:100%}
+:root{--primary:#4f46e5;--primary-dark:#4338ca;--primary-soft:#eef2ff;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--text:#111827;--text-light:#6b7280;--text-mute:#9ca3af;--bg:#f9fafb;--border:#e5e7eb;--sidebar:#111827;--radius:14px}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden}
 body.locked{overflow:hidden}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;outline:none;font-family:inherit;font-weight:600;background:none}
 input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;appearance:none}
 
-/* ══════════════════════════════════════════
-   LOGIN SCREEN
-══════════════════════════════════════════ */
-.login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:24px}
-.login-card{background:#fff;border-radius:20px;padding:36px 28px;max-width:420px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.25)}
-.login-logo{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;text-align:center;margin-bottom:6px}
+/* LOGIN */
+.login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#4f46e5,#7c3aed,#1e1b4b);padding:20px;position:relative;overflow:hidden}
+.login-screen::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(236,72,153,.35),transparent 70%);border-radius:50%}
+.login-card{background:#fff;border-radius:20px;padding:36px 26px;max-width:420px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.4);position:relative;z-index:1}
+.login-logo{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;text-align:center;margin-bottom:6px;color:#111827}
 .login-logo span{color:var(--primary)}
-.login-sub{text-align:center;color:var(--text-light);font-size:14px;margin-bottom:26px}
+.login-sub{text-align:center;color:var(--text-light);font-size:13.5px;margin-bottom:26px}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#374151}
-.field input,.field textarea,.field select{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:#fff;color:var(--text);transition:all .15s}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(79,70,229,.12)}
-.field textarea{min-height:80px;resize:vertical;line-height:1.5}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;transition:all .15s;white-space:nowrap;line-height:1.2}
+.field input,.field textarea,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:#fff;color:var(--text);transition:border-color .15s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(79,70,229,.1)}
+.field textarea{min-height:80px;resize:vertical}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:10px;font-size:13.5px;font-weight:600;transition:all .15s;white-space:nowrap}
 .btn-primary{background:var(--primary);color:#fff}
 .btn-primary:hover{background:var(--primary-dark)}
 .btn-success{background:var(--success);color:#fff}
-.btn-success:hover{background:#059669}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-danger:hover{background:#dc2626}
 .btn-outline{background:#fff;color:var(--text);border:1.5px solid var(--border)}
 .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
-.btn-ghost{background:transparent;color:var(--text-light)}
-.btn-ghost:hover{background:#f3f4f6;color:var(--text)}
-.btn-sm{padding:8px 14px;font-size:13px;border-radius:8px}
+.btn-sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
 .btn-block{width:100%}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .alert{padding:12px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px;display:none;line-height:1.5}
@@ -65,299 +42,217 @@ input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;a
 .alert-error{background:#fef2f2;color:#b91c1c;border-left:3px solid var(--danger)}
 .alert-success{background:#ecfdf5;color:#065f46;border-left:3px solid var(--success)}
 .link{color:var(--primary);font-weight:600;cursor:pointer}
-.login-footer{text-align:center;margin-top:18px;font-size:13.5px;color:var(--text-light)}
+.login-footer{text-align:center;margin-top:16px;font-size:13px;color:var(--text-light)}
 
-/* ══════════════════════════════════════════
-   APP LAYOUT
-══════════════════════════════════════════ */
+/* APP */
 .app{display:none;min-height:100vh;min-height:100dvh}
 .app.active{display:block}
-
-/* Sidebar (desktop) */
-.sidebar{background:var(--sidebar-bg);color:#fff;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:250px;overflow-y:auto;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
-.sidebar-brand{padding:22px 22px 20px;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.sidebar-brand span{color:#818cf8}
-.sidebar-brand .sub{font-size:11px;font-weight:600;color:#6b7280;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;font-family:'Inter',sans-serif}
-.sidebar nav{padding:14px 0;flex:1}
-.sidebar nav .group{padding:14px 22px 6px;font-size:10.5px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:1.2px}
-.sidebar nav a{display:flex;align-items:center;gap:12px;padding:11px 22px;color:#9ca3af;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.sidebar{background:var(--sidebar);color:#fff;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:250px;overflow-y:auto;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sidebar-brand{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sidebar-brand .name{font-family:'Playfair Display',serif;font-size:20px;font-weight:900}
+.sidebar-brand .name span{color:#818cf8}
+.sidebar-brand .role{font-size:10.5px;font-weight:700;color:#a78bfa;letter-spacing:1.2px;text-transform:uppercase;margin-top:5px;background:rgba(167,139,250,.15);padding:3px 8px;border-radius:20px;display:inline-block}
+.sidebar nav{padding:12px 0;flex:1}
+.sidebar nav .group{padding:12px 20px 5px;font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:1.2px}
+.sidebar nav a{display:flex;align-items:center;gap:11px;padding:11px 20px;color:#9ca3af;font-size:13.5px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
 .sidebar nav a:hover{background:rgba(255,255,255,.04);color:#fff}
-.sidebar nav a.active{background:rgba(79,70,229,.18);color:#fff;border-left-color:#818cf8}
-.sidebar nav a .ic{width:20px;text-align:center;font-size:16px;flex-shrink:0}
-.sidebar nav a .badge-pill{margin-left:auto;background:var(--danger);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;min-width:22px;text-align:center}
-.sidebar-footer{padding:16px 20px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.sidebar-user{display:flex;align-items:center;gap:11px;margin-bottom:12px}
-.sidebar-user .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#a855f7);display:grid;place-items:center;font-weight:700;font-size:15px;flex-shrink:0;overflow:hidden}
+.sidebar nav a.active{background:rgba(79,70,229,.2);color:#fff;border-left-color:#818cf8}
+.sidebar nav a .ic{width:20px;text-align:center;font-size:15px;flex-shrink:0}
+.sidebar nav a .badge-pill{margin-left:auto;background:var(--danger);color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center}
+.sidebar-footer{padding:14px 18px 18px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sidebar-user{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sidebar-user .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#a855f7);display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden;border:2px solid rgba(129,140,248,.3)}
 .sidebar-user .av img{width:100%;height:100%;object-fit:cover}
 .sidebar-user .info{flex:1;min-width:0}
-.sidebar-user b{display:block;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sidebar-user span{display:block;font-size:11.5px;color:#9ca3af}
-.logout-btn{width:100%;padding:10px;background:rgba(239,68,68,.12);color:#fca5a5;border-radius:9px;font-size:13px;font-weight:600;transition:all .15s}
-.logout-btn:hover{background:rgba(239,68,68,.25);color:#fff}
+.sidebar-user b{display:block;font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-user span{display:block;font-size:11px;color:#9ca3af}
+.logout-btn{width:100%;padding:9px;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:8px;font-size:12.5px;font-weight:600;transition:all .15s}
+.logout-btn:hover{background:rgba(239,68,68,.3);color:#fff}
 
-/* Main content */
-.main{min-height:100vh;min-height:100dvh;padding:24px 32px 80px;margin-left:250px}
-
-/* Mobile top bar */
-.mobile-bar{display:none;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:12px 16px;align-items:center;justify-content:space-between;z-index:50;gap:12px}
-.mobile-bar .menu-icon{width:40px;height:40px;border-radius:10px;background:#f3f4f6;display:grid;place-items:center;font-size:18px}
-.mobile-bar .brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:900}
+.main{min-height:100vh;min-height:100dvh;padding:22px 28px 80px;margin-left:250px}
+.mobile-bar{display:none;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:11px 16px;align-items:center;justify-content:space-between;z-index:50;gap:12px}
+.mobile-bar .menu-icon{width:38px;height:38px;border-radius:10px;background:var(--primary-soft);display:grid;place-items:center;font-size:17px;color:var(--primary)}
+.mobile-bar .brand{font-family:'Playfair Display',serif;font-size:19px;font-weight:900}
 .mobile-bar .brand span{color:var(--primary)}
-
-/* Overlay for mobile sidebar */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;backdrop-filter:blur(2px)}
+.mobile-bar .badge{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.overlay{display:none;position:fixed;inset:0;background:rgba(17,24,39,.5);z-index:99;backdrop-filter:blur(2px)}
 .overlay.show{display:block}
 
-/* Page head */
-.page-head{margin-bottom:24px}
-.page-head h1{font-size:26px;font-weight:800;letter-spacing:-.5px}
-.page-head .sub{color:var(--text-light);font-size:14px;margin-top:3px}
-.page-head-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.page-head-row .actions{display:flex;gap:8px;flex-wrap:wrap}
-
-/* Sections */
+.page-head{margin-bottom:20px}
+.page-head h1{font-size:24px;font-weight:800;letter-spacing:-.5px}
+.page-head .sub{color:var(--text-light);font-size:13.5px;margin-top:3px}
+.page-head-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:20px}
 .section{display:none;animation:fadeIn .25s ease}
 .section.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-
-/* Stats grid */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
-.stat{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:all .2s;cursor:pointer}
-.stat:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.06);border-color:#d1d5db}
-.stat .lbl{font-size:12.5px;color:var(--text-light);font-weight:500;margin-bottom:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:13px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:17px;transition:all .2s;cursor:pointer}
+.stat:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(79,70,229,.08);border-color:#c7d2fe}
+.stat .lbl{font-size:12px;color:var(--text-light);font-weight:500;margin-bottom:6px}
 .stat .val{font-size:26px;font-weight:800;letter-spacing:-.5px}
-.stat .sub{font-size:12px;color:var(--text-mute);margin-top:4px}
-.stat.highlight{background:linear-gradient(135deg,#fef3c7,#fed7aa);border-color:#fbbf24}
-
-/* Cards */
-.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px}
-.card-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.card-head h2{font-size:16px;font-weight:700}
-.card-head .count{font-size:13px;color:var(--text-mute);font-weight:500}
-.card-body{padding:18px 20px}
-
-/* Tables */
+.stat.primary{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none}
+.stat.primary .lbl{color:rgba(255,255,255,.85)}
+.stat.primary .val{color:#fff}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+.card-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.card-head h2{font-size:15.5px;font-weight:700}
+.card-head .count{font-size:12.5px;color:var(--text-mute);font-weight:500}
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:600px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
 th,td{padding:12px 16px;text-align:left;border-bottom:1px solid #f3f4f6;vertical-align:middle}
-th{background:#f9fafb;font-weight:600;font-size:11.5px;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+th{background:#fafbfc;font-weight:600;font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:#fafbfc}
-.title-cell{font-weight:600;display:block;margin-bottom:3px;color:var(--text);line-height:1.3}
-.sub-cell{font-size:12px;color:var(--text-mute)}
-.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11.5px;font-weight:600;white-space:nowrap}
-.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.title-cell{font-weight:600;display:block;margin-bottom:2px;color:var(--text);line-height:1.3}
+.sub-cell{font-size:11.5px;color:var(--text-mute)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
 .badge-success{background:#d1fae5;color:#065f46}
 .badge-warning{background:#fef3c7;color:#92400e}
 .badge-danger{background:#fee2e2;color:#991b1b}
-.badge-info{background:#dbeafe;color:#1e40af}
-.badge-default{background:#f3f4f6;color:#4b5563}
-.row-actions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
-
-/* Empty state */
+.badge-info{background:#e0e7ff;color:#3730a3}
+.row-actions{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap}
 .empty{padding:50px 20px;text-align:center;color:var(--text-light)}
-.empty .icon{font-size:48px;opacity:.35;margin-bottom:12px}
-.empty h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
-.empty p{font-size:13.5px;margin-bottom:18px;max-width:320px;margin-left:auto;margin-right:auto}
-
-/* Loader */
+.empty .icon{font-size:44px;opacity:.35;margin-bottom:10px}
+.empty h3{font-size:15.5px;font-weight:700;color:var(--text);margin-bottom:5px}
+.empty p{font-size:13px;margin-bottom:16px}
 .loader{padding:50px;text-align:center;color:var(--text-light)}
-.spinner{width:36px;height:36px;border:3px solid #e5e7eb;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+.spinner{width:34px;height:34px;border:3px solid #e5e7eb;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Editor */
-.editor-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+/* EDITOR */
+.editor-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .editor-top{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#fafbfc}
-.editor-top .left{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.editor-top .right{display:flex;gap:8px;flex-wrap:wrap}
-.publish-btn{background:var(--success);color:#fff;padding:11px 24px;font-size:14.5px;font-weight:700;border-radius:10px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 10px rgba(16,185,129,.3);transition:all .15s}
-.publish-btn:hover:not(:disabled){background:#059669;transform:translateY(-1px);box-shadow:0 4px 14px rgba(16,185,129,.4)}
-.publish-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.editor-grid{display:grid;grid-template-columns:1fr 340px}
-.editor-main{padding:26px 30px}
-.editor-side{padding:22px;background:#fafbfc;border-left:1px solid var(--border)}
-.editor-title{width:100%;font-family:'Playfair Display',serif;font-size:28px;font-weight:700;padding:8px 0;border:none;border-bottom:2px solid var(--border);color:var(--text);margin-bottom:16px;background:transparent;transition:border-color .15s}
-.editor-title:focus{border-bottom-color:var(--primary)}
+.publish-btn{background:var(--success);color:#fff;padding:11px 24px;font-size:14.5px;font-weight:700;border-radius:10px;display:inline-flex;align-items:center;gap:7px;box-shadow:0 2px 10px rgba(16,185,129,.3)}
+.publish-btn:hover:not(:disabled){background:#059669;transform:translateY(-1px)}
+.publish-btn:disabled{opacity:.6;cursor:not-allowed}
+.editor-grid{display:grid;grid-template-columns:1fr 320px}
+.editor-main{padding:24px 28px}
+.editor-side{padding:20px;background:#fafbfc;border-left:1px solid var(--border)}
+.editor-title{width:100%;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;padding:6px 0;border:none;border-bottom:2px solid var(--border);margin-bottom:14px;background:transparent}
+.editor-title:focus{border-bottom-color:var(--primary);outline:none}
 .editor-title::placeholder{color:#d1d5db}
-.editor-excerpt{width:100%;padding:10px 0;border:none;border-bottom:1px solid var(--border);font-size:14.5px;color:var(--text-light);margin-bottom:18px;background:transparent;resize:none;font-family:inherit;line-height:1.5;transition:border-color .15s}
-.editor-excerpt:focus{border-bottom-color:var(--primary);outline:none;color:var(--text)}
-.editor-excerpt::placeholder{color:#d1d5db}
-#quill-editor{min-height:400px;font-size:16px;line-height:1.7}
-.ql-toolbar{border:1px solid var(--border)!important;border-radius:10px 10px 0 0!important;background:#fff;font-family:'Inter',sans-serif!important}
-.ql-container{border:1px solid var(--border)!important;border-top:none!important;border-radius:0 0 10px 10px!important;font-family:'Inter',sans-serif!important;font-size:16px!important;min-height:400px;background:#fff}
-.ql-editor{min-height:400px;padding:18px}
-.ql-editor.ql-blank::before{font-style:normal;color:#9ca3af}
-
-.side-block{margin-bottom:22px}
-.side-block h3{font-size:11.5px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
-.cover-upload{border:2px dashed var(--border);border-radius:11px;padding:20px;text-align:center;cursor:pointer;background:#fff;transition:all .15s}
+.editor-excerpt{width:100%;padding:10px 0;border:none;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-light);margin-bottom:16px;background:transparent;resize:none;font-family:inherit}
+.editor-excerpt:focus{border-bottom-color:var(--primary);outline:none}
+#quill-editor{min-height:400px;font-size:15.5px}
+.ql-toolbar{border:1px solid var(--border)!important;border-radius:10px 10px 0 0!important;background:#fff}
+.ql-container{border:1px solid var(--border)!important;border-top:none!important;border-radius:0 0 10px 10px!important;font-family:'Inter',sans-serif;font-size:15.5px;min-height:400px;background:#fff}
+.ql-editor{min-height:400px;padding:16px}
+.side-block{margin-bottom:20px}
+.side-block h3{font-size:11.5px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.cover-upload{border:2px dashed var(--border);border-radius:10px;padding:18px;text-align:center;cursor:pointer;background:#fff;transition:all .15s}
 .cover-upload:hover{border-color:var(--primary);background:#f5f3ff}
-.cover-upload .ic{font-size:24px;margin-bottom:6px}
-.cover-upload .txt{font-size:12.5px;color:var(--text-light);font-weight:500}
-.cover-preview{margin-top:10px;border-radius:10px;overflow:hidden;display:none;border:1px solid var(--border)}
+.cover-upload .ic{font-size:22px;margin-bottom:4px}
+.cover-upload .txt{font-size:12.5px;color:var(--text-light)}
+.cover-preview{margin-top:10px;border-radius:9px;overflow:hidden;display:none;border:1px solid var(--border)}
 .cover-preview.show{display:block}
 .cover-preview img{width:100%;display:block}
-.check-row{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:500;cursor:pointer;padding:8px 0;user-select:none}
-.check-row input{width:18px;height:18px;margin:0;cursor:pointer;accent-color:var(--primary)}
+.check-row{display:flex;align-items:center;gap:8px;font-size:13.5px;cursor:pointer;padding:6px 0}
+.check-row input{width:18px;height:18px;margin:0;accent-color:var(--primary)}
 
-/* Profile */
-.profile-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px}
-.profile-top{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.profile-avatar-wrap{text-align:center;flex-shrink:0}
-.profile-avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#a855f7);display:grid;place-items:center;color:#fff;font-size:40px;font-weight:700;overflow:hidden;box-shadow:0 8px 20px rgba(79,70,229,.2);margin:0 auto 12px}
+/* PROFILE */
+.profile-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:18px}
+.profile-top{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start}
+.profile-avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#a855f7);display:grid;place-items:center;color:#fff;font-size:36px;font-weight:700;overflow:hidden;margin:0 auto 10px}
 .profile-avatar img{width:100%;height:100%;object-fit:cover}
 .profile-fields{flex:1;min-width:250px}
 
-/* Modal */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(17,24,39,.6);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(3px)}
 .modal-bg.active{display:flex}
-.modal{background:#fff;border-radius:16px;padding:26px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;animation:modalIn .2s ease}
-@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.modal-head h2{font-size:18px;font-weight:700}
-.modal-head .close{width:34px;height:34px;border-radius:9px;background:#f3f4f6;display:grid;place-items:center;font-size:16px;color:var(--text-light);transition:all .15s}
-.modal-head .close:hover{background:#e5e7eb;color:var(--text)}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap}
+.modal{background:#fff;border-radius:16px;padding:24px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.modal-head h2{font-size:17px;font-weight:700}
+.modal-head .close{width:32px;height:32px;border-radius:9px;background:#f3f4f6;display:grid;place-items:center;font-size:15px;color:var(--text-light)}
+.modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
 
-/* Toast */
-.toast{position:fixed;bottom:24px;left:24px;right:24px;max-width:400px;margin-left:auto;background:#111827;color:#fff;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;z-index:2000;transform:translateY(120px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);box-shadow:0 15px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px}
+.toast{position:fixed;bottom:24px;left:24px;right:24px;max-width:400px;margin-left:auto;background:#111827;color:#fff;padding:13px 18px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:2000;transform:translateY(120px);opacity:0;transition:all .3s;box-shadow:0 15px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.success{background:var(--success)}
 .toast.error{background:var(--danger)}
-.toast .ic{font-size:17px;flex-shrink:0}
-
-/* Filter tabs */
-.tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;background:#fff;padding:6px;border-radius:12px;border:1px solid var(--border);width:fit-content}
-.tabs button{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;color:var(--text-light);transition:all .15s;white-space:nowrap}
-.tabs button:hover{color:var(--text)}
-.tabs button.active{background:var(--primary);color:#fff}
-
-/* ══════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════ */
-@media(max-width:1024px){
-  .editor-grid{grid-template-columns:1fr}
-  .editor-side{border-left:none;border-top:1px solid var(--border)}
-}
 
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.3)}
   .main{margin-left:0;padding:0 16px 100px}
   .mobile-bar{display:flex}
-  .page-head{padding:20px 0 0}
-  .page-head h1{font-size:22px}
-  .page-head-row{margin-bottom:18px}
+  .page-head{padding:18px 0 0}
+  .page-head h1{font-size:21px}
   .stats{grid-template-columns:repeat(2,1fr);gap:10px}
   .stat{padding:14px}
   .stat .val{font-size:22px}
-  .card-body{padding:16px}
-  .card-head{padding:14px 16px}
-  th,td{padding:11px 14px;font-size:13px}
-  .editor-top{padding:12px 14px}
-  .editor-main{padding:20px 18px}
-  .editor-side{padding:18px}
+  th,td{padding:11px 14px;font-size:12.5px}
+  .editor-grid{grid-template-columns:1fr}
+  .editor-side{border-left:none;border-top:1px solid var(--border)}
+  .editor-main{padding:18px}
   .editor-title{font-size:22px}
-  .profile-card{padding:20px}
-  .modal{padding:22px}
-  .modal-bg{padding:12px;align-items:flex-start;padding-top:24px}
 }
-
 @media(max-width:640px){
   .main{padding:0 12px 100px}
   .mobile-bar{padding:10px 12px}
-  .page-head{padding:16px 0 0}
-  .stats{gap:8px;margin-bottom:18px}
+  .stats{gap:8px}
   .stat{padding:12px}
-  .stat .lbl{font-size:11.5px;margin-bottom:4px}
+  .stat .lbl{font-size:11.5px}
   .stat .val{font-size:20px}
-  .stat .sub{font-size:11px}
   .card{border-radius:12px}
-  .card-head h2{font-size:15px}
-  .tabs{width:100%;padding:5px;overflow-x:auto;flex-wrap:nowrap}
-  .tabs button{padding:7px 13px;font-size:12.5px}
   .row-actions{flex-direction:column;align-items:stretch}
   .row-actions .btn{width:100%}
   .publish-btn{padding:10px 18px;font-size:13.5px}
-  .btn{padding:11px 16px;font-size:13.5px}
-  .btn-sm{padding:7px 11px;font-size:12.5px}
-  .toast{left:12px;right:12px;bottom:12px;padding:13px 16px;font-size:13.5px}
-  .modal{padding:20px;border-radius:14px}
+  .btn{padding:10px 14px;font-size:13px}
+  .btn-sm{padding:6px 10px;font-size:12px}
+  .toast{left:12px;right:12px;bottom:12px;padding:12px 14px;font-size:13px}
+  .editor-title{font-size:20px}
+  .ql-editor{min-height:300px}
+  .table-wrap{margin:0 -16px}
+  table{min-width:480px}
   .modal-actions{flex-direction:column-reverse}
   .modal-actions .btn{width:100%}
   .profile-top{flex-direction:column;align-items:center;text-align:center}
-  .profile-avatar{width:90px;height:90px;font-size:32px}
-  .editor-title{font-size:20px}
-  .editor-excerpt{font-size:13.5px}
-  #quill-editor,.ql-editor{min-height:300px;font-size:15px!important}
-  .ql-container{font-size:15px!important;min-height:300px}
-  .table-wrap{margin:0 -16px}
-  table{font-size:12.5px;min-width:520px}
-  th,td{padding:10px 12px}
-}
-
-@media(max-width:380px){
-  .stats{grid-template-columns:1fr}
-  .sidebar{width:260px}
+  .profile-avatar{width:80px;height:80px;font-size:30px}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     LOGIN SCREEN
-══════════════════════════════════════════ -->
 <div class="login-screen" id="loginScreen">
-  <div class="login-card" id="authCard"></div>
+  <div class="login-card">
+    <div class="login-logo">Ink<span>Well</span></div>
+    <p class="login-sub">Author Studio</p>
+    <div class="alert alert-error" id="loginError"></div>
+    <div class="alert alert-success" id="loginSuccess"></div>
+    <div id="authFormContainer"></div>
+  </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     APP
-══════════════════════════════════════════ -->
 <div class="app" id="app">
-
-  <!-- Sidebar Overlay (mobile) -->
   <div class="overlay" id="overlay"></div>
-
-  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      Ink<span>Well</span>
-      <div class="sub" id="sidebarRole">Studio</div>
+      <div class="name">Ink<span>Well</span></div>
+      <div class="role">Author Studio</div>
     </div>
     <nav id="sidebarNav"></nav>
     <div class="sidebar-footer">
       <div class="sidebar-user">
         <div class="av" id="sbAv">A</div>
         <div class="info">
-          <b id="sbName">Admin</b>
-          <span id="sbRole">Loading...</span>
+          <b id="sbName">Author</b>
+          <span id="sbRole">Author</span>
         </div>
       </div>
       <button class="logout-btn" onclick="logout()">Sign Out</button>
     </div>
   </aside>
-
-  <!-- Mobile Top Bar -->
   <div class="mobile-bar">
     <button class="menu-icon" onclick="toggleSidebar()">☰</button>
     <div class="brand">Ink<span>Well</span></div>
-    <div style="width:40px"></div>
+    <div class="badge">✍️ Author</div>
   </div>
-
-  <!-- Main Content -->
   <main class="main">
     <div id="pageHeader"></div>
-
-    <!-- Sections -->
     <div id="sec-dashboard" class="section"></div>
     <div id="sec-posts" class="section"></div>
     <div id="sec-editor" class="section"></div>
     <div id="sec-comments" class="section"></div>
-    <div id="sec-categories" class="section"></div>
-    <div id="sec-ads" class="section"></div>
-    <div id="sec-subscribers" class="section"></div>
-    <div id="sec-users" class="section"></div>
     <div id="sec-profile" class="section"></div>
   </main>
 </div>
@@ -368,9 +263,6 @@ tbody tr:hover td{background:#fafbfc}
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════════════════════════
 const CONFIG = {
   API_URL: 'https://gsssshilla.onrender.com/api/blog',
   UPLOAD_URL: 'https://gsssshilla.onrender.com'
@@ -382,11 +274,7 @@ let quill = null;
 let editingPostId = null;
 let coverUrl = '';
 let coverPublicId = '';
-let pendingUsersCount = 0;
 
-// ═══════════════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════════════
 const esc = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 const fmtDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
 const timeAgo = (d) => {
@@ -413,30 +301,25 @@ async function api(endpoint, opts = {}) {
 function toast(msg, type='') {
   const t = document.getElementById('toast');
   const icons = { success: '✓', error: '✕', '': 'ℹ' };
-  t.innerHTML = `<span class="ic">${icons[type]||'ℹ'}</span> <span>${esc(msg)}</span>`;
+  t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ'}</span> <span>${esc(msg)}</span>`;
   t.className = 'toast show ' + type;
   clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.className = 'toast ' + type, 3200);
+  t._timer = setTimeout(() => t.className = 'toast ' + type, 3000);
 }
 
-// ═══════════════════════════════════════════════════════════
-// LOGIN / REGISTER / FORGOT
-// ═══════════════════════════════════════════════════════════
+// AUTH FORMS
 function renderLogin() {
-  document.getElementById('authCard').innerHTML = `
-    <div class="login-logo">Ink<span>Well</span></div>
-    <p class="login-sub">Sign in to your studio</p>
+  document.getElementById('authFormContainer').innerHTML = `
     <div class="alert alert-error" id="authError"></div>
-    <div class="alert alert-success" id="authSuccess"></div>
     <form id="loginForm">
-      <div class="field"><label>Email</label><input type="email" id="email" placeholder="admin@blog.com" required autocomplete="email"></div>
-      <div class="field"><label>Password</label><input type="password" id="password" placeholder="Your password" required autocomplete="current-password"></div>
+      <div class="field"><label>Email</label><input type="email" id="email" required autocomplete="email"></div>
+      <div class="field"><label>Password</label><input type="password" id="password" required autocomplete="current-password"></div>
       <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Sign In</button>
     </form>
     <div class="login-footer">
-      <span class="link" onclick="renderForgot()">Forgot password?</span>
-      <br><br>
-      New here? <span class="link" onclick="renderRegister()">Create account</span>
+      <span class="link" onclick="renderRegister()">Create account</span>
+      &nbsp;·&nbsp;
+      <span class="link" onclick="renderForgot()">Forgot?</span>
     </div>
   `;
   document.getElementById('loginForm').onsubmit = async (e) => {
@@ -447,19 +330,30 @@ function renderLogin() {
     btn.disabled = true; btn.textContent = 'Signing in...';
     try {
       const res = await fetch(`${CONFIG.API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: document.getElementById('email').value,
           password: document.getElementById('password').value
         })
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Login failed');
+      if (!res.ok) throw new Error(data.error);
       token = data.token;
       currentUser = data.user;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(currentUser));
+
+      // Check role
+      if (data.user.role === 'admin') {
+        alert('You are Super Admin — redirecting to Super Admin panel');
+        location.href = 'superadmin.html';
+        return;
+      }
+      if (data.user.role_type !== 'author') {
+        alert('You are a regular member. Only authors can publish posts. Contact super admin to become an author.');
+        location.href = 'index.html';
+        return;
+      }
       initApp();
     } catch(e) {
       err.textContent = e.message;
@@ -470,19 +364,17 @@ function renderLogin() {
 }
 
 function renderRegister() {
-  document.getElementById('authCard').innerHTML = `
-    <div class="login-logo">Ink<span>Well</span></div>
-    <p class="login-sub">Create your publisher account</p>
+  document.getElementById('authFormContainer').innerHTML = `
     <div class="alert alert-error" id="authError"></div>
     <div class="alert alert-success" id="authSuccess"></div>
     <form id="regForm">
-      <div class="field"><label>Full Name</label><input type="text" id="regName" placeholder="Jane Doe" required autocomplete="name"></div>
-      <div class="field"><label>Email</label><input type="email" id="regEmail" placeholder="you@example.com" required autocomplete="email"></div>
-      <div class="field"><label>Password</label><input type="password" id="regPass" placeholder="Minimum 6 characters" required minlength="6" autocomplete="new-password"></div>
+      <div class="field"><label>Full Name</label><input type="text" id="regName" required></div>
+      <div class="field"><label>Email</label><input type="email" id="regEmail" required></div>
+      <div class="field"><label>Password</label><input type="password" id="regPass" minlength="6" required></div>
       <button type="submit" class="btn btn-primary btn-block" id="regBtn">Create Account</button>
     </form>
     <div class="login-footer">
-      Already have an account? <span class="link" onclick="renderLogin()">Sign in</span>
+      <span class="link" onclick="renderLogin()">← Back to login</span>
     </div>
   `;
   document.getElementById('regForm').onsubmit = async (e) => {
@@ -494,8 +386,7 @@ function renderRegister() {
     btn.disabled = true; btn.textContent = 'Creating...';
     try {
       const res = await fetch(`${CONFIG.API_URL}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: document.getElementById('regName').value,
           email: document.getElementById('regEmail').value,
@@ -504,7 +395,7 @@ function renderRegister() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      ok.textContent = '✓ Registration successful! Wait for super admin approval.';
+      ok.textContent = '✓ Registered! Wait for super admin approval.';
       ok.classList.add('show');
       setTimeout(renderLogin, 2500);
     } catch(e) {
@@ -516,39 +407,32 @@ function renderRegister() {
 }
 
 function renderForgot() {
-  document.getElementById('authCard').innerHTML = `
-    <div class="login-logo">Ink<span>Well</span></div>
-    <p class="login-sub">Reset your password</p>
+  document.getElementById('authFormContainer').innerHTML = `
     <div class="alert alert-error" id="authError"></div>
     <div class="alert alert-success" id="authSuccess"></div>
     <form id="forgotForm">
-      <div class="field"><label>Email</label><input type="email" id="fEmail" placeholder="you@example.com" required></div>
+      <div class="field"><label>Email</label><input type="email" id="fEmail" required></div>
       <button type="submit" class="btn btn-primary btn-block" id="fBtn">Send Reset Link</button>
     </form>
-    <div class="login-footer">
-      <span class="link" onclick="renderLogin()">← Back to login</span>
-    </div>
+    <div class="login-footer"><span class="link" onclick="renderLogin()">← Back</span></div>
   `;
   document.getElementById('forgotForm').onsubmit = async (e) => {
     e.preventDefault();
     const btn = document.getElementById('fBtn');
-    const err = document.getElementById('authError');
     const ok = document.getElementById('authSuccess');
-    err.classList.remove('show'); ok.classList.remove('show');
     btn.disabled = true; btn.textContent = 'Sending...';
     try {
       const res = await fetch(`${CONFIG.API_URL}/auth/forgot-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: document.getElementById('fEmail').value })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      ok.innerHTML = `✓ ${esc(data.message)}<br><br>Token: <code style="background:#ecfdf5;padding:4px 8px;border-radius:4px;font-size:12px;word-break:break-all">${data.reset_token}</code>`;
+      ok.innerHTML = `✓ Token: <code style="background:#ecfdf5;padding:3px 6px;border-radius:4px;font-size:11px;word-break:break-all">${data.reset_token}</code>`;
       ok.classList.add('show');
     } catch(e) {
-      err.textContent = e.message;
-      err.classList.add('show');
+      document.getElementById('authError').textContent = e.message;
+      document.getElementById('authError').classList.add('show');
     } finally {
       btn.disabled = false; btn.textContent = 'Send Reset Link';
     }
@@ -562,81 +446,51 @@ function logout() {
   location.reload();
 }
 
-// ═══════════════════════════════════════════════════════════
-// APP INIT
-// ═══════════════════════════════════════════════════════════
 function initApp() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('app').classList.add('active');
-  document.getElementById('sbName').textContent = currentUser?.name || 'User';
-  document.getElementById('sbRole').textContent = currentUser?.role === 'admin' ? 'Super Admin' : 'Author';
-  document.getElementById('sidebarRole').textContent = currentUser?.role === 'admin' ? 'Super Admin' : 'Author';
-
+  document.getElementById('sbName').textContent = currentUser?.name || 'Author';
+  document.getElementById('sbRole').textContent = 'Author';
   const initials = (currentUser?.name || 'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
   if (currentUser?.avatar_url) {
     document.getElementById('sbAv').innerHTML = `<img src="${imgUrl(currentUser.avatar_url)}" alt="">`;
   } else {
     document.getElementById('sbAv').textContent = initials;
   }
-
   buildSidebar();
   show('dashboard');
 }
 
-if (token && currentUser) initApp(); else renderLogin();
-
-// ═══════════════════════════════════════════════════════════
-// SIDEBAR
-// ═══════════════════════════════════════════════════════════
-function buildSidebar() {
-  const isAdmin = currentUser?.role === 'admin';
-  const nav = document.getElementById('sidebarNav');
-
-  let html = '';
-  if (isAdmin) {
-    html += `<div class="group">Overview</div>
-      <a data-sec="dashboard"><span class="ic">📊</span> Dashboard</a>`;
-    html += `<div class="group">Content</div>
-      <a data-sec="posts"><span class="ic">📝</span> All Posts</a>
-      <a data-sec="editor"><span class="ic">✏️</span> Write New</a>
-      <a data-sec="comments"><span class="ic">💬</span> Comments</a>
-      <a data-sec="categories"><span class="ic">📁</span> Categories</a>`;
-    html += `<div class="group">Manage</div>
-      <a data-sec="users"><span class="ic">👥</span> Users <span class="badge-pill" id="pendingBadge" style="display:none"></span></a>
-      <a data-sec="ads"><span class="ic">📢</span> Ads</a>
-      <a data-sec="subscribers"><span class="ic">✉️</span> Subscribers</a>`;
+if (token && currentUser) {
+  if (currentUser.role === 'admin') {
+    location.href = 'superadmin.html';
+  } else if (currentUser.role_type === 'author') {
+    initApp();
   } else {
-    html += `<div class="group">Overview</div>
-      <a data-sec="dashboard"><span class="ic">📊</span> My Dashboard</a>`;
-    html += `<div class="group">Content</div>
-      <a data-sec="posts"><span class="ic">📝</span> My Posts</a>
-      <a data-sec="editor"><span class="ic">✏️</span> Write New</a>
-      <a data-sec="comments"><span class="ic">💬</span> Comments</a>`;
+    renderLogin();
   }
-  html += `<div class="group">Account</div>
+} else {
+  renderLogin();
+}
+
+function buildSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  nav.innerHTML = `
+    <div class="group">Overview</div>
+    <a data-sec="dashboard" class="active"><span class="ic">📊</span> My Dashboard</a>
+
+    <div class="group">Content</div>
+    <a data-sec="posts"><span class="ic">📝</span> My Posts</a>
+    <a data-sec="editor"><span class="ic">✏️</span> Write New</a>
+    <a data-sec="comments"><span class="ic">💬</span> Comments</a>
+
+    <div class="group">Account</div>
     <a data-sec="profile"><span class="ic">👤</span> My Profile</a>
-    <a href="index.html" target="_blank"><span class="ic">🌐</span> View Site</a>`;
-
-  nav.innerHTML = html;
-
+    <a href="index.html" target="_blank"><span class="ic">🌐</span> View Site</a>
+  `;
   nav.querySelectorAll('a[data-sec]').forEach(a => {
     a.onclick = () => { show(a.dataset.sec); closeSidebar(); };
   });
-
-  // Load pending badge for admin
-  if (isAdmin) loadPendingBadge();
-}
-
-async function loadPendingBadge() {
-  try {
-    const users = await api('/admin/users?status=pending');
-    pendingUsersCount = users.length;
-    const badge = document.getElementById('pendingBadge');
-    if (badge && users.length > 0) {
-      badge.textContent = users.length;
-      badge.style.display = 'inline-block';
-    }
-  } catch {}
 }
 
 function toggleSidebar() {
@@ -651,26 +505,18 @@ function closeSidebar() {
 }
 document.getElementById('overlay').onclick = closeSidebar;
 
-// ═══════════════════════════════════════════════════════════
-// ROUTER
-// ═══════════════════════════════════════════════════════════
 function show(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.sidebar nav a[data-sec]').forEach(a => a.classList.toggle('active', a.dataset.sec === name));
   const sec = document.getElementById('sec-' + name);
-  sec.classList.add('active');
+  if (sec) sec.classList.add('active');
 
-  const isAdmin = currentUser?.role === 'admin';
   const titles = {
-    dashboard: isAdmin ? ['Dashboard', 'Blog overview & quick actions'] : ['My Dashboard', 'Your writing stats'],
-    posts: isAdmin ? ['All Posts', 'Manage all articles'] : ['My Posts', 'Manage your articles'],
+    dashboard: ['My Dashboard', 'Your writing stats'],
+    posts: ['My Posts', 'Manage your articles'],
     editor: [editingPostId ? 'Edit Post' : 'Write New', 'Compose your story'],
-    comments: ['Comments', 'Moderate discussions'],
-    categories: ['Categories', 'Organize content'],
-    ads: ['Ads', 'Monetization slots'],
-    subscribers: ['Subscribers', 'Newsletter audience'],
-    users: ['Users', 'Manage publishers & approvals'],
-    profile: ['My Profile', 'Personal information & avatar']
+    comments: ['Comments', 'Moderate discussions on your posts'],
+    profile: ['My Profile', 'Personal information']
   };
   const [t, s] = titles[name] || ['Dashboard', ''];
   document.getElementById('pageHeader').innerHTML = `
@@ -685,134 +531,29 @@ function show(name) {
     case 'posts': loadPosts(); break;
     case 'editor': loadEditor(); break;
     case 'comments': loadComments(); break;
-    case 'categories': loadCategories(); break;
-    case 'ads': loadAds(); break;
-    case 'subscribers': loadSubscribers(); break;
-    case 'users': loadUsers(); break;
     case 'profile': loadProfile(); break;
   }
 }
 
-// ═══════════════════════════════════════════════════════════
-// DASHBOARD
-// ═══════════════════════════════════════════════════════════
 async function loadDashboard() {
   const el = document.getElementById('sec-dashboard');
   el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  const isAdmin = currentUser?.role === 'admin';
   try {
-    if (isAdmin) {
-      const s = await api('/stats');
-      el.innerHTML = `
-        <div class="stats">
-          <div class="stat" onclick="show('posts')"><div class="lbl">Total Posts</div><div class="val">${s.posts.total||0}</div></div>
-          <div class="stat" onclick="show('posts')"><div class="lbl">Published</div><div class="val">${s.posts.published||0}</div></div>
-          <div class="stat" onclick="show('posts')"><div class="lbl">Drafts</div><div class="val">${s.posts.drafts||0}</div></div>
-          <div class="stat" onclick="show('posts')"><div class="lbl">Total Views</div><div class="val">${(s.posts.total_views||0).toLocaleString()}</div></div>
-          <div class="stat" onclick="show('comments')"><div class="lbl">Comments</div><div class="val">${s.comments.total||0}</div></div>
-          <div class="stat"><div class="lbl">Reactions</div><div class="val">${s.reactions||0}</div></div>
-          <div class="stat" onclick="show('subscribers')"><div class="lbl">Subscribers</div><div class="val">${s.subscribers||0}</div></div>
-          <div class="stat" onclick="show('ads')"><div class="lbl">Ad Views</div><div class="val">${s.ads?.impressions||0}</div></div>
-          ${pendingUsersCount > 0 ? `<div class="stat highlight" onclick="show('users')"><div class="lbl">⚠ Pending Users</div><div class="val">${pendingUsersCount}</div><div class="sub">Needs approval</div></div>` : ''}
-        </div>
-        <div class="card">
-          <div class="card-head"><h2>Quick Actions</h2></div>
-          <div class="card-body" style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-primary" onclick="startNew()">✏️ Write New Post</button>
-            <button class="btn btn-outline" onclick="show('users')">👥 Manage Users</button>
-            <button class="btn btn-outline" onclick="show('comments')">💬 Comments</button>
-          </div>
-        </div>
-      `;
-    } else {
-      const s = await api('/author/stats');
-      el.innerHTML = `
-        <div class="stats">
-          <div class="stat" onclick="show('posts')"><div class="lbl">My Posts</div><div class="val">${s.posts.total||0}</div></div>
-          <div class="stat" onclick="show('posts')"><div class="lbl">Published</div><div class="val">${s.posts.published||0}</div></div>
-          <div class="stat" onclick="show('posts')"><div class="lbl">Drafts</div><div class="val">${s.posts.drafts||0}</div></div>
-          <div class="stat"><div class="lbl">Total Views</div><div class="val">${(s.posts.total_views||0).toLocaleString()}</div></div>
-          <div class="stat"><div class="lbl">Reactions</div><div class="val">${s.reactions||0}</div></div>
-          <div class="stat"><div class="lbl">Comments</div><div class="val">${s.comments||0}</div></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><h2>Quick Actions</h2></div>
-          <div class="card-body" style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-primary" onclick="startNew()">✏️ Write New Post</button>
-            <button class="btn btn-outline" onclick="show('profile')">👤 Edit Profile</button>
-          </div>
-        </div>
-      `;
-    }
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed to load</h3><p>${esc(e.message)}</p></div>`;
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// POSTS
-// ═══════════════════════════════════════════════════════════
-async function loadPosts() {
-  const el = document.getElementById('sec-posts');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  const isAdmin = currentUser?.role === 'admin';
-
-  document.getElementById('pageHeader').innerHTML = `
-    <div class="page-head-row">
-      <div>
-        <h1>${isAdmin ? 'All Posts' : 'My Posts'}</h1>
-        <p class="sub">${isAdmin ? 'Manage every article' : 'Manage your articles'}</p>
-      </div>
-      <div class="actions">
-        <button class="btn btn-primary" onclick="startNew()">+ New Post</button>
-      </div>
-    </div>
-  `;
-
-  try {
-    const posts = await api(isAdmin ? '/admin/posts/all' : '/author/my-posts');
-    if (!posts.length) {
-      el.innerHTML = `<div class="card"><div class="empty">
-        <div class="icon">📝</div>
-        <h3>No posts yet</h3>
-        <p>Start writing your first story.</p>
-        <button class="btn btn-primary" onclick="startNew()">Write First Post</button>
-      </div></div>`;
-      return;
-    }
+    const s = await api('/author/stats');
     el.innerHTML = `
+      <div class="stats">
+        <div class="stat primary" onclick="show('posts')"><div class="lbl">My Posts</div><div class="val">${s.posts.total||0}</div></div>
+        <div class="stat" onclick="show('posts')"><div class="lbl">Published</div><div class="val">${s.posts.published||0}</div></div>
+        <div class="stat" onclick="show('posts')"><div class="lbl">Drafts</div><div class="val">${s.posts.drafts||0}</div></div>
+        <div class="stat"><div class="lbl">Total Views</div><div class="val">${(s.posts.total_views||0).toLocaleString()}</div></div>
+        <div class="stat"><div class="lbl">Reactions</div><div class="val">${s.reactions||0}</div></div>
+        <div class="stat" onclick="show('comments')"><div class="lbl">Comments</div><div class="val">${s.comments||0}</div></div>
+      </div>
       <div class="card">
-        <div class="card-head">
-          <h2>Posts <span class="count">(${posts.length})</span></h2>
-        </div>
-        <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th>Title</th>
-            ${isAdmin ? '<th>Author</th>' : ''}
-            <th>Status</th><th>Views</th><th>Date</th><th style="text-align:right">Actions</th>
-          </tr></thead>
-          <tbody>
-            ${posts.map(p => `
-              <tr>
-                <td>
-                  <span class="title-cell">${esc(p.title)}</span>
-                  ${p.category_name ? `<span class="sub-cell">${esc(p.category_name)}</span>` : ''}
-                </td>
-                ${isAdmin ? `<td><span class="sub-cell">${esc(p.author_name||'—')}</span></td>` : ''}
-                <td><span class="badge ${p.status==='published'?'badge-success':'badge-warning'}">${p.status}</span></td>
-                <td>${p.views||0}</td>
-                <td><span class="sub-cell">${timeAgo(p.created_at)}</span></td>
-                <td>
-                  <div class="row-actions">
-                    <button class="btn btn-outline btn-sm" onclick="editPost(${p.id})">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="deletePost(${p.id})">Delete</button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
+        <div class="card-head"><h2>Quick Actions</h2></div>
+        <div style="padding:16px 18px;display:flex;gap:9px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="startNew()">✏️ Write New Post</button>
+          <button class="btn btn-outline" onclick="show('profile')">👤 Edit Profile</button>
         </div>
       </div>
     `;
@@ -821,22 +562,58 @@ async function loadPosts() {
   }
 }
 
-function startNew() {
-  editingPostId = null;
-  coverUrl = '';
-  coverPublicId = '';
-  show('editor');
+async function loadPosts() {
+  const el = document.getElementById('sec-posts');
+  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  document.getElementById('pageHeader').innerHTML = `
+    <div class="page-head-row">
+      <div><h1>My Posts</h1><p class="sub">Manage your articles</p></div>
+      <div><button class="btn btn-primary" onclick="startNew()">+ New Post</button></div>
+    </div>
+  `;
+  try {
+    const posts = await api('/author/my-posts');
+    if (!posts.length) {
+      el.innerHTML = `<div class="card"><div class="empty">
+        <div class="icon">📝</div><h3>No posts yet</h3><p>Start writing your first story.</p>
+        <button class="btn btn-primary" onclick="startNew()">Write First Post</button>
+      </div></div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="card">
+        <div class="card-head"><h2>Posts <span class="count">(${posts.length})</span></h2></div>
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Status</th><th>Views</th><th>Date</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            ${posts.map(p => `
+              <tr>
+                <td><span class="title-cell">${esc(p.title)}</span>${p.category_name ? `<span class="sub-cell">${esc(p.category_name)}</span>` : ''}</td>
+                <td><span class="badge ${p.status==='published'?'badge-success':'badge-warning'}">${p.status}</span></td>
+                <td>${p.views||0}</td>
+                <td><span class="sub-cell">${timeAgo(p.created_at)}</span></td>
+                <td><div class="row-actions">
+                  <button class="btn btn-outline btn-sm" onclick="editPost(${p.id})">Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="deletePost(${p.id})">Delete</button>
+                </div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+  }
 }
 
-function editPost(id) {
-  editingPostId = id;
-  coverUrl = '';
-  coverPublicId = '';
-  show('editor');
-}
+function startNew() { editingPostId = null; coverUrl = ''; coverPublicId = ''; show('editor'); }
+function editPost(id) { editingPostId = id; coverUrl = ''; coverPublicId = ''; show('editor'); }
 
 async function deletePost(id) {
-  if (!confirm('Delete this post permanently? This cannot be undone.')) return;
+  if (!confirm('Delete this post permanently?')) return;
   try {
     await api(`/posts/${id}`, { method: 'DELETE' });
     toast('Post deleted', 'success');
@@ -844,12 +621,8 @@ async function deletePost(id) {
   } catch(e) { toast(e.message, 'error'); }
 }
 
-// ═══════════════════════════════════════════════════════════
-// EDITOR
-// ═══════════════════════════════════════════════════════════
 async function loadEditor() {
   const el = document.getElementById('sec-editor');
-
   if (!editingPostId) { coverUrl = ''; coverPublicId = ''; }
 
   document.getElementById('pageHeader').innerHTML = `
@@ -858,7 +631,7 @@ async function loadEditor() {
         <h1>${editingPostId ? 'Edit Post' : 'Write New'}</h1>
         <p class="sub">${editingPostId ? 'Update your article' : 'Craft your next great story'}</p>
       </div>
-      <div class="actions">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-outline" onclick="show('posts')">← Back</button>
         <button class="publish-btn" id="publishBtn">🚀 Publish</button>
       </div>
@@ -868,27 +641,20 @@ async function loadEditor() {
   el.innerHTML = `
     <div class="editor-wrap">
       <div class="editor-top">
-        <div class="left">
-          <button class="btn btn-outline btn-sm" id="saveDraftBtn">💾 Save Draft</button>
-        </div>
-        <div class="right">
-          <span class="sub-cell" id="edStatusLabel">${editingPostId ? 'Editing existing' : 'New post'}</span>
-        </div>
+        <button class="btn btn-outline btn-sm" id="saveDraftBtn">💾 Save Draft</button>
+        <span class="sub-cell">${editingPostId ? 'Editing' : 'New post'}</span>
       </div>
       <div class="editor-grid">
         <div class="editor-main">
           <input type="text" class="editor-title" id="edTitle" placeholder="Enter your title...">
-          <textarea class="editor-excerpt" id="edExcerpt" placeholder="Write a short excerpt (optional)..." rows="1"></textarea>
+          <textarea class="editor-excerpt" id="edExcerpt" placeholder="Short excerpt (optional)..." rows="1"></textarea>
           <div id="quill-editor"></div>
         </div>
         <div class="editor-side">
           <div class="side-block">
-            <h3>📌 Publish Settings</h3>
+            <h3>Publish Settings</h3>
             <div class="field"><label>Status</label>
-              <select id="edStatus">
-                <option value="draft">Draft</option>
-                <option value="published" selected>Published</option>
-              </select>
+              <select id="edStatus"><option value="draft">Draft</option><option value="published" selected>Published</option></select>
             </div>
             <div class="field"><label>Category</label>
               <select id="edCategory"><option value="">— None —</option></select>
@@ -896,43 +662,40 @@ async function loadEditor() {
             <label class="check-row"><input type="checkbox" id="edFeatured"> Feature on homepage</label>
           </div>
           <div class="side-block">
-            <h3>🖼️ Cover Image</h3>
+            <h3>Cover Image</h3>
             <input type="file" id="edCoverFile" accept="image/*" style="display:none">
             <div class="cover-upload" onclick="document.getElementById('edCoverFile').click()">
-              <div class="ic">🖼️</div>
-              <div class="txt">Click to upload</div>
+              <div class="ic">🖼️</div><div class="txt">Click to upload</div>
             </div>
             <div class="cover-preview" id="coverPreview"><img id="coverImg"></div>
           </div>
           <div class="side-block">
-            <h3>🏷️ Tags</h3>
+            <h3>Tags</h3>
             <div class="field"><input type="text" id="edTags" placeholder="tech, design, ai"></div>
           </div>
           <div class="side-block">
-            <h3>🔍 SEO</h3>
-            <div class="field"><label>Meta Title</label><input type="text" id="edMetaTitle" placeholder="SEO title"></div>
-            <div class="field"><label>Meta Description</label><textarea id="edMetaDesc" rows="3" placeholder="Short description"></textarea></div>
+            <h3>SEO</h3>
+            <div class="field"><label>Meta Title</label><input type="text" id="edMetaTitle"></div>
+            <div class="field"><label>Meta Description</label><textarea id="edMetaDesc" rows="3"></textarea></div>
           </div>
         </div>
       </div>
     </div>
   `;
 
-  if (quill) { quill = null; }
+  if (quill) quill = null;
   quill = new Quill('#quill-editor', {
     theme: 'snow',
     placeholder: 'Write your story here...',
-    modules: {
-      toolbar: [
-        [{ 'header': [1, 2, 3, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        ['blockquote', 'code-block'],
-        ['link', 'image'],
-        [{ 'align': [] }],
-        ['clean']
-      ]
-    }
+    modules: { toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['blockquote', 'code-block'],
+      ['link', 'image'],
+      [{ 'align': [] }],
+      ['clean']
+    ]}
   });
 
   quill.getModule('toolbar').addHandler('image', () => {
@@ -955,8 +718,7 @@ async function loadEditor() {
         if (!res.ok) throw new Error(data.error);
         const range = quill.getSelection(true);
         quill.insertEmbed(range.index, 'image', data.url);
-        toast('Image inserted', 'success');
-      } catch(e) { toast('Upload failed: ' + e.message, 'error'); }
+      } catch(e) { toast('Failed: ' + e.message, 'error'); }
     };
   });
 
@@ -1066,9 +828,6 @@ async function savePost(actionStatus) {
   }
 }
 
-// ═══════════════════════════════════════════════════════════
-// COMMENTS
-// ═══════════════════════════════════════════════════════════
 async function loadComments() {
   const el = document.getElementById('sec-comments');
   el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
@@ -1080,31 +839,26 @@ async function loadComments() {
         ${comments.length ? `
         <div class="table-wrap">
         <table>
-          <thead><tr><th>Author</th><th>Comment</th><th>Status</th><th>Date</th><th style="text-align:right">Actions</th></tr></thead>
+          <thead><tr><th>Author</th><th>Comment</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
           <tbody>
             ${comments.map(c => `
               <tr>
                 <td><b>${esc(c.author_name)}</b><div class="sub-cell">${esc(c.author_email)}</div></td>
                 <td style="max-width:300px">${esc(c.content).slice(0,100)}${c.content.length>100?'...':''}</td>
                 <td><span class="badge ${c.status==='approved'?'badge-success':c.status==='spam'?'badge-danger':'badge-warning'}">${c.status}</span></td>
-                <td><span class="sub-cell">${timeAgo(c.created_at)}</span></td>
-                <td>
-                  <div class="row-actions">
-                    ${c.status!=='approved' ? `<button class="btn btn-success btn-sm" onclick="setCmt(${c.id},'approved')">Approve</button>`:''}
-                    ${c.status!=='spam' ? `<button class="btn btn-outline btn-sm" onclick="setCmt(${c.id},'spam')">Spam</button>`:''}
-                    <button class="btn btn-danger btn-sm" onclick="delCmt(${c.id})">Delete</button>
-                  </div>
-                </td>
+                <td><div class="row-actions">
+                  ${c.status!=='approved' ? `<button class="btn btn-success btn-sm" onclick="setCmt(${c.id},'approved')">Approve</button>`:''}
+                  ${c.status!=='spam' ? `<button class="btn btn-outline btn-sm" onclick="setCmt(${c.id},'spam')">Spam</button>`:''}
+                  <button class="btn btn-danger btn-sm" onclick="delCmt(${c.id})">Delete</button>
+                </div></td>
               </tr>
             `).join('')}
           </tbody>
         </table>
-        </div>` : `<div class="empty"><div class="icon">💬</div><h3>No comments yet</h3><p>Comments will appear here for moderation.</p></div>`}
+        </div>` : `<div class="empty"><div class="icon">💬</div><h3>No comments yet</h3></div>`}
       </div>
     `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
-  }
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
 }
 
 async function setCmt(id, status) {
@@ -1117,327 +871,37 @@ async function delCmt(id) {
   catch(e) { toast(e.message, 'error'); }
 }
 
-// ═══════════════════════════════════════════════════════════
-// CATEGORIES
-// ═══════════════════════════════════════════════════════════
-async function loadCategories() {
-  const el = document.getElementById('sec-categories');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  document.getElementById('pageHeader').innerHTML = `
-    <div class="page-head-row">
-      <div><h1>Categories</h1><p class="sub">Organize your content</p></div>
-      <div class="actions"><button class="btn btn-primary" onclick="showCatModal()">+ New Category</button></div>
-    </div>
-  `;
-  try {
-    const cats = await api('/categories');
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-head"><h2>All Categories <span class="count">(${cats.length})</span></h2></div>
-        ${cats.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Slug</th><th>Posts</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${cats.map(c => `
-              <tr>
-                <td><b>${esc(c.name)}</b></td>
-                <td><span class="sub-cell">${esc(c.slug)}</span></td>
-                <td>${c.post_count}</td>
-                <td><div class="row-actions"><button class="btn btn-danger btn-sm" onclick="delCat(${c.id})">Delete</button></div></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">📁</div><h3>No categories</h3><p>Create your first category.</p></div>`}
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
-  }
-}
-
-function showCatModal() {
-  document.getElementById('modalBody').innerHTML = `
-    <div class="modal-head"><h2>New Category</h2><button class="close" onclick="closeModal()">✕</button></div>
-    <div class="field"><label>Name *</label><input type="text" id="catName" placeholder="e.g. Technology"></div>
-    <div class="field"><label>Description</label><textarea id="catDesc" rows="3" placeholder="Optional"></textarea></div>
-    <div class="field"><label>Color</label><input type="color" id="catColor" value="#4f46e5" style="height:48px;padding:6px;cursor:pointer"></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveCat()">Create</button>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('active');
-}
-
-async function saveCat() {
-  const name = document.getElementById('catName').value.trim();
-  if (!name) return toast('Name required', 'error');
-  try {
-    await api('/categories', { method:'POST', body: JSON.stringify({
-      name, description: document.getElementById('catDesc').value.trim(),
-      color: document.getElementById('catColor').value
-    })});
-    toast('Category created ✅', 'success');
-    closeModal(); loadCategories();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function delCat(id) {
-  if (!confirm('Delete category?')) return;
-  try { await api(`/categories/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadCategories(); }
-  catch(e) { toast(e.message, 'error'); }
-}
-
-// ═══════════════════════════════════════════════════════════
-// ADS
-// ═══════════════════════════════════════════════════════════
-async function loadAds() {
-  const el = document.getElementById('sec-ads');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  document.getElementById('pageHeader').innerHTML = `
-    <div class="page-head-row">
-      <div><h1>Ads</h1><p class="sub">Monetization slots</p></div>
-      <div class="actions"><button class="btn btn-primary" onclick="showAdModal()">+ New Ad</button></div>
-    </div>
-  `;
-  try {
-    const ads = await api('/ads');
-    el.innerHTML = `
-      <div class="stats">
-        <div class="stat"><div class="lbl">Total Ads</div><div class="val">${ads.length}</div></div>
-        <div class="stat"><div class="lbl">Active</div><div class="val">${ads.filter(a=>a.is_active).length}</div></div>
-        <div class="stat"><div class="lbl">Impressions</div><div class="val">${ads.reduce((s,a)=>s+(a.impressions||0),0).toLocaleString()}</div></div>
-        <div class="stat"><div class="lbl">Clicks</div><div class="val">${ads.reduce((s,a)=>s+(a.clicks||0),0)}</div></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2>All Ads <span class="count">(${ads.length})</span></h2></div>
-        ${ads.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Position</th><th>Type</th><th>Views</th><th>Clicks</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${ads.map(a => `
-              <tr>
-                <td><b>${esc(a.name)}</b></td>
-                <td><span class="badge badge-info">${esc(a.position)}</span></td>
-                <td>${esc(a.type)}</td>
-                <td>${a.impressions||0}</td>
-                <td>${a.clicks||0}</td>
-                <td><span class="badge ${a.is_active?'badge-success':'badge-default'}">${a.is_active?'Active':'Paused'}</span></td>
-                <td><div class="row-actions"><button class="btn btn-danger btn-sm" onclick="delAd(${a.id})">Delete</button></div></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">📢</div><h3>No ads yet</h3><p>Create your first ad slot.</p></div>`}
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
-  }
-}
-
-function showAdModal() {
-  document.getElementById('modalBody').innerHTML = `
-    <div class="modal-head"><h2>New Ad</h2><button class="close" onclick="closeModal()">✕</button></div>
-    <div class="field"><label>Name *</label><input type="text" id="adName" placeholder="Header Banner"></div>
-    <div class="field"><label>Position *</label>
-      <select id="adPosition">
-        <option value="header">Header</option><option value="in-article">In-Article</option>
-        <option value="post-top">Post Top</option><option value="post-bottom">Post Bottom</option>
-        <option value="sidebar">Sidebar</option><option value="footer">Footer</option>
-      </select>
-    </div>
-    <div class="field"><label>Type *</label>
-      <select id="adType">
-        <option value="custom_html">Custom HTML</option>
-        <option value="image">Image Banner</option>
-        <option value="adsense">AdSense Code</option>
-      </select>
-    </div>
-    <div class="field"><label>Content</label><textarea id="adContent" rows="4" placeholder="<div>Ad code</div>"></textarea></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveAd()">Create Ad</button>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('active');
-}
-
-async function saveAd() {
-  const name = document.getElementById('adName').value.trim();
-  if (!name) return toast('Name required', 'error');
-  try {
-    await api('/ads', { method:'POST', body: JSON.stringify({
-      name, position: document.getElementById('adPosition').value,
-      type: document.getElementById('adType').value,
-      content: document.getElementById('adContent').value
-    })});
-    toast('Ad created ✅', 'success');
-    closeModal(); loadAds();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function delAd(id) {
-  if (!confirm('Delete ad?')) return;
-  try { await api(`/ads/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadAds(); }
-  catch(e) { toast(e.message, 'error'); }
-}
-
-// ═══════════════════════════════════════════════════════════
-// SUBSCRIBERS
-// ═══════════════════════════════════════════════════════════
-async function loadSubscribers() {
-  const el = document.getElementById('sec-subscribers');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  try {
-    const subs = await api('/subscribers');
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-head"><h2>Subscribers <span class="count">(${subs.length})</span></h2></div>
-        ${subs.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Email</th><th>Name</th><th>Status</th><th>Subscribed</th></tr></thead>
-          <tbody>
-            ${subs.map(s => `
-              <tr>
-                <td><b>${esc(s.email)}</b></td>
-                <td>${esc(s.name||'—')}</td>
-                <td><span class="badge badge-success">${s.status}</span></td>
-                <td><span class="sub-cell">${timeAgo(s.created_at)}</span></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">✉️</div><h3>No subscribers yet</h3><p>Readers will appear here.</p></div>`}
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// USERS (Super Admin only)
-// ═══════════════════════════════════════════════════════════
-let userFilter = 'all';
-
-async function loadUsers() {
-  const el = document.getElementById('sec-users');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  try {
-    const users = await api('/admin/users');
-    const pending = users.filter(u => u.status === 'pending').length;
-    pendingUsersCount = pending;
-
-    const filtered = userFilter === 'all' ? users : users.filter(u => u.status === userFilter);
-
-    el.innerHTML = `
-      <div class="tabs">
-        <button class="${userFilter==='all'?'active':''}" onclick="setUserFilter('all')">All (${users.length})</button>
-        <button class="${userFilter==='pending'?'active':''}" onclick="setUserFilter('pending')">Pending (${pending})</button>
-        <button class="${userFilter==='approved'?'active':''}" onclick="setUserFilter('approved')">Approved (${users.filter(u=>u.status==='approved').length})</button>
-        <button class="${userFilter==='rejected'?'active':''}" onclick="setUserFilter('rejected')">Rejected (${users.filter(u=>u.status==='rejected').length})</button>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2>Users <span class="count">(${filtered.length})</span></h2></div>
-        ${filtered.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>User</th><th>Status</th><th>Joined</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${filtered.map(u => `
-              <tr>
-                <td>
-                  <b>${esc(u.name)}</b>
-                  <div class="sub-cell">${esc(u.email)}</div>
-                </td>
-                <td><span class="badge ${u.status==='approved'?'badge-success':u.status==='rejected'?'badge-danger':'badge-warning'}">${u.status}</span></td>
-                <td><span class="sub-cell">${timeAgo(u.created_at)}</span></td>
-                <td>
-                  <div class="row-actions">
-                    ${u.status!=='approved' ? `<button class="btn btn-success btn-sm" onclick="setUserStatus(${u.id},'approved')">✓ Approve</button>`:''}
-                    ${u.status!=='rejected' ? `<button class="btn btn-outline btn-sm" onclick="setUserStatus(${u.id},'rejected')">✕ Reject</button>`:''}
-                    <button class="btn btn-danger btn-sm" onclick="delUser(${u.id})">Delete</button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">👥</div><h3>No users</h3><p>No users match this filter.</p></div>`}
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
-  }
-}
-
-function setUserFilter(f) { userFilter = f; loadUsers(); }
-
-async function setUserStatus(id, status) {
-  try {
-    await api(`/admin/users/${id}/status`, { method:'PUT', body: JSON.stringify({ status }) });
-    toast(`User ${status}`, 'success');
-    loadUsers();
-    buildSidebar();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function delUser(id) {
-  if (!confirm('Delete this user permanently? All their posts will also be deleted.')) return;
-  try {
-    await api(`/admin/users/${id}`, { method:'DELETE' });
-    toast('User deleted', 'success');
-    loadUsers();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-// ═══════════════════════════════════════════════════════════
-// PROFILE
-// ═══════════════════════════════════════════════════════════
 async function loadProfile() {
   const el = document.getElementById('sec-profile');
   el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
   try {
     const user = await api('/auth/me');
     const initials = (user.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-
     el.innerHTML = `
       <div class="profile-card">
         <div class="profile-top">
-          <div class="profile-avatar-wrap">
+          <div style="text-align:center">
             <div class="profile-avatar">
               ${user.avatar_url ? `<img src="${imgUrl(user.avatar_url)}" alt="">` : initials}
             </div>
             <input type="file" id="avatarFile" accept="image/*" style="display:none">
-            <button class="btn btn-outline btn-sm" onclick="document.getElementById('avatarFile').click()">Change Photo</button>
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('avatarFile').click()">Change</button>
           </div>
           <div class="profile-fields">
             <div class="field"><label>Name</label><input type="text" id="pfName" value="${esc(user.name)}"></div>
             <div class="field"><label>Email</label><input type="email" value="${esc(user.email)}" disabled style="background:#f9fafb;color:var(--text-light)"></div>
-            <div class="field"><label>Bio</label><textarea id="pfBio" rows="3" placeholder="Tell readers about yourself...">${esc(user.bio||'')}</textarea></div>
-            <div class="field"><label>Website</label><input type="url" id="pfWebsite" value="${esc(user.website||'')}" placeholder="https://..."></div>
-            <div class="field"><label>Twitter</label><input type="text" id="pfTwitter" value="${esc(user.twitter||'')}" placeholder="@username"></div>
-            <div class="field"><label>LinkedIn</label><input type="text" id="pfLinkedin" value="${esc(user.linkedin||'')}" placeholder="linkedin.com/in/..."></div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-              <button class="btn btn-primary" onclick="saveProfile()">💾 Save Profile</button>
-              <button class="btn btn-outline" onclick="showChangePasswordModal()">🔒 Change Password</button>
-            </div>
+            <div class="field"><label>Bio</label><textarea id="pfBio" rows="3">${esc(user.bio||'')}</textarea></div>
+            <div class="field"><label>Website</label><input type="url" id="pfWebsite" value="${esc(user.website||'')}"></div>
+            <button class="btn btn-primary" onclick="saveProfile()">💾 Save</button>
           </div>
         </div>
       </div>
     `;
-
     document.getElementById('avatarFile').onchange = async (e) => {
       const file = e.target.files[0];
       if (!file) return;
       const fd = new FormData();
       fd.append('avatar', file);
-      toast('Uploading...');
       try {
         const res = await fetch(`${CONFIG.API_URL}/auth/avatar`, {
           method: 'POST',
@@ -1450,23 +914,17 @@ async function loadProfile() {
         localStorage.setItem('user', JSON.stringify(currentUser));
         toast('Photo updated ✅', 'success');
         loadProfile();
-        // Update sidebar
-        document.getElementById('sbAv').innerHTML = `<img src="${imgUrl(data.url)}" alt="">`;
       } catch(e) { toast(e.message, 'error'); }
     };
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
-  }
+  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
 }
 
 async function saveProfile() {
   try {
-    const data = await api('/auth/profile', { method:'PUT', body: JSON.stringify({
+    await api('/auth/profile', { method:'PUT', body: JSON.stringify({
       name: document.getElementById('pfName').value,
       bio: document.getElementById('pfBio').value,
-      website: document.getElementById('pfWebsite').value,
-      twitter: document.getElementById('pfTwitter').value,
-      linkedin: document.getElementById('pfLinkedin').value
+      website: document.getElementById('pfWebsite').value
     })});
     currentUser.name = document.getElementById('pfName').value;
     localStorage.setItem('user', JSON.stringify(currentUser));
@@ -1475,43 +933,10 @@ async function saveProfile() {
   } catch(e) { toast(e.message, 'error'); }
 }
 
-function showChangePasswordModal() {
-  document.getElementById('modalBody').innerHTML = `
-    <div class="modal-head"><h2>Change Password</h2><button class="close" onclick="closeModal()">✕</button></div>
-    <div class="field"><label>Current Password</label><input type="password" id="curPass" required></div>
-    <div class="field"><label>New Password</label><input type="password" id="newPass" minlength="6" required></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="changePassword()">Update</button>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('active');
-}
-
-async function changePassword() {
-  const cur = document.getElementById('curPass').value;
-  const nw = document.getElementById('newPass').value;
-  if (!cur || !nw) return toast('Both passwords required', 'error');
-  if (nw.length < 6) return toast('Password must be 6+ characters', 'error');
-  try {
-    await api('/auth/password', { method:'PUT', body: JSON.stringify({
-      current_password: cur, new_password: nw
-    })});
-    toast('Password updated ✅', 'success');
-    closeModal();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODAL
-// ═══════════════════════════════════════════════════════════
 function closeModal() { document.getElementById('modalBg').classList.remove('active'); }
 document.getElementById('modalBg').onclick = (e) => { if (e.target.id === 'modalBg') closeModal(); };
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-// ═══════════════════════════════════════════════════════════
-// EXPORTS
-// ═══════════════════════════════════════════════════════════
 window.renderLogin = renderLogin;
 window.renderRegister = renderRegister;
 window.renderForgot = renderForgot;
@@ -1523,18 +948,7 @@ window.editPost = editPost;
 window.deletePost = deletePost;
 window.setCmt = setCmt;
 window.delCmt = delCmt;
-window.showCatModal = showCatModal;
-window.saveCat = saveCat;
-window.delCat = delCat;
-window.showAdModal = showAdModal;
-window.saveAd = saveAd;
-window.delAd = delAd;
-window.setUserFilter = setUserFilter;
-window.setUserStatus = setUserStatus;
-window.delUser = delUser;
 window.saveProfile = saveProfile;
-window.showChangePasswordModal = showChangePasswordModal;
-window.changePassword = changePassword;
 window.closeModal = closeModal;
 </script>
 </body>
