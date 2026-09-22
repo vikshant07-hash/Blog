@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Debug</title>
+<style>
+body{font-family:monospace;padding:20px;background:#0f0e0c;color:#f5f1ea;line-height:1.6}
+h1{color:#c2410c}
+pre{background:#1a1815;padding:15px;border-radius:8px;overflow:auto;margin:10px 0;border-left:3px solid #c2410c}
+.ok{color:#10b981}.err{color:#ef4444}.warn{color:#f59e0b}
+button{padding:10px 20px;background:#c2410c;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;margin:10px 0}
+</style>
+</head>
+<body>
+<h1>🔍 InkWell Debug</h1>
+<button onclick="runTest()">Run All Tests</button>
+<div id="output"></div>
+
+<script>
+const API = 'https://gsssshilla.onrender.com/api/blog';
+const out = document.getElementById('output');
+
+function log(msg, type = 'info') {
+  const cls = type === 'ok' ? 'ok' : type === 'err' ? 'err' : type === 'warn' ? 'warn' : '';
+  out.innerHTML += `<pre class="${cls}">${msg}</pre>`;
+}
+
+async function runTest() {
+  out.innerHTML = '';
+  log('=== InkWell Debug Tests ===\n');
+
+  // Test 1: Current URL
+  log(`📍 Current URL: ${location.href}`);
+  log(`📍 Pathname: ${location.pathname}`);
+  log(`📍 Search: ${location.search}`);
+  
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  log(`📍 Slug from URL: ${slug || 'NONE FOUND'}`, slug ? 'ok' : 'err');
+
+  // Test 2: Health check
+  log('\n--- Test 1: Health Check ---');
+  try {
+    const res = await fetch(`${API}/health`);
+    const data = await res.json();
+    log(`✅ Health OK: ${JSON.stringify(data)}`, 'ok');
+  } catch (e) {
+    log(`❌ Health FAILED: ${e.message}`, 'err');
+  }
+
+  // Test 3: Post API
+  log('\n--- Test 2: Post API ---');
+  if (!slug) {
+    log('⚠️ No slug to test', 'warn');
+  } else {
+    try {
+      log(`Fetching: ${API}/posts/${slug}`);
+      const res = await fetch(`${API}/posts/${slug}`);
+      log(`Status: ${res.status} ${res.statusText}`, res.ok ? 'ok' : 'err');
+      const data = await res.json();
+      
+      if (data.error) {
+        log(`❌ API returned error: ${data.error}`, 'err');
+      } else {
+        log(`✅ Post loaded: "${data.title}"`, 'ok');
+        log(`   Slug: ${data.slug}`);
+        log(`   Status: ${data.status}`);
+        log(`   Author: ${data.author_name}`);
+      }
+    } catch (e) {
+      log(`❌ Post fetch FAILED: ${e.message}`, 'err');
+      log(`   This is likely a CORS or network issue`, 'warn');
+    }
+  }
+
+  // Test 4: CORS check
+  log('\n--- Test 3: CORS Check ---');
+  try {
+    const res = await fetch(`${API}/health`, {
+      method: 'GET',
+      headers: { 'X-Device-ID': 'test-device' }
+    });
+    log(`✅ Custom header OK (CORS allows X-Device-ID)`, 'ok');
+  } catch (e) {
+    log(`❌ Custom header FAILED — CORS blocks X-Device-ID`, 'err');
+    log(`   ${e.message}`, 'err');
+  }
+
+  log('\n=== End of Tests ===');
+}
+</script>
+</body>
+</html>
