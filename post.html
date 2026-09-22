@@ -2,112 +2,181 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Loading... — InkWell</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--primary:#6366f1;--primary-dark:#4f46e5;--text:#1a1a2e;--text-light:#64748b;--bg:#fff;--bg-soft:#f8fafc;--border:#e2e8f0;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12);--radius:16px;--success:#10b981;--danger:#ef4444}
-body.dark{--text:#f1f5f9;--text-light:#94a3b8;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;transition:background .3s,color .3s}
-h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --primary:#4f46e5;--primary-dark:#4338ca;--primary-soft:#eef2ff;
+  --verified:#3b82f6;--success:#10b981;--danger:#ef4444;
+  --text:#111827;--text-light:#6b7280;--text-mute:#9ca3af;
+  --bg:#fff;--bg-soft:#f9fafb;--border:#e5e7eb;
+  --radius:16px;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12);
+}
+body.dark{--text:#f1f5f9;--text-light:#94a3b8;--text-mute:#64748b;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2;font-weight:700}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
-.container-narrow{max-width:760px;margin:0 auto;padding:0 24px}
-header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;letter-spacing:-.5px}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none}
+input,textarea{font-family:inherit;outline:none;-webkit-appearance:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.container-narrow{max-width:760px;margin:0 auto;padding:0 20px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+body.dark header{background:rgba(15,23,42,.92)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
+.logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;letter-spacing:-.5px;flex-shrink:0}
 .logo span{color:var(--primary)}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{font-weight:500;font-size:15px;color:var(--text-light);transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--primary)}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;display:grid;place-items:center;transition:all .2s;font-size:16px}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{font-weight:500;font-size:14.5px;color:var(--text-light);transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg);color:var(--text);display:grid;place-items:center;transition:all .2s;font-size:16px;flex-shrink:0}
 .icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-.btn{padding:10px 22px;border-radius:50px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .2s;display:inline-block;font-family:inherit}
+.btn{padding:10px 20px;border-radius:50px;font-weight:600;font-size:14px;transition:all .2s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--primary-dark)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
 .menu-toggle{display:none}
-.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;padding:24px;flex-direction:column}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;padding:20px;flex-direction:column}
 .mobile-menu.open{display:flex}
-.mobile-menu .close{align-self:flex-end;font-size:28px;background:none;border:none;color:var(--text);cursor:pointer}
-.mobile-menu ul{list-style:none;margin-top:40px}
-.mobile-menu li{margin-bottom:24px}
-.mobile-menu a{font-size:24px;font-family:'Playfair Display',serif;font-weight:700}
-.post-header{padding:50px 0 30px;text-align:center}
-.post-header .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:16px}
-.post-header h1{font-size:clamp(30px,5vw,48px);margin-bottom:20px;letter-spacing:-.5px}
-.author{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text-light);justify-content:center;margin-top:20px}
-.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#a855f7);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;overflow:hidden}
+.mobile-menu .close{align-self:flex-end;font-size:28px;color:var(--text);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--bg-soft)}
+.mobile-menu ul{list-style:none;margin-top:32px}
+.mobile-menu li{margin-bottom:20px}
+.mobile-menu a{font-size:22px;font-family:'Playfair Display',serif;font-weight:700}
+
+/* POST */
+.post-header{padding:40px 0 24px;text-align:center}
+.post-header .tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:14px}
+.post-header h1{font-size:clamp(26px,5vw,44px);margin-bottom:20px;letter-spacing:-.8px;line-height:1.15}
+.author{display:flex;align-items:center;gap:11px;font-size:13.5px;color:var(--text-light);justify-content:center;flex-wrap:wrap}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#a855f7);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;overflow:hidden;border:2px solid var(--border)}
 .avatar img{width:100%;height:100%;object-fit:cover}
 .author-info{text-align:left}
-.author-info b{color:var(--text);display:block;font-weight:600;font-size:14.5px}
-.author-info span{font-size:13px}
-.post-cover{margin:30px 0;border-radius:var(--radius);overflow:hidden;max-height:520px}
+.author-info b{color:var(--text);display:inline-flex;align-items:center;gap:4px;font-weight:600;font-size:14px}
+.author-info span{font-size:12.5px;display:block}
+.verified-tick{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;background:var(--verified);border-radius:50%;color:#fff;flex-shrink:0}
+.verified-tick svg{width:9px;height:9px;fill:#fff}
+.post-cover{margin:24px 0;border-radius:var(--radius);overflow:hidden;max-height:520px}
 .post-cover img{width:100%;height:100%;object-fit:cover}
-.post-content{font-size:17.5px;line-height:1.85;color:var(--text)}
-.post-content h2{font-size:28px;margin:40px 0 16px}
-.post-content h3{font-size:22px;margin:32px 0 12px}
-.post-content p{margin-bottom:20px}
-.post-content img{border-radius:12px;margin:24px 0;max-width:100%}
+.post-content{font-size:17px;line-height:1.85;color:var(--text);word-wrap:break-word}
+.post-content h2{font-size:26px;margin:36px 0 14px;letter-spacing:-.5px}
+.post-content h3{font-size:21px;margin:28px 0 12px}
+.post-content p{margin-bottom:18px}
+.post-content img{border-radius:12px;margin:22px 0;max-width:100%}
 .post-content a{color:var(--primary);text-decoration:underline}
-.post-content ul,.post-content ol{margin:16px 0 20px 28px}
+.post-content ul,.post-content ol{margin:14px 0 18px 26px}
 .post-content li{margin-bottom:8px}
-.post-content blockquote{border-left:4px solid var(--primary);padding:12px 20px;margin:24px 0;background:var(--bg-soft);border-radius:8px;font-style:italic}
-.post-content pre{background:var(--bg-soft);padding:18px;border-radius:12px;overflow-x:auto;font-size:14.5px;margin:20px 0;border:1px solid var(--border)}
-.post-content code{background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:.9em}
-.post-tags{display:flex;flex-wrap:wrap;gap:8px;margin:40px 0}
-.post-tag{padding:6px 14px;background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;font-size:13px;color:var(--text-light);font-weight:500;transition:all .2s}
+.post-content blockquote{border-left:4px solid var(--primary);padding:12px 20px;margin:22px 0;background:var(--bg-soft);border-radius:8px;font-style:italic;color:var(--text-light)}
+.post-content pre{background:var(--bg-soft);padding:16px;border-radius:12px;overflow-x:auto;font-size:14px;margin:18px 0;border:1px solid var(--border)}
+.post-content code{background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:.9em;font-family:'SF Mono',Monaco,monospace}
+
+/* AD */
+.ad-slot{margin:24px 0;min-height:80px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:12px;overflow:hidden;padding:10px}
+
+/* REACTIONS */
+.reactions-bar{margin:32px 0;padding:22px 16px;background:var(--bg-soft);border-radius:var(--radius);text-align:center;border:1px solid var(--border)}
+.reaction-buttons{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.reaction-btn{display:flex;align-items:center;gap:5px;padding:9px 14px;border-radius:50px;background:var(--bg);border:2px solid var(--border);transition:all .2s;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--text)}
+.reaction-btn:hover{transform:translateY(-2px);border-color:var(--primary);box-shadow:0 4px 12px rgba(79,70,229,.15)}
+.reaction-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.05)}
+.reaction-btn .emoji{font-size:17px;line-height:1}
+.reaction-btn .cnt{font-size:12px;font-weight:700;min-width:12px}
+.reaction-counts{font-size:12.5px;color:var(--text-light);font-weight:500}
+
+/* POST TAGS */
+.post-tags{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0}
+.post-tag{padding:6px 14px;background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;font-size:12.5px;color:var(--text-light);font-weight:500;transition:all .2s}
 .post-tag:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-.engagement-bar{display:flex;align-items:center;justify-content:center;gap:12px;padding:30px 0;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:40px 0}
-.engage-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;font-family:inherit}
-.engage-btn:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px)}
-.engage-btn.liked{background:#ef4444;color:#fff;border-color:#ef4444}
-.author-box{display:flex;gap:20px;padding:28px;background:var(--bg-soft);border-radius:var(--radius);margin:40px 0;border:1px solid var(--border)}
-.author-box .avatar{width:64px;height:64px;font-size:22px}
-.author-box-info h3{font-size:20px;margin-bottom:6px}
-.author-box-info p{color:var(--text-light);font-size:14.5px}
-.comments-section{margin:60px 0}
-.comments-section h2{font-size:26px;margin-bottom:24px}
-.comment-form{background:var(--bg-soft);padding:24px;border-radius:var(--radius);margin-bottom:32px;border:1px solid var(--border)}
-.comment-form input,.comment-form textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14.5px;background:var(--bg);color:var(--text);margin-bottom:12px;outline:none}
+
+/* SHARE */
+.share-row{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:32px 0}
+.share-row span{font-size:13.5px;color:var(--text-light);font-weight:600}
+.share-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:grid;place-items:center;transition:all .2s;font-size:16px;color:var(--text)}
+.share-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px)}
+
+/* AUTHOR BOX */
+.author-box{display:flex;gap:18px;padding:22px;background:var(--bg-soft);border-radius:var(--radius);margin:36px 0;border:1px solid var(--border)}
+.author-box .avatar{width:60px;height:60px;font-size:20px}
+.author-box-info h3{font-size:18px;margin-bottom:6px;display:inline-flex;align-items:center;gap:5px}
+.author-box-info p{color:var(--text-light);font-size:14px;line-height:1.6}
+
+/* COMMENTS */
+.comments-section{margin:50px 0}
+.comments-section h2{font-size:24px;margin-bottom:22px;letter-spacing:-.5px}
+.comment-form{background:var(--bg-soft);padding:22px;border-radius:var(--radius);margin-bottom:28px;border:1px solid var(--border)}
+.comment-form input,.comment-form textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14.5px;background:var(--bg);color:var(--text);margin-bottom:12px;font-family:inherit;transition:border-color .2s}
 .comment-form input:focus,.comment-form textarea:focus{border-color:var(--primary)}
 .comment-form textarea{resize:vertical;min-height:100px}
 .comment-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.comment-form button{background:var(--primary);color:#fff;border:none;padding:12px 28px;border-radius:50px;font-weight:600;cursor:pointer;font-family:inherit}
-.comment{display:flex;gap:14px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.comment .avatar{width:42px;height:42px;font-size:14px}
-.comment-body{flex:1}
-.comment-body .name{font-weight:600;font-size:15px;margin-bottom:4px}
-.comment-body .date{font-size:12.5px;color:var(--text-light);margin-bottom:8px}
-.comment-body .text{color:var(--text);font-size:15px;line-height:1.7}
-.comment-replies{margin-left:56px;margin-top:20px;padding-left:20px;border-left:2px solid var(--border)}
-.empty-comments{text-align:center;color:var(--text-light);padding:40px;font-size:15px}
-.ad-slot{margin:32px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:12px;overflow:hidden;font-size:13px;color:var(--text-light)}
-.related{margin:60px 0;padding-top:40px;border-top:1px solid var(--border)}
-.related h2{font-size:26px;margin-bottom:24px}
-.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.comment-form button{background:var(--primary);color:#fff;padding:12px 26px;border-radius:50px;font-weight:600;font-size:14px}
+.comment-form button:hover{background:var(--primary-dark)}
+.comment-form button:disabled{opacity:.6;cursor:not-allowed}
+.comment{display:flex;gap:13px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.comment:last-child{border-bottom:none}
+.comment .avatar{width:40px;height:40px;font-size:13px}
+.comment-body{flex:1;min-width:0}
+.comment-body .name{font-weight:600;font-size:14.5px;margin-bottom:3px}
+.comment-body .date{font-size:12px;color:var(--text-mute);margin-bottom:7px}
+.comment-body .text{color:var(--text);font-size:14.5px;line-height:1.65;word-wrap:break-word}
+.comment-replies{margin-left:50px;margin-top:18px;padding-left:16px;border-left:2px solid var(--border)}
+.empty-comments{text-align:center;color:var(--text-mute);padding:32px 20px;font-size:14px}
+
+/* RELATED */
+.related{margin:50px 0;padding-top:36px;border-top:1px solid var(--border)}
+.related h2{font-size:24px;margin-bottom:22px;letter-spacing:-.5px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
 .related-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s}
 .related-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.related-card img{height:150px;width:100%;object-fit:cover}
-.related-card-body{padding:16px}
-.related-card-body h3{font-size:17px;line-height:1.3;margin-bottom:8px}
-.related-card-body span{font-size:12.5px;color:var(--text-light)}
-footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px 0 30px;margin-top:60px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-brand p{color:var(--text-light);font-size:14px;margin:16px 0 20px;max-width:300px}
-.footer-col h4{font-size:15px;margin-bottom:18px;font-family:'Inter',sans-serif;font-weight:700}
+.related-card img{height:140px;width:100%;object-fit:cover}
+.related-card-body{padding:14px}
+.related-card-body h3{font-size:15px;line-height:1.35;margin-bottom:6px}
+.related-card-body span{font-size:12px;color:var(--text-mute)}
+
+/* FOOTER */
+footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:44px 0 22px;margin-top:50px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:28px}
+.footer-brand p{color:var(--text-light);font-size:13.5px;margin:14px 0 0;max-width:280px;line-height:1.6}
+.footer-col h4{font-size:13px;margin-bottom:14px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .footer-col ul{list-style:none}
-.footer-col li{margin-bottom:10px}
-.footer-col a{color:var(--text-light);font-size:14px}
+.footer-col li{margin-bottom:8px}
+.footer-col a{color:var(--text-light);font-size:13.5px}
 .footer-col a:hover{color:var(--primary)}
-.footer-bottom{padding-top:30px;border-top:1px solid var(--border);text-align:center;color:var(--text-light);font-size:13.5px}
-.loader{text-align:center;padding:80px;color:var(--text-light)}
-.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+.footer-bottom{padding-top:22px;border-top:1px solid var(--border);text-align:center;color:var(--text-mute);font-size:13px}
+
+/* LOADER */
+.loader{text-align:center;padding:80px 20px;color:var(--text-light)}
+.spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.nav-links{display:none}.menu-toggle{display:grid}.footer-grid{grid-template-columns:1fr}.comment-form .row{grid-template-columns:1fr}.comment-replies{margin-left:20px}.author-box{flex-direction:column;text-align:center;align-items:center}}
+
+/* NOT FOUND */
+.not-found{text-align:center;padding:100px 20px}
+.not-found h2{font-size:28px;margin-bottom:12px}
+.not-found p{color:var(--text-light);margin-bottom:24px}
+
+@media(max-width:900px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .menu-toggle{display:grid}
+  .post-header{padding:28px 0 20px}
+  .post-content{font-size:16px;line-height:1.75}
+  .post-content h2{font-size:22px;margin:28px 0 12px}
+  .post-content h3{font-size:18px;margin:22px 0 10px}
+  .reaction-btn{padding:8px 11px;font-size:12.5px;gap:4px}
+  .reaction-btn .emoji{font-size:15px}
+  .comment-form .row{grid-template-columns:1fr}
+  .comment-replies{margin-left:20px;padding-left:12px}
+  .author-box{flex-direction:column;text-align:center;align-items:center;padding:20px}
+  .footer-grid{grid-template-columns:1fr;gap:20px}
+  .footer-brand{text-align:center}
+  .footer-brand p{margin-left:auto;margin-right:auto}
+  .share-btn{width:38px;height:38px;font-size:14px}
+}
 </style>
 </head>
 <body>
@@ -117,12 +186,12 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
     <a href="index.html" class="logo">Ink<span>Well</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="category.html">Categories</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="icon-btn" id="themeToggle">🌙</button>
+      <a href="admin.html" class="btn btn-primary">✏️ Write</a>
       <button class="icon-btn menu-toggle" id="menuOpen">☰</button>
     </div>
   </div>
@@ -132,9 +201,9 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
   <button class="close" id="menuClose">✕</button>
   <ul>
     <li><a href="index.html">Home</a></li>
-    <li><a href="category.html">Categories</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="admin.html">✏️ Write</a></li>
   </ul>
 </div>
 
@@ -147,16 +216,20 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">Ink<span>Well</span></a>
-        <p>A digital publication celebrating ideas, culture, and the craft of thoughtful writing.</p>
+        <p>A digital publication celebrating ideas, culture, and thoughtful writing.</p>
       </div>
       <div class="footer-col"><h4>Explore</h4><ul>
-        <li><a href="index.html">Home</a></li><li><a href="category.html">Categories</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul></div>
       <div class="footer-col"><h4>Company</h4><ul>
-        <li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul></div>
       <div class="footer-col"><h4>Legal</h4><ul>
-        <li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
       </ul></div>
     </div>
     <div class="footer-bottom">© 2025 InkWell. All rights reserved.</div>
@@ -166,35 +239,49 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
 <script>
 const CONFIG = {
   API_URL: 'https://gsssshilla.onrender.com/api/blog',
-  UPLOAD_URL: 'https://gsssshilla.onrender.com',
-  ENABLE_ADS: true
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
 };
 
-const imgUrl = (p) => !p ? 'https://via.placeholder.com/1200x600' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const imgUrl = (p) => !p ? 'https://via.placeholder.com/1200x600/6366f1/ffffff?text=InkWell' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
 const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : '';
-const timeAgo = (dateStr) => {
-  if (!dateStr) return '';
-  const diff = Math.floor((new Date() - new Date(dateStr)) / 1000);
+const timeAgo = (d) => {
+  if (!d) return '';
+  const diff = Math.floor((new Date() - new Date(d)) / 1000);
   if (diff < 60) return 'just now';
   if (diff < 3600) return Math.floor(diff/60) + ' min ago';
   if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
   if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
-  return formatDate(dateStr);
+  return formatDate(d);
 };
-const escapeHtml = (s) => { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
-const getInitials = (n) => (n||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-const readingTime = (c) => { if(!c) return '1 min'; const w = c.replace(/<[^>]+>/g,'').split(/\s+/).length; return Math.max(1,Math.ceil(w/200)) + ' min read'; };
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const getInitials = (n) => (n || 'A').split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase();
+const readingTime = (c) => {
+  if (!c) return '1 min read';
+  const w = c.replace(/<[^>]+>/g, '').split(/\s+/).length;
+  return Math.max(1, Math.ceil(w / 200)) + ' min read';
+};
+const verifiedTick = () => `<span class="verified-tick" title="Verified"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
 
-async function apiFetch(endpoint, opts) {
-  const res = await fetch(CONFIG.API_URL + endpoint, opts);
+// DEVICE ID for reactions
+function getDeviceId() {
+  let id = localStorage.getItem('inkwell_device_id');
+  if (!id) {
+    id = 'dev_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
+    localStorage.setItem('inkwell_device_id', id);
+  }
+  return id;
+}
+
+async function apiFetch(endpoint) {
+  const res = await fetch(CONFIG.API_URL + endpoint);
   const data = await res.json();
-  if(!res.ok) throw new Error(data.error || 'Failed');
+  if (!res.ok) throw new Error(data.error || 'Failed');
   return data;
 }
 
 // THEME
 const themeToggle = document.getElementById('themeToggle');
-if(localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
+if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
 themeToggle.onclick = () => {
   document.body.classList.toggle('dark');
   const d = document.body.classList.contains('dark');
@@ -204,20 +291,48 @@ themeToggle.onclick = () => {
 document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
 document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
 
-// POST
+// REACTIONS config
+const REACTIONS = [
+  { type: 'like', emoji: '👍', label: 'Like' },
+  { type: 'love', emoji: '❤️', label: 'Love' },
+  { type: 'haha', emoji: '😂', label: 'Haha' },
+  { type: 'wow', emoji: '😮', label: 'Wow' },
+  { type: 'sad', emoji: '😢', label: 'Sad' },
+  { type: 'fire', emoji: '🔥', label: 'Fire' },
+  { type: 'clap', emoji: '👏', label: 'Clap' }
+];
+
 const slug = new URLSearchParams(location.search).get('slug');
 let currentPost = null;
 
 async function loadPost() {
-  if(!slug) { location.href = '404.html'; return; }
+  if (!slug) { location.href = '404.html'; return; }
+
   try {
-    const post = await apiFetch(`/posts/${slug}`);
+    const post = await apiFetch(`/posts/${encodeURIComponent(slug)}`);
     currentPost = post;
+
     document.title = `${post.title} — InkWell`;
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.content = post.meta_description || post.excerpt || '';
+    if (!document.querySelector('meta[name="description"]')) document.head.appendChild(metaDesc);
+
+    // OG tags
+    const setOG = (prop, content) => {
+      let el = document.querySelector(`meta[property="${prop}"]`) || document.createElement('meta');
+      el.setAttribute('property', prop);
+      el.content = content;
+      if (!el.parentNode) document.head.appendChild(el);
+    };
+    setOG('og:title', post.title);
+    setOG('og:description', post.excerpt || '');
+    setOG('og:image', imgUrl(post.cover_image));
+    setOG('og:type', 'article');
 
     const initials = getInitials(post.author_name);
     const avatarHtml = post.author_avatar
-      ? `<div class="avatar"><img src="${imgUrl(post.author_avatar)}" alt="${escapeHtml(post.author_name)}"></div>`
+      ? `<div class="avatar"><img src="${imgUrl(post.author_avatar)}" alt=""></div>`
       : `<div class="avatar">${initials}</div>`;
 
     document.getElementById('app').innerHTML = `
@@ -228,37 +343,45 @@ async function loadPost() {
           <div class="author">
             ${avatarHtml}
             <div class="author-info">
-              <b>${escapeHtml(post.author_name)}</b>
-              <span>${timeAgo(post.published_at)} · ${readingTime(post.content)} · ${post.views} views</span>
+              <b>${escapeHtml(post.author_name)}${post.author_verified ? verifiedTick() : ''}</b>
+              <span>${timeAgo(post.published_at)} · ${readingTime(post.content)} · ${post.views || 0} views</span>
             </div>
           </div>
         </header>
 
         ${post.cover_image ? `<div class="container-narrow"><div class="post-cover"><img src="${imgUrl(post.cover_image)}" alt="${escapeHtml(post.title)}"></div></div>` : ''}
 
-        <div class="container-narrow"><div class="ad-slot" id="ad-post-top" data-position="post-top" style="display:none"></div></div>
+        <div class="container-narrow"><div class="ad-slot" id="ad-post-top" style="display:none"></div></div>
 
-        <div class="container-narrow"><div class="post-content">${post.content}</div></div>
+        <div class="container-narrow">
+          <div class="post-content">${post.content}</div>
+        </div>
 
-        <div class="container-narrow"><div class="ad-slot" id="ad-post-bottom" data-position="post-bottom" style="display:none"></div></div>
+        <div class="container-narrow"><div class="ad-slot" id="ad-post-bottom" style="display:none"></div></div>
 
-        ${post.tags?.length ? `
+        ${post.tags && post.tags.length ? `
           <div class="container-narrow">
             <div class="post-tags">
-              ${post.tags.map(t => `<a href="search.html?q=${encodeURIComponent(t.name)}" class="post-tag">#${escapeHtml(t.name)}</a>`).join('')}
+              ${post.tags.map(t => `<a href="index.html?search=${encodeURIComponent(t.name)}" class="post-tag">#${escapeHtml(t.name)}</a>`).join('')}
             </div>
           </div>
         ` : ''}
 
         <div class="container-narrow">
-          <div class="engagement-bar">
-            <button class="engage-btn" id="likeBtn" onclick="toggleLike()">
-              ❤️ <span id="likeCount">${post.like_count || 0}</span> Likes
-            </button>
-            <button class="engage-btn" onclick="shareTwitter()">𝕏 Share</button>
-            <button class="engage-btn" onclick="shareFacebook()">f Share</button>
-            <button class="engage-btn" onclick="shareWhatsApp()">💬 Share</button>
-            <button class="engage-btn" onclick="copyLink()">🔗 Copy</button>
+          <div class="reactions-bar">
+            <div class="reaction-buttons" id="reactionButtons"></div>
+            <div class="reaction-counts" id="reactionCounts">Loading reactions...</div>
+          </div>
+        </div>
+
+        <div class="container-narrow">
+          <div class="share-row">
+            <span>Share:</span>
+            <button class="share-btn" onclick="shareTwitter()" title="Twitter">𝕏</button>
+            <button class="share-btn" onclick="shareFacebook()" title="Facebook">f</button>
+            <button class="share-btn" onclick="shareWhatsApp()" title="WhatsApp">💬</button>
+            <button class="share-btn" onclick="shareLinkedIn()" title="LinkedIn">in</button>
+            <button class="share-btn" onclick="copyLink()" title="Copy link">🔗</button>
           </div>
         </div>
 
@@ -266,7 +389,7 @@ async function loadPost() {
           <div class="author-box">
             ${avatarHtml}
             <div class="author-box-info">
-              <h3>${escapeHtml(post.author_name)}</h3>
+              <h3>${escapeHtml(post.author_name)}${post.author_verified ? verifiedTick() : ''}</h3>
               <p>${escapeHtml(post.author_bio || 'Writer and contributor at InkWell.')}</p>
             </div>
           </div>
@@ -274,27 +397,27 @@ async function loadPost() {
 
         <div class="container-narrow">
           <section class="comments-section">
-            <h2>Comments (${post.comment_count || 0})</h2>
+            <h2>Comments${post.comment_count ? ` (${post.comment_count})` : ''}</h2>
             <form class="comment-form" id="commentForm">
               <div class="row">
                 <input type="text" name="author_name" placeholder="Your name *" required>
                 <input type="email" name="author_email" placeholder="Your email *" required>
               </div>
-              <textarea name="content" placeholder="Your comment... *" required></textarea>
-              <button type="submit">Post Comment</button>
+              <textarea name="content" placeholder="Share your thoughts..." required></textarea>
+              <button type="submit" id="commentBtn">Post Comment</button>
             </form>
             <div id="commentsList"><div class="loader"><div class="spinner"></div></div></div>
           </section>
         </div>
 
-        ${post.related?.length ? `
+        ${post.related && post.related.length ? `
           <div class="container">
             <section class="related">
               <h2>Related Articles</h2>
               <div class="related-grid">
                 ${post.related.map(r => `
-                  <article class="related-card" onclick="location.href='post.html?slug=${r.slug}'">
-                    <img src="${imgUrl(r.cover_image)}" alt="${escapeHtml(r.title)}">
+                  <article class="related-card" onclick="location.href='post.html?slug=${encodeURIComponent(r.slug)}'">
+                    <img src="${imgUrl(r.cover_image)}" alt="${escapeHtml(r.title)}" loading="lazy">
                     <div class="related-card-body">
                       <h3>${escapeHtml(r.title)}</h3>
                       <span>${timeAgo(r.published_at)}</span>
@@ -309,32 +432,137 @@ async function loadPost() {
     `;
 
     document.getElementById('commentForm').onsubmit = (e) => submitComment(e, post.id);
+    loadReactions(post.id);
     loadComments(post.id);
-    loadAd('post-top');
-    loadAd('post-bottom');
+    loadAd('ad-post-top', 'post-top');
+    loadAd('ad-post-bottom', 'post-bottom');
   } catch(e) {
     document.getElementById('app').innerHTML = `
-      <div class="loader" style="padding:120px 20px">
-        <h2 style="font-size:28px;margin-bottom:12px">Article not found</h2>
-        <p style="margin-bottom:24px">${e.message}</p>
+      <div class="not-found container-narrow">
+        <h2>Article not found</h2>
+        <p>${escapeHtml(e.message)}</p>
         <a href="index.html" class="btn btn-primary">← Back to Home</a>
       </div>
     `;
   }
 }
 
-// LIKE
-async function toggleLike() {
-  if(!currentPost) return;
+// ═══════════════ REACTIONS ═══════════════
+async function loadReactions(postId) {
+  const deviceId = getDeviceId();
   try {
-    const res = await fetch(`${CONFIG.API_URL}/posts/${currentPost.id}/like`, { method: 'POST' });
+    const data = await apiFetch(`/posts/${postId}/reactions?device_id=${encodeURIComponent(deviceId)}`);
+    const buttons = document.getElementById('reactionButtons');
+    if (!buttons) return;
+
+    buttons.innerHTML = REACTIONS.map(r => {
+      const count = data.reactions[r.type] || 0;
+      const isActive = data.userReaction === r.type;
+      return `
+        <button class="reaction-btn ${isActive ? 'active' : ''}" data-type="${r.type}" title="${r.label}">
+          <span class="emoji">${r.emoji}</span>
+          ${count > 0 ? `<span class="cnt">${count}</span>` : ''}
+        </button>
+      `;
+    }).join('');
+
+    buttons.querySelectorAll('.reaction-btn').forEach(btn => {
+      btn.onclick = () => reactToPost(postId, btn.dataset.type);
+    });
+
+    const total = Object.values(data.reactions).reduce((a, b) => a + b, 0);
+    const countsEl = document.getElementById('reactionCounts');
+    if (countsEl) {
+      countsEl.textContent = total ? `${total} ${total === 1 ? 'reaction' : 'reactions'}` : 'Be the first to react';
+    }
+  } catch(e) { console.warn('Reactions failed:', e.message); }
+}
+
+async function reactToPost(postId, type) {
+  const deviceId = getDeviceId();
+  try {
+    const res = await fetch(`${CONFIG.API_URL}/posts/${postId}/react`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ device_id: deviceId, reaction_type: type })
+    });
     const data = await res.json();
-    document.getElementById('likeCount').textContent = data.count;
-    document.getElementById('likeBtn').classList.toggle('liked', data.liked);
+    if (!res.ok) throw new Error(data.error);
+    loadReactions(postId);
   } catch(e) { alert('Failed: ' + e.message); }
 }
 
-// SHARE
+// ═══════════════ COMMENTS ═══════════════
+async function loadComments(postId) {
+  const container = document.getElementById('commentsList');
+  try {
+    const comments = await apiFetch(`/posts/${postId}/comments`);
+    if (!comments.length) {
+      container.innerHTML = '<p class="empty-comments">No comments yet. Be the first to share your thoughts!</p>';
+      return;
+    }
+    container.innerHTML = comments.map(c => renderComment(c)).join('');
+  } catch {
+    container.innerHTML = '<p class="empty-comments">Failed to load comments.</p>';
+  }
+}
+
+function renderComment(c) {
+  const initials = getInitials(c.author_name);
+  const avatarHtml = c.author_avatar
+    ? `<div class="avatar"><img src="${imgUrl(c.author_avatar)}" alt=""></div>`
+    : `<div class="avatar">${initials}</div>`;
+
+  return `
+    <div class="comment">
+      ${avatarHtml}
+      <div class="comment-body">
+        <div class="name">${escapeHtml(c.author_name)}</div>
+        <div class="date">${timeAgo(c.created_at)}</div>
+        <div class="text">${escapeHtml(c.content)}</div>
+        ${c.replies && c.replies.length ? `<div class="comment-replies">${c.replies.map(r => renderComment(r)).join('')}</div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+async function submitComment(e, postId) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById('commentBtn');
+  btn.disabled = true; btn.textContent = 'Posting...';
+
+  try {
+    const res = await fetch(`${CONFIG.API_URL}/posts/${postId}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        author_name: form.author_name.value,
+        author_email: form.author_email.value,
+        content: form.content.value
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    alert('✅ Comment submitted! It will appear after moderation.');
+    form.reset();
+  } catch(err) {
+    alert('❌ ' + err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Post Comment';
+  }
+}
+
+// ═══════════════ SHARE ═══════════════
+function trackShare(platform) {
+  if (!currentPost) return;
+  fetch(`${CONFIG.API_URL}/posts/${currentPost.id}/share`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ platform })
+  }).catch(() => {});
+}
+
 function shareTwitter() {
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(currentPost.title)}&url=${encodeURIComponent(location.href)}`, '_blank');
   trackShare('twitter');
@@ -347,80 +575,29 @@ function shareWhatsApp() {
   window.open(`https://wa.me/?text=${encodeURIComponent(currentPost.title + ' ' + location.href)}`, '_blank');
   trackShare('whatsapp');
 }
+function shareLinkedIn() {
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(location.href)}`, '_blank');
+  trackShare('linkedin');
+}
 function copyLink() {
-  navigator.clipboard.writeText(location.href);
-  alert('🔗 Link copied!');
-  trackShare('copy');
-}
-function trackShare(platform) {
-  if(!currentPost) return;
-  fetch(`${CONFIG.API_URL}/posts/${currentPost.id}/share`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ platform })
-  }).catch(()=>{});
+  navigator.clipboard.writeText(location.href).then(() => {
+    alert('🔗 Link copied!');
+    trackShare('copy');
+  });
 }
 
-// COMMENTS
-async function loadComments(postId) {
-  const container = document.getElementById('commentsList');
-  try {
-    const comments = await apiFetch(`/posts/${postId}/comments`);
-    if(!comments.length) {
-      container.innerHTML = '<p class="empty-comments">No comments yet. Be the first!</p>';
-      return;
-    }
-    container.innerHTML = comments.map(c => renderComment(c)).join('');
-  } catch { container.innerHTML = '<p class="empty-comments">Failed to load comments.</p>'; }
-}
-
-function renderComment(c) {
-  const initials = getInitials(c.author_name);
-  return `
-    <div class="comment">
-      <div class="avatar">${initials}</div>
-      <div class="comment-body">
-        <div class="name">${escapeHtml(c.author_name)}</div>
-        <div class="date">${timeAgo(c.created_at)}</div>
-        <div class="text">${escapeHtml(c.content)}</div>
-        ${c.replies?.length ? `<div class="comment-replies">${c.replies.map(r=>renderComment(r)).join('')}</div>` : ''}
-      </div>
-    </div>
-  `;
-}
-
-async function submitComment(e, postId) {
-  e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('button');
-  btn.disabled = true; btn.textContent = 'Posting...';
-  try {
-    const res = await fetch(`${CONFIG.API_URL}/posts/${postId}/comments`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        author_name: form.author_name.value,
-        author_email: form.author_email.value,
-        content: form.content.value
-      })
-    });
-    const data = await res.json();
-    if(!res.ok) throw new Error(data.error);
-    alert('✅ Comment submitted! It will appear after moderation.');
-    form.reset();
-  } catch(err) { alert('❌ ' + err.message); }
-  finally { btn.disabled = false; btn.textContent = 'Post Comment'; }
-}
-
-// ADS
-async function loadAd(position) {
-  if(!CONFIG.ENABLE_ADS) return;
-  const slot = document.getElementById(`ad-${position}`);
-  if(!slot) return;
+// ═══════════════ ADS ═══════════════
+async function loadAd(id, position) {
+  const el = document.getElementById(id);
+  if (!el) return;
   try {
     const ad = await apiFetch(`/ads/${position}`);
-    if(!ad) return;
-    slot.style.display = 'flex';
-    if(ad.type === 'custom_html') slot.innerHTML = ad.content || '';
-    else if(ad.type === 'image' && ad.image_url) slot.innerHTML = `<a href="${ad.link_url||'#'}" target="_blank"><img src="${imgUrl(ad.image_url)}"></a>`;
+    if (!ad) return;
+    el.style.display = 'flex';
+    if (ad.type === 'custom_html') el.innerHTML = ad.content || '';
+    else if (ad.type === 'image' && ad.image_url) {
+      el.innerHTML = `<a href="${ad.link_url || '#'}" target="_blank"><img src="${imgUrl(ad.image_url)}" alt=""></a>`;
+    }
   } catch {}
 }
 
