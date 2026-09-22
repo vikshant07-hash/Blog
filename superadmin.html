@@ -3,330 +3,953 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0f0a1e">
-<title>👑 Super Admin — InkWell</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#faf7f2">
+<title>Super Admin — InkWell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --primary:#7c3aed;
-  --primary-light:#a78bfa;
-  --primary-dark:#5b21b6;
-  --gold:#f59e0b;
-  --gold-light:#fbbf24;
-  --gold-dark:#d97706;
-  --verified:#3b82f6;
-  --success:#10b981;
-  --danger:#ef4444;
-  --warning:#f59e0b;
-  --text:#f5f3ff;
-  --text-mute:#94a3b8;
-  --text-dim:#64748b;
-  --bg:#0f0a1e;
-  --bg-card:#1a1332;
-  --bg-soft:#241a42;
-  --border:#2d1f4d;
-  --border-light:#3d2b66;
+  --cream:#faf7f2;--cream-2:#f2ece1;--paper:#ffffff;
+  --ink:#1c1917;--ink-2:#44403c;--ink-3:#78716c;--ink-4:#a8a29e;
+  --line:#e7e1d5;--line-2:#d6cebd;
+  --accent:#c2410c;--accent-2:#ea580c;--accent-soft:#fef3e6;
+  --verified:#0ea5e9;--success:#10b981;--danger:#dc2626;--warn:#f59e0b;
+  --radius:14px;--radius-lg:20px;
+}
+body.dark{
+  --cream:#0f0e0c;--cream-2:#1a1815;--paper:#181613;
+  --ink:#f5f1ea;--ink-2:#d6cebd;--ink-3:#a8a29e;--ink-4:#78716c;
+  --line:#292522;--line-2:#3a3430;--accent-soft:#2a1a0f;
 }
 html{-webkit-text-size-adjust:100%}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden}
-body.locked{overflow:hidden}
+body{
+  font-family:'Manrope',-apple-system,sans-serif;
+  background:var(--cream);color:var(--ink);
+  line-height:1.6;overflow-x:hidden;
+  transition:background .3s,color .3s;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;letter-spacing:-.02em}
 a{text-decoration:none;color:inherit}
-button{cursor:pointer;border:none;outline:none;font-family:inherit;font-weight:600;background:none}
-input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;appearance:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;color:inherit}
+input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;border:none}
 
-/* ══════════════════════════════════════════
-   LOGIN
-══════════════════════════════════════════ */
-.login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 20%,#2d1b69 0%,#0f0a1e 50%,#050210 100%);padding:20px;position:relative;overflow:hidden}
-.login-screen::before{content:'';position:absolute;top:-200px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 70%);border-radius:50%;animation:float 8s ease-in-out infinite}
-.login-screen::after{content:'';position:absolute;bottom:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(245,158,11,.2),transparent 70%);border-radius:50%;animation:float 10s ease-in-out infinite reverse}
-@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+/* ═══════════ LAYOUT ═══════════ */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
 
-.login-card{background:rgba(26,19,50,.85);backdrop-filter:blur(20px);border:1px solid rgba(124,58,237,.3);border-radius:24px;padding:42px 32px;max-width:430px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(124,58,237,.15);position:relative;z-index:1}
-.crown-badge{width:70px;height:70px;margin:0 auto 16px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:50%;display:grid;place-items:center;font-size:34px;box-shadow:0 0 30px rgba(245,158,11,.5),inset 0 -3px 10px rgba(0,0,0,.2)}
-.login-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;text-align:center;margin-bottom:6px;background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
-.login-sub{text-align:center;color:var(--text-mute);font-size:13.5px;margin-bottom:28px}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.5px}
-.field input,.field textarea,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:rgba(15,10,30,.6);color:var(--text);transition:border-color .15s}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-.field textarea{min-height:80px;resize:vertical;line-height:1.5}
-.field input::placeholder,.field textarea::placeholder{color:var(--text-dim)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:10px;font-size:13.5px;font-weight:600;transition:all .15s;white-space:nowrap;line-height:1.2}
-.btn-gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f0a1e;box-shadow:0 4px 14px rgba(245,158,11,.3)}
-.btn-gold:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.4)}
-.btn-primary{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.3)}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.4)}
-.btn-success{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
-.btn-success:hover{transform:translateY(-1px)}
-.btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
-.btn-danger:hover{transform:translateY(-1px)}
-.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border-light)}
-.btn-outline:hover{border-color:var(--primary-light);color:var(--primary-light)}
-.btn-sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
-.btn-xs{padding:5px 10px;font-size:11.5px;border-radius:7px}
-.btn-block{width:100%}
-.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.alert{padding:12px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px;display:none;line-height:1.5;border-left:3px solid}
-.alert.show{display:block}
-.alert-error{background:rgba(239,68,68,.15);color:#fca5a5;border-color:var(--danger)}
-.login-footer{text-align:center;margin-top:18px;font-size:13px;color:var(--text-mute)}
-.link{color:var(--gold);font-weight:600;cursor:pointer}
+.sidebar{
+  background:var(--paper);
+  border-right:1px solid var(--line);
+  padding:24px 16px;
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;
+  overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+.side-logo{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:900;
+  letter-spacing:-.04em;display:flex;align-items:center;gap:8px;
+  padding:8px 10px;margin-bottom:24px;
+}
+.side-logo-img{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.side-logo-text{display:flex;align-items:center;gap:2px;white-space:nowrap}
+.side-logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.side-crown{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:100px;
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  color:#92400e;
+  font-size:11px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:16px;
+}
+body.dark .side-crown{background:#451a03;color:#fcd34d}
 
-/* ══════════════════════════════════════════
-   LAYOUT
-══════════════════════════════════════════ */
-.app{display:none;min-height:100vh;min-height:100dvh}
-.app.active{display:block}
-.sidebar{background:linear-gradient(180deg,#1a1332 0%,#0f0a1e 100%);border-right:1px solid var(--border);color:var(--text);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:270px;overflow-y:auto;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
-.sidebar-brand{padding:22px 20px 18px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative}
-.sidebar-brand::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.sidebar-brand .crown-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.sidebar-brand .crown{width:38px;height:38px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:10px;display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:0 0 20px rgba(245,158,11,.3)}
-.sidebar-brand .name{font-family:'Playfair Display',serif;font-size:19px;font-weight:900}
-.sidebar-brand .name span{background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sidebar-brand .role{font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(245,158,11,.1);padding:3px 9px;border-radius:20px;display:inline-block;border:1px solid rgba(245,158,11,.3)}
-.sidebar nav{padding:12px 0;flex:1}
-.sidebar nav .group{padding:12px 20px 5px;font-size:9.5px;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px}
-.sidebar nav a{display:flex;align-items:center;gap:11px;padding:11px 20px;color:var(--text-mute);font-size:13.5px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent;position:relative}
-.sidebar nav a:hover{background:rgba(124,58,237,.1);color:var(--text)}
-.sidebar nav a.active{background:linear-gradient(90deg,rgba(124,58,237,.25),transparent);color:#fff;border-left-color:var(--gold)}
-.sidebar nav a.active .ic{color:var(--gold)}
-.sidebar nav a .ic{width:20px;text-align:center;font-size:15px;flex-shrink:0;transition:color .15s}
-.sidebar nav a .badge-pill{margin-left:auto;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center;box-shadow:0 0 12px rgba(239,68,68,.4)}
-.sidebar-footer{padding:14px 18px 18px;border-top:1px solid var(--border);flex-shrink:0}
-.sidebar-user{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.sidebar-user .av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#f59e0b);display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden;border:2px solid rgba(245,158,11,.4)}
-.sidebar-user .av img{width:100%;height:100%;object-fit:cover}
-.sidebar-user .info{flex:1;min-width:0}
-.sidebar-user b{display:block;font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sidebar-user span{display:block;font-size:11px;color:var(--gold)}
-.logout-btn{width:100%;padding:9px;background:rgba(239,68,68,.12);color:#fca5a5;border-radius:8px;font-size:12.5px;font-weight:600;transition:all .15s;border:1px solid rgba(239,68,68,.2)}
-.logout-btn:hover{background:rgba(239,68,68,.25);color:#fff;border-color:rgba(239,68,68,.4)}
+.side-user{
+  display:flex;align-items:center;gap:10px;
+  padding:12px;
+  background:var(--cream-2);
+  border-radius:12px;
+  margin-bottom:24px;
+  min-width:0;
+}
+.side-user .avatar{
+  width:40px;height:40px;font-size:14px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  display:grid;place-items:center;
+  color:#fff;font-weight:700;flex-shrink:0;
+  overflow:hidden;
+}
+.side-user .avatar img{width:100%;height:100%;object-fit:cover}
+.side-user-info{flex:1;min-width:0;overflow:hidden}
+.side-user-info b{
+  display:block;font-size:13.5px;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.side-user-info span{
+  display:block;font-size:11.5px;color:var(--ink-4);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
 
-.main{min-height:100vh;min-height:100dvh;padding:22px 30px 80px;margin-left:270px}
-.mobile-bar{display:none;position:sticky;top:0;background:rgba(15,10,30,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:11px 16px;align-items:center;justify-content:space-between;z-index:50;gap:12px}
-.mobile-bar .menu-icon{width:38px;height:38px;border-radius:10px;background:rgba(124,58,237,.15);display:grid;place-items:center;font-size:17px;color:var(--primary-light);border:1px solid var(--border)}
-.mobile-bar .brand{font-family:'Playfair Display',serif;font-size:19px;font-weight:900}
-.mobile-bar .brand span{background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.mobile-bar .crown-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f0a1e;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.5px}
-.overlay{display:none;position:fixed;inset:0;background:rgba(5,2,16,.7);z-index:99;backdrop-filter:blur(3px)}
-.overlay.show{display:block}
+.side-nav{list-style:none;flex:1}
+.side-nav li{margin-bottom:4px}
+.side-nav a{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 14px;border-radius:10px;
+  font-size:14px;font-weight:500;
+  color:var(--ink-3);
+  transition:all .2s;
+  cursor:pointer;
+}
+.side-nav a:hover{background:var(--cream-2);color:var(--ink)}
+.side-nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.side-nav a i{width:18px;text-align:center;font-size:15px}
+.side-nav .badge{
+  margin-left:auto;
+  background:var(--accent);color:#fff;
+  font-size:10.5px;font-weight:700;
+  padding:2px 8px;border-radius:100px;
+  min-width:20px;text-align:center;
+}
+.side-nav .badge.warn{background:var(--danger)}
+.side-footer{margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
 
-.page-head{margin-bottom:22px}
-.page-head h1{font-size:25px;font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
-.page-head h1 .gold-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold);display:inline-block}
-.page-head .sub{color:var(--text-mute);font-size:13.5px;margin-top:3px}
-.page-head-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+/* Main */
+.main{
+  min-width:0;
+  padding:24px 32px 48px;
+  max-width:100%;
+  overflow-x:hidden;
+}
 
-.section{display:none;animation:fadeIn .25s ease}
-.section.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;margin-bottom:28px;
+  flex-wrap:wrap;
+}
+.topbar h1{
+  font-size:28px;font-weight:600;
+  letter-spacing:-.02em;
+  display:flex;align-items:center;gap:10px;
+}
+.topbar h1 i{font-size:24px;color:var(--accent)}
+.topbar-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px;margin-bottom:22px}
-.stat{background:linear-gradient(135deg,#1a1332,#241a42);border:1px solid var(--border);border-radius:14px;padding:18px;transition:all .2s;cursor:pointer;position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--primary),var(--gold));opacity:0;transition:opacity .2s}
-.stat:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(124,58,237,.15);border-color:var(--border-light)}
-.stat:hover::before{opacity:1}
-.stat .lbl{font-size:11.5px;color:var(--text-mute);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
-.stat .val{font-size:28px;font-weight:800;letter-spacing:-.5px;color:#fff}
-.stat .sub{font-size:11.5px;color:var(--text-dim);margin-top:4px}
-.stat.gold{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(217,119,6,.1));border-color:rgba(245,158,11,.4)}
-.stat.gold .val{color:var(--gold-light)}
-.stat.primary{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(91,33,182,.15));border-color:rgba(124,58,237,.5)}
-.stat.primary .val{color:#e9d5ff}
-.stat.pending{background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(220,38,38,.1));border-color:rgba(239,68,68,.4);animation:pulse 2s ease-in-out infinite}
-.stat.pending .val{color:#fca5a5}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 0 12px rgba(239,68,68,0)}}
+.btn{
+  padding:10px 20px;border-radius:100px;
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;border:1.5px solid transparent;
+  cursor:pointer;
+}
+.btn i{font-size:13px}
+.btn-primary{background:var(--ink);color:var(--cream)}
+.btn-primary:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-success{background:var(--success);color:#fff}
+.btn-success:hover{background:#059669}
+.btn-warn{background:var(--warn);color:#fff}
+.btn-warn:hover{background:#d97706}
+.btn-sm{padding:7px 14px;font-size:12.5px}
+.btn-sm i{font-size:12px}
+.btn-xs{padding:5px 11px;font-size:11.5px}
+.btn-xs i{font-size:11px}
 
-/* CARDS */
-.card{background:linear-gradient(135deg,#1a1332,#18112e);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
-.card-head{padding:15px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(36,26,66,.4)}
-.card-head h2{font-size:15.5px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
-.card-head .count{font-size:12.5px;color:var(--text-dim);font-weight:500}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);
+  display:grid;place-items:center;transition:all .2s;
+  font-size:14px;color:var(--ink);flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
 
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
-th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);vertical-align:middle}
-th{background:rgba(15,10,30,.5);font-weight:700;font-size:10.5px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:rgba(124,58,237,.05)}
-.title-cell{font-weight:600;display:block;margin-bottom:2px;color:#fff;line-height:1.3}
-.sub-cell{font-size:11.5px;color:var(--text-dim)}
-.avatar-mini{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#f59e0b);display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:12px;overflow:hidden;vertical-align:middle;flex-shrink:0;border:1.5px solid rgba(245,158,11,.3)}
-.avatar-mini img{width:100%;height:100%;object-fit:cover}
-.user-cell{display:flex;align-items:center;gap:9px}
+/* Pages */
+.page{display:none}
+.page.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
-.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
-.badge-success{background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
-.badge-warning{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.3)}
-.badge-danger{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
-.badge-info{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
-.badge-gold{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(217,119,6,.15));color:#fbbf24;border:1px solid rgba(245,158,11,.4)}
-.badge-verified{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.4)}
-.badge-verified::before{display:none}
-.badge-author{background:rgba(124,58,237,.15);color:#c4b5fd;border:1px solid rgba(124,58,237,.4)}
-.badge-author::before{display:none}
-.badge-user{background:rgba(100,116,139,.15);color:#cbd5e1;border:1px solid rgba(100,116,139,.3)}
-.badge-user::before{display:none}
+/* Stats */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:14px;
+  margin-bottom:28px;
+}
+.stat-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  transition:all .3s;
+}
+.stat-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(28,25,23,.06);
+  border-color:var(--line-2);
+}
+.stat-icon{
+  width:42px;height:42px;
+  border-radius:12px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  display:grid;place-items:center;
+  font-size:17px;margin-bottom:12px;
+}
+.stat-value{
+  font-family:'Fraunces',serif;
+  font-size:28px;font-weight:600;
+  letter-spacing:-.02em;line-height:1;
+  margin-bottom:5px;
+}
+.stat-label{
+  font-size:12.5px;color:var(--ink-3);
+  font-weight:500;
+}
 
-/* VERIFIED TICK */
-.verified-tick{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;background:var(--verified);border-radius:50%;color:#fff;flex-shrink:0;margin-left:4px;box-shadow:0 0 8px rgba(59,130,246,.5)}
-.verified-tick svg{width:9px;height:9px;fill:#fff}
+/* Tabs */
+.tabs{
+  display:flex;gap:4px;
+  padding:4px;
+  background:var(--cream-2);
+  border-radius:100px;
+  margin-bottom:20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:9px 18px;border-radius:100px;
+  font-size:13px;font-weight:600;
+  color:var(--ink-3);
+  transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+  cursor:pointer;
+}
+.tab:hover{color:var(--ink)}
+.tab.active{background:var(--paper);color:var(--ink);box-shadow:0 2px 8px rgba(28,25,23,.06)}
+.tab .count{
+  margin-left:6px;font-size:11px;
+  background:var(--accent);color:#fff;
+  padding:2px 7px;border-radius:100px;
+  font-weight:700;
+}
 
-.row-actions{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap}
+/* Search */
+.search-wrap{
+  position:relative;
+  margin-bottom:16px;
+  max-width:400px;
+}
+.search-wrap input{
+  width:100%;
+  padding:11px 16px 11px 42px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  font-size:14px;color:var(--ink);
+  transition:all .2s;
+}
+.search-wrap input:focus{border-color:var(--accent)}
+.search-wrap i{
+  position:absolute;left:15px;top:50%;
+  transform:translateY(-50%);
+  color:var(--ink-4);font-size:14px;
+}
 
-/* TABS */
-.tabs{display:flex;gap:5px;margin-bottom:18px;flex-wrap:wrap;background:rgba(26,19,50,.6);padding:5px;border-radius:12px;border:1px solid var(--border);width:fit-content;max-width:100%}
-.tabs button{padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--text-mute);transition:all .15s;white-space:nowrap}
-.tabs button:hover{color:var(--text)}
-.tabs button.active{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,.3)}
+/* Section */
+.section{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  margin-bottom:24px;
+}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:20px;flex-wrap:wrap;
+}
+.section-head h2{
+  font-size:20px;font-weight:600;
+  display:flex;align-items:center;gap:10px;
+}
+.section-head h2 i{font-size:18px;color:var(--accent)}
 
-/* EMPTY & LOADING */
-.empty{padding:50px 20px;text-align:center;color:var(--text-mute)}
-.empty .icon{font-size:44px;opacity:.35;margin-bottom:10px}
-.empty h3{font-size:15.5px;font-weight:700;color:var(--text);margin-bottom:5px}
-.empty p{font-size:13px;margin-bottom:16px}
-.loader{padding:50px;text-align:center;color:var(--text-mute)}
-.spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--primary-light);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+/* ═══════════ USER CARDS ═══════════ */
+.user-list{display:flex;flex-direction:column;gap:10px}
+.user-row{
+  display:flex;align-items:center;gap:16px;
+  padding:14px;
+  background:var(--cream-2);
+  border-radius:12px;
+  transition:all .2s;
+  flex-wrap:wrap;
+}
+.user-row:hover{background:var(--cream)}
+.user-row .avatar{
+  width:44px;height:44px;font-size:15px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  display:grid;place-items:center;
+  color:#fff;font-weight:700;flex-shrink:0;
+  overflow:hidden;
+}
+.user-row .avatar img{width:100%;height:100%;object-fit:cover}
+.user-info{flex:1;min-width:200px}
+.user-info b{
+  display:block;font-size:15px;font-weight:600;
+  margin-bottom:3px;
+}
+.user-info .email{
+  font-size:12.5px;color:var(--ink-4);
+  margin-bottom:5px;
+}
+.user-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.badge-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 10px;border-radius:100px;
+  font-size:10.5px;font-weight:700;
+  letter-spacing:.03em;text-transform:uppercase;
+}
+.badge-pill.pending{background:#fef3c7;color:#92400e}
+.badge-pill.approved{background:#d1fae5;color:#065f46}
+.badge-pill.rejected{background:#fee2e2;color:#991b1b}
+.badge-pill.author{background:#dbeafe;color:#1e40af}
+.badge-pill.user{background:var(--cream);color:var(--ink-3);border:1px solid var(--line)}
+.badge-pill.verified{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e40af}
+body.dark .badge-pill.pending{background:#451a03;color:#fcd34d}
+body.dark .badge-pill.approved{background:#064e3b;color:#6ee7b7}
+body.dark .badge-pill.rejected{background:#450a0a;color:#fca5a5}
+body.dark .badge-pill.author{background:#0c1a3a;color:#93c5fd}
+body.dark .badge-pill.user{background:var(--cream);color:var(--ink-3)}
+
+.user-actions{display:flex;gap:6px;flex-wrap:wrap}
+.user-actions .btn{padding:6px 12px;font-size:11.5px}
+
+/* ═══════════ POSTS ═══════════ */
+.post-row{
+  display:flex;align-items:center;gap:14px;
+  padding:14px;
+  background:var(--cream-2);
+  border-radius:12px;
+  transition:all .2s;
+  flex-wrap:wrap;
+}
+.post-row:hover{background:var(--cream)}
+.post-thumb{
+  width:70px;height:52px;
+  border-radius:8px;
+  background:var(--paper);
+  overflow:hidden;flex-shrink:0;
+}
+.post-thumb img{width:100%;height:100%;object-fit:cover}
+.post-thumb .placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;
+  color:#fff;font-size:20px;opacity:.8;
+}
+.post-info{flex:1;min-width:200px}
+.post-info h3{
+  font-size:14.5px;font-weight:600;
+  margin-bottom:5px;line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:1;
+  -webkit-box-orient:vertical;overflow:hidden;
+  font-family:'Manrope',sans-serif;
+}
+.post-info .meta{
+  display:flex;gap:12px;font-size:12px;color:var(--ink-4);
+  flex-wrap:wrap;align-items:center;
+}
+.post-info .meta span{display:inline-flex;align-items:center;gap:4px}
+.post-status{
+  font-size:10.5px;font-weight:700;
+  padding:3px 10px;border-radius:100px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.post-status.published{background:#d1fae5;color:#065f46}
+.post-status.draft{background:#fef3c7;color:#92400e}
+.post-status.scheduled{background:#dbeafe;color:#1e40af}
+.post-status.archived{background:#fee2e2;color:#991b1b}
+body.dark .post-status.published{background:#064e3b;color:#6ee7b7}
+body.dark .post-status.draft{background:#451a03;color:#fcd34d}
+body.dark .post-status.scheduled{background:#0c1a3a;color:#93c5fd}
+body.dark .post-status.archived{background:#450a0a;color:#fca5a5}
+.post-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.post-actions .icon-btn{width:34px;height:34px;font-size:13px}
+
+/* ═══════════ COMMENTS ═══════════ */
+.comment-row{
+  padding:16px;
+  background:var(--cream-2);
+  border-radius:12px;
+  display:flex;gap:14px;
+  align-items:flex-start;
+}
+.comment-row .avatar{
+  width:40px;height:40px;font-size:14px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  color:#fff;font-weight:700;
+  display:grid;place-items:center;
+  overflow:hidden;flex-shrink:0;
+}
+.comment-row .avatar img{width:100%;height:100%;object-fit:cover}
+.comment-row .body{flex:1;min-width:0}
+.comment-row .head{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:6px;flex-wrap:wrap;
+}
+.comment-row .head b{font-size:14px;font-weight:600}
+.comment-row .head .time{font-size:12px;color:var(--ink-4)}
+.comment-row .text{
+  font-size:14px;color:var(--ink-2);
+  line-height:1.6;margin-bottom:10px;
+  word-wrap:break-word;
+}
+.comment-row .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ═══════════ REPORTS ═══════════ */
+.report-row{
+  padding:16px;
+  background:var(--cream-2);
+  border-radius:12px;
+  border-left:4px solid var(--danger);
+}
+.report-row.resolved{border-left-color:var(--success);opacity:.7}
+.report-row h4{
+  font-size:15px;margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;
+  font-family:'Manrope',sans-serif;
+  font-weight:600;
+}
+.report-row h4 i{color:var(--danger);font-size:14px}
+.report-row p{font-size:13.5px;color:var(--ink-3);margin-bottom:10px;line-height:1.55}
+.report-row .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ═══════════ ACTIVITY LOG ═══════════ */
+.activity-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px;
+  background:var(--cream-2);
+  border-radius:10px;
+  font-size:13px;
+}
+.activity-row i{
+  width:32px;height:32px;
+  border-radius:8px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  display:grid;place-items:center;
+  font-size:13px;flex-shrink:0;
+}
+.activity-info{flex:1;min-width:0}
+.activity-info b{color:var(--ink);font-weight:600}
+.activity-info span{color:var(--ink-4);font-size:11.5px;display:block;margin-top:2px}
+
+/* ═══════════ ANALYTICS ═══════════ */
+.chart-wrap{
+  padding:20px;
+  background:var(--cream-2);
+  border-radius:12px;
+  margin-bottom:20px;
+}
+.chart-bars{
+  display:flex;align-items:flex-end;gap:4px;
+  height:180px;
+  padding:10px 0;
+}
+.chart-bar{
+  flex:1;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  border-radius:4px 4px 0 0;
+  min-height:4px;
+  transition:all .3s;
+  position:relative;
+  cursor:pointer;
+}
+.chart-bar:hover{opacity:.85}
+.chart-bar::after{
+  content:attr(data-value);
+  position:absolute;bottom:-22px;left:50%;
+  transform:translateX(-50%);
+  font-size:10px;color:var(--ink-4);
+  white-space:nowrap;
+  font-weight:600;
+}
+.chart-labels{
+  display:flex;justify-content:space-between;
+  margin-top:24px;font-size:11px;color:var(--ink-4);
+  font-weight:600;
+}
+
+/* ═══════════ SUBSCRIBERS / ADS ═══════════ */
+.data-row{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 14px;
+  background:var(--cream-2);
+  border-radius:10px;
+  flex-wrap:wrap;
+}
+.data-row .info{flex:1;min-width:180px}
+.data-row .info b{font-size:14px;font-weight:600;display:block;margin-bottom:2px}
+.data-row .info span{font-size:12.5px;color:var(--ink-4)}
+
+/* ═══════════ MODAL ═══════════ */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(28,25,23,.5);
+  backdrop-filter:blur(4px);
+  display:none;place-items:center;
+  z-index:9998;padding:20px;
+}
+.modal-overlay.show{display:grid}
+.modal{
+  background:var(--paper);
+  border-radius:var(--radius-lg);
+  padding:28px;
+  max-width:500px;width:100%;
+  animation:modalIn .25s;
+  max-height:90vh;overflow-y:auto;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.modal h3 i{color:var(--danger);font-size:20px}
+.modal p{font-size:14.5px;color:var(--ink-3);margin-bottom:24px;line-height:1.6}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.modal .form-group{margin-bottom:16px}
+.modal .form-label{
+  display:block;font-size:12px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:6px;
+}
+.modal .form-input,.modal .form-textarea,.modal .form-select{
+  width:100%;padding:11px 14px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:9px;font-size:14px;
+  color:var(--ink);
+}
+.modal .form-input:focus,.modal .form-textarea:focus,.modal .form-select:focus{
+  border-color:var(--accent);
+}
+.modal .form-textarea{resize:vertical;min-height:90px;font-family:inherit}
+
+/* Loader / empty */
+.loader{text-align:center;padding:60px 20px;color:var(--ink-4)}
+.spinner{
+  width:36px;height:36px;
+  border:2.5px solid var(--line);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 16px;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
+.empty{
+  text-align:center;padding:60px 20px;
+  color:var(--ink-3);
+}
+.empty i{
+  font-size:52px;opacity:.25;
+  margin-bottom:16px;color:var(--ink-4);
+}
+.empty h3{
+  font-size:18px;font-weight:600;
+  color:var(--ink);margin-bottom:8px;
+}
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(5,2,16,.8);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(4px)}
-.modal-bg.active{display:flex}
-.modal{background:linear-gradient(135deg,#1a1332,#241a42);border:1px solid var(--border-light);border-radius:16px;padding:24px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-.modal-head h2{font-size:17px;font-weight:700;color:#fff}
-.modal-head .close{width:32px;height:32px;border-radius:9px;background:rgba(124,58,237,.15);display:grid;place-items:center;font-size:15px;color:var(--text-mute);transition:all .15s}
-.modal-head .close:hover{background:rgba(239,68,68,.2);color:#fca5a5}
-.modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
+/* Toast */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  padding:14px 22px;border-radius:12px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:9999;animation:toastIn .3s;
+  max-width:90vw;
+}
+.toast.success{background:#10b981;color:#fff}
+.toast.error{background:#ef4444;color:#fff}
+@keyframes toastIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 
-/* TOAST */
-.toast{position:fixed;bottom:24px;left:24px;right:24px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,#1a1332,#241a42);color:#fff;padding:13px 18px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:2000;transform:translateY(120px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);box-shadow:0 15px 40px rgba(0,0,0,.4);display:flex;align-items:center;gap:10px;border:1px solid var(--border-light)}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.success{background:linear-gradient(135deg,#059669,#10b981);border-color:rgba(16,185,129,.5)}
-.toast.error{background:linear-gradient(135deg,#dc2626,#ef4444);border-color:rgba(239,68,68,.5)}
-.toast.gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f0a1e;border-color:rgba(245,158,11,.6)}
-.toast.verified{background:linear-gradient(135deg,#2563eb,#3b82f6);border-color:rgba(59,130,246,.5)}
+/* Mobile toggle */
+.mobile-nav-toggle{
+  display:none;
+  position:fixed;bottom:20px;right:20px;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--ink);color:var(--cream);
+  z-index:99;font-size:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
 
-/* RESPONSIVE */
+/* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:900px){
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0);box-shadow:0 0 60px rgba(124,58,237,.4)}
-  .main{margin-left:0;padding:0 16px 100px}
-  .mobile-bar{display:flex}
-  .page-head{padding:18px 0 0}
-  .page-head h1{font-size:21px}
-  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
-  .stat{padding:14px}
-  .stat .val{font-size:22px}
-  .stat .lbl{font-size:10.5px}
-  th,td{padding:11px 14px;font-size:12.5px}
-  .modal{padding:22px}
-  .modal-bg{padding:12px;align-items:flex-start;padding-top:24px}
+  .app{grid-template-columns:1fr}
+  .sidebar{
+    position:fixed;top:0;left:0;
+    width:280px;height:100vh;z-index:200;
+    transform:translateX(-100%);
+    transition:transform .3s;
+    box-shadow:8px 0 24px rgba(0,0,0,.1);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{padding:20px 20px 40px}
+  .mobile-nav-toggle{display:grid}
 }
 @media(max-width:640px){
-  .main{padding:0 12px 100px}
-  .mobile-bar{padding:10px 12px}
-  .page-head{padding:16px 0 0}
-  .page-head h1{font-size:19px}
-  .stats{gap:8px}
-  .stat{padding:12px}
-  .stat .val{font-size:20px}
-  .card{border-radius:12px}
-  .card-head{padding:13px 16px}
-  .card-head h2{font-size:14.5px}
-  .row-actions{flex-direction:column;align-items:stretch}
-  .row-actions .btn{width:100%}
-  .tabs{width:100%;overflow-x:auto;flex-wrap:nowrap;padding:4px}
-  .tabs button{padding:7px 12px;font-size:12px}
-  .toast{left:12px;right:12px;bottom:12px;padding:12px 14px;font-size:13px}
-  .table-wrap{margin:0 -16px}
-  table{min-width:520px}
-  th,td{padding:10px 12px}
-  .modal-actions{flex-direction:column-reverse}
-  .modal-actions .btn{width:100%}
-  .login-card{padding:32px 22px;border-radius:20px}
-  .crown-badge{width:60px;height:60px;font-size:28px}
-  .login-title{font-size:24px}
-}
-@media(max-width:380px){
-  .stats{grid-template-columns:1fr}
-  .sidebar{width:260px}
+  .main{padding:16px 16px 32px}
+  .topbar h1{font-size:22px}
+  .stat-value{font-size:24px}
+  .section{padding:18px}
+  .user-row,.post-row{flex-direction:column;align-items:stretch}
+  .user-info{min-width:0}
+  .user-actions,.post-actions{width:100%}
+  .chart-bar::after{display:none}
+  .toast{bottom:20px;right:20px;left:20px;text-align:center}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ LOGIN ═══════════ -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-card">
-    <div class="crown-badge">👑</div>
-    <div class="login-title">Super Admin</div>
-    <p class="login-sub">Owner access — full control panel</p>
-    <div class="alert alert-error" id="loginError"></div>
-    <form id="loginForm">
-      <div class="field"><label>Email</label><input type="email" id="email" placeholder="admin@blog.com" required autocomplete="email"></div>
-      <div class="field"><label>Password</label><input type="password" id="password" placeholder="Your password" required autocomplete="current-password"></div>
-      <button type="submit" class="btn btn-gold btn-block" id="loginBtn" style="padding:13px;font-size:14.5px">🔓 Sign In as Owner</button>
-    </form>
-    <div class="login-footer" style="margin-top:16px">
-      <a href="admin.html" style="color:var(--primary-light)">← Author Panel</a>
-      &nbsp;·&nbsp;
-      <a href="index.html" style="color:var(--text-mute)">View Site →</a>
-    </div>
-  </div>
-</div>
+<div class="app">
 
-<!-- ═══════════ APP ═══════════ -->
-<div class="app" id="app">
-  <div class="overlay" id="overlay"></div>
-
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-      <div class="crown-row">
-        <div class="crown">👑</div>
-        <div class="name">Ink<span>Well</span></div>
-      </div>
-      <div class="role">Super Admin</div>
+    <div class="side-logo">
+      <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="side-logo-img" onerror="this.style.display='none'">
+      <span class="side-logo-text">Ink<em>well</em></span>
     </div>
-    <nav id="sidebarNav"></nav>
-    <div class="sidebar-footer">
-      <div class="sidebar-user">
-        <div class="av" id="sbAv">A</div>
-        <div class="info">
-          <b id="sbName">Owner</b>
-          <span id="sbRole">👑 Super Admin</span>
-        </div>
+    <div class="side-crown"><i class="fa-solid fa-crown"></i> Super Admin</div>
+
+    <div class="side-user">
+      <div class="avatar" id="sideAvatar">A</div>
+      <div class="side-user-info">
+        <b id="sideName">Admin</b>
+        <span>Super Admin</span>
       </div>
-      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+
+    <ul class="side-nav">
+      <li><a data-page="overview" class="active"><i class="fa-solid fa-chart-pie"></i> Overview</a></li>
+      <li><a data-page="users"><i class="fa-solid fa-users"></i> Users <span class="badge" id="pendingUsersBadge" style="display:none">0</span></a></li>
+      <li><a data-page="posts"><i class="fa-solid fa-file-lines"></i> All Posts</a></li>
+      <li><a data-page="comments"><i class="fa-solid fa-comments"></i> Comments <span class="badge" id="pendingCommentsBadge" style="display:none">0</span></a></li>
+      <li><a data-page="reports"><i class="fa-solid fa-flag"></i> Reports <span class="badge warn" id="pendingReportsBadge" style="display:none">0</span></a></li>
+      <li><a data-page="categories"><i class="fa-solid fa-folder-tree"></i> Categories</a></li>
+      <li><a data-page="subscribers"><i class="fa-solid fa-envelope"></i> Subscribers</a></li>
+      <li><a data-page="ads"><i class="fa-solid fa-bullhorn"></i> Ads</a></li>
+      <li><a data-page="analytics"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+      <li><a data-page="activity"><i class="fa-solid fa-clock-rotate-left"></i> Activity Log</a></li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> View Site</a></li>
+    </ul>
+
+    <div class="side-footer">
+      <button class="btn btn-outline btn-sm" id="themeToggle" style="width:100%;justify-content:center">
+        <i class="fa-solid fa-moon"></i> Dark Mode
+      </button>
+      <button class="btn btn-outline btn-sm" id="logoutBtn" style="width:100%;justify-content:center;margin-top:8px">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
     </div>
   </aside>
 
-  <div class="mobile-bar">
-    <button class="menu-icon" onclick="toggleSidebar()">☰</button>
-    <div class="brand">Ink<span>Well</span></div>
-    <div class="crown-badge">👑 Owner</div>
-  </div>
-
+  <!-- MAIN -->
   <main class="main">
-    <div id="pageHeader"></div>
-    <div id="sec-dashboard" class="section"></div>
-    <div id="sec-users" class="section"></div>
-    <div id="sec-posts" class="section"></div>
-    <div id="sec-comments" class="section"></div>
-    <div id="sec-categories" class="section"></div>
-    <div id="sec-ads" class="section"></div>
-    <div id="sec-subscribers" class="section"></div>
-    <div id="sec-profile" class="section"></div>
+
+    <!-- OVERVIEW -->
+    <div class="page active" id="page-overview">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-chart-pie"></i> Overview</h1>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="goToPage('posts')">
+            <i class="fa-solid fa-file-lines"></i> Manage Posts
+          </button>
+        </div>
+      </div>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+        <div class="stat-card"><div class="loader" style="padding:0"><div class="spinner"></div></div></div>
+      </div>
+      <div class="section">
+        <div class="section-head">
+          <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</h2>
+          <a class="btn btn-outline btn-sm" onclick="goToPage('activity')">View All</a>
+        </div>
+        <div id="recentActivity"><div class="loader"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="page" id="page-users">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-users"></i> Users</h1>
+      </div>
+      <div class="tabs">
+        <div class="tab active" data-status="pending">Pending <span class="count" id="tabPending">0</span></div>
+        <div class="tab" data-status="approved">Approved</div>
+        <div class="tab" data-status="rejected">Rejected</div>
+        <div class="tab" data-status="">All</div>
+      </div>
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="userSearch" placeholder="Search users by name or email...">
+      </div>
+      <div class="section">
+        <div class="user-list" id="usersList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSTS -->
+    <div class="page" id="page-posts">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-file-lines"></i> All Posts</h1>
+        <div class="topbar-actions">
+          <select class="btn btn-outline" id="postStatusFilter" style="padding:10px 16px;border-radius:100px;appearance:none;cursor:pointer">
+            <option value="">All Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+      </div>
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="postSearch" placeholder="Search posts by title...">
+      </div>
+      <div class="section">
+        <div id="allPostsList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="page" id="page-comments">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-comments"></i> Comments</h1>
+      </div>
+      <div class="tabs">
+        <div class="tab active" data-status="pending">Pending</div>
+        <div class="tab" data-status="approved">Approved</div>
+        <div class="tab" data-status="spam">Spam</div>
+        <div class="tab" data-status="">All</div>
+      </div>
+      <div class="section">
+        <div id="allCommentsList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div class="page" id="page-reports">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-flag"></i> Reports</h1>
+      </div>
+      <div class="tabs">
+        <div class="tab active" data-status="pending">Pending</div>
+        <div class="tab" data-status="reviewed">Reviewed</div>
+        <div class="tab" data-status="dismissed">Dismissed</div>
+        <div class="tab" data-status="action_taken">Action Taken</div>
+      </div>
+      <div class="section">
+        <div id="reportsList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="page" id="page-categories">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-folder-tree"></i> Categories</h1>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="openCategoryModal()">
+            <i class="fa-solid fa-plus"></i> New Category
+          </button>
+        </div>
+      </div>
+      <div class="section">
+        <div id="categoriesList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIBERS -->
+    <div class="page" id="page-subscribers">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-envelope"></i> Subscribers</h1>
+      </div>
+      <div class="section">
+        <div id="subscribersList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADS -->
+    <div class="page" id="page-ads">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-bullhorn"></i> Ads</h1>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="openAdModal()">
+            <i class="fa-solid fa-plus"></i> New Ad
+          </button>
+        </div>
+      </div>
+      <div class="section">
+        <div id="adsList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="page" id="page-analytics">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-chart-line"></i> Analytics</h1>
+        <div class="topbar-actions">
+          <select class="btn btn-outline" id="analyticsDays" style="padding:10px 16px;border-radius:100px;cursor:pointer">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2><i class="fa-solid fa-chart-column"></i> Daily Views</h2></div>
+        <div class="chart-wrap">
+          <div class="chart-bars" id="chartBars"></div>
+          <div class="chart-labels" id="chartLabels"></div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2><i class="fa-solid fa-trophy"></i> Top Authors</h2></div>
+        <div id="topAuthors" class="user-list"><div class="loader"><div class="spinner"></div></div></div>
+      </div>
+      <div class="section">
+        <div class="section-head"><h2><i class="fa-solid fa-fire"></i> Top Posts</h2></div>
+        <div id="topPosts" class="user-list"><div class="loader"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="page" id="page-activity">
+      <div class="topbar">
+        <h1><i class="fa-solid fa-clock-rotate-left"></i> Activity Log</h1>
+      </div>
+      <div class="section">
+        <div id="activityList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
-<div class="modal-bg" id="modalBg"><div class="modal" id="modalBody"></div></div>
-<div class="toast" id="toast"></div>
+<button class="mobile-nav-toggle" id="mobileNavToggle"><i class="fa-solid fa-bars"></i></button>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <h3><i class="fa-solid fa-triangle-exclamation"></i> <span id="confirmTitle">Confirm</span></h3>
+    <p id="confirmMsg">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-danger" id="confirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Category Modal -->
+<div class="modal-overlay" id="categoryModal">
+  <div class="modal">
+    <h3 style="color:var(--ink)"><i class="fa-solid fa-folder-tree" style="color:var(--accent)"></i> <span id="catModalTitle">New Category</span></h3>
+    <form id="categoryForm">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" id="catName" required maxlength="80">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" id="catDesc" maxlength="200"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Color</label>
+        <input type="color" class="form-input" id="catColor" value="#c2410c" style="height:48px;padding:6px">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeCategoryModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="catSubmitBtn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Ad Modal -->
+<div class="modal-overlay" id="adModal">
+  <div class="modal">
+    <h3 style="color:var(--ink)"><i class="fa-solid fa-bullhorn" style="color:var(--accent)"></i> <span id="adModalTitle">New Ad</span></h3>
+    <form id="adForm">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" id="adName" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Position</label>
+        <select class="form-select" id="adPosition" required>
+          <option value="header">Header</option>
+          <option value="sidebar">Sidebar</option>
+          <option value="in-article">In Article</option>
+          <option value="footer">Footer</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-select" id="adType" required>
+          <option value="custom_html">Custom HTML</option>
+          <option value="image">Image Banner</option>
+          <option value="adsense">AdSense</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Content / HTML</label>
+        <textarea class="form-textarea" id="adContent" placeholder="Paste HTML code or leave empty for image ads"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Image URL</label>
+        <input type="url" class="form-input" id="adImage" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Link URL</label>
+        <input type="url" class="form-input" id="adLink" placeholder="https://...">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeAdModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="adSubmitBtn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
 // ═══════════════════════════════════════════════════════════
@@ -337,772 +960,828 @@ const CONFIG = {
   UPLOAD_URL: 'https://gsssshilla.onrender.com'
 };
 
-let token = localStorage.getItem('token');
-let currentUser = JSON.parse(localStorage.getItem('user') || 'null');
-let pendingCount = 0;
-let userFilter = 'all';
-
 // ═══════════════════════════════════════════════════════════
 // HELPERS
 // ═══════════════════════════════════════════════════════════
-const esc = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
-const fmtDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
-const timeAgo = (d) => {
-  if (!d) return '';
-  const diff = Math.floor((new Date() - new Date(d)) / 1000);
+const $ = (id) => document.getElementById(id);
+const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const getInitials = (n) => (n || 'U').split(' ').map(x => x[0]).join('').slice(0,2).toUpperCase();
+const getToken = () => localStorage.getItem('token');
+const getUser = () => { try { return JSON.parse(localStorage.getItem('user')); } catch { return null; } };
+
+async function apiFetch(endpoint, opts = {}) {
+  const headers = { ...(opts.headers || {}) };
+  if (getToken()) headers['Authorization'] = 'Bearer ' + getToken();
+  if (!headers['Content-Type'] && !(opts.body instanceof FormData)) headers['Content-Type'] = 'application/json';
+  const res = await fetch(CONFIG.API_URL + endpoint, { ...opts, headers });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+function timeAgo(s) {
+  if (!s) return '';
+  const t = new Date(s.includes('Z') || s.includes('+') ? s : s.replace(' ','T') + '+05:30');
+  const diff = Math.floor((Date.now() - t.getTime())/1000);
   if (diff < 60) return 'just now';
   if (diff < 3600) return Math.floor(diff/60) + 'm ago';
   if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
   if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
-  return fmtDate(d);
-};
-const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
-const verifiedTick = () => `<span class="verified-tick" title="Verified"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
-
-async function api(endpoint, opts = {}) {
-  const headers = { ...(opts.headers || {}) };
-  if (opts.body && !(opts.body instanceof FormData)) headers['Content-Type'] = 'application/json';
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch(CONFIG.API_URL + endpoint, { ...opts, headers });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
-  return data;
+  return t.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
 }
 
-function toast(msg, type='') {
-  const t = document.getElementById('toast');
-  const icons = { success: '✓', error: '✕', gold: '👑', verified: '✅', '': 'ℹ' };
-  t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ'}</span> <span>${esc(msg)}</span>`;
-  t.className = 'toast show ' + type;
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.className = 'toast ' + type, 3200);
+function formatNum(n) {
+  n = Number(n) || 0;
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n;
 }
 
 // ═══════════════════════════════════════════════════════════
-// LOGIN
+// AUTH CHECK
 // ═══════════════════════════════════════════════════════════
-document.getElementById('loginForm').onsubmit = async (e) => {
-  e.preventDefault();
-  const btn = document.getElementById('loginBtn');
-  const err = document.getElementById('loginError');
-  err.classList.remove('show');
-  btn.disabled = true; btn.textContent = 'Signing in...';
-  try {
-    const res = await fetch(`${CONFIG.API_URL}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
-      })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error);
-    if (data.user.role !== 'admin') throw new Error('This panel is for Super Admin only. Please use admin.html');
-    token = data.token;
-    currentUser = data.user;
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(currentUser));
-    initApp();
-  } catch(e) {
-    err.textContent = e.message;
-    err.classList.add('show');
-    btn.disabled = false; btn.textContent = '🔓 Sign In as Owner';
+(function init() {
+  const token = getToken();
+  const user = getUser();
+  if (!token || !user) { window.location.href = 'login.html'; return; }
+  if (user.role !== 'admin') {
+    alert('Super admin access required');
+    window.location.href = 'index.html';
+    return;
   }
-};
 
-function logout() {
-  if (!confirm('Sign out from Super Admin?')) return;
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  location.reload();
-}
+  $('sideName').textContent = user.name || 'Admin';
+  const ini = getInitials(user.name);
+  if (user.avatar_url) $('sideAvatar').innerHTML = `<img src="${imgUrl(user.avatar_url)}" alt="">`;
+  else $('sideAvatar').textContent = ini;
 
-// ═══════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════
-function initApp() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('app').classList.add('active');
-  document.getElementById('sbName').textContent = currentUser?.name || 'Owner';
-  const initials = (currentUser?.name || 'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-  if (currentUser?.avatar_url) {
-    document.getElementById('sbAv').innerHTML = `<img src="${imgUrl(currentUser.avatar_url)}" alt="">`;
-  } else {
-    document.getElementById('sbAv').textContent = initials;
+  setupTheme();
+  setupNav();
+  loadOverview();
+})();
+
+function setupTheme() {
+  const btn = $('themeToggle');
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
   }
-  buildSidebar();
-  show('dashboard');
-}
-
-if (token && currentUser && currentUser.role === 'admin') initApp();
-else document.getElementById('loginScreen').style.display = 'flex';
-
-// ═══════════════════════════════════════════════════════════
-// SIDEBAR
-// ═══════════════════════════════════════════════════════════
-function buildSidebar() {
-  const nav = document.getElementById('sidebarNav');
-  nav.innerHTML = `
-    <div class="group">Overview</div>
-    <a data-sec="dashboard" class="active"><span class="ic">📊</span> Dashboard</a>
-
-    <div class="group">Content</div>
-    <a data-sec="posts"><span class="ic">📝</span> All Posts</a>
-    <a data-sec="comments"><span class="ic">💬</span> Comments</a>
-    <a data-sec="categories"><span class="ic">📁</span> Categories</a>
-
-    <div class="group">Users & Access</div>
-    <a data-sec="users"><span class="ic">👥</span> Users <span class="badge-pill" id="pendingBadge" style="display:none"></span></a>
-
-    <div class="group">Monetization</div>
-    <a data-sec="ads"><span class="ic">📢</span> Ads Manager</a>
-    <a data-sec="subscribers"><span class="ic">✉️</span> Subscribers</a>
-
-    <div class="group">Account</div>
-    <a data-sec="profile"><span class="ic">👤</span> My Profile</a>
-    <a href="index.html" target="_blank"><span class="ic">🌐</span> View Site</a>
-  `;
-  nav.querySelectorAll('a[data-sec]').forEach(a => {
-    a.onclick = () => { show(a.dataset.sec); closeSidebar(); };
-  });
-  loadPendingBadge();
-}
-
-async function loadPendingBadge() {
-  try {
-    const users = await api('/admin/users?status=pending');
-    pendingCount = users.length;
-    const badge = document.getElementById('pendingBadge');
-    if (badge && users.length > 0) {
-      badge.textContent = users.length;
-      badge.style.display = 'inline-block';
-    }
-  } catch {}
-}
-
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('show');
-  document.body.classList.toggle('locked');
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('overlay').classList.remove('show');
-  document.body.classList.remove('locked');
-}
-document.getElementById('overlay').onclick = closeSidebar;
-
-// ═══════════════════════════════════════════════════════════
-// ROUTER
-// ═══════════════════════════════════════════════════════════
-function show(name) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.sidebar nav a[data-sec]').forEach(a => a.classList.toggle('active', a.dataset.sec === name));
-  const sec = document.getElementById('sec-' + name);
-  if (sec) sec.classList.add('active');
-
-  const titles = {
-    dashboard: ['Dashboard', 'Full control overview'],
-    posts: ['All Posts', 'Every article from every author'],
-    comments: ['Comments', 'Moderate all discussions'],
-    categories: ['Categories', 'Organize content'],
-    users: ['Users', 'Manage authors & access'],
-    ads: ['Ads Manager', 'Monetization control'],
-    subscribers: ['Subscribers', 'Newsletter audience'],
-    profile: ['My Profile', 'Owner account']
+  btn.onclick = () => {
+    document.body.classList.toggle('dark');
+    const d = document.body.classList.contains('dark');
+    btn.innerHTML = d ? '<i class="fa-solid fa-sun"></i> Light Mode' : '<i class="fa-solid fa-moon"></i> Dark Mode';
+    localStorage.setItem('theme', d ? 'dark' : 'light');
   };
-  const [t, s] = titles[name] || ['Dashboard', ''];
-  document.getElementById('pageHeader').innerHTML = `
-    <div class="page-head">
-      <h1><span class="gold-dot"></span>${t}</h1>
-      <p class="sub">${s}</p>
-    </div>
-  `;
+}
 
-  switch(name) {
-    case 'dashboard': loadDashboard(); break;
-    case 'posts': loadPosts(); break;
-    case 'comments': loadComments(); break;
-    case 'categories': loadCategories(); break;
-    case 'users': loadUsers(); break;
-    case 'ads': loadAds(); break;
-    case 'subscribers': loadSubscribers(); break;
-    case 'profile': loadProfile(); break;
-  }
+function setupNav() {
+  document.querySelectorAll('.side-nav a[data-page]').forEach(a => {
+    a.onclick = () => goToPage(a.dataset.page);
+  });
+  $('mobileNavToggle').onclick = () => $('sidebar').classList.toggle('open');
+  $('logoutBtn').onclick = () => {
+    if (confirm('Logout from admin panel?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = 'index.html';
+    }
+  };
+}
+
+function goToPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.side-nav a[data-page]').forEach(a => a.classList.remove('active'));
+  $('page-' + page)?.classList.add('active');
+  document.querySelector(`.side-nav a[data-page="${page}"]`)?.classList.add('active');
+  $('sidebar').classList.remove('open');
+
+  if (page === 'users') loadUsers('pending');
+  if (page === 'posts') loadAllPosts();
+  if (page === 'comments') loadAllComments('pending');
+  if (page === 'reports') loadReports('pending');
+  if (page === 'categories') loadCategories();
+  if (page === 'subscribers') loadSubscribers();
+  if (page === 'ads') loadAds();
+  if (page === 'analytics') loadAnalytics();
+  if (page === 'activity') loadActivity();
 }
 
 // ═══════════════════════════════════════════════════════════
-// DASHBOARD
+// OVERVIEW / STATS
 // ═══════════════════════════════════════════════════════════
-async function loadDashboard() {
-  const el = document.getElementById('sec-dashboard');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+async function loadOverview() {
   try {
-    const s = await api('/admin/stats');
-    el.innerHTML = `
-      <div class="stats">
-        <div class="stat primary" onclick="show('posts')"><div class="lbl">Total Posts</div><div class="val">${s.posts.total||0}</div><div class="sub">All authors</div></div>
-        <div class="stat" onclick="show('posts')"><div class="lbl">Published</div><div class="val">${s.posts.published||0}</div></div>
-        <div class="stat" onclick="show('posts')"><div class="lbl">Drafts</div><div class="val">${s.posts.drafts||0}</div></div>
-        <div class="stat" onclick="show('posts')"><div class="lbl">Total Views</div><div class="val">${(s.posts.total_views||0).toLocaleString()}</div></div>
-        <div class="stat gold" onclick="show('users')"><div class="lbl">Users</div><div class="val">${s.users.total||0}</div><div class="sub">${s.users.verified||0} verified · ${s.users.authors||0} authors</div></div>
-        ${s.users.pending > 0 ? `<div class="stat pending" onclick="show('users')"><div class="lbl">⚠ Pending Approval</div><div class="val">${s.users.pending}</div><div class="sub">Action needed now</div></div>` : ''}
-        <div class="stat" onclick="show('comments')"><div class="lbl">Comments</div><div class="val">${s.comments.total||0}</div>${s.comments.pending>0?`<div class="sub">${s.comments.pending} pending</div>`:''}</div>
-        <div class="stat"><div class="lbl">Reactions</div><div class="val">${s.reactions||0}</div></div>
-        <div class="stat" onclick="show('subscribers')"><div class="lbl">Subscribers</div><div class="val">${s.subscribers||0}</div></div>
-        <div class="stat" onclick="show('ads')"><div class="lbl">Ad Views</div><div class="val">${s.ads?.impressions||0}</div></div>
+    const stats = await apiFetch('/admin/stats');
+    const p = stats.posts || {};
+    const u = stats.users || {};
+    const c = stats.comments || {};
+
+    $('statsGrid').innerHTML = `
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-value">${u.total || 0}</div>
+        <div class="stat-label">Total Users</div>
       </div>
-      <div class="card">
-        <div class="card-head"><h2>⚡ Quick Actions</h2></div>
-        <div style="padding:16px 18px;display:flex;gap:9px;flex-wrap:wrap">
-          <button class="btn btn-gold" onclick="show('users')">👥 Manage Users</button>
-          <button class="btn btn-primary" onclick="show('posts')">📝 All Posts</button>
-          <button class="btn btn-outline" onclick="show('ads')">📢 Ads</button>
-        </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fef3c7;color:#92400e"><i class="fa-solid fa-hourglass-half"></i></div>
+        <div class="stat-value">${u.pending || 0}</div>
+        <div class="stat-label">Pending Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#d1fae5;color:#065f46"><i class="fa-solid fa-file-lines"></i></div>
+        <div class="stat-value">${p.total || 0}</div>
+        <div class="stat-label">Total Posts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#dbeafe;color:#1e40af"><i class="fa-solid fa-eye"></i></div>
+        <div class="stat-value">${formatNum(p.total_views)}</div>
+        <div class="stat-label">Total Views</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fee2e2;color:#991b1b"><i class="fa-solid fa-comments"></i></div>
+        <div class="stat-value">${c.total || 0}</div>
+        <div class="stat-label">Comments</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fce7f3;color:#9d174d"><i class="fa-solid fa-envelope"></i></div>
+        <div class="stat-value">${stats.subscribers || 0}</div>
+        <div class="stat-label">Subscribers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#f3e8ff;color:#6b21a8"><i class="fa-solid fa-heart"></i></div>
+        <div class="stat-value">${formatNum(stats.reactions)}</div>
+        <div class="stat-label">Reactions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#fef3c7;color:#92400e"><i class="fa-solid fa-flag"></i></div>
+        <div class="stat-value">${stats.reports?.pending || 0}</div>
+        <div class="stat-label">Open Reports</div>
       </div>
     `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed to load</h3><p>${esc(e.message)}</p></div>`;
+
+    // Badges
+    if (u.pending > 0) { $('pendingUsersBadge').textContent = u.pending; $('pendingUsersBadge').style.display = 'inline-block'; $('tabPending').textContent = u.pending; }
+    if (c.pending > 0) { $('pendingCommentsBadge').textContent = c.pending; $('pendingCommentsBadge').style.display = 'inline-block'; }
+    if (stats.reports?.pending > 0) { $('pendingReportsBadge').textContent = stats.reports.pending; $('pendingReportsBadge').style.display = 'inline-block'; }
+
+    // Recent activity
+    const activity = await apiFetch('/admin/activity-log?limit=8');
+    $('recentActivity').innerHTML = activity.length
+      ? activity.map(renderActivityRow).join('')
+      : `<div class="empty"><i class="fa-regular fa-clock"></i><h3>No activity yet</h3></div>`;
+  } catch (e) {
+    console.error(e);
+    showToast(e.message, 'error');
   }
 }
 
 // ═══════════════════════════════════════════════════════════
 // USERS
 // ═══════════════════════════════════════════════════════════
-async function loadUsers() {
-  const el = document.getElementById('sec-users');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  try {
-    const users = await api('/admin/users');
-    const pending = users.filter(u => u.status === 'pending').length;
-    pendingCount = pending;
-    const filtered = userFilter === 'all' ? users : users.filter(u => u.status === userFilter);
+let currentUserStatus = 'pending';
 
-    el.innerHTML = `
-      <div class="tabs">
-        <button class="${userFilter==='all'?'active':''}" onclick="setFilter('all')">All (${users.length})</button>
-        <button class="${userFilter==='pending'?'active':''}" onclick="setFilter('pending')">⏳ Pending (${pending})</button>
-        <button class="${userFilter==='approved'?'active':''}" onclick="setFilter('approved')">✓ Approved (${users.filter(u=>u.status==='approved').length})</button>
-        <button class="${userFilter==='rejected'?'active':''}" onclick="setFilter('rejected')">✕ Rejected (${users.filter(u=>u.status==='rejected').length})</button>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2>👥 Users <span class="count">(${filtered.length})</span></h2></div>
-        ${filtered.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${filtered.map(u => {
-              const initials = (u.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-              const avatar = u.avatar_url ? `<img src="${imgUrl(u.avatar_url)}" alt="">` : initials;
-              const roleLabel = u.role_type === 'author' ? '✍️ Author' : '👤 User';
-              const roleClass = u.role_type === 'author' ? 'badge-author' : 'badge-user';
-              return `
-              <tr>
-                <td>
-                  <div class="user-cell">
-                    <div class="avatar-mini">${avatar}</div>
-                    <div style="flex:1;min-width:0">
-                      <b style="display:flex;align-items:center;gap:2px;flex-wrap:wrap;font-size:13px;color:#fff">
-                        ${esc(u.name)}
-                        ${u.is_verified ? verifiedTick() : ''}
-                      </b>
-                      <div class="sub-cell">${esc(u.email)}</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="badge ${roleClass}">${roleLabel}</span></td>
-                <td><span class="badge ${u.status==='approved'?'badge-success':u.status==='rejected'?'badge-danger':'badge-warning'}">${u.status}</span></td>
-                <td><span class="sub-cell">${timeAgo(u.created_at)}</span></td>
-                <td>
-                  <div class="row-actions">
-                    ${u.status!=='approved' ? `<button class="btn btn-success btn-xs" onclick="setStatus(${u.id},'approved')">✓ Approve</button>`:''}
-                    ${u.status!=='rejected' ? `<button class="btn btn-outline btn-xs" onclick="setStatus(${u.id},'rejected')">✕ Reject</button>`:''}
-                    ${u.is_verified 
-                      ? `<button class="btn btn-outline btn-xs" onclick="toggleVerify(${u.id},false)" title="Remove verified">✕ Unverify</button>`
-                      : `<button class="btn btn-primary btn-xs" onclick="toggleVerify(${u.id},true)" title="Give verified badge">✅ Verify</button>`
-                    }
-                    ${u.status==='approved' ? (
-                      u.role_type === 'author'
-                        ? `<button class="btn btn-outline btn-xs" onclick="makeUser(${u.id})" title="Demote">👤 User</button>`
-                        : `<button class="btn btn-gold btn-xs" onclick="makeAuthor(${u.id})" title="Promote to author">✍️ Author</button>`
-                    ) : ''}
-                    <button class="btn btn-danger btn-xs" onclick="delUser(${u.id})">🗑</button>
-                  </div>
-                </td>
-              </tr>
-            `}).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">👥</div><h3>No users</h3><p>No users match this filter.</p></div>`}
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+document.querySelectorAll('#page-users .tab').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('#page-users .tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentUserStatus = t.dataset.status;
+    loadUsers(currentUserStatus);
+  };
+});
+
+$('userSearch').addEventListener('input', debounce(() => {
+  loadUsers(currentUserStatus, $('userSearch').value);
+}, 400));
+
+async function loadUsers(status = '', search = '') {
+  const list = $('usersList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  try {
+    let url = '/admin/users';
+    const params = [];
+    if (status) params.push('status=' + status);
+    if (search) params.push('search=' + encodeURIComponent(search));
+    if (params.length) url += '?' + params.join('&');
+
+    const users = await apiFetch(url);
+    if (!users.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-user"></i><h3>No users found</h3></div>`;
+      return;
+    }
+    list.innerHTML = users.map(renderUserRow).join('');
+    setupUserActions();
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
   }
 }
 
-function setFilter(f) { userFilter = f; loadUsers(); }
-
-async function setStatus(id, status) {
-  try {
-    await api(`/admin/users/${id}/status`, { method:'PUT', body: JSON.stringify({ status }) });
-    toast(`User ${status}`, 'success');
-    loadUsers();
-    loadPendingBadge();
-  } catch(e) { toast(e.message, 'error'); }
+function renderUserRow(u) {
+  const ini = getInitials(u.name);
+  const av = u.avatar_url ? `<img src="${imgUrl(u.avatar_url)}" alt="">` : ini;
+  return `
+    <div class="user-row" data-id="${u.id}">
+      <div class="avatar">${av}</div>
+      <div class="user-info">
+        <b>${escapeHtml(u.name)}${u.is_verified ? ' <span style="color:var(--verified)">✓</span>' : ''}</b>
+        <div class="email">${escapeHtml(u.email)}</div>
+        <div class="user-badges">
+          <span class="badge-pill ${u.status}">${u.status}</span>
+          <span class="badge-pill ${u.role_type}">${u.role_type}</span>
+          ${u.is_verified ? '<span class="badge-pill verified"><i class="fa-solid fa-check-circle"></i> Verified</span>' : ''}
+          ${u.email_verified ? '<span class="badge-pill verified">Email ✓</span>' : ''}
+        </div>
+      </div>
+      <div class="user-actions">
+        ${u.status === 'pending' ? `
+          <button class="btn btn-success btn-xs" data-approve="${u.id}"><i class="fa-solid fa-check"></i> Approve</button>
+          <button class="btn btn-danger btn-xs" data-reject="${u.id}"><i class="fa-solid fa-xmark"></i> Reject</button>
+        ` : ''}
+        ${u.status === 'rejected' ? `<button class="btn btn-success btn-xs" data-approve="${u.id}"><i class="fa-solid fa-check"></i> Approve</button>` : ''}
+        ${u.status === 'approved' ? `
+          <button class="btn btn-outline btn-xs" data-verify="${u.id}" data-verified="${u.is_verified ? 1 : 0}">
+            <i class="fa-solid fa-${u.is_verified ? 'circle-xmark' : 'circle-check'}"></i> ${u.is_verified ? 'Unverify' : 'Verify'}
+          </button>
+        ` : ''}
+        ${u.role_type === 'user' && u.status === 'approved' ? `<button class="btn btn-warn btn-xs" data-author="${u.id}"><i class="fa-solid fa-pen-nib"></i> Make Author</button>` : ''}
+        ${u.role_type === 'author' ? `<button class="btn btn-outline btn-xs" data-demote="${u.id}"><i class="fa-solid fa-user"></i> Demote</button>` : ''}
+        <button class="btn btn-danger btn-xs" data-delete="${u.id}"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `;
 }
 
-async function toggleVerify(id, verified) {
+function setupUserActions() {
+  document.querySelectorAll('[data-approve]').forEach(b => b.onclick = () => changeUserStatus(b.dataset.approve, 'approved'));
+  document.querySelectorAll('[data-reject]').forEach(b => b.onclick = () => changeUserStatus(b.dataset.reject, 'rejected'));
+  document.querySelectorAll('[data-verify]').forEach(b => b.onclick = () => toggleVerify(b.dataset.verify, b.dataset.verified === '1'));
+  document.querySelectorAll('[data-author]').forEach(b => b.onclick = () => makeAuthor(b.dataset.author));
+  document.querySelectorAll('[data-demote]').forEach(b => b.onclick = () => demote(b.dataset.demote));
+  document.querySelectorAll('[data-delete]').forEach(b => b.onclick = () => confirmDelete('user', b.dataset.delete));
+}
+
+async function changeUserStatus(id, status) {
   try {
-    const res = await api(`/admin/users/${id}/verify`, { method:'PUT', body: JSON.stringify({ verified }) });
-    toast(res.message, 'verified');
-    loadUsers();
-  } catch(e) { toast(e.message, 'error'); }
+    await apiFetch(`/admin/users/${id}/status`, { method: 'PUT', body: JSON.stringify({ status }) });
+    showToast(`User ${status}`, 'success');
+    loadUsers(currentUserStatus);
+    loadOverview();
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+async function toggleVerify(id, current) {
+  try {
+    await apiFetch(`/admin/users/${id}/verify`, { method: 'PUT', body: JSON.stringify({ verified: !current }) });
+    showToast(current ? 'Verification removed' : 'User verified ✓', 'success');
+    loadUsers(currentUserStatus);
+  } catch (e) { showToast(e.message, 'error'); }
 }
 
 async function makeAuthor(id) {
-  if (!confirm('Promote this user to Author? They will be able to publish posts.')) return;
+  if (!confirm('Promote this user to Author?')) return;
   try {
-    await api(`/admin/users/${id}/make-author`, { method: 'PUT' });
-    toast('Promoted to Author ✍️', 'gold');
-    loadUsers();
-  } catch(e) { toast(e.message, 'error'); }
+    await apiFetch(`/admin/users/${id}/make-author`, { method: 'PUT' });
+    showToast('User promoted to Author', 'success');
+    loadUsers(currentUserStatus);
+  } catch (e) { showToast(e.message, 'error'); }
 }
 
-async function makeUser(id) {
-  if (!confirm('Demote this author to Regular User?')) return;
+async function demote(id) {
+  if (!confirm('Demote this user?')) return;
   try {
-    await api(`/admin/users/${id}/make-user`, { method: 'PUT' });
-    toast('Demoted to User 👤', 'success');
-    loadUsers();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function delUser(id) {
-  if (!confirm('Delete this user permanently? All their posts will also be deleted.')) return;
-  try {
-    await api(`/admin/users/${id}`, { method:'DELETE' });
-    toast('User deleted', 'success');
-    loadUsers();
-  } catch(e) { toast(e.message, 'error'); }
+    await apiFetch(`/admin/users/${id}/make-user`, { method: 'PUT' });
+    showToast('Demoted to User', 'success');
+    loadUsers(currentUserStatus);
+  } catch (e) { showToast(e.message, 'error'); }
 }
 
 // ═══════════════════════════════════════════════════════════
 // POSTS
 // ═══════════════════════════════════════════════════════════
-async function loadPosts() {
-  const el = document.getElementById('sec-posts');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+$('postStatusFilter').onchange = () => loadAllPosts();
+$('postSearch').addEventListener('input', debounce(() => loadAllPosts(), 400));
+
+async function loadAllPosts() {
+  const list = $('allPostsList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
   try {
-    const posts = await api('/admin/posts/all');
+    const params = [];
+    const s = $('postStatusFilter').value;
+    const q = $('postSearch').value;
+    if (s) params.push('status=' + s);
+    if (q) params.push('search=' + encodeURIComponent(q));
+    const posts = await apiFetch('/admin/posts/all' + (params.length ? '?' + params.join('&') : ''));
+
     if (!posts.length) {
-      el.innerHTML = `<div class="card"><div class="empty"><div class="icon">📝</div><h3>No posts yet</h3><p>Authors haven't published anything yet.</p></div></div>`;
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-file-lines"></i><h3>No posts found</h3></div>`;
       return;
     }
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-head"><h2>📝 All Posts <span class="count">(${posts.length})</span></h2></div>
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Views</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${posts.map(p => {
-              const initials = (p.author_name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-              const avatar = p.author_avatar ? `<img src="${imgUrl(p.author_avatar)}" alt="">` : initials;
-              return `
-              <tr>
-                <td>
-                  <span class="title-cell">${esc(p.title)}</span>
-                  <span class="sub-cell">${p.category_name ? esc(p.category_name) + ' · ' : ''}${timeAgo(p.created_at)}</span>
-                </td>
-                <td>
-                  <div class="user-cell">
-                    <div class="avatar-mini">${avatar}</div>
-                    <div>
-                      <b style="font-size:12.5px;color:#fff;display:flex;align-items:center;gap:2px">${esc(p.author_name)}${p.author_verified ? verifiedTick() : ''}</b>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="badge ${p.status==='published'?'badge-success':'badge-warning'}">${p.status}</span></td>
-                <td>${p.views||0}</td>
-                <td>
-                  <div class="row-actions">
-                    <button class="btn btn-outline btn-xs" onclick="window.open('post.html?slug=${p.slug}','_blank')">👁 View</button>
-                    <button class="btn btn-danger btn-xs" onclick="delPost(${p.id})">🗑 Delete</button>
-                  </div>
-                </td>
-              </tr>
-            `}).join('')}
-          </tbody>
-        </table>
-        </div>
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+    list.innerHTML = posts.map(renderPostRow).join('');
+    setupPostActions();
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
   }
 }
 
-async function delPost(id) {
-  if (!confirm('Delete this post permanently?')) return;
-  try {
-    await api(`/admin/posts/${id}`, { method:'DELETE' });
-    toast('Post deleted', 'success');
-    loadPosts();
-  } catch(e) { toast(e.message, 'error'); }
+function renderPostRow(p) {
+  const cover = p.cover_image
+    ? `<img src="${imgUrl(p.cover_image)}" alt="">`
+    : `<div class="placeholder">📝</div>`;
+  return `
+    <div class="post-row" data-id="${p.id}">
+      <div class="post-thumb">${cover}</div>
+      <div class="post-info">
+        <h3>${escapeHtml(p.title)}</h3>
+        <div class="meta">
+          <span class="post-status ${p.status}">${p.status}</span>
+          <span>by <b>${escapeHtml(p.author_name)}</b></span>
+          <span><i class="fa-solid fa-eye"></i> ${p.views || 0}</span>
+          <span><i class="fa-solid fa-heart"></i> ${p.reaction_count || 0}</span>
+          <span><i class="fa-solid fa-comment"></i> ${p.comment_count || 0}</span>
+          <span>${timeAgo(p.created_at)}</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        ${p.status === 'published' ? `<a href="post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" class="icon-btn" title="View"><i class="fa-solid fa-eye"></i></a>` : ''}
+        <button class="icon-btn" data-feature="${p.id}" data-featured="${p.featured ? 1 : 0}" title="${p.featured ? 'Unfeature' : 'Feature'}">
+          <i class="fa-${p.featured ? 'solid' : 'regular'} fa-star"></i>
+        </button>
+        <button class="icon-btn" data-del="${p.id}" title="Delete" style="color:var(--danger)"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>
+  `;
+}
+
+function setupPostActions() {
+  document.querySelectorAll('[data-feature]').forEach(b => b.onclick = async () => {
+    const featured = b.dataset.featured !== '1';
+    try {
+      await apiFetch(`/admin/posts/bulk`, { method: 'POST', body: JSON.stringify({ ids: [b.dataset.feature], action: featured ? 'feature' : 'unfeature' }) });
+      showToast(featured ? 'Featured!' : 'Unfeatured', 'success');
+      loadAllPosts();
+    } catch (e) { showToast(e.message, 'error'); }
+  });
+  document.querySelectorAll('#page-posts [data-del]').forEach(b => b.onclick = () => confirmDelete('post', b.dataset.del));
 }
 
 // ═══════════════════════════════════════════════════════════
 // COMMENTS
 // ═══════════════════════════════════════════════════════════
-async function loadComments() {
-  const el = document.getElementById('sec-comments');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+let currentCommentStatus = 'pending';
+document.querySelectorAll('#page-comments .tab').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('#page-comments .tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentCommentStatus = t.dataset.status;
+    loadAllComments(currentCommentStatus);
+  };
+});
+
+async function loadAllComments(status = '') {
+  const list = $('allCommentsList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
   try {
-    const comments = await api('/comments');
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-head"><h2>💬 Comments <span class="count">(${comments.length})</span></h2></div>
-        ${comments.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Author</th><th>Comment</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${comments.map(c => `
-              <tr>
-                <td><b style="color:#fff">${esc(c.author_name)}</b><div class="sub-cell">${esc(c.author_email)}</div></td>
-                <td style="max-width:320px">${esc(c.content).slice(0,100)}${c.content.length>100?'...':''}</td>
-                <td><span class="badge ${c.status==='approved'?'badge-success':c.status==='spam'?'badge-danger':'badge-warning'}">${c.status}</span></td>
-                <td>
-                  <div class="row-actions">
-                    ${c.status!=='approved' ? `<button class="btn btn-success btn-xs" onclick="setCmt(${c.id},'approved')">✓</button>`:''}
-                    ${c.status!=='spam' ? `<button class="btn btn-outline btn-xs" onclick="setCmt(${c.id},'spam')">🚫</button>`:''}
-                    <button class="btn btn-danger btn-xs" onclick="delCmt(${c.id})">🗑</button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">💬</div><h3>No comments</h3><p>Comments will appear here for moderation.</p></div>`}
-      </div>
-    `;
-  } catch(e) {
-    el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`;
+    const url = '/comments' + (status ? `?status=${status}` : '');
+    const comments = await apiFetch(url);
+    if (!comments.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-comments"></i><h3>No comments found</h3></div>`;
+      return;
+    }
+    list.innerHTML = comments.map(renderCommentRow).join('');
+    setupCommentActions();
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
   }
 }
 
-async function setCmt(id, status) {
-  try { await api(`/comments/${id}`, { method:'PUT', body: JSON.stringify({ status }) }); toast('Updated', 'success'); loadComments(); }
-  catch(e) { toast(e.message, 'error'); }
+function renderCommentRow(c) {
+  const ini = getInitials(c.author_name);
+  const av = c.author_avatar ? `<img src="${imgUrl(c.author_avatar)}" alt="">` : ini;
+  return `
+    <div class="comment-row">
+      <div class="avatar">${av}</div>
+      <div class="body">
+        <div class="head">
+          <b>${escapeHtml(c.author_name)}</b>
+          <span class="time">${timeAgo(c.created_at)}</span>
+          <span class="post-status ${c.status === 'approved' ? 'published' : c.status === 'spam' ? 'archived' : 'draft'}" style="font-size:10px">${c.status}</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink-4);margin-bottom:6px">
+          on <a href="post.html?slug=${escapeHtml(c.post_slug)}" target="_blank" style="color:var(--accent)">${escapeHtml(c.post_title)}</a>
+        </p>
+        <div class="text">${escapeHtml(c.content)}</div>
+        <div class="actions">
+          ${c.status !== 'approved' ? `<button class="btn btn-success btn-xs" data-approve="${c.id}"><i class="fa-solid fa-check"></i> Approve</button>` : ''}
+          ${c.status !== 'spam' ? `<button class="btn btn-warn btn-xs" data-spam="${c.id}"><i class="fa-solid fa-ban"></i> Spam</button>` : ''}
+          <button class="btn btn-danger btn-xs" data-del="${c.id}"><i class="fa-solid fa-trash"></i> Delete</button>
+        </div>
+      </div>
+    </div>
+  `;
 }
-async function delCmt(id) {
-  if (!confirm('Delete comment?')) return;
-  try { await api(`/comments/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadComments(); }
-  catch(e) { toast(e.message, 'error'); }
+
+function setupCommentActions() {
+  document.querySelectorAll('#page-comments [data-approve]').forEach(b => b.onclick = async () => {
+    await apiFetch('/comments/' + b.dataset.approve, { method: 'PUT', body: JSON.stringify({ status: 'approved' }) });
+    showToast('Approved', 'success'); loadAllComments(currentCommentStatus);
+  });
+  document.querySelectorAll('#page-comments [data-spam]').forEach(b => b.onclick = async () => {
+    await apiFetch('/comments/' + b.dataset.spam, { method: 'PUT', body: JSON.stringify({ status: 'spam' }) });
+    showToast('Marked as spam', 'success'); loadAllComments(currentCommentStatus);
+  });
+  document.querySelectorAll('#page-comments [data-del]').forEach(b => b.onclick = () => confirmDelete('comment', b.dataset.del));
+}
+
+// ═══════════════════════════════════════════════════════════
+// REPORTS
+// ═══════════════════════════════════════════════════════════
+let currentReportStatus = 'pending';
+document.querySelectorAll('#page-reports .tab').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('#page-reports .tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentReportStatus = t.dataset.status;
+    loadReports(currentReportStatus);
+  };
+});
+
+async function loadReports(status = 'pending') {
+  const list = $('reportsList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  try {
+    const reports = await apiFetch('/admin/reports?status=' + status);
+    if (!reports.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-flag"></i><h3>No reports</h3></div>`;
+      return;
+    }
+    list.innerHTML = reports.map(r => `
+      <div class="report-row ${r.status !== 'pending' ? 'resolved' : ''}">
+        <h4><i class="fa-solid fa-flag"></i> ${escapeHtml(r.target_type)} #${r.target_id}</h4>
+        <p><b>Reason:</b> ${escapeHtml(r.reason)}</p>
+        ${r.details ? `<p>${escapeHtml(r.details)}</p>` : ''}
+        ${r.target_preview ? `<p style="font-style:italic;opacity:.7;font-size:12.5px">"${escapeHtml(r.target_preview.slice(0,150))}..."</p>` : ''}
+        <p style="font-size:12px;color:var(--ink-4);margin-bottom:10px">Reported ${timeAgo(r.created_at)}</p>
+        <div class="actions">
+          ${r.status === 'pending' ? `
+            <button class="btn btn-success btn-xs" data-review="${r.id}"><i class="fa-solid fa-check"></i> Mark Reviewed</button>
+            <button class="btn btn-outline btn-xs" data-dismiss="${r.id}"><i class="fa-solid fa-xmark"></i> Dismiss</button>
+            <button class="btn btn-danger btn-xs" data-action="${r.id}"><i class="fa-solid fa-gavel"></i> Take Action</button>
+          ` : `<span class="badge-pill approved">${r.status}</span>`}
+        </div>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('[data-review]').forEach(b => b.onclick = () => updateReport(b.dataset.review, 'reviewed'));
+    list.querySelectorAll('[data-dismiss]').forEach(b => b.onclick = () => updateReport(b.dataset.dismiss, 'dismissed'));
+    list.querySelectorAll('[data-action]').forEach(b => b.onclick = () => updateReport(b.dataset.action, 'action_taken'));
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
+}
+
+async function updateReport(id, status) {
+  try {
+    await apiFetch('/admin/reports/' + id, { method: 'PUT', body: JSON.stringify({ status }) });
+    showToast('Report updated', 'success');
+    loadReports(currentReportStatus);
+  } catch (e) { showToast(e.message, 'error'); }
 }
 
 // ═══════════════════════════════════════════════════════════
 // CATEGORIES
 // ═══════════════════════════════════════════════════════════
 async function loadCategories() {
-  const el = document.getElementById('sec-categories');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  document.getElementById('pageHeader').innerHTML = `
-    <div class="page-head-row">
-      <div>
-        <h1><span class="gold-dot"></span>Categories</h1>
-        <p class="sub">Organize content</p>
-      </div>
-      <button class="btn btn-gold" onclick="showCatModal()">+ New</button>
-    </div>
-  `;
+  const list = $('categoriesList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
   try {
-    const cats = await api('/categories');
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-head"><h2>📁 Categories <span class="count">(${cats.length})</span></h2></div>
-        ${cats.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Slug</th><th>Posts</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${cats.map(c => `
-              <tr>
-                <td><b style="color:#fff">${esc(c.name)}</b></td>
-                <td><span class="sub-cell">${esc(c.slug)}</span></td>
-                <td>${c.post_count}</td>
-                <td><div class="row-actions"><button class="btn btn-danger btn-xs" onclick="delCat(${c.id})">Delete</button></div></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">📁</div><h3>No categories</h3></div>`}
+    const cats = await apiFetch('/categories');
+    if (!cats.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-folder"></i><h3>No categories yet</h3></div>`;
+      return;
+    }
+    list.innerHTML = cats.map(c => `
+      <div class="data-row" style="margin-bottom:10px">
+        <div style="width:36px;height:36px;border-radius:10px;background:${escapeHtml(c.color||'#c2410c')}20;color:${escapeHtml(c.color||'#c2410c')};display:grid;place-items:center;font-weight:800">
+          ${escapeHtml(c.name[0].toUpperCase())}
+        </div>
+        <div class="info">
+          <b>${escapeHtml(c.name)}</b>
+          <span>${c.post_count} posts · /${escapeHtml(c.slug)}</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline btn-xs" onclick='editCategory(${JSON.stringify(c).replace(/'/g, "&#39;")})'><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-danger btn-xs" onclick="confirmDelete('category', ${c.id})"><i class="fa-solid fa-trash"></i></button>
+        </div>
       </div>
-    `;
-  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+    `).join('');
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
 }
 
-function showCatModal() {
-  document.getElementById('modalBody').innerHTML = `
-    <div class="modal-head"><h2>New Category</h2><button class="close" onclick="closeModal()">✕</button></div>
-    <div class="field"><label>Name *</label><input type="text" id="catName" placeholder="e.g. Technology"></div>
-    <div class="field"><label>Description</label><textarea id="catDesc" rows="3"></textarea></div>
-    <div class="field"><label>Color</label><input type="color" id="catColor" value="#7c3aed" style="height:48px;padding:6px;cursor:pointer"></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-gold" onclick="saveCat()">Create</button>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('active');
+let editingCategoryId = null;
+function openCategoryModal() {
+  editingCategoryId = null;
+  $('catModalTitle').textContent = 'New Category';
+  $('categoryForm').reset();
+  $('catColor').value = '#c2410c';
+  $('categoryModal').classList.add('show');
+}
+function closeCategoryModal() {
+  $('categoryModal').classList.remove('show');
+}
+function editCategory(c) {
+  editingCategoryId = c.id;
+  $('catModalTitle').textContent = 'Edit Category';
+  $('catName').value = c.name;
+  $('catDesc').value = c.description || '';
+  $('catColor').value = c.color || '#c2410c';
+  $('categoryModal').classList.add('show');
 }
 
-async function saveCat() {
-  const name = document.getElementById('catName').value.trim();
-  if (!name) return toast('Name required', 'error');
+$('categoryForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const body = {
+    name: $('catName').value.trim(),
+    description: $('catDesc').value.trim(),
+    color: $('catColor').value
+  };
   try {
-    await api('/categories', { method:'POST', body: JSON.stringify({
-      name, description: document.getElementById('catDesc').value.trim(),
-      color: document.getElementById('catColor').value
-    })});
-    toast('Category created ✅', 'success');
-    closeModal(); loadCategories();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function delCat(id) {
-  if (!confirm('Delete category?')) return;
-  try { await api(`/categories/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadCategories(); }
-  catch(e) { toast(e.message, 'error'); }
-}
-
-// ═══════════════════════════════════════════════════════════
-// ADS
-// ═══════════════════════════════════════════════════════════
-async function loadAds() {
-  const el = document.getElementById('sec-ads');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
-  document.getElementById('pageHeader').innerHTML = `
-    <div class="page-head-row">
-      <div>
-        <h1><span class="gold-dot"></span>Ads Manager</h1>
-        <p class="sub">Monetization control</p>
-      </div>
-      <button class="btn btn-gold" onclick="showAdModal()">+ New Ad</button>
-    </div>
-  `;
-  try {
-    const ads = await api('/ads');
-    el.innerHTML = `
-      <div class="stats">
-        <div class="stat"><div class="lbl">Total Ads</div><div class="val">${ads.length}</div></div>
-        <div class="stat gold"><div class="lbl">Active</div><div class="val">${ads.filter(a=>a.is_active).length}</div></div>
-        <div class="stat"><div class="lbl">Impressions</div><div class="val">${ads.reduce((s,a)=>s+(a.impressions||0),0).toLocaleString()}</div></div>
-        <div class="stat"><div class="lbl">Clicks</div><div class="val">${ads.reduce((s,a)=>s+(a.clicks||0),0)}</div></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2>📢 All Ads <span class="count">(${ads.length})</span></h2></div>
-        ${ads.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Position</th><th>Type</th><th>Views</th><th>Clicks</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
-          <tbody>
-            ${ads.map(a => `
-              <tr>
-                <td><b style="color:#fff">${esc(a.name)}</b></td>
-                <td><span class="badge badge-info">${esc(a.position)}</span></td>
-                <td>${esc(a.type)}</td>
-                <td>${a.impressions||0}</td>
-                <td>${a.clicks||0}</td>
-                <td><span class="badge ${a.is_active?'badge-success':'badge-danger'}">${a.is_active?'Active':'Paused'}</span></td>
-                <td><div class="row-actions"><button class="btn btn-danger btn-xs" onclick="delAd(${a.id})">Delete</button></div></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">📢</div><h3>No ads yet</h3></div>`}
-      </div>
-    `;
-  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
-}
-
-function showAdModal() {
-  document.getElementById('modalBody').innerHTML = `
-    <div class="modal-head"><h2>New Ad</h2><button class="close" onclick="closeModal()">✕</button></div>
-    <div class="field"><label>Name *</label><input type="text" id="adName" placeholder="Header Banner"></div>
-    <div class="field"><label>Position *</label>
-      <select id="adPosition">
-        <option value="header">Header</option>
-        <option value="in-article">In-Article</option>
-        <option value="post-top">Post Top</option>
-        <option value="post-bottom">Post Bottom</option>
-        <option value="sidebar">Sidebar</option>
-        <option value="footer">Footer</option>
-      </select>
-    </div>
-    <div class="field"><label>Type *</label>
-      <select id="adType">
-        <option value="custom_html">Custom HTML</option>
-        <option value="image">Image Banner</option>
-        <option value="adsense">AdSense Code</option>
-      </select>
-    </div>
-    <div class="field"><label>Content</label><textarea id="adContent" rows="4" placeholder="<div>Ad code</div>"></textarea></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-gold" onclick="saveAd()">Create Ad</button>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('active');
-}
-
-async function saveAd() {
-  const name = document.getElementById('adName').value.trim();
-  if (!name) return toast('Name required', 'error');
-  try {
-    await api('/ads', { method:'POST', body: JSON.stringify({
-      name, position: document.getElementById('adPosition').value,
-      type: document.getElementById('adType').value,
-      content: document.getElementById('adContent').value
-    })});
-    toast('Ad created ✅', 'success');
-    closeModal(); loadAds();
-  } catch(e) { toast(e.message, 'error'); }
-}
-
-async function delAd(id) {
-  if (!confirm('Delete ad?')) return;
-  try { await api(`/ads/${id}`, { method:'DELETE' }); toast('Deleted', 'success'); loadAds(); }
-  catch(e) { toast(e.message, 'error'); }
-}
+    if (editingCategoryId) {
+      await apiFetch('/categories/' + editingCategoryId, { method: 'PUT', body: JSON.stringify(body) });
+      showToast('Category updated', 'success');
+    } else {
+      await apiFetch('/categories', { method: 'POST', body: JSON.stringify(body) });
+      showToast('Category created', 'success');
+    }
+    closeCategoryModal();
+    loadCategories();
+  } catch (e) { showToast(e.message, 'error'); }
+};
 
 // ═══════════════════════════════════════════════════════════
 // SUBSCRIBERS
 // ═══════════════════════════════════════════════════════════
 async function loadSubscribers() {
-  const el = document.getElementById('sec-subscribers');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+  const list = $('subscribersList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
   try {
-    const subs = await api('/subscribers');
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-head"><h2>✉️ Subscribers <span class="count">(${subs.length})</span></h2></div>
-        ${subs.length ? `
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Email</th><th>Name</th><th>Status</th><th>Subscribed</th></tr></thead>
-          <tbody>
-            ${subs.map(s => `
-              <tr>
-                <td><b style="color:#fff">${esc(s.email)}</b></td>
-                <td>${esc(s.name||'—')}</td>
-                <td><span class="badge badge-success">${s.status}</span></td>
-                <td><span class="sub-cell">${timeAgo(s.created_at)}</span></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        </div>` : `<div class="empty"><div class="icon">✉️</div><h3>No subscribers</h3></div>`}
+    const subs = await apiFetch('/subscribers');
+    if (!subs.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-envelope"></i><h3>No subscribers yet</h3></div>`;
+      return;
+    }
+    list.innerHTML = subs.map(s => `
+      <div class="data-row" style="margin-bottom:8px">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--ink),var(--accent));color:#fff;display:grid;place-items:center;font-weight:700">
+          ${escapeHtml((s.name || s.email)[0].toUpperCase())}
+        </div>
+        <div class="info">
+          <b>${escapeHtml(s.name || 'Anonymous')}</b>
+          <span>${escapeHtml(s.email)} · joined ${timeAgo(s.created_at)}</span>
+        </div>
+        <button class="btn btn-danger btn-xs" onclick="deleteSubscriber(${s.id})"><i class="fa-solid fa-trash"></i></button>
       </div>
-    `;
-  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+    `).join('');
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
 }
 
+window.deleteSubscriber = (id) => confirmDelete('subscriber', id);
+
 // ═══════════════════════════════════════════════════════════
-// PROFILE
+// ADS
 // ═══════════════════════════════════════════════════════════
-async function loadProfile() {
-  const el = document.getElementById('sec-profile');
-  el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
+let editingAdId = null;
+async function loadAds() {
+  const list = $('adsList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
   try {
-    const user = await api('/auth/me');
-    const initials = (user.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-    el.innerHTML = `
-      <div class="card" style="padding:26px">
-        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
-          <div style="text-align:center">
-            <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#f59e0b);display:grid;place-items:center;color:#fff;font-size:38px;font-weight:700;overflow:hidden;margin:0 auto 12px;border:3px solid rgba(245,158,11,.4);box-shadow:0 0 30px rgba(245,158,11,.3)">
-              ${user.avatar_url ? `<img src="${imgUrl(user.avatar_url)}" style="width:100%;height:100%;object-fit:cover">` : initials}
-            </div>
-            <input type="file" id="avatarFile" accept="image/*" style="display:none">
-            <button class="btn btn-outline btn-sm" onclick="document.getElementById('avatarFile').click()">Change</button>
-          </div>
-          <div style="flex:1;min-width:240px">
-            <div class="field"><label>Name</label><input type="text" id="pfName" value="${esc(user.name)}"></div>
-            <div class="field"><label>Email</label><input type="email" value="${esc(user.email)}" disabled style="background:rgba(15,10,30,.6);color:var(--text-dim)"></div>
-            <div class="field"><label>Role</label><input type="text" value="👑 Super Admin (Owner)" disabled style="background:rgba(15,10,30,.6);color:var(--gold)"></div>
-            <button class="btn btn-gold" onclick="saveProfile()">💾 Save Profile</button>
-          </div>
+    const ads = await apiFetch('/ads');
+    if (!ads.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-bullhorn"></i><h3>No ads yet</h3><p>Create your first ad campaign</p></div>`;
+      return;
+    }
+    list.innerHTML = ads.map(a => `
+      <div class="data-row" style="margin-bottom:8px">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center">
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+        <div class="info">
+          <b>${escapeHtml(a.name)}</b>
+          <span>${escapeHtml(a.position)} · ${escapeHtml(a.type)} · ${a.impressions} imp · ${a.clicks} clicks ${a.is_active ? '' : '· INACTIVE'}</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline btn-xs" onclick='editAd(${JSON.stringify(a).replace(/'/g, "&#39;")})'><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-danger btn-xs" onclick="confirmDelete('ad', ${a.id})"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>
-    `;
-    document.getElementById('avatarFile').onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const fd = new FormData();
-      fd.append('avatar', file);
-      try {
-        const res = await fetch(`${CONFIG.API_URL}/auth/avatar`, {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${token}` },
-          body: fd
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error);
-        currentUser.avatar_url = data.url;
-        localStorage.setItem('user', JSON.stringify(currentUser));
-        toast('Photo updated ✅', 'success');
-        loadProfile();
-        document.getElementById('sbAv').innerHTML = `<img src="${imgUrl(data.url)}" alt="">`;
-      } catch(e) { toast(e.message, 'error'); }
-    };
-  } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
+    `).join('');
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
 }
 
-async function saveProfile() {
+function openAdModal() {
+  editingAdId = null;
+  $('adModalTitle').textContent = 'New Ad';
+  $('adForm').reset();
+  $('adModal').classList.add('show');
+}
+function closeAdModal() { $('adModal').classList.remove('show'); }
+function editAd(a) {
+  editingAdId = a.id;
+  $('adModalTitle').textContent = 'Edit Ad';
+  $('adName').value = a.name;
+  $('adPosition').value = a.position;
+  $('adType').value = a.type;
+  $('adContent').value = a.content || '';
+  $('adImage').value = a.image_url || '';
+  $('adLink').value = a.link_url || '';
+  $('adModal').classList.add('show');
+}
+
+$('adForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const body = {
+    name: $('adName').value.trim(),
+    position: $('adPosition').value,
+    type: $('adType').value,
+    content: $('adContent').value.trim(),
+    image_url: $('adImage').value.trim(),
+    link_url: $('adLink').value.trim(),
+    is_active: 1
+  };
   try {
-    await api('/auth/profile', { method:'PUT', body: JSON.stringify({
-      name: document.getElementById('pfName').value
-    })});
-    currentUser.name = document.getElementById('pfName').value;
-    localStorage.setItem('user', JSON.stringify(currentUser));
-    document.getElementById('sbName').textContent = currentUser.name;
-    toast('Profile saved ✅', 'success');
-  } catch(e) { toast(e.message, 'error'); }
+    if (editingAdId) {
+      await apiFetch('/ads/' + editingAdId, { method: 'PUT', body: JSON.stringify(body) });
+      showToast('Ad updated', 'success');
+    } else {
+      await apiFetch('/ads', { method: 'POST', body: JSON.stringify(body) });
+      showToast('Ad created', 'success');
+    }
+    closeAdModal();
+    loadAds();
+  } catch (e) { showToast(e.message, 'error'); }
+};
+
+// ═══════════════════════════════════════════════════════════
+// ANALYTICS
+// ═══════════════════════════════════════════════════════════
+$('analyticsDays').onchange = loadAnalytics;
+
+async function loadAnalytics() {
+  try {
+    const days = $('analyticsDays').value;
+    const data = await apiFetch('/admin/analytics?days=' + days);
+
+    // Chart
+    const daily = data.daily || [];
+    if (!daily.length) {
+      $('chartBars').innerHTML = `<p style="margin:auto;color:var(--ink-4)">No data for this period</p>`;
+      $('chartLabels').innerHTML = '';
+    } else {
+      const max = Math.max(...daily.map(d => d.views), 1);
+      $('chartBars').innerHTML = daily.map(d => {
+        const h = Math.max(4, (d.views / max) * 160);
+        return `<div class="chart-bar" style="height:${h}px" data-value="${d.views}" title="${d.view_date}: ${d.views} views"></div>`;
+      }).join('');
+      $('chartLabels').innerHTML = `
+        <span>${daily[0].view_date}</span>
+        <span>${daily[daily.length-1].view_date}</span>
+      `;
+    }
+
+    // Top authors
+    $('topAuthors').innerHTML = (data.top_authors || []).length
+      ? data.top_authors.map(a => `
+        <div class="user-row">
+          <div class="avatar">${a.avatar_url ? `<img src="${imgUrl(a.avatar_url)}" alt="">` : getInitials(a.name)}</div>
+          <div class="user-info">
+            <b>${escapeHtml(a.name)}${a.is_verified ? ' ✓' : ''}</b>
+            <div class="email">${a.post_count} posts · ${formatNum(a.total_views)} views</div>
+          </div>
+        </div>
+      `).join('')
+      : `<div class="empty"><p>No data</p></div>`;
+
+    // Top posts
+    $('topPosts').innerHTML = (data.top_posts || []).length
+      ? data.top_posts.map(p => `
+        <div class="post-row">
+          <div class="post-info">
+            <h3>${escapeHtml(p.title)}</h3>
+            <div class="meta">
+              <span><i class="fa-solid fa-eye"></i> ${formatNum(p.views)}</span>
+              <span><i class="fa-solid fa-fingerprint"></i> ${formatNum(p.unique_views)} unique</span>
+            </div>
+          </div>
+          <a href="post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" class="icon-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+      `).join('')
+      : `<div class="empty"><p>No data</p></div>`;
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
-// MODAL
+// ACTIVITY LOG
 // ═══════════════════════════════════════════════════════════
-function closeModal() { document.getElementById('modalBg').classList.remove('active'); }
-document.getElementById('modalBg').onclick = (e) => { if (e.target.id === 'modalBg') closeModal(); };
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+async function loadActivity() {
+  const list = $('activityList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  try {
+    const activities = await apiFetch('/admin/activity-log?limit=100');
+    if (!activities.length) {
+      list.innerHTML = `<div class="empty"><i class="fa-regular fa-clock"></i><h3>No activity yet</h3></div>`;
+      return;
+    }
+    list.innerHTML = activities.map(renderActivityRow).join('');
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
+}
+
+function renderActivityRow(a) {
+  const icon = getActionIcon(a.action);
+  return `
+    <div class="activity-row" style="margin-bottom:8px">
+      <i class="fa-solid fa-${icon}"></i>
+      <div class="activity-info">
+        <b>${escapeHtml(a.user_name || 'System')}</b> ${escapeHtml(a.action.replace(/_/g,' '))}
+        ${a.entity_type ? `<span style="color:var(--ink-4)"> · ${escapeHtml(a.entity_type)} #${a.entity_id || ''}</span>` : ''}
+        <span>${timeAgo(a.created_at)} · ${escapeHtml(a.ip_address || 'N/A')}</span>
+      </div>
+    </div>
+  `;
+}
+
+function getActionIcon(action) {
+  if (action.includes('create')) return 'plus';
+  if (action.includes('update')) return 'pen';
+  if (action.includes('delete')) return 'trash';
+  if (action.includes('approve')) return 'check';
+  if (action.includes('reject')) return 'xmark';
+  if (action.includes('verify')) return 'circle-check';
+  if (action.includes('login')) return 'right-to-bracket';
+  if (action.includes('register')) return 'user-plus';
+  return 'circle-info';
+}
 
 // ═══════════════════════════════════════════════════════════
-// EXPORTS
+// CONFIRM DELETE
 // ═══════════════════════════════════════════════════════════
-window.logout = logout;
-window.toggleSidebar = toggleSidebar;
-window.show = show;
-window.setFilter = setFilter;
-window.setStatus = setStatus;
-window.toggleVerify = toggleVerify;
-window.makeAuthor = makeAuthor;
-window.makeUser = makeUser;
-window.delUser = delUser;
-window.delPost = delPost;
-window.setCmt = setCmt;
-window.delCmt = delCmt;
-window.showCatModal = showCatModal;
-window.saveCat = saveCat;
-window.delCat = delCat;
-window.showAdModal = showAdModal;
-window.saveAd = saveAd;
-window.delAd = delAd;
-window.saveProfile = saveProfile;
-window.closeModal = closeModal;
+let confirmCallback = null;
+function confirmDelete(type, id) {
+  $('confirmTitle').textContent = 'Delete ' + type;
+  $('confirmMsg').textContent = `Are you sure you want to delete this ${type}? This action cannot be undone.`;
+  confirmCallback = async () => {
+    try {
+      if (type === 'user') await apiFetch('/admin/users/' + id, { method: 'DELETE' });
+      else if (type === 'post') await apiFetch('/admin/posts/' + id, { method: 'DELETE' });
+      else if (type === 'comment') await apiFetch('/comments/' + id, { method: 'DELETE' });
+      else if (type === 'category') await apiFetch('/categories/' + id, { method: 'DELETE' });
+      else if (type === 'subscriber') await apiFetch('/subscribers/' + id, { method: 'DELETE' });
+      else if (type === 'ad') await apiFetch('/ads/' + id, { method: 'DELETE' });
+
+      showToast(type.charAt(0).toUpperCase() + type.slice(1) + ' deleted', 'success');
+      closeConfirm();
+      // Refresh
+      if (type === 'user') loadUsers(currentUserStatus);
+      if (type === 'post') loadAllPosts();
+      if (type === 'comment') loadAllComments(currentCommentStatus);
+      if (type === 'category') loadCategories();
+      if (type === 'subscriber') loadSubscribers();
+      if (type === 'ad') loadAds();
+      loadOverview();
+    } catch (e) { showToast(e.message, 'error'); }
+  };
+  $('confirmModal').classList.add('show');
+}
+
+function closeConfirm() {
+  $('confirmModal').classList.remove('show');
+  confirmCallback = null;
+}
+$('confirmBtn').onclick = () => confirmCallback && confirmCallback();
+
+// ═══════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════
+function debounce(fn, delay) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+}
 </script>
 </body>
 </html>
