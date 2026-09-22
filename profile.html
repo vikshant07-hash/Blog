@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f2">
+<title>My Profile — InkWell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#faf7f2;--cream-2:#f2ece1;--paper:#ffffff;
+  --ink:#1c1917;--ink-2:#44403c;--ink-3:#78716c;--ink-4:#a8a29e;
+  --line:#e7e1d5;--line-2:#d6cebd;
+  --accent:#c2410c;--accent-2:#ea580c;--accent-soft:#fef3e6;
+  --verified:#0ea5e9;--success:#10b981;--danger:#dc2626;--warn:#f59e0b;
+  --radius:14px;--radius-lg:20px;
+}
+body.dark{
+  --cream:#0f0e0c;--cream-2:#1a1815;--paper:#181613;
+  --ink:#f5f1ea;--ink-2:#d6cebd;--ink-3:#a8a29e;--ink-4:#78716c;
+  --line:#292522;--line-2:#3a3430;--accent-soft:#2a1a0f;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Manrope',-apple-system,sans-serif;
+  background:var(--cream);color:var(--ink);
+  line-height:1.6;overflow-x:hidden;
+  transition:background .3s,color .3s;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;letter-spacing:-.02em}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;color:inherit}
+input,textarea{font-family:inherit;outline:none;-webkit-appearance:none;border:none}
+
+.container{width:100%;max-width:960px;margin:0 auto;padding:0 32px}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,247,242,.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+body.dark header{background:rgba(15,14,12,.92)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px}
+.logo{
+  font-family:'Fraunces',serif;font-size:26px;font-weight:900;
+  letter-spacing:-.04em;display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.logo-img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.logo-text{display:flex;align-items:center;gap:2px;white-space:nowrap}
+.logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{
+  font-weight:500;font-size:14px;color:var(--ink-3);
+  transition:color .2s;position:relative;padding:4px 0;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);
+  display:grid;place-items:center;transition:all .2s;
+  font-size:15px;color:var(--ink);flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.btn{
+  padding:11px 22px;border-radius:100px;
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;border:1px solid transparent;cursor:pointer;
+}
+.btn i{font-size:13px}
+.btn-primary{background:var(--ink);color:var(--cream)}
+.btn-primary:hover:not(:disabled){background:var(--accent);color:#fff;transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-sm{padding:8px 16px;font-size:12.5px}
+.menu-toggle{display:none}
+
+.mobile-menu{
+  display:none;position:fixed;inset:0;
+  background:var(--cream);z-index:200;
+  padding:24px 20px;flex-direction:column;overflow-y:auto;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu .close{
+  align-self:flex-end;width:44px;height:44px;
+  border-radius:50%;background:var(--cream-2);
+  display:grid;place-items:center;font-size:20px;
+}
+.mobile-menu ul{list-style:none;margin-top:40px}
+.mobile-menu li{margin-bottom:16px}
+.mobile-menu a{
+  font-family:'Fraunces',serif;font-size:24px;font-weight:600;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.mobile-menu a i{font-size:18px;color:var(--accent);width:24px;text-align:center}
+
+/* PAGE HEAD */
+.page-head{
+  padding:48px 0 32px;
+  border-bottom:1px solid var(--line);
+}
+.page-head h1{
+  font-size:clamp(28px,4vw,40px);
+  font-weight:600;letter-spacing:-.03em;
+  margin-bottom:8px;line-height:1.1;
+  display:flex;align-items:center;gap:12px;
+  flex-wrap:wrap;
+}
+.page-head h1 i{color:var(--accent);font-size:32px}
+.page-head p{color:var(--ink-3);font-size:15.5px}
+
+/* TABS */
+.tabs{
+  display:flex;gap:4px;
+  padding:4px;
+  background:var(--cream-2);
+  border-radius:100px;
+  margin:32px 0 24px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  width:fit-content;
+  max-width:100%;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:10px 22px;border-radius:100px;
+  font-size:13.5px;font-weight:600;
+  color:var(--ink-3);
+  transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+  cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.tab i{font-size:13px}
+.tab:hover{color:var(--ink)}
+.tab.active{background:var(--paper);color:var(--ink);box-shadow:0 2px 8px rgba(28,25,23,.06)}
+
+/* PANELS */
+.panel{display:none}
+.panel.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.section{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:28px;
+  margin-bottom:20px;
+}
+.section h2{
+  font-size:19px;margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+  font-weight:600;
+}
+.section h2 i{color:var(--accent);font-size:17px}
+
+/* PROFILE HEADER */
+.profile-header{
+  display:flex;align-items:center;gap:24px;
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+.avatar-wrap{position:relative;flex-shrink:0}
+.profile-avatar{
+  width:110px;height:110px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  color:#fff;font-weight:700;
+  font-family:'Fraunces',serif;
+  font-size:42px;
+  display:grid;place-items:center;
+  overflow:hidden;
+  border:4px solid var(--paper);
+  box-shadow:0 8px 24px rgba(28,25,23,.12);
+}
+.profile-avatar img{width:100%;height:100%;object-fit:cover}
+.avatar-edit{
+  position:absolute;bottom:2px;right:2px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:grid;place-items:center;
+  font-size:14px;cursor:pointer;
+  border:3px solid var(--paper);
+  transition:all .2s;
+}
+.avatar-edit:hover{background:var(--accent-2);transform:scale(1.05)}
+.avatar-edit input{display:none}
+.profile-title{flex:1;min-width:0}
+.profile-title h2{
+  font-size:26px;margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;
+  flex-wrap:wrap;
+}
+.profile-title p{
+  color:var(--ink-3);font-size:14.5px;
+  margin-bottom:10px;
+  word-wrap:break-word;
+}
+.profile-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.badge-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 12px;border-radius:100px;
+  font-size:11.5px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.badge-pill.author{background:#dbeafe;color:#1e40af}
+.badge-pill.user{background:var(--cream-2);color:var(--ink-3)}
+.badge-pill.verified{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e40af}
+.badge-pill.pending{background:#fef3c7;color:#92400e}
+.badge-pill.approved{background:#d1fae5;color:#065f46}
+body.dark .badge-pill.author{background:#0c1a3a;color:#93c5fd}
+body.dark .badge-pill.verified{background:#0c1a3a;color:#93c5fd}
+body.dark .badge-pill.pending{background:#451a03;color:#fcd34d}
+body.dark .badge-pill.approved{background:#064e3b;color:#6ee7b7}
+
+.verified-tick{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;min-width:18px;
+  background:var(--verified);border-radius:50%;
+  flex-shrink:0;
+  box-shadow:0 0 0 2px var(--paper);
+}
+.verified-tick::before{
+  content:'';display:block;
+  width:4px;height:7.5px;
+  border:solid #fff;border-width:0 2px 2px 0;
+  transform:rotate(45deg) translate(-1.2px,-1.2px);
+}
+
+/* FORM */
+.form-group{margin-bottom:18px}
+.form-label{
+  display:block;font-size:12.5px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.form-label .req{color:var(--accent)}
+.form-input,.form-textarea{
+  width:100%;
+  padding:13px 16px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  font-size:14.5px;color:var(--ink);
+  transition:all .2s;
+  font-family:inherit;
+}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.6}
+.form-input:focus,.form-textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(194,65,12,.08);
+}
+.form-input:disabled{opacity:.6;cursor:not-allowed}
+.form-hint{font-size:12px;color:var(--ink-4);margin-top:6px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.input-with-icon{position:relative}
+.input-with-icon i{
+  position:absolute;left:16px;top:50%;
+  transform:translateY(-50%);
+  color:var(--ink-4);font-size:14px;
+  pointer-events:none;transition:color .2s;
+}
+.input-with-icon .form-input{padding-left:44px}
+.input-with-icon:focus-within i{color:var(--accent)}
+
+.input-with-action{position:relative}
+.input-with-action .form-input{padding-right:48px}
+.toggle-pw{
+  position:absolute;right:14px;top:50%;
+  transform:translateY(-50%);
+  color:var(--ink-4);font-size:14px;
+  padding:6px;transition:color .2s;
+}
+.toggle-pw:hover{color:var(--ink)}
+
+/* PASSWORD STRENGTH */
+.pw-strength{
+  display:flex;gap:4px;
+  margin-top:8px;
+}
+.pw-strength-bar{
+  flex:1;height:4px;border-radius:2px;
+  background:var(--line);
+  transition:background .3s;
+}
+.pw-strength-text{
+  font-size:11.5px;font-weight:600;
+  margin-top:6px;
+  color:var(--ink-4);
+}
+.pw-strength-text.weak{color:#dc2626}
+.pw-strength-text.fair{color:#f59e0b}
+.pw-strength-text.good{color:#0ea5e9}
+.pw-strength-text.strong{color:#10b981}
+
+.form-actions{
+  display:flex;gap:10px;justify-content:flex-end;
+  padding-top:20px;margin-top:20px;
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
+}
+
+/* ALERT */
+.alert{
+  padding:13px 18px;
+  border-radius:10px;
+  font-size:13.5px;font-weight:500;
+  margin-bottom:18px;
+  display:none;
+  align-items:center;gap:10px;
+}
+.alert.show{display:flex}
+.alert.error{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+.alert.success{background:#d1fae5;color:#065f46;border:1px solid #a7f3d0}
+.alert.info{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe}
+body.dark .alert.error{background:#450a0a;color:#fca5a5;border-color:#7f1d1d}
+body.dark .alert.success{background:#064e3b;color:#6ee7b7;border-color:#065f46}
+body.dark .alert.info{background:#0c1a3a;color:#93c5fd;border-color:#1e3a8a}
+.alert i{font-size:16px;flex-shrink:0}
+
+/* HISTORY / STATS */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px;
+  margin-bottom:24px;
+}
+.stat-mini{
+  background:var(--cream-2);
+  border-radius:12px;
+  padding:16px;
+  text-align:center;
+}
+.stat-mini b{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-size:26px;font-weight:600;
+  letter-spacing:-.02em;
+  margin-bottom:4px;
+}
+.stat-mini span{
+  font-size:11.5px;color:var(--ink-4);
+  text-transform:uppercase;
+  letter-spacing:.08em;font-weight:700;
+}
+
+.history-list{display:flex;flex-direction:column;gap:10px}
+.history-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px;
+  background:var(--cream-2);
+  border-radius:12px;
+  transition:all .2s;
+  cursor:pointer;
+}
+.history-item:hover{background:var(--cream);transform:translateX(4px)}
+.history-thumb{
+  width:60px;height:46px;
+  border-radius:8px;overflow:hidden;
+  background:var(--paper);flex-shrink:0;
+}
+.history-thumb img{width:100%;height:100%;object-fit:cover}
+.history-thumb .placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;
+  color:#fff;font-size:18px;opacity:.7;
+}
+.history-info{flex:1;min-width:0}
+.history-info h4{
+  font-size:14px;font-weight:600;
+  margin-bottom:4px;
+  font-family:'Manrope',sans-serif;
+  display:-webkit-box;-webkit-line-clamp:1;
+  -webkit-box-orient:vertical;overflow:hidden;
+}
+.history-info span{
+  font-size:12px;color:var(--ink-4);
+}
+
+/* FOLLOWING LIST */
+.following-list{display:flex;flex-direction:column;gap:10px}
+.following-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px;
+  background:var(--cream-2);
+  border-radius:12px;
+  transition:all .2s;
+}
+.following-item:hover{background:var(--cream)}
+.following-item .avatar{
+  width:44px;height:44px;font-size:15px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  display:grid;place-items:center;
+  color:#fff;font-weight:700;
+  overflow:hidden;flex-shrink:0;
+}
+.following-item .avatar img{width:100%;height:100%;object-fit:cover}
+.following-info{flex:1;min-width:0}
+.following-info b{
+  font-size:14.5px;font-weight:600;
+  display:inline-flex;align-items:center;gap:5px;
+  margin-bottom:2px;
+}
+.following-info span{font-size:12.5px;color:var(--ink-4);display:block}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:50px 20px;
+  color:var(--ink-3);
+}
+.empty i{
+  font-size:48px;opacity:.25;
+  margin-bottom:14px;color:var(--ink-4);display:block;
+}
+.empty h3{font-size:17px;margin-bottom:6px;color:var(--ink);font-weight:600}
+.empty p{font-size:14px;margin-bottom:18px}
+
+/* LOADER */
+.loader{text-align:center;padding:60px 20px;color:var(--ink-4)}
+.spinner{
+  width:36px;height:36px;
+  border:2.5px solid var(--line);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* LOGIN REQUIRED */
+.login-required{
+  text-align:center;
+  padding:100px 20px;
+  max-width:480px;margin:0 auto;
+}
+.login-required i{
+  font-size:64px;opacity:.3;
+  color:var(--accent);margin-bottom:20px;display:block;
+}
+.login-required h2{font-size:26px;margin-bottom:12px;font-weight:600}
+.login-required p{color:var(--ink-3);font-size:15px;margin-bottom:28px}
+
+/* DANGER ZONE */
+.danger-zone{
+  border:1.5px solid rgba(220,38,38,.3);
+  background:rgba(220,38,38,.03);
+}
+body.dark .danger-zone{background:rgba(220,38,38,.08)}
+.danger-zone h2{color:var(--danger)}
+.danger-zone h2 i{color:var(--danger)}
+
+/* FOOTER */
+footer{
+  background:var(--cream-2);
+  border-top:1px solid var(--line);
+  padding:56px 0 28px;
+  margin-top:60px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:36px;
+}
+.footer-brand .logo{margin-bottom:14px}
+.footer-brand p{
+  color:var(--ink-3);font-size:13.5px;
+  margin-bottom:20px;max-width:300px;
+  line-height:1.7;
+}
+.socials{display:flex;gap:8px}
+.socials a{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--line);
+  display:grid;place-items:center;
+  transition:all .2s;font-size:14px;color:var(--ink);
+}
+.socials a:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.footer-col h4{
+  font-family:'Manrope',sans-serif;
+  font-size:12px;margin-bottom:16px;
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink-4);
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:var(--ink-2);font-size:14px;transition:color .2s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  padding-top:24px;border-top:1px solid var(--line);
+  text-align:center;color:var(--ink-4);font-size:13px;
+}
+.footer-bottom i{color:var(--accent)}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  padding:14px 22px;border-radius:12px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:9999;animation:toastIn .3s;
+  max-width:90vw;
+}
+.toast.error{background:#ef4444;color:#fff}
+.toast.success{background:#10b981;color:#fff}
+@keyframes toastIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(28,25,23,.5);
+  backdrop-filter:blur(4px);
+  display:none;place-items:center;
+  z-index:9998;padding:20px;
+}
+.modal-overlay.show{display:grid}
+.modal{
+  background:var(--paper);
+  border-radius:var(--radius-lg);
+  padding:28px;
+  max-width:440px;width:100%;
+  animation:modalIn .25s;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal h3{
+  font-size:20px;margin-bottom:10px;
+  display:flex;align-items:center;gap:10px;
+  font-weight:600;
+}
+.modal h3 i{color:var(--danger);font-size:20px}
+.modal p{font-size:14.5px;color:var(--ink-3);margin-bottom:24px;line-height:1.6}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .container{padding:0 20px}
+  .nav{padding:14px 0}
+  .logo{font-size:22px;gap:6px}
+  .logo-img{width:32px;height:32px}
+  .nav-links{display:none}
+  .menu-toggle{display:grid}
+
+  .page-head{padding:32px 0 24px}
+  .page-head h1{font-size:24px;gap:8px}
+  .page-head h1 i{font-size:24px}
+  .page-head p{font-size:14.5px}
+
+  .tabs{margin:24px 0 20px}
+  .tab{padding:9px 16px;font-size:12.5px}
+
+  .section{padding:20px;border-radius:16px}
+  .section h2{font-size:17px}
+
+  .profile-header{flex-direction:column;text-align:center;gap:18px}
+  .profile-avatar{width:90px;height:90px;font-size:34px}
+  .profile-title{text-align:center;width:100%}
+  .profile-title h2{font-size:22px;justify-content:center}
+  .profile-badges{justify-content:center}
+
+  .form-row{grid-template-columns:1fr}
+  .form-actions{flex-direction:column-reverse}
+  .form-actions .btn{width:100%;justify-content:center}
+
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+
+  .footer-grid{grid-template-columns:1fr;gap:28px;text-align:center}
+  .footer-brand .logo{justify-content:center}
+  .footer-brand p{margin:0 auto 20px}
+  .socials{justify-content:center}
+  .toast{bottom:20px;right:20px;left:20px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Ink<em>well</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html">Explore</a></li>
+      <li><a href="bookmarks.html">Bookmarks</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+      <button class="icon-btn menu-toggle" id="menuOpen"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" id="menuClose"><i class="fa-solid fa-xmark"></i></button>
+  <ul>
+    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="blog.html"><i class="fa-solid fa-compass"></i> Explore</a></li>
+    <li><a href="bookmarks.html"><i class="fa-solid fa-bookmark"></i> Bookmarks</a></li>
+    <li><a href="#" id="logoutMobile"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+  </ul>
+</div>
+
+<!-- LOGIN REQUIRED -->
+<div class="login-required" id="loginRequired" style="display:none">
+  <i class="fa-solid fa-lock"></i>
+  <h2>Sign in required</h2>
+  <p>You need to be signed in to view your profile.</p>
+  <a href="login.html" class="btn btn-primary">
+    <i class="fa-solid fa-right-to-bracket"></i> Sign In
+  </a>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="mainContent" style="display:none">
+
+  <section class="page-head">
+    <div class="container">
+      <h1><i class="fa-solid fa-user-gear"></i> My Profile</h1>
+      <p>Manage your account, preferences, and activity.</p>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- PROFILE HEADER -->
+    <div class="profile-header" id="profileHeader" style="margin-top:32px">
+      <div class="loader"><div class="spinner"></div></div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" data-panel="info"><i class="fa-solid fa-user"></i> Profile</div>
+      <div class="tab" data-panel="password"><i class="fa-solid fa-lock"></i> Password</div>
+      <div class="tab" data-panel="history"><i class="fa-solid fa-clock-rotate-left"></i> Reading History</div>
+      <div class="tab" data-panel="following"><i class="fa-solid fa-user-group"></i> Following</div>
+    </div>
+
+    <!-- PANEL: INFO -->
+    <div class="panel active" id="panel-info">
+      <div class="section">
+        <h2><i class="fa-solid fa-user-pen"></i> Profile Information</h2>
+
+        <div class="alert" id="infoAlert">
+          <i class="fa-solid fa-circle-info"></i>
+          <span id="infoAlertMsg"></span>
+        </div>
+
+        <form id="infoForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="req">*</span></label>
+              <input type="text" class="form-input" id="nameInput" required maxlength="100">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="emailInput" disabled>
+              <div class="form-hint">Email cannot be changed</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Bio</label>
+            <textarea class="form-textarea" id="bioInput" placeholder="Tell readers about yourself..." maxlength="300"></textarea>
+            <div class="form-hint"><span id="bioCount">0</span>/300 characters</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Website</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-globe"></i>
+                <input type="url" class="form-input" id="websiteInput" placeholder="https://yourwebsite.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Twitter / X</label>
+              <div class="input-with-icon">
+                <i class="fa-brands fa-x-twitter"></i>
+                <input type="text" class="form-input" id="twitterInput" placeholder="@username">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">LinkedIn</label>
+            <div class="input-with-icon">
+              <i class="fa-brands fa-linkedin-in"></i>
+              <input type="url" class="form-input" id="linkedinInput" placeholder="https://linkedin.com/in/username">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="saveInfoBtn">
+              <i class="fa-solid fa-check"></i> Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- PANEL: PASSWORD -->
+    <div class="panel" id="panel-password">
+      <div class="section">
+        <h2><i class="fa-solid fa-lock"></i> Change Password</h2>
+
+        <div class="alert" id="pwAlert">
+          <i class="fa-solid fa-circle-info"></i>
+          <span id="pwAlertMsg"></span>
+        </div>
+
+        <form id="passwordForm">
+          <div class="form-group">
+            <label class="form-label">Current Password <span class="req">*</span></label>
+            <div class="input-with-icon input-with-action">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" class="form-input" id="currentPw" required>
+              <button type="button" class="toggle-pw" data-target="currentPw">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">New Password <span class="req">*</span></label>
+            <div class="input-with-icon input-with-action">
+              <i class="fa-solid fa-key"></i>
+              <input type="password" class="form-input" id="newPw" required minlength="6">
+              <button type="button" class="toggle-pw" data-target="newPw">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <div class="pw-strength">
+              <div class="pw-strength-bar"></div>
+              <div class="pw-strength-bar"></div>
+              <div class="pw-strength-bar"></div>
+              <div class="pw-strength-bar"></div>
+            </div>
+            <div class="pw-strength-text" id="pwStrengthText">Use 6+ characters</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm New Password <span class="req">*</span></label>
+            <div class="input-with-icon input-with-action">
+              <i class="fa-solid fa-key"></i>
+              <input type="password" class="form-input" id="confirmPw" required>
+              <button type="button" class="toggle-pw" data-target="confirmPw">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="changePwBtn">
+              <i class="fa-solid fa-shield-halved"></i> Update Password
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="section danger-zone">
+        <h2><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h2>
+        <p style="font-size:14.5px;color:var(--ink-3);margin-bottom:20px;line-height:1.65">
+          Once you delete your account, there is no going back. All your data, posts, and comments will be permanently removed.
+        </p>
+        <button class="btn btn-danger" id="deleteAccountBtn">
+          <i class="fa-solid fa-trash"></i> Delete Account
+        </button>
+      </div>
+    </div>
+
+    <!-- PANEL: HISTORY -->
+    <div class="panel" id="panel-history">
+      <div class="section">
+        <h2 style="justify-content:space-between">
+          <span style="display:flex;align-items:center;gap:10px">
+            <i class="fa-solid fa-clock-rotate-left"></i> Reading History
+          </span>
+          <button class="btn btn-outline btn-sm" id="clearHistoryBtn">
+            <i class="fa-solid fa-broom"></i> Clear
+          </button>
+        </h2>
+        <div id="historyList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: FOLLOWING -->
+    <div class="panel" id="panel-following">
+      <div class="section">
+        <h2><i class="fa-solid fa-user-group"></i> Authors You Follow</h2>
+        <div id="followingList">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- DELETE ACCOUNT MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3><i class="fa-solid fa-triangle-exclamation"></i> Delete Account?</h3>
+    <p>This will permanently delete your account, all your posts, comments, and bookmarks. This action <b>cannot be undone</b>.</p>
+    <p style="font-weight:600;color:var(--danger)">Type <code style="background:var(--cream-2);padding:2px 8px;border-radius:4px">DELETE</code> to confirm:</p>
+    <input type="text" class="form-input" id="deleteConfirmInput" placeholder="Type DELETE here" style="margin-bottom:20px">
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn" disabled>Delete My Account</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
+          <span class="logo-text">Ink<em>well</em></span>
+        </a>
+        <p>A digital publication celebrating ideas, culture, and thoughtful writing.</p>
+        <div class="socials">
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">All Posts</a></li>
+        <li><a href="bookmarks.html">Bookmarks</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#" id="logoutFooter">Logout</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">© 2026 InkWell — Made with <i class="fa-solid fa-heart"></i> for curious minds.</div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api/blog',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
+};
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const $ = (id) => document.getElementById(id);
+const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const getInitials = (n) => (n || 'U').split(' ').map(x => x[0]).join('').slice(0,2).toUpperCase();
+const verifiedTick = () => `<span class="verified-tick"></span>`;
+const getToken = () => localStorage.getItem('token');
+const getUser = () => { try { return JSON.parse(localStorage.getItem('user')); } catch { return null; } };
+const setUser = (u) => localStorage.setItem('user', JSON.stringify(u));
+
+async function apiFetch(endpoint, opts = {}) {
+  const headers = { ...(opts.headers || {}) };
+  if (getToken()) headers['Authorization'] = 'Bearer ' + getToken();
+  if (opts.body && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
+  const res = await fetch(CONFIG.API_URL + endpoint, { ...opts, headers });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+function showAlert(id, msg, type = 'error') {
+  const box = $(id);
+  const icon = box.querySelector('i');
+  box.querySelector('span').textContent = msg;
+  box.className = 'alert ' + type + ' show';
+  icon.className = type === 'success' ? 'fa-solid fa-circle-check'
+    : type === 'info' ? 'fa-solid fa-circle-info'
+    : 'fa-solid fa-circle-exclamation';
+}
+function hideAlert(id) { $(id).classList.remove('show'); }
+
+function timeAgo(s) {
+  if (!s) return '';
+  const t = new Date(s.includes('Z') || s.includes('+') ? s : s.replace(' ','T') + '+05:30');
+  const diff = Math.floor((Date.now() - t.getTime())/1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return t.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+// ═══════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════
+const themeToggle = $('themeToggle');
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+  themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+themeToggle.onclick = () => {
+  document.body.classList.toggle('dark');
+  const d = document.body.classList.contains('dark');
+  themeToggle.innerHTML = d ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+  localStorage.setItem('theme', d ? 'dark' : 'light');
+};
+
+$('menuOpen').onclick = () => $('mobileMenu').classList.add('open');
+$('menuClose').onclick = () => $('mobileMenu').classList.remove('open');
+
+// ═══════════════════════════════════════════════════════════
+// LOGOUT
+// ═══════════════════════════════════════════════════════════
+function logout() {
+  if (!confirm('Logout from your account?')) return;
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  window.location.href = 'index.html';
+}
+$('logoutFooter').onclick = (e) => { e.preventDefault(); logout(); };
+$('logoutMobile').onclick = (e) => { e.preventDefault(); logout(); };
+
+// ═══════════════════════════════════════════════════════════
+// AUTH CHECK
+// ═══════════════════════════════════════════════════════════
+(function checkAuth() {
+  if (!getToken() || !getUser()) {
+    $('loginRequired').style.display = 'block';
+    return;
+  }
+  $('mainContent').style.display = 'block';
+  loadProfile();
+})();
+
+// ═══════════════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    $('panel-' + tab.dataset.panel).classList.add('active');
+
+    if (tab.dataset.panel === 'history') loadHistory();
+    if (tab.dataset.panel === 'following') loadFollowing();
+  };
+});
+
+// ═══════════════════════════════════════════════════════════
+// LOAD PROFILE
+// ═══════════════════════════════════════════════════════════
+async function loadProfile() {
+  try {
+    const me = await apiFetch('/auth/me');
+    setUser(me);
+    renderProfileHeader(me);
+    populateForm(me);
+  } catch (e) {
+    showToast(e.message, 'error');
+    if (e.message.includes('token') || e.message.includes('auth')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = 'login.html';
+    }
+  }
+}
+
+function renderProfileHeader(me) {
+  const ini = getInitials(me.name);
+  const avatarHtml = me.avatar_url
+    ? `<img src="${imgUrl(me.avatar_url)}" alt="${escapeHtml(me.name)}">`
+    : ini;
+
+  const badges = [];
+  if (me.role === 'admin') badges.push(`<span class="badge-pill author"><i class="fa-solid fa-crown"></i> Admin</span>`);
+  else if (me.role_type === 'author') badges.push(`<span class="badge-pill author"><i class="fa-solid fa-pen-nib"></i> Author</span>`);
+  else badges.push(`<span class="badge-pill user"><i class="fa-solid fa-user"></i> Reader</span>`);
+
+  if (me.is_verified) badges.push(`<span class="badge-pill verified"><i class="fa-solid fa-circle-check"></i> Verified</span>`);
+  badges.push(`<span class="badge-pill ${me.status}">${me.status}</span>`);
+
+  $('profileHeader').innerHTML = `
+    <div class="avatar-wrap">
+      <div class="profile-avatar">${avatarHtml}</div>
+      <label class="avatar-edit" title="Change avatar">
+        <i class="fa-solid fa-camera"></i>
+        <input type="file" id="avatarInput" accept="image/*">
+      </label>
+    </div>
+    <div class="profile-title">
+      <h2>
+        ${escapeHtml(me.name)}
+        ${me.is_verified ? verifiedTick() : ''}
+      </h2>
+      <p>${escapeHtml(me.email)}</p>
+      <div class="profile-badges">${badges.join('')}</div>
+    </div>
+  `;
+
+  $('avatarInput').onchange = handleAvatarUpload;
+}
+
+async function handleAvatarUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) return showToast('Image too large (max 5MB)', 'error');
+  if (!file.type.startsWith('image/')) return showToast('Only images allowed', 'error');
+
+  showToast('Uploading avatar...', 'success');
+  const fd = new FormData();
+  fd.append('avatar', file);
+
+  try {
+    const res = await fetch(CONFIG.API_URL + '/auth/avatar', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: fd
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    // Update local
+    const u = getUser();
+    u.avatar_url = data.url;
+    setUser(u);
+
+    // Re-render
+    renderProfileHeader(u);
+    showToast('Avatar updated!', 'success');
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// INFO FORM
+// ═══════════════════════════════════════════════════════════
+function populateForm(me) {
+  $('nameInput').value = me.name || '';
+  $('emailInput').value = me.email || '';
+  $('bioInput').value = me.bio || '';
+  $('websiteInput').value = me.website || '';
+  $('twitterInput').value = me.twitter || '';
+  $('linkedinInput').value = me.linkedin || '';
+  $('bioCount').textContent = (me.bio || '').length;
+}
+
+$('bioInput').addEventListener('input', (e) => {
+  $('bioCount').textContent = e.target.value.length;
+});
+
+$('infoForm').onsubmit = async (e) => {
+  e.preventDefault();
+  hideAlert('infoAlert');
+
+  const name = $('nameInput').value.trim();
+  if (!name || name.length < 2) {
+    showAlert('infoAlert', 'Name must be at least 2 characters');
+    return;
+  }
+
+  const btn = $('saveInfoBtn');
+  btn.disabled = true;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+  try {
+    await apiFetch('/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify({
+        name,
+        bio: $('bioInput').value.trim(),
+        website: $('websiteInput').value.trim(),
+        twitter: $('twitterInput').value.trim(),
+        linkedin: $('linkedinInput').value.trim()
+      })
+    });
+
+    const u = getUser();
+    u.name = name;
+    u.bio = $('bioInput').value.trim();
+    u.website = $('websiteInput').value.trim();
+    u.twitter = $('twitterInput').value.trim();
+    u.linkedin = $('linkedinInput').value.trim();
+    setUser(u);
+    renderProfileHeader(u);
+
+    showAlert('infoAlert', 'Profile updated successfully!', 'success');
+    showToast('Profile saved!', 'success');
+  } catch (err) {
+    showAlert('infoAlert', err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+// PASSWORD
+// ═══════════════════════════════════════════════════════════
+document.querySelectorAll('.toggle-pw').forEach(btn => {
+  btn.onclick = () => {
+    const input = $(btn.dataset.target);
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'fa-solid fa-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'fa-solid fa-eye';
+    }
+  };
+});
+
+$('newPw').addEventListener('input', (e) => {
+  const pw = e.target.value;
+  let score = 0;
+  if (pw.length >= 6) score++;
+  if (pw.length >= 10) score++;
+  if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+  if (/\d/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  score = Math.min(score, 4);
+
+  const colors = ['#e7e1d5', '#dc2626', '#f59e0b', '#0ea5e9', '#10b981'];
+  document.querySelectorAll('.pw-strength-bar').forEach((bar, i) => {
+    bar.style.background = i < score ? colors[score] : 'var(--line)';
+  });
+  const labels = ['Use 6+ characters', 'Weak password', 'Fair password', 'Good password', 'Strong password'];
+  const classes = ['', 'weak', 'fair', 'good', 'strong'];
+  $('pwStrengthText').textContent = labels[score];
+  $('pwStrengthText').className = 'pw-strength-text ' + classes[score];
+});
+
+$('passwordForm').onsubmit = async (e) => {
+  e.preventDefault();
+  hideAlert('pwAlert');
+
+  const cur = $('currentPw').value;
+  const nw = $('newPw').value;
+  const cf = $('confirmPw').value;
+
+  if (!cur || !nw || !cf) return showAlert('pwAlert', 'All fields required');
+  if (nw.length < 6) return showAlert('pwAlert', 'New password must be 6+ characters');
+  if (nw !== cf) return showAlert('pwAlert', 'New passwords do not match');
+  if (cur === nw) return showAlert('pwAlert', 'New password must be different');
+
+  const btn = $('changePwBtn');
+  btn.disabled = true;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Updating...';
+
+  try {
+    await apiFetch('/auth/password', {
+      method: 'PUT',
+      body: JSON.stringify({ current_password: cur, new_password: nw })
+    });
+    showAlert('pwAlert', 'Password updated successfully!', 'success');
+    showToast('Password changed!', 'success');
+    $('passwordForm').reset();
+    document.querySelectorAll('.pw-strength-bar').forEach(b => b.style.background = 'var(--line)');
+    $('pwStrengthText').textContent = 'Use 6+ characters';
+    $('pwStrengthText').className = 'pw-strength-text';
+  } catch (err) {
+    showAlert('pwAlert', err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+// READING HISTORY
+// ═══════════════════════════════════════════════════════════
+async function loadHistory() {
+  const list = $('historyList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+
+  try {
+    const history = await apiFetch('/reading-history');
+    if (!history.length) {
+      list.innerHTML = `
+        <div class="empty">
+          <i class="fa-regular fa-clock"></i>
+          <h3>No reading history</h3>
+          <p>Articles you read will show up here.</p>
+          <a href="blog.html" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-compass"></i> Explore Articles
+          </a>
+        </div>`;
+      return;
+    }
+    list.innerHTML = `<div class="history-list">${history.map(h => `
+      <div class="history-item" onclick="location.href='post.html?slug=${encodeURIComponent(h.slug)}'">
+        <div class="history-thumb">
+          ${h.cover_image
+            ? `<img src="${imgUrl(h.cover_image)}" alt="" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📝</div>'">`
+            : `<div class="placeholder">📝</div>`}
+        </div>
+        <div class="history-info">
+          <h4>${escapeHtml(h.title)}</h4>
+          <span>Read ${timeAgo(h.last_read)} · ${h.read_time || 1} min</span>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:var(--ink-4);font-size:12px"></i>
+      </div>
+    `).join('')}</div>`;
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
+}
+
+$('clearHistoryBtn').onclick = async () => {
+  if (!confirm('Clear your entire reading history?')) return;
+  try {
+    await apiFetch('/reading-history', { method: 'DELETE' });
+    showToast('Reading history cleared', 'success');
+    loadHistory();
+  } catch (e) { showToast(e.message, 'error'); }
+};
+
+// ═══════════════════════════════════════════════════════════
+// FOLLOWING
+// ═══════════════════════════════════════════════════════════
+async function loadFollowing() {
+  const list = $('followingList');
+  list.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+
+  try {
+    const following = await apiFetch('/my-following');
+    if (!following.length) {
+      list.innerHTML = `
+        <div class="empty">
+          <i class="fa-solid fa-user-group"></i>
+          <h3>Not following anyone yet</h3>
+          <p>Follow authors to see their latest stories in your feed.</p>
+          <a href="blog.html" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-compass"></i> Discover Authors
+          </a>
+        </div>`;
+      return;
+    }
+    list.innerHTML = `<div class="following-list">${following.map(f => {
+      const ini = getInitials(f.name);
+      const av = f.avatar_url ? `<img src="${imgUrl(f.avatar_url)}" alt="">` : ini;
+      return `
+        <div class="following-item">
+          <div class="avatar" onclick="location.href='author.html?id=${f.id}'" style="cursor:pointer">${av}</div>
+          <div class="following-info">
+            <b onclick="location.href='author.html?id=${f.id}'" style="cursor:pointer">
+              ${escapeHtml(f.name)}${f.is_verified ? ' ✓' : ''}
+            </b>
+            <span>${f.post_count || 0} stories · followed ${timeAgo(f.followed_at)}</span>
+          </div>
+          <button class="btn btn-outline btn-sm" data-unfollow="${f.id}">
+            <i class="fa-solid fa-xmark"></i> Unfollow
+          </button>
+        </div>
+      `;
+    }).join('')}</div>`;
+
+    list.querySelectorAll('[data-unfollow]').forEach(btn => {
+      btn.onclick = async () => {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+        try {
+          await apiFetch('/authors/' + btn.dataset.unfollow + '/follow', { method: 'POST' });
+          showToast('Unfollowed', 'success');
+          loadFollowing();
+        } catch (e) {
+          showToast(e.message, 'error');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-xmark"></i> Unfollow';
+        }
+      };
+    });
+  } catch (e) {
+    list.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3></div>`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// DELETE ACCOUNT
+// ═══════════════════════════════════════════════════════════
+$('deleteAccountBtn').onclick = () => {
+  $('deleteConfirmInput').value = '';
+  $('confirmDeleteBtn').disabled = true;
+  $('deleteModal').classList.add('show');
+};
+
+$('deleteConfirmInput').addEventListener('input', (e) => {
+  $('confirmDeleteBtn').disabled = e.target.value !== 'DELETE';
+});
+
+window.closeDeleteModal = () => {
+  $('deleteModal').classList.remove('show');
+};
+
+$('confirmDeleteBtn').onclick = async () => {
+  if ($('deleteConfirmInput').value !== 'DELETE') return;
+  const btn = $('confirmDeleteBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Deleting...';
+
+  try {
+    // Note: Backend endpoint needed for self-delete
+    // await apiFetch('/auth/me', { method: 'DELETE' });
+    showToast('Account deletion requires backend endpoint. Contact admin.', 'error');
+    closeDeleteModal();
+  } catch (e) {
+    showToast(e.message, 'error');
+    btn.disabled = false;
+    btn.innerHTML = 'Delete My Account';
+  }
+};
+</script>
+</body>
+</html>
