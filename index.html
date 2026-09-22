@@ -61,7 +61,7 @@ img{max-width:100%;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;color:inherit}
 input{font-family:inherit;outline:none;-webkit-appearance:none;border:none}
 
-/* ═══════════ CONTAINER — Perfect Spacing ═══════════ */
+/* ═══════════ CONTAINER ═══════════ */
 .container{
   width:100%;
   max-width:1140px;
@@ -121,6 +121,19 @@ body.dark header{background:rgba(15,14,12,.92)}
 }
 .icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
 .icon-btn i{font-size:15px;line-height:1}
+
+/* User avatar button */
+.user-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  color:#fff;font-weight:700;font-size:14px;
+  display:grid;place-items:center;
+  overflow:hidden;flex-shrink:0;
+  cursor:pointer;border:none;
+  transition:transform .2s;
+}
+.user-btn:hover{transform:scale(1.05)}
+.user-btn img{width:100%;height:100%;object-fit:cover}
 
 .btn{
   padding:11px 22px;border-radius:100px;
@@ -576,7 +589,7 @@ section{padding:36px 0}
 .meta-stats span{display:inline-flex;align-items:center;gap:5px}
 .meta-stats i{font-size:11px}
 
-/* ⭐ VERIFIED TICK — Pure CSS (no font dependency) */
+/* ⭐ VERIFIED TICK */
 .verified-tick{
   display:inline-flex;
   align-items:center;
@@ -753,6 +766,24 @@ footer{
 }
 .footer-bottom i{color:var(--accent)}
 
+/* ═══════════ TOAST ═══════════ */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  padding:14px 22px;border-radius:12px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:9999;
+  animation:toastIn .3s cubic-bezier(.4,0,.2,1);
+  max-width:90vw;
+}
+.toast.success{background:#10b981;color:#fff}
+.toast.error{background:#ef4444;color:#fff}
+@keyframes toastIn{
+  from{transform:translateX(400px);opacity:0}
+  to{transform:translateX(0);opacity:1}
+}
+
 /* ═══════════ RESPONSIVE ═══════════ */
 @media (max-width: 1024px) {
   .container{padding-left:28px;padding-right:28px}
@@ -852,6 +883,8 @@ footer{
   .footer-bottom{font-size:12.5px}
 
   .ad-slot{min-height:70px;padding:10px;margin:20px 0}
+
+  .toast{bottom:20px;right:20px;left:20px;text-align:center}
 }
 
 @media (max-width: 380px) {
@@ -868,7 +901,6 @@ footer{
 
 <header>
   <div class="container nav">
-    <!-- ⭐ LOGO — apna image URL yahan daalo -->
     <a href="index.html" class="logo">
       <!-- 🔽 YAHAN APNA LOGO URL PASTE KARO -->
       <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
@@ -881,7 +913,7 @@ footer{
     </ul>
     <div class="nav-actions">
       <button class="icon-btn" id="themeToggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-      <a href="#" id="writeBtn" class="btn btn-primary"><i class="fa-solid fa-pen-nib"></i> Write</a>
+      <a href="login.html" id="writeBtn" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a>
       <button class="icon-btn menu-toggle" id="menuOpen"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
@@ -893,7 +925,7 @@ footer{
     <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
     <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
     <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
-    <li><a href="#" id="writeBtnMobile"><i class="fa-solid fa-pen-nib"></i> Write</a></li>
+    <li><a href="login.html" id="writeBtnMobile"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a></li>
   </ul>
 </div>
 
@@ -974,6 +1006,7 @@ footer{
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
+          <!-- 🔽 YAHAN APNA LOGO URL PASTE KARO -->
           <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
           <span class="logo-text">Ink<em>well</em></span>
         </a>
@@ -990,16 +1023,17 @@ footer{
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul></div>
-      <div class="footer-col"><h4>Company</h4><ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Sign Up</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
       </ul></div>
       <div class="footer-col"><h4>Legal</h4><ul>
         <li><a href="#">Privacy</a></li>
         <li><a href="#">Terms</a></li>
       </ul></div>
     </div>
-    <div class="footer-bottom">© 2025 InkWell — Crafted with <i class="fa-solid fa-heart"></i> for curious minds.</div>
+    <div class="footer-bottom">© 2026 InkWell — Crafted with <i class="fa-solid fa-heart"></i> for curious minds.</div>
   </div>
 </footer>
 
@@ -1020,8 +1054,6 @@ const CONFIG = {
 const imgUrl = (p) => !p ? 'https://via.placeholder.com/600x400/c2410c/ffffff?text=InkWell' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
 const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
 const getInitials = (n) => (n || 'A').split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase();
-
-// ⭐ VERIFIED TICK — pure CSS, no <i> tag needed
 const verifiedTick = () => `<span class="verified-tick" title="Verified"></span>`;
 
 // ═══════════════════════════════════════════════════════════
@@ -1068,6 +1100,14 @@ async function apiFetch(endpoint) {
   return data;
 }
 
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
 // ═══════════════════════════════════════════════════════════
 // THEME
 // ═══════════════════════════════════════════════════════════
@@ -1086,7 +1126,9 @@ themeToggle.onclick = () => {
 document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
 document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
 
-// WRITE BUTTON
+// ═══════════════════════════════════════════════════════════
+// USER SESSION — Write button dynamic
+// ═══════════════════════════════════════════════════════════
 const user = JSON.parse(localStorage.getItem('user') || 'null');
 const token = localStorage.getItem('token');
 const writeBtn = document.getElementById('writeBtn');
@@ -1094,35 +1136,51 @@ const writeBtnMobile = document.getElementById('writeBtnMobile');
 
 function setWriteButton() {
   if (!token || !user) {
-    writeBtn.href = 'admin.html';
+    writeBtn.href = 'login.html';
     writeBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
-    if (writeBtnMobile) writeBtnMobile.href = 'admin.html';
+    if (writeBtnMobile) {
+      writeBtnMobile.href = 'login.html';
+      writeBtnMobile.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+    }
     return;
   }
   if (user.role === 'admin') {
     writeBtn.href = 'superadmin.html';
     writeBtn.innerHTML = '<i class="fa-solid fa-crown"></i> Admin';
-    if (writeBtnMobile) writeBtnMobile.href = 'superadmin.html';
+    if (writeBtnMobile) {
+      writeBtnMobile.href = 'superadmin.html';
+      writeBtnMobile.innerHTML = '<i class="fa-solid fa-crown"></i> Admin';
+    }
   } else if (user.role_type === 'author') {
-    writeBtn.href = 'admin.html';
+    writeBtn.href = 'dashboard.html';
     writeBtn.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Write';
-    if (writeBtnMobile) writeBtnMobile.href = 'admin.html';
+    if (writeBtnMobile) {
+      writeBtnMobile.href = 'dashboard.html';
+      writeBtnMobile.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Write';
+    }
   } else {
-    writeBtn.href = 'admin.html';
+    writeBtn.href = 'profile.html';
     writeBtn.innerHTML = '<i class="fa-solid fa-user"></i> ' + (user.name ? user.name.split(' ')[0] : 'Profile');
-    if (writeBtnMobile) writeBtnMobile.href = 'admin.html';
+    if (writeBtnMobile) {
+      writeBtnMobile.href = 'profile.html';
+      writeBtnMobile.innerHTML = '<i class="fa-solid fa-user"></i> ' + (user.name ? user.name.split(' ')[0] : 'Profile');
+    }
   }
 }
 setWriteButton();
 
+// ═══════════════════════════════════════════════════════════
 // SEARCH
+// ═══════════════════════════════════════════════════════════
 function goSearch() {
   const q = document.getElementById('searchInput').value.trim();
-  if (q) window.location.href = `index.html?search=${encodeURIComponent(q)}`;
+  if (q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
 }
 document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') goSearch(); });
 
+// ═══════════════════════════════════════════════════════════
 // RENDER POST CARD
+// ═══════════════════════════════════════════════════════════
 function renderCard(p) {
   const initials = getInitials(p.author_name);
   const avatarHtml = p.author_avatar
@@ -1130,7 +1188,7 @@ function renderCard(p) {
     : `<div class="avatar">${initials}</div>`;
   return `
     <article class="post-card" onclick="location.href='post.html?slug=${encodeURIComponent(p.slug)}'">
-      <div class="post-thumb"><img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>
+      <div class="post-thumb"><img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400/c2410c/ffffff?text=InkWell'"></div>
       <div class="post-body">
         <span class="tag">${escapeHtml(p.category_name || 'Uncategorized')}</span>
         <h3>${escapeHtml(p.title)}</h3>
@@ -1153,12 +1211,14 @@ function renderCard(p) {
   `;
 }
 
+// ═══════════════════════════════════════════════════════════
 // CATEGORIES
+// ═══════════════════════════════════════════════════════════
 async function loadCategories() {
   try {
     const cats = await apiFetch('/categories');
     const container = document.getElementById('categories');
-    cats.forEach(c => {
+    cats.filter(c => c.post_count > 0).forEach(c => {
       const btn = document.createElement('button');
       btn.className = 'cat-btn';
       btn.textContent = `${c.name} (${c.post_count})`;
@@ -1172,8 +1232,13 @@ async function loadCategories() {
   } catch(e) { console.warn('Categories failed:', e.message); }
 }
 
+// ═══════════════════════════════════════════════════════════
 // POSTS
+// ═══════════════════════════════════════════════════════════
+let currentCategory = '';
+
 async function loadPosts(page = 1, category = '') {
+  currentCategory = category;
   const grid = document.getElementById('postsGrid');
   grid.innerHTML = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div></div>';
 
@@ -1208,7 +1273,9 @@ function renderPagination(p, category) {
   c.innerHTML = html;
 }
 
+// ═══════════════════════════════════════════════════════════
 // FEATURED SLIDER
+// ═══════════════════════════════════════════════════════════
 let featuredPosts = [];
 let currentSlide = 0;
 let sliderAutoTimer = null;
@@ -1265,7 +1332,7 @@ async function loadFeaturedSlider() {
       <div class="featured-slide ${idx === 0 ? 'active-slide' : ''}" data-index="${idx}">
         <article class="featured" onclick="location.href='post.html?slug=${encodeURIComponent(p.slug)}'">
           <div class="featured-img">
-            <img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}">
+            <img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" onerror="this.src='https://via.placeholder.com/800x600/c2410c/ffffff?text=InkWell'">
           </div>
           <div class="featured-content">
             <span class="tag"><i class="fa-solid fa-tag"></i> ${escapeHtml(p.category_name || 'Featured')}</span>
@@ -1376,7 +1443,9 @@ function restartAutoTimer() {
   startAutoTimer();
 }
 
+// ═══════════════════════════════════════════════════════════
 // ADS
+// ═══════════════════════════════════════════════════════════
 async function loadAd(id, position) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -1391,63 +1460,39 @@ async function loadAd(id, position) {
   } catch {}
 }
 
+// ═══════════════════════════════════════════════════════════
 // NEWSLETTER
+// ═══════════════════════════════════════════════════════════
 document.getElementById('newsletterForm').onsubmit = async (e) => {
   e.preventDefault();
   const email = e.target.querySelector('input').value;
   const btn = e.target.querySelector('button');
   btn.disabled = true;
   const origHtml = btn.innerHTML;
-  btn.innerHTML = '...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
   try {
     const res = await fetch(`${CONFIG.API_URL}/subscribe`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
-    if (res.ok) { alert('🎉 Subscribed!'); e.target.reset(); }
-    else throw new Error();
-  } catch { alert('Failed. Try again.'); }
-  finally { btn.innerHTML = origHtml; btn.disabled = false; }
+    if (res.ok) {
+      showToast('🎉 Subscribed successfully!');
+      e.target.reset();
+    } else throw new Error();
+  } catch {
+    showToast('Failed. Try again.', 'error');
+  } finally {
+    btn.innerHTML = origHtml;
+    btn.disabled = false;
+  }
 };
 
-// SEARCH POSTS
-async function searchPosts(q) {
-  const grid = document.getElementById('postsGrid');
-  document.getElementById('featuredSection').style.display = 'none';
-  document.getElementById('postsHeading').innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Search: "${escapeHtml(q)}"`;
-  document.getElementById('postsSub').textContent = 'Results from all articles';
-  grid.innerHTML = '<div class="loader" style="grid-column:1/-1"><div class="spinner"></div><p>Searching...</p></div>';
-
-  try {
-    const data = await apiFetch(`/posts?search=${encodeURIComponent(q)}&limit=50`);
-    const posts = data.posts || [];
-    if (!posts.length) {
-      grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div><h3>No results</h3><p>Try different keywords.</p></div>`;
-      document.getElementById('pagination').innerHTML = '';
-      return;
-    }
-    grid.innerHTML = posts.map(renderCard).join('');
-    document.getElementById('pagination').innerHTML = '';
-  } catch(e) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div><h3>Search failed</h3></div>`;
-  }
-}
-
+// ═══════════════════════════════════════════════════════════
 // INIT
-const urlParams = new URLSearchParams(location.search);
-const searchQ = urlParams.get('search');
-
+// ═══════════════════════════════════════════════════════════
 loadCategories();
-
-if (searchQ) {
-  document.getElementById('searchInput').value = searchQ;
-  document.getElementById('heroTitle').innerHTML = `Search: <em>${escapeHtml(searchQ)}</em>`;
-  searchPosts(searchQ);
-} else {
-  loadFeaturedSlider();
-  loadPosts(1);
-}
-
+loadFeaturedSlider();
+loadPosts(1);
 loadAd('ad-header', 'header');
 loadAd('ad-in-article', 'in-article');
 </script>
