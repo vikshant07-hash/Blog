@@ -109,6 +109,72 @@ section{padding:26px 0}
 .loader{text-align:center;padding:60px 20px;color:var(--text-light)}
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
+  /* ═══════════════ FEATURED SLIDER ═══════════════ */
+.featured-slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.featured-track {
+  display: flex;
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+}
+.featured-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+.slider-nav {
+  display: flex;
+  gap: 8px;
+}
+.slider-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 600;
+}
+.slider-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all .2s;
+}
+.slider-dot.active {
+  background: var(--primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Featured card inside slider */
+.featured-slide .featured {
+  margin: 0;
+}
+
+@media(max-width:640px){
+  .slider-btn { width: 36px; height: 36px; font-size: 14px; }
+}
 .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-light)}
 .empty .icon{font-size:48px;opacity:.35;margin-bottom:12px}
 footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px 0 24px;margin-top:50px}
@@ -175,10 +241,19 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:50px
   </div>
 </div>
 
-<section class="container" id="featuredSection" style="display:none">
-  <div class="section-head"><h2>Featured Story</h2></div>
-  <article class="featured" id="featuredCard"></article>
-</section>
+  <section class="container" id="featuredSection" style="display:none">
+  <div class="section-head">
+    <h2>⭐ Featured Stories</h2>
+    <div class="slider-nav">
+      <button class="slider-btn" id="prevBtn" title="Previous">←</button>
+      <button class="slider-btn" id="nextBtn" title="Next">→</button>
+    </div>
+  </div>
+  <div class="featured-slider" id="featuredSlider">
+    <div class="featured-track" id="featuredTrack"></div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
 
 <section class="container">
   <div class="section-head"><h2>Latest Articles</h2></div>
@@ -270,6 +345,139 @@ themeToggle.onclick = () => {
   themeToggle.textContent = d ? '☀️' : '🌙';
   localStorage.setItem('theme', d ? 'dark' : 'light');
 };
+// ═══════════════════════════════════════════════════════════
+// ⭐ FEATURED SLIDER — Hour-cached, rotates every 6 seconds
+// ═══════════════════════════════════════════════════════════
+
+const FEATURED_CACHE_HOURS = 1; // Cache for 1 hour
+let featuredPosts = [];
+let currentSlide = 0;
+let sliderAutoTimer = null;
+
+async function loadFeaturedSlider() {
+  const section = document.getElementById('featuredSection');
+  const track = document.getElementById('featuredTrack');
+  const dots = document.getElementById('sliderDots');
+
+  // ⭐ Check cache (1 hour)
+  const cacheKey = 'featured_slider_cache';
+  const cacheTimeKey = 'featured_slider_time';
+  const cachedTime = localStorage.getItem(cacheTimeKey);
+  const now = Date.now();
+  const oneHour = FEATURED_CACHE_HOURS * 60 * 60 * 1000;
+
+  let posts = null;
+  if (cachedTime && (now - parseInt(cachedTime)) < oneHour) {
+    // Use cache
+    try {
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) posts = JSON.parse(cached);
+    } catch {}
+  }
+
+  // Fetch fresh if no valid cache
+  if (!posts || !posts.length) {
+    try {
+      posts = await apiFetch('/featured-slider');
+      // Save to cache
+      localStorage.setItem(cacheKey, JSON.stringify(posts));
+      localStorage.setItem(cacheTimeKey, now.toString());
+    } catch(e) {
+      console.warn('Featured slider failed:', e.message);
+      return;
+    }
+  }
+
+  if (!posts || !posts.length) return;
+
+  featuredPosts = posts;
+  section.style.display = 'block';
+
+  // Render slides
+  track.innerHTML = posts.map(p => {
+    const initials = getInitials(p.author_name);
+    const avatarHtml = p.author_avatar
+      ? `<div class="avatar"><img src="${imgUrl(p.author_avatar)}" alt=""></div>`
+      : `<div class="avatar">${initials}</div>`;
+
+    return `
+      <div class="featured-slide">
+        <article class="featured" onclick="location.href='post.html?slug=${encodeURIComponent(p.slug)}'">
+          <div class="featured-img">
+            <img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}">
+          </div>
+          <div class="featured-content">
+            <span class="tag">${escapeHtml(p.category_name || 'Featured')}</span>
+            <h2>${escapeHtml(p.title)}</h2>
+            <p>${escapeHtml(p.excerpt || '')}</p>
+            <div class="author">
+              ${avatarHtml}
+              <div class="author-info">
+                <b>${escapeHtml(p.author_name)}${p.author_verified ? verifiedTick() : ''}</b>
+                <span>${timeAgo(p.published_at)} · ${readingTimeText(p.read_time)}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    `;
+  }).join('');
+
+  // Render dots
+  dots.innerHTML = posts.map((_, i) =>
+    `<div class="slider-dot ${i===0?'active':''}" onclick="goToSlide(${i})"></div>`
+  ).join('');
+
+  currentSlide = 0;
+  updateSlider();
+
+  // Auto rotate every 6 seconds
+  if (sliderAutoTimer) clearInterval(sliderAutoTimer);
+  sliderAutoTimer = setInterval(() => {
+    currentSlide = (currentSlide + 1) % featuredPosts.length;
+    updateSlider();
+  }, 6000);
+
+  // Prev/Next buttons
+  document.getElementById('prevBtn').onclick = () => {
+    currentSlide = (currentSlide - 1 + featuredPosts.length) % featuredPosts.length;
+    updateSlider();
+    resetAutoTimer();
+  };
+  document.getElementById('nextBtn').onclick = () => {
+    currentSlide = (currentSlide + 1) % featuredPosts.length;
+    updateSlider();
+    resetAutoTimer();
+  };
+}
+
+function updateSlider() {
+  const track = document.getElementById('featuredTrack');
+  const dots = document.querySelectorAll('.slider-dot');
+  if (!track) return;
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+}
+
+function goToSlide(i) {
+  currentSlide = i;
+  updateSlider();
+  resetAutoTimer();
+}
+
+function resetAutoTimer() {
+  if (sliderAutoTimer) clearInterval(sliderAutoTimer);
+  sliderAutoTimer = setInterval(() => {
+    currentSlide = (currentSlide + 1) % featuredPosts.length;
+    updateSlider();
+  }, 6000);
+}
+
+function readingTimeText(readTime) {
+  if (readTime) return readTime + ' min read';
+  return '1 min read';
+}
+  
 
 // MOBILE MENU
 document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
