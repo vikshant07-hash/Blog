@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#faf7f2">
 <title>Loading... — InkWell</title>
-<meta name="description" content="Read this story on InkWell">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +40,7 @@ input,textarea{font-family:inherit;outline:none;-webkit-appearance:none;border:n
 
 .container{width:100%;max-width:1140px;margin:0 auto;padding:0 32px}
 
-/* ═══════════ HEADER ═══════════ */
+/* Header */
 header{
   position:sticky;top:0;z-index:100;
   background:rgba(250,247,242,.92);
@@ -67,532 +66,279 @@ body.dark header{background:rgba(15,14,12,.92)}
 .icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
 .icon-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* Reading progress */
-.progress-bar{
-  position:fixed;top:0;left:0;right:0;height:3px;z-index:999;
-  background:transparent;
-}
-.progress-fill{
-  height:100%;width:0%;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  transition:width .1s linear;
-}
+.progress-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:999;background:transparent}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .1s linear}
 
-/* ═══════════ ARTICLE ═══════════ */
-.article-wrap{
-  padding:48px 0 60px;
-}
-.article-header{
-  max-width:760px;margin:0 auto 32px;
-  text-align:center;
-  padding:0 20px;
-}
+/* Article */
+.article-wrap{padding:48px 0 60px}
+.article-header{max-width:760px;margin:0 auto 32px;text-align:center;padding:0 20px}
 .article-cat{
-  display:inline-block;
-  padding:6px 14px;border-radius:100px;
+  display:inline-block;padding:6px 14px;border-radius:100px;
   background:var(--accent-soft);color:var(--accent);
   font-size:11.5px;font-weight:800;
-  letter-spacing:.14em;text-transform:uppercase;
-  margin-bottom:20px;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px;
 }
 .article-header h1{
-  font-size:clamp(28px,5vw,48px);
-  font-weight:600;letter-spacing:-.03em;
-  line-height:1.15;margin-bottom:20px;
-  word-wrap:break-word;
-  overflow-wrap:break-word;
+  font-size:clamp(28px,5vw,48px);font-weight:600;letter-spacing:-.03em;
+  line-height:1.15;margin-bottom:20px;word-wrap:break-word;
 }
 .article-meta{
   display:flex;align-items:center;justify-content:center;
-  gap:16px;flex-wrap:wrap;
-  color:var(--ink-3);font-size:14px;
-  margin-bottom:28px;
+  gap:16px;flex-wrap:wrap;color:var(--ink-3);font-size:14px;margin-bottom:28px;
 }
 .article-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--ink-4)}
 .article-author{
   display:inline-flex;align-items:center;gap:12px;
-  padding:8px 20px 8px 8px;
-  border-radius:100px;
-  background:var(--paper);
-  border:1px solid var(--line);
+  padding:8px 20px 8px 8px;border-radius:100px;
+  background:var(--paper);border:1px solid var(--line);
   transition:all .2s;
-  cursor:pointer;
 }
-.article-author:hover{border-color:var(--ink);box-shadow:0 4px 16px rgba(28,25,23,.06)}
-.article-author .avatar{
-  width:44px;height:44px;font-size:15px;
-}
+.article-author .avatar{width:44px;height:44px;font-size:15px}
 .article-author-info{text-align:left}
-.article-author-info b{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:14.5px;font-weight:600;color:var(--ink);
-}
-.article-author-info span{
-  display:block;font-size:12.5px;color:var(--ink-4);margin-top:1px;
-}
+.article-author-info b{display:inline-flex;align-items:center;gap:4px;font-size:14.5px;font-weight:600}
+.article-author-info span{display:block;font-size:12.5px;color:var(--ink-4);margin-top:1px}
 
-.article-cover{
-  max-width:1000px;margin:0 auto 40px;
-  padding:0 20px;
+.avatar{
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  display:grid;place-items:center;
+  color:#fff;font-weight:700;flex-shrink:0;overflow:hidden;
 }
+.avatar img{width:100%;height:100%;object-fit:cover}
+
+.article-cover{max-width:1000px;margin:0 auto 40px;padding:0 20px}
 .article-cover img{
   width:100%;aspect-ratio:16/9;object-fit:cover;
-  border-radius:var(--radius-lg);
-  background:var(--cream-2);
+  border-radius:var(--radius-lg);background:var(--cream-2);
 }
 
 .article-content{
-  max-width:720px;margin:0 auto;
-  padding:0 20px;
-  font-size:18px;line-height:1.8;
-  color:var(--ink-2);
+  max-width:720px;margin:0 auto;padding:0 20px;
+  font-size:18px;line-height:1.8;color:var(--ink-2);
 }
 .article-content p{margin-bottom:26px}
-.article-content h2{
-  font-size:28px;margin:44px 0 18px;color:var(--ink);
-  font-weight:600;letter-spacing:-.02em;
-  line-height:1.25;
-}
-.article-content h3{
-  font-size:22px;margin:36px 0 14px;color:var(--ink);
-  font-weight:600;letter-spacing:-.02em;
-}
+.article-content h2{font-size:28px;margin:44px 0 18px;color:var(--ink);font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.article-content h3{font-size:22px;margin:36px 0 14px;color:var(--ink);font-weight:600;letter-spacing:-.02em}
+.article-content strong{color:var(--ink);font-weight:700}
+.article-content em{font-style:italic}
 .article-content blockquote{
-  border-left:4px solid var(--accent);
-  padding:6px 0 6px 24px;
-  margin:28px 0;
-  font-family:'Fraunces',serif;
-  font-style:italic;
-  font-size:22px;line-height:1.5;
-  color:var(--ink);
+  border-left:4px solid var(--accent);padding:6px 0 6px 24px;
+  margin:28px 0;font-family:'Fraunces',serif;font-style:italic;
+  font-size:22px;line-height:1.5;color:var(--ink);
 }
-.article-content ul,.article-content ol{
-  margin:20px 0 26px 26px;
-}
+.article-content ul,.article-content ol{margin:20px 0 26px 26px}
 .article-content li{margin-bottom:10px}
-.article-content img{
-  border-radius:12px;margin:28px 0;
-}
-.article-content a{
-  color:var(--accent);text-decoration:underline;
-  text-decoration-thickness:1.5px;
-  text-underline-offset:3px;
-}
-.article-content code{
-  background:var(--cream-2);
-  padding:3px 8px;border-radius:6px;
-  font-family:'Menlo',monospace;font-size:15px;
-}
-.article-content pre{
-  background:var(--cream-2);
-  padding:20px;border-radius:12px;
-  overflow-x:auto;margin:24px 0;
-}
+.article-content img{border-radius:12px;margin:28px 0}
+.article-content a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.article-content code{background:var(--cream-2);padding:3px 8px;border-radius:6px;font-family:monospace;font-size:15px}
+.article-content pre{background:var(--cream-2);padding:20px;border-radius:12px;overflow-x:auto;margin:24px 0}
 .article-content pre code{background:none;padding:0}
 
-/* Tags */
 .article-tags{
-  max-width:720px;margin:40px auto 0;
-  padding:0 20px;
+  max-width:720px;margin:40px auto 0;padding:0 20px;
   display:flex;flex-wrap:wrap;gap:8px;
 }
 .article-tag{
   padding:6px 14px;border-radius:100px;
   background:var(--cream-2);color:var(--ink-2);
-  font-size:13px;font-weight:500;
-  transition:all .2s;
+  font-size:13px;font-weight:500;transition:all .2s;
 }
 .article-tag:hover{background:var(--accent-soft);color:var(--accent)}
 
 /* Reactions + Share */
 .article-actions{
-  max-width:720px;margin:40px auto 0;
-  padding:24px 20px;
+  max-width:720px;margin:40px auto 0;padding:24px 20px;
   display:flex;align-items:center;justify-content:space-between;
   gap:16px;flex-wrap:wrap;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
 }
-.reactions{
-  display:flex;gap:8px;flex-wrap:wrap;
-}
+.reactions{display:flex;gap:8px;flex-wrap:wrap}
 .reaction-btn{
   padding:8px 14px;border-radius:100px;
-  border:1.5px solid var(--line);
-  background:var(--paper);
+  border:1.5px solid var(--line);background:var(--paper);
   display:inline-flex;align-items:center;gap:6px;
-  font-size:14px;font-weight:500;
-  transition:all .2s;
-  cursor:pointer;
+  font-size:14px;font-weight:500;transition:all .2s;cursor:pointer;
 }
 .reaction-btn:hover{border-color:var(--ink);transform:translateY(-2px)}
-.reaction-btn.active{
-  background:var(--accent);border-color:var(--accent);color:#fff;
-}
+.reaction-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .reaction-btn .emoji{font-size:18px;line-height:1}
 .reaction-btn .count{font-size:13px;font-weight:600}
 
-.share-group{display:flex;gap:8px;align-items:center}
+.share-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .share-label{font-size:13px;color:var(--ink-3);margin-right:4px}
 
 /* Author bio */
 .author-bio{
-  max-width:720px;margin:48px auto 0;
-  padding:28px 24px;
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:var(--radius-lg);
-  display:flex;align-items:flex-start;gap:20px;
+  max-width:720px;margin:48px auto 0;padding:28px 24px;
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius-lg);display:flex;align-items:flex-start;gap:20px;
 }
 .author-bio .avatar{width:64px;height:64px;font-size:22px}
 .author-bio-info{flex:1;min-width:0}
-.author-bio-info h4{
-  font-size:20px;margin-bottom:6px;
-  display:flex;align-items:center;gap:6px;
-  font-weight:600;flex-wrap:wrap;
-}
+.author-bio-info h4{font-size:20px;margin-bottom:6px;display:flex;align-items:center;gap:6px;font-weight:600;flex-wrap:wrap}
 .author-bio-info p{font-size:14.5px;color:var(--ink-3);margin-bottom:14px;line-height:1.6}
 .author-bio-actions{display:flex;gap:8px;flex-wrap:wrap}
 .bio-btn{
-  padding:8px 16px;border-radius:100px;
-  font-size:13px;font-weight:600;
-  border:1.5px solid var(--line);
-  background:var(--paper);color:var(--ink);
-  transition:all .2s;
-  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:100px;font-size:13px;font-weight:600;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;cursor:pointer;
 }
 .bio-btn:hover{border-color:var(--ink)}
-.bio-btn.primary{
-  background:var(--ink);color:var(--cream);border-color:var(--ink);
-}
+.bio-btn.primary{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 .bio-btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-.bio-btn.following{background:var(--cream-2);border-color:var(--line)}
 
-/* ═══════════ COMMENTS ═══════════ */
-.comments-section{
-  max-width:760px;margin:56px auto 0;
-  padding:0 20px;
-}
-.comments-head{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:28px;flex-wrap:wrap;gap:12px;
-}
-.comments-head h2{
-  font-size:24px;font-weight:600;
-  display:flex;align-items:center;gap:10px;
-}
+/* Comments */
+.comments-section{max-width:760px;margin:56px auto 0;padding:0 20px}
+.comments-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+.comments-head h2{font-size:24px;font-weight:600;display:flex;align-items:center;gap:10px}
 .comments-head h2 i{font-size:20px;color:var(--accent)}
-.comments-count{
-  color:var(--ink-3);font-size:14px;
-  font-weight:500;
-}
+.comments-count{color:var(--ink-3);font-size:14px;font-weight:500}
 
 .comment-form{
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:20px;
-  margin-bottom:32px;
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);padding:20px;margin-bottom:32px;
 }
 .comment-form .avatar{width:40px;height:40px;font-size:14px}
-.comment-input-wrap{
-  display:flex;gap:14px;align-items:flex-start;
-}
+.comment-input-wrap{display:flex;gap:14px;align-items:flex-start}
 .comment-fields{flex:1;min-width:0}
-.comment-input,
-.comment-textarea{
-  width:100%;padding:12px 16px;
-  background:var(--cream);
-  border:1.5px solid var(--line);
-  border-radius:10px;
-  font-size:14.5px;color:var(--ink);
-  transition:all .2s;
-  margin-bottom:10px;
+.comment-input,.comment-textarea{
+  width:100%;padding:12px 16px;background:var(--cream);
+  border:1.5px solid var(--line);border-radius:10px;
+  font-size:14.5px;color:var(--ink);transition:all .2s;margin-bottom:10px;
 }
-.comment-textarea{
-  resize:vertical;min-height:90px;
-  line-height:1.55;font-family:inherit;
-}
-.comment-input:focus,.comment-textarea:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(194,65,12,.08);
-  background:var(--paper);
-}
-.comment-row{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.comment-form-footer{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;flex-wrap:wrap;
-}
+.comment-textarea{resize:vertical;min-height:90px;line-height:1.55}
+.comment-input:focus,.comment-textarea:focus{border-color:var(--accent);background:var(--paper)}
+.comment-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.comment-form-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .comment-hint{font-size:12.5px;color:var(--ink-4)}
 .btn-comment{
   padding:10px 22px;border-radius:100px;
   background:var(--ink);color:var(--cream);
-  font-weight:600;font-size:14px;
-  transition:all .2s;
-  display:inline-flex;align-items:center;gap:8px;
+  font-weight:600;font-size:14px;transition:all .2s;
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
 }
 .btn-comment:hover:not(:disabled){background:var(--accent)}
 .btn-comment:disabled{opacity:.5;cursor:not-allowed}
 
 .comment-list{list-style:none}
-.comment{
-  display:flex;gap:14px;
-  padding:20px 0;
-  border-top:1px solid var(--line);
-}
+.comment{display:flex;gap:14px;padding:20px 0;border-top:1px solid var(--line)}
 .comment:first-child{border-top:none}
 .comment .avatar{width:40px;height:40px;font-size:14px}
 .comment-body{flex:1;min-width:0}
-.comment-head{
-  display:flex;align-items:center;gap:8px;
-  margin-bottom:6px;flex-wrap:wrap;
-}
-.comment-head b{font-size:14.5px;font-weight:600;color:var(--ink)}
-.comment-head .badge-author{
-  font-size:10px;font-weight:800;
-  padding:2px 7px;border-radius:100px;
-  background:var(--accent-soft);color:var(--accent);
-  letter-spacing:.08em;text-transform:uppercase;
-}
+.comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.comment-head b{font-size:14.5px;font-weight:600}
 .comment-head .time{font-size:12.5px;color:var(--ink-4)}
-.comment-head .edited{font-size:12px;color:var(--ink-4);font-style:italic}
-.comment-text{
-  font-size:14.5px;line-height:1.65;
-  color:var(--ink-2);margin-bottom:10px;
-  word-wrap:break-word;
-  overflow-wrap:break-word;
-}
-.comment-actions{
-  display:flex;gap:14px;align-items:center;
-  font-size:13px;color:var(--ink-4);
-}
+.comment-text{font-size:14.5px;line-height:1.65;color:var(--ink-2);margin-bottom:10px;word-wrap:break-word}
+.comment-actions{display:flex;gap:14px;align-items:center;font-size:13px;color:var(--ink-4)}
 .comment-action{
   display:inline-flex;align-items:center;gap:5px;
   cursor:pointer;transition:color .2s;
-  background:none;border:none;padding:0;
-  font-size:13px;
+  background:none;border:none;padding:0;font-size:13px;
 }
 .comment-action:hover{color:var(--accent)}
-.comment-action.liked{color:var(--accent);font-weight:600}
-.comment-action i{font-size:12px}
+.comment-replies{margin-top:14px;padding-left:20px;border-left:2px solid var(--line)}
+.comment-replies .comment{padding:14px 0;border-top:none}
 
-.comment-replies{
-  margin-top:14px;padding-left:20px;
-  border-left:2px solid var(--line);
-}
-.comment-replies .comment{
-  padding:14px 0;
-  border-top:none;
-}
-.comment-replies .avatar{width:34px;height:34px;font-size:12px}
-
-.reply-form{
-  display:none;
-  margin-top:14px;padding:14px;
-  background:var(--cream-2);
-  border-radius:10px;
-}
-.reply-form.open{display:block}
-.reply-form textarea{
-  width:100%;padding:10px 14px;
-  background:var(--paper);
-  border:1.5px solid var(--line);
-  border-radius:8px;
-  font-size:14px;color:var(--ink);
-  resize:vertical;min-height:70px;
-  font-family:inherit;margin-bottom:10px;
-}
-.reply-form textarea:focus{border-color:var(--accent)}
-
-/* ═══════════ RELATED ═══════════ */
-.related-section{
-  background:var(--cream-2);
-  padding:60px 0;
-  margin-top:60px;
-  border-top:1px solid var(--line);
-}
-.related-head{
-  text-align:center;margin-bottom:36px;
-}
-.related-head h2{
-  font-size:28px;font-weight:600;
-  display:inline-flex;align-items:center;gap:12px;
-}
+/* Related */
+.related-section{background:var(--cream-2);padding:60px 0;margin-top:60px;border-top:1px solid var(--line)}
+.related-head{text-align:center;margin-bottom:36px}
+.related-head h2{font-size:28px;font-weight:600;display:inline-flex;align-items:center;gap:12px}
 .related-head h2 i{font-size:22px;color:var(--accent)}
-.related-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:24px;
-}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .related-card{
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  overflow:hidden;
-  cursor:pointer;
-  transition:all .3s;
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s;
 }
-.related-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 16px 32px rgba(28,25,23,.08);
-}
-.related-thumb{
-  height:170px;overflow:hidden;
-  background:var(--cream-2);
-}
-.related-thumb img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .6s;
-}
+.related-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(28,25,23,.08)}
+.related-thumb{height:170px;overflow:hidden;background:var(--cream-2)}
+.related-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .related-card:hover .related-thumb img{transform:scale(1.05)}
 .related-body{padding:18px}
 .related-body h4{
-  font-size:17px;margin-bottom:8px;
-  line-height:1.35;font-weight:600;
-  display:-webkit-box;-webkit-line-clamp:2;
-  -webkit-box-orient:vertical;overflow:hidden;
+  font-size:17px;margin-bottom:8px;line-height:1.35;font-weight:600;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
-.related-meta{
-  font-size:12.5px;color:var(--ink-4);
-  display:flex;align-items:center;gap:8px;
-  margin-top:12px;padding-top:12px;
-  border-top:1px solid var(--line);
-  flex-wrap:wrap;
-}
-.related-meta .avatar{
-  width:22px;height:22px;font-size:9px;
-}
+.related-meta{font-size:12.5px;color:var(--ink-4);display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
 
-/* ═══════════ FLOATING ═══════════ */
+/* Floating bar */
 .floating-bar{
   position:fixed;bottom:24px;left:50%;
   transform:translateX(-50%) translateY(100px);
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:100px;
-  padding:8px 10px;
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:100px;padding:8px 10px;
   display:flex;align-items:center;gap:6px;
   box-shadow:0 12px 32px rgba(28,25,23,.15);
-  z-index:90;
-  transition:transform .3s;
+  z-index:90;transition:transform .3s;
 }
 .floating-bar.show{transform:translateX(-50%) translateY(0)}
 .floating-bar .reaction-btn{padding:6px 10px;border:none;background:transparent}
 .floating-bar .reaction-btn:hover{background:var(--cream-2);transform:none}
 .floating-bar .reaction-btn.active{background:var(--accent);color:#fff}
 
-/* ═══════════ LOADER/EMPTY ═══════════ */
+/* Loader / Empty */
 .loader{text-align:center;padding:120px 20px;color:var(--ink-4)}
 .spinner{
-  width:40px;height:40px;
-  border:3px solid var(--line);
-  border-top-color:var(--accent);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:0 auto 20px;
+  width:40px;height:40px;border:3px solid var(--line);
+  border-top-color:var(--accent);border-radius:50%;
+  animation:spin .8s linear infinite;margin:0 auto 20px;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.article-skeleton{max-width:760px;margin:0 auto;padding:0 20px}
-.sk-line{height:16px;background:var(--cream-2);border-radius:8px;margin-bottom:12px;animation:shimmer 1.5s infinite}
-.sk-line.title{height:40px;width:80%;margin:0 auto 20px}
-.sk-line.sub{height:20px;width:50%;margin:0 auto 40px}
-.sk-img{width:100%;aspect-ratio:16/9;border-radius:var(--radius-lg);margin-bottom:40px;background:var(--cream-2);animation:shimmer 1.5s infinite}
-@keyframes shimmer{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
-
-/* ═══════════ VERIFIED ═══════════ */
 .verified-tick{
   display:inline-flex;align-items:center;justify-content:center;
   width:15px;height:15px;min-width:15px;
   background:var(--verified);border-radius:50%;
-  flex-shrink:0;margin-left:4px;
-  vertical-align:middle;position:relative;top:-1px;
-  box-shadow:0 0 0 1.5px var(--paper);
+  flex-shrink:0;margin-left:4px;vertical-align:middle;
+  position:relative;top:-1px;box-shadow:0 0 0 1.5px var(--paper);
 }
 .verified-tick::before{
-  content:'';display:block;
-  width:3px;height:6px;
+  content:'';display:block;width:3px;height:6px;
   border:solid #fff;border-width:0 1.8px 1.8px 0;
   transform:rotate(45deg) translate(-1px,-1px);
 }
 
-/* Avatar */
-.avatar{
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--ink),var(--accent));
-  display:grid;place-items:center;
-  color:#fff;font-weight:700;
-  flex-shrink:0;overflow:hidden;
-}
-.avatar img{width:100%;height:100%;object-fit:cover}
-
-/* Toast */
 .toast{
   position:fixed;bottom:30px;right:30px;
   padding:14px 22px;border-radius:12px;
   background:var(--ink);color:var(--cream);
   font-weight:600;font-size:14px;
   box-shadow:0 10px 30px rgba(0,0,0,.2);
-  z-index:9999;animation:toastIn .3s;
-  max-width:90vw;
+  z-index:9999;animation:toastIn .3s;max-width:90vw;
 }
 .toast.success{background:#10b981;color:#fff}
 .toast.error{background:#ef4444;color:#fff}
 @keyframes toastIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
 
-/* ═══════════ RESPONSIVE ═══════════ */
 @media (max-width:640px){
   .container{padding:0 20px}
   .nav{padding:14px 0}
   .logo{font-size:22px;gap:6px}
   .logo-img{width:32px;height:32px}
   .article-wrap{padding:32px 0 40px}
-  .article-header{padding:0 20px}
   .article-header h1{font-size:clamp(24px,7vw,32px)}
-  .article-content{font-size:16.5px;padding:0 20px}
-  .article-content h2{font-size:23px;margin:36px 0 14px}
-  .article-content h3{font-size:19px}
-  .article-content blockquote{font-size:19px;padding-left:18px}
-  .article-cover{padding:0 20px}
-  .article-tags{padding:0 20px}
-  .article-actions{
-    padding:20px;flex-direction:column;align-items:flex-start;
-  }
-  .share-group{width:100%;justify-content:flex-start;flex-wrap:wrap}
-  .author-bio{
-    margin:36px 20px 0;padding:22px 18px;
-    flex-direction:column;align-items:center;text-align:center;
-  }
+  .article-content{font-size:16.5px}
+  .article-content h2{font-size:23px}
+  .article-actions{padding:20px;flex-direction:column;align-items:flex-start}
+  .author-bio{margin:36px 20px 0;padding:22px 18px;flex-direction:column;align-items:center;text-align:center}
   .author-bio-info{text-align:center}
   .author-bio-actions{justify-content:center}
   .comments-section{padding:0 20px}
-  .comments-head h2{font-size:20px}
   .comment-row{grid-template-columns:1fr}
   .comment-form-footer{flex-direction:column;align-items:stretch}
   .btn-comment{width:100%;justify-content:center}
   .related-section{padding:44px 0}
-  .related-head h2{font-size:22px}
   .related-grid{grid-template-columns:1fr}
-  .floating-bar{bottom:16px;padding:6px 8px;gap:4px}
-  .floating-bar .reaction-btn{padding:5px 8px}
-  .floating-bar .reaction-btn .emoji{font-size:16px}
-  .floating-bar .reaction-btn .count{display:none}
   .toast{bottom:20px;right:20px;left:20px;text-align:center}
 }
 </style>
 </head>
 <body>
 
-<!-- Reading progress -->
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
 <header>
   <div class="container nav">
     <a href="index.html" class="logo">
-      <!-- 🔽 APNA LOGO URL YAHAN PASTE KARO -->
       <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
       <span class="logo-text">Ink<em>well</em></span>
     </a>
@@ -614,7 +360,6 @@ body.dark header{background:rgba(15,14,12,.92)}
   </div>
 </main>
 
-<!-- Floating reactions bar (mobile) -->
 <div class="floating-bar" id="floatingBar">
   <button class="reaction-btn" data-type="like"><span class="emoji">👍</span></button>
   <button class="reaction-btn" data-type="love"><span class="emoji">❤️</span></button>
@@ -630,14 +375,6 @@ const CONFIG = {
   API_URL: 'https://gsssshilla.onrender.com/api/blog',
   UPLOAD_URL: 'https://gsssshilla.onrender.com'
 };
-
-// ═══════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════
-let currentPost = null;
-let userReaction = null;
-let isBookmarked = false;
-let replyToId = null;
 
 // ═══════════════════════════════════════════════════════════
 // HELPERS
@@ -702,13 +439,37 @@ themeToggle.onclick = () => {
 };
 
 // ═══════════════════════════════════════════════════════════
+// ✅ SLUG READ — FIXED for both /post and /post.html
+// ═══════════════════════════════════════════════════════════
+function getSlug() {
+  // Try query param first
+  const params = new URLSearchParams(location.search);
+  let slug = params.get('slug') || params.get('s');
+  
+  // Fallback: try pathname (for /post/hello-everyone format)
+  if (!slug) {
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const last = pathParts[pathParts.length - 1];
+    if (last && last !== 'post' && last !== 'post.html') {
+      slug = last;
+    }
+  }
+  
+  return slug;
+}
+
+const slug = getSlug();
+console.log('📌 Slug detected:', slug);
+
+// ═══════════════════════════════════════════════════════════
 // LOAD POST
 // ═══════════════════════════════════════════════════════════
-const params = new URLSearchParams(location.search);
-const slug = params.get('slug');
+let currentPost = null;
+let userReaction = null;
+let isBookmarked = false;
 
 async function loadPost() {
-  if (!slug) return showError('No article specified');
+  if (!slug) return showError('No article specified in URL');
 
   try {
     const res = await fetch(`${CONFIG.API_URL}/posts/${encodeURIComponent(slug)}`, {
@@ -716,30 +477,28 @@ async function loadPost() {
     });
     const data = await res.json();
 
+    console.log('📥 API response:', data);
+
     if (!res.ok) return showError(data.error || 'Article not found');
     currentPost = data;
     renderPost(data);
     loadReactions();
     loadComments();
     loadBookmarkStatus();
-    updateMeta(data);
+    document.title = `${data.title} — InkWell`;
+    const md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', data.excerpt || data.title);
   } catch (e) {
-    console.error(e);
-    showError('Failed to load article');
+    console.error('❌ Load error:', e);
+    showError('Failed to load article. Please try again.');
   }
-}
-
-function updateMeta(p) {
-  document.title = `${p.title} — InkWell`;
-  const md = document.querySelector('meta[name="description"]');
-  if (md) md.setAttribute('content', p.excerpt || p.title);
 }
 
 function showError(msg) {
   $('mainContent').innerHTML = `
     <div class="loader">
       <i class="fa-regular fa-file-lines" style="font-size:52px;opacity:.3;margin-bottom:20px"></i>
-      <h2 style="font-family:'Fraunces',serif;margin-bottom:8px;color:var(--ink)">${escapeHtml(msg)}</h2>
+      <h2 style="font-family:'Fraunces',serif;margin-bottom:8px;color:var(--ink);font-size:22px">${escapeHtml(msg)}</h2>
       <p style="margin-bottom:24px">The article you're looking for isn't available.</p>
       <a href="index.html" style="padding:12px 24px;background:var(--ink);color:var(--cream);border-radius:100px;font-weight:600;display:inline-flex;align-items:center;gap:8px">
         <i class="fa-solid fa-house"></i> Back to Home
@@ -775,7 +534,7 @@ function renderPost(p) {
       <header class="article-header">
         ${p.category_name ? `<a href="category.html?slug=${escapeHtml(p.category_slug)}" class="article-cat" style="background:${escapeHtml(p.category_color||'#c2410c')}20;color:${escapeHtml(p.category_color||'#c2410c')}">${escapeHtml(p.category_name)}</a>` : ''}
         <h1>${escapeHtml(p.title)}</h1>
-        <div class="article-meta">
+        <div class="article-meta" style="margin-bottom:14px">
           <a href="author.html?id=${p.author_id}" class="article-author">
             ${avatarHtml}
             <div class="article-author-info">
@@ -805,7 +564,7 @@ function renderPost(p) {
 
       ${p.tags && p.tags.length ? `
         <div class="article-tags">
-          ${p.tags.map(t => `<a href="search.html?q=${encodeURIComponent(t.name)}" class="article-tag">#${escapeHtml(t.name)}</a>`).join('')}
+          ${p.tags.map(t => `<a href="blog.html?tag=${encodeURIComponent(t.slug)}" class="article-tag">#${escapeHtml(t.name)}</a>`).join('')}
         </div>
       ` : ''}
 
@@ -856,7 +615,7 @@ function renderPost(p) {
 
         <form class="comment-form" id="commentForm">
           <div class="comment-input-wrap">
-            <div class="avatar" id="myAvatar">${getInitials(getUser()?.name || 'G')}</div>
+            <div class="avatar">${getInitials(getUser()?.name || 'G')}</div>
             <div class="comment-fields">
               <div class="comment-row">
                 <input type="text" class="comment-input" id="commentName" placeholder="Your name" maxlength="60" ${getUser() ? 'readonly' : ''} value="${escapeHtml(getUser()?.name || '')}">
@@ -909,22 +668,14 @@ function renderPost(p) {
 
   $('mainContent').innerHTML = html;
 
-  // Show bookmark button
   $('bookmarkBtn').style.display = 'grid';
 
-  // Setup reactions
   setupReactions();
-  // Setup bookmark
   setupBookmark();
-  // Setup follow
   setupFollow(p.author_id);
-  // Setup comment form
   setupCommentForm();
-  // Setup copy link
   setupCopyLink();
-  // Setup progress bar
   setupProgress();
-  // Setup floating bar visibility
   setupFloatingBar();
 }
 
@@ -944,13 +695,9 @@ async function loadReactions() {
     const counts = data.reactions || {};
     userReaction = data.userReaction;
 
-    // Update counts
     document.querySelectorAll('[data-count]').forEach(el => {
-      const t = el.dataset.count;
-      el.textContent = counts[t] || 0;
+      el.textContent = counts[el.dataset.count] || 0;
     });
-
-    // Update active states
     document.querySelectorAll('.reaction-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.type === userReaction);
     });
@@ -976,8 +723,6 @@ async function handleReaction(type) {
     document.querySelectorAll('.reaction-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.type === userReaction);
     });
-
-    if (userReaction) showToast('Reaction added!', 'success');
   } catch (e) { showToast(e.message, 'error'); }
 }
 
@@ -1027,13 +772,12 @@ async function loadBookmarkStatus() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// FOLLOW AUTHOR
+// FOLLOW
 // ═══════════════════════════════════════════════════════════
 async function setupFollow(authorId) {
   const btn = $('followBtn');
   if (!btn) return;
 
-  // Check follow status
   if (getToken()) {
     try {
       const res = await fetch(`${CONFIG.API_URL}/authors/${authorId}/follow-status`, {
@@ -1041,7 +785,6 @@ async function setupFollow(authorId) {
       });
       const data = await res.json();
       if (data.following) {
-        btn.classList.add('following');
         btn.innerHTML = '<i class="fa-solid fa-check"></i> Following';
       }
     } catch {}
@@ -1061,13 +804,9 @@ async function setupFollow(authorId) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
 
-      if (data.following) {
-        btn.classList.add('following');
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Following';
-      } else {
-        btn.classList.remove('following');
-        btn.innerHTML = '<i class="fa-solid fa-plus"></i> Follow';
-      }
+      btn.innerHTML = data.following
+        ? '<i class="fa-solid fa-check"></i> Following'
+        : '<i class="fa-solid fa-plus"></i> Follow';
       showToast(data.message, 'success');
     } catch (e) { showToast(e.message, 'error'); }
   };
@@ -1099,15 +838,13 @@ function setupCommentForm() {
           author_name: name,
           author_email: email,
           guest_name: name,
-          content,
-          parent_id: replyToId
+          content
         })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
 
       $('commentText').value = '';
-      replyToId = null;
       showToast(data.message, 'success');
       setTimeout(loadComments, 500);
     } catch (e) {
@@ -1127,7 +864,8 @@ async function loadComments() {
     });
     const comments = await res.json();
 
-    $('commentsCount').textContent = countComments(comments) + ' comments';
+    const total = countComments(comments);
+    $('commentsCount').textContent = total + ' comments';
 
     if (!comments.length) {
       list.innerHTML = `
@@ -1171,7 +909,6 @@ function renderComment(c, isReply = false) {
           <b>${escapeHtml(c.author_name)}</b>
           ${c.author_verified ? verifiedTick() : ''}
           <span class="time">${timeAgo(c.created_at)}</span>
-          ${c.is_edited ? '<span class="edited">(edited)</span>' : ''}
         </div>
         <div class="comment-text">${escapeHtml(c.content)}</div>
         <div class="comment-actions">
@@ -1179,24 +916,7 @@ function renderComment(c, isReply = false) {
             <i class="fa-${c.is_liked ? 'solid' : 'regular'} fa-heart"></i>
             <span>${c.like_count || 0}</span>
           </button>
-          ${!isReply ? `
-            <button class="comment-action" data-reply="${c.id}">
-              <i class="fa-solid fa-reply"></i> Reply
-            </button>
-          ` : ''}
-          <button class="comment-action" data-report="${c.id}">
-            <i class="fa-regular fa-flag"></i> Report
-          </button>
         </div>
-        ${!isReply ? `
-          <div class="reply-form" id="reply-form-${c.id}">
-            <textarea placeholder="Write a reply..." id="reply-text-${c.id}"></textarea>
-            <div style="display:flex;gap:8px;justify-content:flex-end">
-              <button class="bio-btn" onclick="cancelReply(${c.id})">Cancel</button>
-              <button class="bio-btn primary" onclick="submitReply(${c.id})">Reply</button>
-            </div>
-          </div>
-        ` : ''}
         ${replies}
       </div>
     </li>
@@ -1204,7 +924,6 @@ function renderComment(c, isReply = false) {
 }
 
 function setupCommentActions() {
-  // Like
   document.querySelectorAll('[data-like]').forEach(btn => {
     btn.onclick = async () => {
       const id = btn.dataset.like;
@@ -1223,74 +942,15 @@ function setupCommentActions() {
       } catch (e) { showToast(e.message, 'error'); }
     };
   });
-
-  // Reply
-  document.querySelectorAll('[data-reply]').forEach(btn => {
-    btn.onclick = () => {
-      const id = btn.dataset.reply;
-      document.querySelectorAll('.reply-form').forEach(f => f.classList.remove('open'));
-      $('reply-form-' + id).classList.add('open');
-      $('reply-text-' + id).focus();
-    };
-  });
-
-  // Report
-  document.querySelectorAll('[data-report]').forEach(btn => {
-    btn.onclick = async () => {
-      const id = btn.dataset.report;
-      const reason = prompt('Why are you reporting this comment?\n\nOptions: spam, abuse, inappropriate, other');
-      if (!reason) return;
-      try {
-        const res = await fetch(`${CONFIG.API_URL}/comments/${id}/report`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ reason, device_id: getDeviceId() })
-        });
-        if (res.ok) showToast('Report submitted. Thank you!', 'success');
-      } catch {}
-    };
-  });
 }
-
-window.cancelReply = (id) => {
-  $('reply-form-' + id).classList.remove('open');
-  $('reply-text-' + id).value = '';
-  replyToId = null;
-};
-
-window.submitReply = async (parentId) => {
-  const text = $('reply-text-' + parentId).value.trim();
-  if (!text) return showToast('Reply cannot be empty', 'error');
-
-  const user = getUser();
-  const name = user ? user.name : (prompt('Your name:') || 'Guest');
-  if (!name) return;
-
-  try {
-    const res = await fetch(`${CONFIG.API_URL}/posts/${currentPost.id}/comments`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        author_name: name,
-        author_email: user?.email || '',
-        guest_name: name,
-        content: text,
-        parent_id: parentId
-      })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error);
-
-    showToast(data.message, 'success');
-    loadComments();
-  } catch (e) { showToast(e.message, 'error'); }
-};
 
 // ═══════════════════════════════════════════════════════════
 // COPY LINK
 // ═══════════════════════════════════════════════════════════
 function setupCopyLink() {
-  $('copyLinkBtn').onclick = async () => {
+  const btn = $('copyLinkBtn');
+  if (!btn) return;
+  btn.onclick = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
       showToast('Link copied!', 'success');
@@ -1301,7 +961,7 @@ function setupCopyLink() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// READING PROGRESS
+// PROGRESS
 // ═══════════════════════════════════════════════════════════
 function setupProgress() {
   const fill = $('progressFill');
@@ -1319,23 +979,21 @@ function setupProgress() {
   update();
 }
 
-// ═══════════════════════════════════════════════════════════
-// FLOATING BAR
-// ═══════════════════════════════════════════════════════════
 function setupFloatingBar() {
   const bar = $('floatingBar');
   if (window.innerWidth > 640) return;
-
-  const update = () => {
-    const y = window.scrollY;
-    bar.classList.toggle('show', y > 500);
-  };
+  const update = () => bar.classList.toggle('show', window.scrollY > 500);
   window.addEventListener('scroll', update, { passive: true });
 }
 
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
+console.log('🚀 InkWell post page initializing...');
+console.log('📍 Full URL:', location.href);
+console.log('📍 Pathname:', location.pathname);
+console.log('📍 Search:', location.search);
+
 loadPost();
 </script>
 </body>
