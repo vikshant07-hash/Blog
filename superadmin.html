@@ -3,17 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1e1b4b">
+<meta name="theme-color" content="#0f0a1e">
 <title>👑 Super Admin — InkWell</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --primary:#7c3aed;--primary-dark:#6d28d9;--primary-soft:#f5f3ff;
-  --verified:#3b82f6;--verified-bg:#dbeafe;
-  --success:#10b981;--danger:#ef4444;--warning:#f59e0b;
-  --text:#111827;--text-light:#6b7280;--text-mute:#9ca3af;
-  --bg:#f9fafb;--border:#e5e7eb;--sidebar:#1e1b4b;
+  --primary:#7c3aed;
+  --primary-light:#a78bfa;
+  --primary-dark:#5b21b6;
+  --gold:#f59e0b;
+  --gold-light:#fbbf24;
+  --gold-dark:#d97706;
+  --verified:#3b82f6;
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --text:#f5f3ff;
+  --text-mute:#94a3b8;
+  --text-dim:#64748b;
+  --bg:#0f0a1e;
+  --bg-card:#1a1332;
+  --bg-soft:#241a42;
+  --border:#2d1f4d;
+  --border-light:#3d2b66;
 }
 html{-webkit-text-size-adjust:100%}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden}
@@ -22,167 +35,195 @@ a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;outline:none;font-family:inherit;font-weight:600;background:none}
 input,textarea,select{font-family:inherit;outline:none;-webkit-appearance:none;appearance:none}
 
-/* LOGIN */
-.login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#7c3aed 0%,#4c1d95 60%,#1e1b4b 100%);padding:24px;position:relative;overflow:hidden}
-.login-screen::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,.4) 0%,transparent 70%);border-radius:50%}
-.login-screen::after{content:'';position:absolute;bottom:-150px;left:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.5) 0%,transparent 70%);border-radius:50%}
-.login-card{background:#fff;border-radius:20px;padding:40px 30px;max-width:420px;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.4);position:relative;z-index:1}
-.crown-icon{text-align:center;font-size:48px;margin-bottom:8px}
-.login-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;text-align:center;margin-bottom:6px;color:#1e1b4b}
-.login-sub{text-align:center;color:var(--text-light);font-size:13.5px;margin-bottom:26px}
+/* ══════════════════════════════════════════
+   LOGIN
+══════════════════════════════════════════ */
+.login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 20%,#2d1b69 0%,#0f0a1e 50%,#050210 100%);padding:20px;position:relative;overflow:hidden}
+.login-screen::before{content:'';position:absolute;top:-200px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 70%);border-radius:50%;animation:float 8s ease-in-out infinite}
+.login-screen::after{content:'';position:absolute;bottom:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(245,158,11,.2),transparent 70%);border-radius:50%;animation:float 10s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+
+.login-card{background:rgba(26,19,50,.85);backdrop-filter:blur(20px);border:1px solid rgba(124,58,237,.3);border-radius:24px;padding:42px 32px;max-width:430px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(124,58,237,.15);position:relative;z-index:1}
+.crown-badge{width:70px;height:70px;margin:0 auto 16px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:50%;display:grid;place-items:center;font-size:34px;box-shadow:0 0 30px rgba(245,158,11,.5),inset 0 -3px 10px rgba(0,0,0,.2)}
+.login-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;text-align:center;margin-bottom:6px;background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
+.login-sub{text-align:center;color:var(--text-mute);font-size:13.5px;margin-bottom:28px}
 .field{margin-bottom:14px}
-.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#374151}
-.field input,.field textarea,.field select{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:#fff;color:var(--text);transition:all .15s}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(124,58,237,.12)}
+.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.5px}
+.field input,.field textarea,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:rgba(15,10,30,.6);color:var(--text);transition:border-color .15s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
 .field textarea{min-height:80px;resize:vertical;line-height:1.5}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:600;transition:all .15s;white-space:nowrap;line-height:1.2}
-.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.3)}
-.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
-.btn-verified{background:var(--verified);color:#fff;box-shadow:0 4px 14px rgba(59,130,246,.3)}
-.btn-verified:hover{background:#2563eb;transform:translateY(-1px)}
-.btn-success{background:var(--success);color:#fff}
-.btn-danger{background:var(--danger);color:#fff}
-.btn-outline{background:#fff;color:var(--text);border:1.5px solid var(--border)}
-.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-dim)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:10px;font-size:13.5px;font-weight:600;transition:all .15s;white-space:nowrap;line-height:1.2}
+.btn-gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f0a1e;box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.4)}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.4)}
+.btn-success{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+.btn-success:hover{transform:translateY(-1px)}
+.btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
+.btn-danger:hover{transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border-light)}
+.btn-outline:hover{border-color:var(--primary-light);color:var(--primary-light)}
 .btn-sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
 .btn-xs{padding:5px 10px;font-size:11.5px;border-radius:7px}
 .btn-block{width:100%}
 .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.alert{padding:12px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px;display:none;line-height:1.5}
+.alert{padding:12px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px;display:none;line-height:1.5;border-left:3px solid}
 .alert.show{display:block}
-.alert-error{background:#fef2f2;color:#b91c1c;border-left:3px solid var(--danger)}
+.alert-error{background:rgba(239,68,68,.15);color:#fca5a5;border-color:var(--danger)}
+.login-footer{text-align:center;margin-top:18px;font-size:13px;color:var(--text-mute)}
+.link{color:var(--gold);font-weight:600;cursor:pointer}
 
-/* LAYOUT */
+/* ══════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════ */
 .app{display:none;min-height:100vh;min-height:100dvh}
 .app.active{display:block}
-.sidebar{background:var(--sidebar);color:#fff;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:260px;overflow-y:auto;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
-.sidebar-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.sidebar-brand .crown{font-size:22px;margin-bottom:2px}
-.sidebar-brand .name{font-family:'Playfair Display',serif;font-size:20px;font-weight:900}
-.sidebar-brand .name span{color:#a78bfa}
-.sidebar-brand .role{font-size:10px;font-weight:700;color:#93c5fd;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;background:linear-gradient(135deg,rgba(59,130,246,.2),rgba(124,58,237,.15));padding:4px 10px;border-radius:20px;display:inline-block;border:1px solid rgba(59,130,246,.3)}
+.sidebar{background:linear-gradient(180deg,#1a1332 0%,#0f0a1e 100%);border-right:1px solid var(--border);color:var(--text);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:270px;overflow-y:auto;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sidebar-brand{padding:22px 20px 18px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative}
+.sidebar-brand::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.sidebar-brand .crown-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sidebar-brand .crown{width:38px;height:38px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:10px;display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:0 0 20px rgba(245,158,11,.3)}
+.sidebar-brand .name{font-family:'Playfair Display',serif;font-size:19px;font-weight:900}
+.sidebar-brand .name span{background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar-brand .role{font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(245,158,11,.1);padding:3px 9px;border-radius:20px;display:inline-block;border:1px solid rgba(245,158,11,.3)}
 .sidebar nav{padding:12px 0;flex:1}
-.sidebar nav .group{padding:12px 20px 6px;font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:1.2px}
-.sidebar nav a{display:flex;align-items:center;gap:11px;padding:10px 20px;color:#a5b4fc;font-size:13.5px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
-.sidebar nav a:hover{background:rgba(255,255,255,.05);color:#fff}
-.sidebar nav a.active{background:rgba(124,58,237,.25);color:#fff;border-left-color:#a78bfa}
-.sidebar nav a .ic{width:20px;text-align:center;font-size:15px;flex-shrink:0}
-.sidebar nav a .badge-pill{margin-left:auto;background:var(--danger);color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center}
-.sidebar-footer{padding:14px 18px 18px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sidebar nav .group{padding:12px 20px 5px;font-size:9.5px;font-weight:800;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px}
+.sidebar nav a{display:flex;align-items:center;gap:11px;padding:11px 20px;color:var(--text-mute);font-size:13.5px;font-weight:500;cursor:pointer;transition:all .15s;border-left:3px solid transparent;position:relative}
+.sidebar nav a:hover{background:rgba(124,58,237,.1);color:var(--text)}
+.sidebar nav a.active{background:linear-gradient(90deg,rgba(124,58,237,.25),transparent);color:#fff;border-left-color:var(--gold)}
+.sidebar nav a.active .ic{color:var(--gold)}
+.sidebar nav a .ic{width:20px;text-align:center;font-size:15px;flex-shrink:0;transition:color .15s}
+.sidebar nav a .badge-pill{margin-left:auto;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center;box-shadow:0 0 12px rgba(239,68,68,.4)}
+.sidebar-footer{padding:14px 18px 18px;border-top:1px solid var(--border);flex-shrink:0}
 .sidebar-user{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.sidebar-user .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#ec4899);display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden;border:2px solid rgba(59,130,246,.5)}
+.sidebar-user .av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#f59e0b);display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0;overflow:hidden;border:2px solid rgba(245,158,11,.4)}
 .sidebar-user .av img{width:100%;height:100%;object-fit:cover}
 .sidebar-user .info{flex:1;min-width:0}
 .sidebar-user b{display:block;font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sidebar-user span{display:block;font-size:11px;color:#93c5fd}
-.logout-btn{width:100%;padding:9px;background:rgba(239,68,68,.15);color:#fca5a5;border-radius:8px;font-size:12.5px;font-weight:600;transition:all .15s}
-.logout-btn:hover{background:rgba(239,68,68,.3);color:#fff}
+.sidebar-user span{display:block;font-size:11px;color:var(--gold)}
+.logout-btn{width:100%;padding:9px;background:rgba(239,68,68,.12);color:#fca5a5;border-radius:8px;font-size:12.5px;font-weight:600;transition:all .15s;border:1px solid rgba(239,68,68,.2)}
+.logout-btn:hover{background:rgba(239,68,68,.25);color:#fff;border-color:rgba(239,68,68,.4)}
 
-.main{min-height:100vh;min-height:100dvh;padding:24px 32px 80px;margin-left:260px}
-.mobile-bar{display:none;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:11px 16px;align-items:center;justify-content:space-between;z-index:50;gap:12px}
-.mobile-bar .menu-icon{width:38px;height:38px;border-radius:10px;background:var(--primary-soft);display:grid;place-items:center;font-size:17px;color:var(--primary)}
+.main{min-height:100vh;min-height:100dvh;padding:22px 30px 80px;margin-left:270px}
+.mobile-bar{display:none;position:sticky;top:0;background:rgba(15,10,30,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:11px 16px;align-items:center;justify-content:space-between;z-index:50;gap:12px}
+.mobile-bar .menu-icon{width:38px;height:38px;border-radius:10px;background:rgba(124,58,237,.15);display:grid;place-items:center;font-size:17px;color:var(--primary-light);border:1px solid var(--border)}
 .mobile-bar .brand{font-family:'Playfair Display',serif;font-size:19px;font-weight:900}
-.mobile-bar .brand span{color:var(--primary)}
-.mobile-bar .crown-badge{background:linear-gradient(135deg,#3b82f6,#7c3aed);color:#fff;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:700}
-.overlay{display:none;position:fixed;inset:0;background:rgba(17,24,39,.5);z-index:99;backdrop-filter:blur(2px)}
+.mobile-bar .brand span{background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mobile-bar .crown-badge{background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f0a1e;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.5px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(5,2,16,.7);z-index:99;backdrop-filter:blur(3px)}
 .overlay.show{display:block}
 
 .page-head{margin-bottom:22px}
-.page-head h1{font-size:25px;font-weight:800;letter-spacing:-.5px}
-.page-head .sub{color:var(--text-light);font-size:13.5px;margin-top:3px}
+.page-head h1{font-size:25px;font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.page-head h1 .gold-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold);display:inline-block}
+.page-head .sub{color:var(--text-mute);font-size:13.5px;margin-top:3px}
 .page-head-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:22px}
 
 .section{display:none;animation:fadeIn .25s ease}
 .section.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px;margin-bottom:22px}
-.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;transition:all .2s;cursor:pointer;position:relative;overflow:hidden}
-.stat:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,58,237,.08);border-color:#c4b5fd}
-.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--verified));opacity:0;transition:opacity .2s}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px;margin-bottom:22px}
+.stat{background:linear-gradient(135deg,#1a1332,#241a42);border:1px solid var(--border);border-radius:14px;padding:18px;transition:all .2s;cursor:pointer;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--primary),var(--gold));opacity:0;transition:opacity .2s}
+.stat:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(124,58,237,.15);border-color:var(--border-light)}
 .stat:hover::before{opacity:1}
-.stat .lbl{font-size:12px;color:var(--text-light);font-weight:500;margin-bottom:6px}
-.stat .val{font-size:26px;font-weight:800;letter-spacing:-.5px}
-.stat .sub{font-size:11.5px;color:var(--text-mute);margin-top:4px}
-.stat.highlight{background:linear-gradient(135deg,#fef3c7,#fed7aa);border-color:#fbbf24}
-.stat.highlight .val{color:#92400e}
-.stat.primary{background:linear-gradient(135deg,var(--primary),var(--verified));color:#fff;border:none}
-.stat.primary .lbl,.stat.primary .sub{color:rgba(255,255,255,.85)}
-.stat.primary .val{color:#fff}
+.stat .lbl{font-size:11.5px;color:var(--text-mute);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.stat .val{font-size:28px;font-weight:800;letter-spacing:-.5px;color:#fff}
+.stat .sub{font-size:11.5px;color:var(--text-dim);margin-top:4px}
+.stat.gold{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(217,119,6,.1));border-color:rgba(245,158,11,.4)}
+.stat.gold .val{color:var(--gold-light)}
+.stat.primary{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(91,33,182,.15));border-color:rgba(124,58,237,.5)}
+.stat.primary .val{color:#e9d5ff}
+.stat.pending{background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(220,38,38,.1));border-color:rgba(239,68,68,.4);animation:pulse 2s ease-in-out infinite}
+.stat.pending .val{color:#fca5a5}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 0 12px rgba(239,68,68,0)}}
 
-.card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
-.card-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.card-head h2{font-size:15.5px;font-weight:700}
-.card-head .count{font-size:12.5px;color:var(--text-mute);font-weight:500}
+/* CARDS */
+.card{background:linear-gradient(135deg,#1a1332,#18112e);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
+.card-head{padding:15px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(36,26,66,.4)}
+.card-head h2{font-size:15.5px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+.card-head .count{font-size:12.5px;color:var(--text-dim);font-weight:500}
 
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
-th,td{padding:12px 16px;text-align:left;border-bottom:1px solid #f3f4f6;vertical-align:middle}
-th{background:#fafbfc;font-weight:600;font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);vertical-align:middle}
+th{background:rgba(15,10,30,.5);font-weight:700;font-size:10.5px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
 tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:#fafbfc}
-.title-cell{font-weight:600;display:block;margin-bottom:2px;color:var(--text);line-height:1.3}
-.sub-cell{font-size:11.5px;color:var(--text-mute)}
-.avatar-mini{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:12px;overflow:hidden;vertical-align:middle;flex-shrink:0}
+tbody tr:hover td{background:rgba(124,58,237,.05)}
+.title-cell{font-weight:600;display:block;margin-bottom:2px;color:#fff;line-height:1.3}
+.sub-cell{font-size:11.5px;color:var(--text-dim)}
+.avatar-mini{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#f59e0b);display:inline-grid;place-items:center;color:#fff;font-weight:700;font-size:12px;overflow:hidden;vertical-align:middle;flex-shrink:0;border:1.5px solid rgba(245,158,11,.3)}
 .avatar-mini img{width:100%;height:100%;object-fit:cover}
 .user-cell{display:flex;align-items:center;gap:9px}
 
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
 .badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
-.badge-success{background:#d1fae5;color:#065f46}
-.badge-warning{background:#fef3c7;color:#92400e}
-.badge-danger{background:#fee2e2;color:#991b1b}
-.badge-info{background:#e0e7ff;color:#3730a3}
-.badge-verified{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1e40af;border:1px solid #93c5fd}
+.badge-success{background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
+.badge-warning{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.3)}
+.badge-danger{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+.badge-info{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
+.badge-gold{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(217,119,6,.15));color:#fbbf24;border:1px solid rgba(245,158,11,.4)}
+.badge-verified{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.4)}
 .badge-verified::before{display:none}
+.badge-author{background:rgba(124,58,237,.15);color:#c4b5fd;border:1px solid rgba(124,58,237,.4)}
+.badge-author::before{display:none}
+.badge-user{background:rgba(100,116,139,.15);color:#cbd5e1;border:1px solid rgba(100,116,139,.3)}
+.badge-user::before{display:none}
 
-/* ⭐ VERIFIED TICK — Facebook/WhatsApp style */
-.verified-tick{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:var(--verified);border-radius:50%;color:#fff;font-size:10px;font-weight:900;margin-left:5px;vertical-align:middle;flex-shrink:0;box-shadow:0 1px 3px rgba(59,130,246,.4)}
-.verified-tick svg{width:10px;height:10px;fill:#fff}
-.verified-tick.lg{width:20px;height:20px;font-size:12px}
-.verified-tick.lg svg{width:12px;height:12px}
+/* VERIFIED TICK */
+.verified-tick{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;background:var(--verified);border-radius:50%;color:#fff;flex-shrink:0;margin-left:4px;box-shadow:0 0 8px rgba(59,130,246,.5)}
+.verified-tick svg{width:9px;height:9px;fill:#fff}
 
 .row-actions{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap}
 
-.empty{padding:50px 20px;text-align:center;color:var(--text-light)}
+/* TABS */
+.tabs{display:flex;gap:5px;margin-bottom:18px;flex-wrap:wrap;background:rgba(26,19,50,.6);padding:5px;border-radius:12px;border:1px solid var(--border);width:fit-content;max-width:100%}
+.tabs button{padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--text-mute);transition:all .15s;white-space:nowrap}
+.tabs button:hover{color:var(--text)}
+.tabs button.active{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,.3)}
+
+/* EMPTY & LOADING */
+.empty{padding:50px 20px;text-align:center;color:var(--text-mute)}
 .empty .icon{font-size:44px;opacity:.35;margin-bottom:10px}
 .empty h3{font-size:15.5px;font-weight:700;color:var(--text);margin-bottom:5px}
 .empty p{font-size:13px;margin-bottom:16px}
-
-.loader{padding:50px;text-align:center;color:var(--text-light)}
-.spinner{width:34px;height:34px;border:3px solid #e5e7eb;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+.loader{padding:50px;text-align:center;color:var(--text-mute)}
+.spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--primary-light);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.tabs{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap;background:#fff;padding:5px;border-radius:12px;border:1px solid var(--border);width:fit-content;max-width:100%}
-.tabs button{padding:7px 14px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--text-light);transition:all .15s;white-space:nowrap}
-.tabs button:hover{color:var(--text)}
-.tabs button.active{background:var(--primary);color:#fff}
-
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(17,24,39,.6);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(3px)}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(5,2,16,.8);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(4px)}
 .modal-bg.active{display:flex}
-.modal{background:#fff;border-radius:16px;padding:24px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.modal-head h2{font-size:17px;font-weight:700}
-.modal-head .close{width:32px;height:32px;border-radius:9px;background:#f3f4f6;display:grid;place-items:center;font-size:15px;color:var(--text-light)}
+.modal{background:linear-gradient(135deg,#1a1332,#241a42);border:1px solid var(--border-light);border-radius:16px;padding:24px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.modal-head h2{font-size:17px;font-weight:700;color:#fff}
+.modal-head .close{width:32px;height:32px;border-radius:9px;background:rgba(124,58,237,.15);display:grid;place-items:center;font-size:15px;color:var(--text-mute);transition:all .15s}
+.modal-head .close:hover{background:rgba(239,68,68,.2);color:#fca5a5}
 .modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
 
-.toast{position:fixed;bottom:24px;left:24px;right:24px;max-width:400px;margin-left:auto;background:#111827;color:#fff;padding:13px 18px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:2000;transform:translateY(120px);opacity:0;transition:all .3s;box-shadow:0 15px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px}
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:24px;right:24px;max-width:400px;margin-left:auto;background:linear-gradient(135deg,#1a1332,#241a42);color:#fff;padding:13px 18px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:2000;transform:translateY(120px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);box-shadow:0 15px 40px rgba(0,0,0,.4);display:flex;align-items:center;gap:10px;border:1px solid var(--border-light)}
 .toast.show{transform:translateY(0);opacity:1}
-.toast.success{background:var(--success)}
-.toast.error{background:var(--danger)}
-.toast.verified{background:linear-gradient(135deg,var(--verified),var(--primary))}
+.toast.success{background:linear-gradient(135deg,#059669,#10b981);border-color:rgba(16,185,129,.5)}
+.toast.error{background:linear-gradient(135deg,#dc2626,#ef4444);border-color:rgba(239,68,68,.5)}
+.toast.gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f0a1e;border-color:rgba(245,158,11,.6)}
+.toast.verified{background:linear-gradient(135deg,#2563eb,#3b82f6);border-color:rgba(59,130,246,.5)}
 
 /* RESPONSIVE */
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.3)}
+  .sidebar.open{transform:translateX(0);box-shadow:0 0 60px rgba(124,58,237,.4)}
   .main{margin-left:0;padding:0 16px 100px}
   .mobile-bar{display:flex}
-  .page-head{padding:20px 0 0}
-  .page-head h1{font-size:22px}
+  .page-head{padding:18px 0 0}
+  .page-head h1{font-size:21px}
   .stats{grid-template-columns:repeat(2,1fr);gap:10px}
   .stat{padding:14px}
   .stat .val{font-size:22px}
+  .stat .lbl{font-size:10.5px}
   th,td{padding:11px 14px;font-size:12.5px}
   .modal{padding:22px}
   .modal-bg{padding:12px;align-items:flex-start;padding-top:24px}
@@ -191,57 +232,65 @@ tbody tr:hover td{background:#fafbfc}
   .main{padding:0 12px 100px}
   .mobile-bar{padding:10px 12px}
   .page-head{padding:16px 0 0}
-  .stats{gap:8px;margin-bottom:18px}
+  .page-head h1{font-size:19px}
+  .stats{gap:8px}
   .stat{padding:12px}
-  .stat .lbl{font-size:11.5px}
   .stat .val{font-size:20px}
   .card{border-radius:12px}
-  .card-head h2{font-size:15px}
+  .card-head{padding:13px 16px}
+  .card-head h2{font-size:14.5px}
   .row-actions{flex-direction:column;align-items:stretch}
   .row-actions .btn{width:100%}
   .tabs{width:100%;overflow-x:auto;flex-wrap:nowrap;padding:4px}
   .tabs button{padding:7px 12px;font-size:12px}
   .toast{left:12px;right:12px;bottom:12px;padding:12px 14px;font-size:13px}
   .table-wrap{margin:0 -16px}
-  table{font-size:12.5px;min-width:520px}
+  table{min-width:520px}
   th,td{padding:10px 12px}
   .modal-actions{flex-direction:column-reverse}
   .modal-actions .btn{width:100%}
+  .login-card{padding:32px 22px;border-radius:20px}
+  .crown-badge{width:60px;height:60px;font-size:28px}
+  .login-title{font-size:24px}
 }
 @media(max-width:380px){
   .stats{grid-template-columns:1fr}
-  .sidebar{width:250px}
+  .sidebar{width:260px}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ═══════════ LOGIN ═══════════ -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
-    <div class="crown-icon">👑</div>
+    <div class="crown-badge">👑</div>
     <div class="login-title">Super Admin</div>
-    <p class="login-sub">Full control panel — Owner access only</p>
+    <p class="login-sub">Owner access — full control panel</p>
     <div class="alert alert-error" id="loginError"></div>
     <form id="loginForm">
       <div class="field"><label>Email</label><input type="email" id="email" placeholder="admin@blog.com" required autocomplete="email"></div>
       <div class="field"><label>Password</label><input type="password" id="password" placeholder="Your password" required autocomplete="current-password"></div>
-      <button type="submit" class="btn btn-primary btn-block" id="loginBtn" style="padding:13px;font-size:14.5px">🔓 Sign In as Owner</button>
+      <button type="submit" class="btn btn-gold btn-block" id="loginBtn" style="padding:13px;font-size:14.5px">🔓 Sign In as Owner</button>
     </form>
-    <div style="text-align:center;margin-top:16px;font-size:12.5px;color:var(--text-light)">
-      <a href="admin.html" style="color:var(--primary);font-weight:600">← Regular Admin Panel</a>
+    <div class="login-footer" style="margin-top:16px">
+      <a href="admin.html" style="color:var(--primary-light)">← Author Panel</a>
+      &nbsp;·&nbsp;
+      <a href="index.html" style="color:var(--text-mute)">View Site →</a>
     </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- ═══════════ APP ═══════════ -->
 <div class="app" id="app">
   <div class="overlay" id="overlay"></div>
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <div class="crown">👑</div>
-      <div class="name">Ink<span>Well</span></div>
+      <div class="crown-row">
+        <div class="crown">👑</div>
+        <div class="name">Ink<span>Well</span></div>
+      </div>
       <div class="role">Super Admin</div>
     </div>
     <nav id="sidebarNav"></nav>
@@ -308,13 +357,7 @@ const timeAgo = (d) => {
   return fmtDate(d);
 };
 const imgUrl = (p) => !p ? '' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
-
-// ⭐ VERIFIED TICK — Facebook/WhatsApp style
-const verifiedTick = (size = '') => `
-  <span class="verified-tick ${size}" title="Verified account">
-    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-  </span>
-`;
+const verifiedTick = () => `<span class="verified-tick" title="Verified"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
 
 async function api(endpoint, opts = {}) {
   const headers = { ...(opts.headers || {}) };
@@ -328,7 +371,7 @@ async function api(endpoint, opts = {}) {
 
 function toast(msg, type='') {
   const t = document.getElementById('toast');
-  const icons = { success: '✓', error: '✕', verified: '✅', '': 'ℹ' };
+  const icons = { success: '✓', error: '✕', gold: '👑', verified: '✅', '': 'ℹ' };
   t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ'}</span> <span>${esc(msg)}</span>`;
   t.className = 'toast show ' + type;
   clearTimeout(t._timer);
@@ -402,9 +445,9 @@ function buildSidebar() {
   const nav = document.getElementById('sidebarNav');
   nav.innerHTML = `
     <div class="group">Overview</div>
-    <a data-sec="dashboard"><span class="ic">📊</span> Dashboard</a>
+    <a data-sec="dashboard" class="active"><span class="ic">📊</span> Dashboard</a>
 
-    <div class="group">Content Control</div>
+    <div class="group">Content</div>
     <a data-sec="posts"><span class="ic">📝</span> All Posts</a>
     <a data-sec="comments"><span class="ic">💬</span> Comments</a>
     <a data-sec="categories"><span class="ic">📁</span> Categories</a>
@@ -472,7 +515,7 @@ function show(name) {
   const [t, s] = titles[name] || ['Dashboard', ''];
   document.getElementById('pageHeader').innerHTML = `
     <div class="page-head">
-      <h1>${t}</h1>
+      <h1><span class="gold-dot"></span>${t}</h1>
       <p class="sub">${s}</p>
     </div>
   `;
@@ -503,18 +546,18 @@ async function loadDashboard() {
         <div class="stat" onclick="show('posts')"><div class="lbl">Published</div><div class="val">${s.posts.published||0}</div></div>
         <div class="stat" onclick="show('posts')"><div class="lbl">Drafts</div><div class="val">${s.posts.drafts||0}</div></div>
         <div class="stat" onclick="show('posts')"><div class="lbl">Total Views</div><div class="val">${(s.posts.total_views||0).toLocaleString()}</div></div>
-        <div class="stat" onclick="show('users')"><div class="lbl">Users</div><div class="val">${s.users.total||0}</div><div class="sub">${s.users.verified||0} verified</div></div>
-        ${s.users.pending > 0 ? `<div class="stat highlight" onclick="show('users')"><div class="lbl">⚠ Pending Approval</div><div class="val">${s.users.pending}</div><div class="sub">Action needed</div></div>` : ''}
+        <div class="stat gold" onclick="show('users')"><div class="lbl">Users</div><div class="val">${s.users.total||0}</div><div class="sub">${s.users.verified||0} verified · ${s.users.authors||0} authors</div></div>
+        ${s.users.pending > 0 ? `<div class="stat pending" onclick="show('users')"><div class="lbl">⚠ Pending Approval</div><div class="val">${s.users.pending}</div><div class="sub">Action needed now</div></div>` : ''}
         <div class="stat" onclick="show('comments')"><div class="lbl">Comments</div><div class="val">${s.comments.total||0}</div>${s.comments.pending>0?`<div class="sub">${s.comments.pending} pending</div>`:''}</div>
         <div class="stat"><div class="lbl">Reactions</div><div class="val">${s.reactions||0}</div></div>
         <div class="stat" onclick="show('subscribers')"><div class="lbl">Subscribers</div><div class="val">${s.subscribers||0}</div></div>
         <div class="stat" onclick="show('ads')"><div class="lbl">Ad Views</div><div class="val">${s.ads?.impressions||0}</div></div>
       </div>
       <div class="card">
-        <div class="card-head"><h2>Quick Actions</h2></div>
+        <div class="card-head"><h2>⚡ Quick Actions</h2></div>
         <div style="padding:16px 18px;display:flex;gap:9px;flex-wrap:wrap">
-          <button class="btn btn-primary" onclick="show('users')">👥 Manage Users</button>
-          <button class="btn btn-outline" onclick="show('posts')">📝 All Posts</button>
+          <button class="btn btn-gold" onclick="show('users')">👥 Manage Users</button>
+          <button class="btn btn-primary" onclick="show('posts')">📝 All Posts</button>
           <button class="btn btn-outline" onclick="show('ads')">📢 Ads</button>
         </div>
       </div>
@@ -544,22 +587,24 @@ async function loadUsers() {
         <button class="${userFilter==='rejected'?'active':''}" onclick="setFilter('rejected')">✕ Rejected (${users.filter(u=>u.status==='rejected').length})</button>
       </div>
       <div class="card">
-        <div class="card-head"><h2>Users <span class="count">(${filtered.length})</span></h2></div>
+        <div class="card-head"><h2>👥 Users <span class="count">(${filtered.length})</span></h2></div>
         ${filtered.length ? `
         <div class="table-wrap">
         <table>
-          <thead><tr><th>User</th><th>Status</th><th>Joined</th><th style="text-align:right">Actions</th></tr></thead>
+          <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th><th style="text-align:right">Actions</th></tr></thead>
           <tbody>
             ${filtered.map(u => {
               const initials = (u.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
               const avatar = u.avatar_url ? `<img src="${imgUrl(u.avatar_url)}" alt="">` : initials;
+              const roleLabel = u.role_type === 'author' ? '✍️ Author' : '👤 User';
+              const roleClass = u.role_type === 'author' ? 'badge-author' : 'badge-user';
               return `
               <tr>
                 <td>
                   <div class="user-cell">
                     <div class="avatar-mini">${avatar}</div>
                     <div style="flex:1;min-width:0">
-                      <b style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+                      <b style="display:flex;align-items:center;gap:2px;flex-wrap:wrap;font-size:13px;color:#fff">
                         ${esc(u.name)}
                         ${u.is_verified ? verifiedTick() : ''}
                       </b>
@@ -567,6 +612,7 @@ async function loadUsers() {
                     </div>
                   </div>
                 </td>
+                <td><span class="badge ${roleClass}">${roleLabel}</span></td>
                 <td><span class="badge ${u.status==='approved'?'badge-success':u.status==='rejected'?'badge-danger':'badge-warning'}">${u.status}</span></td>
                 <td><span class="sub-cell">${timeAgo(u.created_at)}</span></td>
                 <td>
@@ -574,9 +620,14 @@ async function loadUsers() {
                     ${u.status!=='approved' ? `<button class="btn btn-success btn-xs" onclick="setStatus(${u.id},'approved')">✓ Approve</button>`:''}
                     ${u.status!=='rejected' ? `<button class="btn btn-outline btn-xs" onclick="setStatus(${u.id},'rejected')">✕ Reject</button>`:''}
                     ${u.is_verified 
-                      ? `<button class="btn btn-outline btn-xs" onclick="toggleVerify(${u.id},false)" title="Remove verified badge">✕ Unverify</button>`
-                      : `<button class="btn btn-verified btn-xs" onclick="toggleVerify(${u.id},true)" title="Give verified badge">✅ Verify</button>`
+                      ? `<button class="btn btn-outline btn-xs" onclick="toggleVerify(${u.id},false)" title="Remove verified">✕ Unverify</button>`
+                      : `<button class="btn btn-primary btn-xs" onclick="toggleVerify(${u.id},true)" title="Give verified badge">✅ Verify</button>`
                     }
+                    ${u.status==='approved' ? (
+                      u.role_type === 'author'
+                        ? `<button class="btn btn-outline btn-xs" onclick="makeUser(${u.id})" title="Demote">👤 User</button>`
+                        : `<button class="btn btn-gold btn-xs" onclick="makeAuthor(${u.id})" title="Promote to author">✍️ Author</button>`
+                    ) : ''}
                     <button class="btn btn-danger btn-xs" onclick="delUser(${u.id})">🗑</button>
                   </div>
                 </td>
@@ -611,6 +662,24 @@ async function toggleVerify(id, verified) {
   } catch(e) { toast(e.message, 'error'); }
 }
 
+async function makeAuthor(id) {
+  if (!confirm('Promote this user to Author? They will be able to publish posts.')) return;
+  try {
+    await api(`/admin/users/${id}/make-author`, { method: 'PUT' });
+    toast('Promoted to Author ✍️', 'gold');
+    loadUsers();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
+async function makeUser(id) {
+  if (!confirm('Demote this author to Regular User?')) return;
+  try {
+    await api(`/admin/users/${id}/make-user`, { method: 'PUT' });
+    toast('Demoted to User 👤', 'success');
+    loadUsers();
+  } catch(e) { toast(e.message, 'error'); }
+}
+
 async function delUser(id) {
   if (!confirm('Delete this user permanently? All their posts will also be deleted.')) return;
   try {
@@ -621,7 +690,7 @@ async function delUser(id) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// POSTS (all authors)
+// POSTS
 // ═══════════════════════════════════════════════════════════
 async function loadPosts() {
   const el = document.getElementById('sec-posts');
@@ -634,7 +703,7 @@ async function loadPosts() {
     }
     el.innerHTML = `
       <div class="card">
-        <div class="card-head"><h2>All Posts <span class="count">(${posts.length})</span></h2></div>
+        <div class="card-head"><h2>📝 All Posts <span class="count">(${posts.length})</span></h2></div>
         <div class="table-wrap">
         <table>
           <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Views</th><th style="text-align:right">Actions</th></tr></thead>
@@ -652,7 +721,7 @@ async function loadPosts() {
                   <div class="user-cell">
                     <div class="avatar-mini">${avatar}</div>
                     <div>
-                      <b style="font-size:12.5px;display:flex;align-items:center;gap:3px">${esc(p.author_name)}${p.author_verified ? verifiedTick() : ''}</b>
+                      <b style="font-size:12.5px;color:#fff;display:flex;align-items:center;gap:2px">${esc(p.author_name)}${p.author_verified ? verifiedTick() : ''}</b>
                     </div>
                   </div>
                 </td>
@@ -677,7 +746,7 @@ async function loadPosts() {
 }
 
 async function delPost(id) {
-  if (!confirm('Delete this post permanently? This cannot be undone.')) return;
+  if (!confirm('Delete this post permanently?')) return;
   try {
     await api(`/admin/posts/${id}`, { method:'DELETE' });
     toast('Post deleted', 'success');
@@ -695,7 +764,7 @@ async function loadComments() {
     const comments = await api('/comments');
     el.innerHTML = `
       <div class="card">
-        <div class="card-head"><h2>Comments <span class="count">(${comments.length})</span></h2></div>
+        <div class="card-head"><h2>💬 Comments <span class="count">(${comments.length})</span></h2></div>
         ${comments.length ? `
         <div class="table-wrap">
         <table>
@@ -703,7 +772,7 @@ async function loadComments() {
           <tbody>
             ${comments.map(c => `
               <tr>
-                <td><b>${esc(c.author_name)}</b><div class="sub-cell">${esc(c.author_email)}</div></td>
+                <td><b style="color:#fff">${esc(c.author_name)}</b><div class="sub-cell">${esc(c.author_email)}</div></td>
                 <td style="max-width:320px">${esc(c.content).slice(0,100)}${c.content.length>100?'...':''}</td>
                 <td><span class="badge ${c.status==='approved'?'badge-success':c.status==='spam'?'badge-danger':'badge-warning'}">${c.status}</span></td>
                 <td>
@@ -743,15 +812,18 @@ async function loadCategories() {
   el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
   document.getElementById('pageHeader').innerHTML = `
     <div class="page-head-row">
-      <div><h1>Categories</h1><p class="sub">Organize content</p></div>
-      <button class="btn btn-primary" onclick="showCatModal()">+ New</button>
+      <div>
+        <h1><span class="gold-dot"></span>Categories</h1>
+        <p class="sub">Organize content</p>
+      </div>
+      <button class="btn btn-gold" onclick="showCatModal()">+ New</button>
     </div>
   `;
   try {
     const cats = await api('/categories');
     el.innerHTML = `
       <div class="card">
-        <div class="card-head"><h2>Categories <span class="count">(${cats.length})</span></h2></div>
+        <div class="card-head"><h2>📁 Categories <span class="count">(${cats.length})</span></h2></div>
         ${cats.length ? `
         <div class="table-wrap">
         <table>
@@ -759,7 +831,7 @@ async function loadCategories() {
           <tbody>
             ${cats.map(c => `
               <tr>
-                <td><b>${esc(c.name)}</b></td>
+                <td><b style="color:#fff">${esc(c.name)}</b></td>
                 <td><span class="sub-cell">${esc(c.slug)}</span></td>
                 <td>${c.post_count}</td>
                 <td><div class="row-actions"><button class="btn btn-danger btn-xs" onclick="delCat(${c.id})">Delete</button></div></td>
@@ -781,7 +853,7 @@ function showCatModal() {
     <div class="field"><label>Color</label><input type="color" id="catColor" value="#7c3aed" style="height:48px;padding:6px;cursor:pointer"></div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveCat()">Create</button>
+      <button class="btn btn-gold" onclick="saveCat()">Create</button>
     </div>
   `;
   document.getElementById('modalBg').classList.add('active');
@@ -814,8 +886,11 @@ async function loadAds() {
   el.innerHTML = '<div class="loader"><div class="spinner"></div>Loading...</div>';
   document.getElementById('pageHeader').innerHTML = `
     <div class="page-head-row">
-      <div><h1>Ads Manager</h1><p class="sub">Monetization control</p></div>
-      <button class="btn btn-primary" onclick="showAdModal()">+ New Ad</button>
+      <div>
+        <h1><span class="gold-dot"></span>Ads Manager</h1>
+        <p class="sub">Monetization control</p>
+      </div>
+      <button class="btn btn-gold" onclick="showAdModal()">+ New Ad</button>
     </div>
   `;
   try {
@@ -823,12 +898,12 @@ async function loadAds() {
     el.innerHTML = `
       <div class="stats">
         <div class="stat"><div class="lbl">Total Ads</div><div class="val">${ads.length}</div></div>
-        <div class="stat"><div class="lbl">Active</div><div class="val">${ads.filter(a=>a.is_active).length}</div></div>
+        <div class="stat gold"><div class="lbl">Active</div><div class="val">${ads.filter(a=>a.is_active).length}</div></div>
         <div class="stat"><div class="lbl">Impressions</div><div class="val">${ads.reduce((s,a)=>s+(a.impressions||0),0).toLocaleString()}</div></div>
         <div class="stat"><div class="lbl">Clicks</div><div class="val">${ads.reduce((s,a)=>s+(a.clicks||0),0)}</div></div>
       </div>
       <div class="card">
-        <div class="card-head"><h2>All Ads <span class="count">(${ads.length})</span></h2></div>
+        <div class="card-head"><h2>📢 All Ads <span class="count">(${ads.length})</span></h2></div>
         ${ads.length ? `
         <div class="table-wrap">
         <table>
@@ -836,7 +911,7 @@ async function loadAds() {
           <tbody>
             ${ads.map(a => `
               <tr>
-                <td><b>${esc(a.name)}</b></td>
+                <td><b style="color:#fff">${esc(a.name)}</b></td>
                 <td><span class="badge badge-info">${esc(a.position)}</span></td>
                 <td>${esc(a.type)}</td>
                 <td>${a.impressions||0}</td>
@@ -859,9 +934,12 @@ function showAdModal() {
     <div class="field"><label>Name *</label><input type="text" id="adName" placeholder="Header Banner"></div>
     <div class="field"><label>Position *</label>
       <select id="adPosition">
-        <option value="header">Header</option><option value="in-article">In-Article</option>
-        <option value="post-top">Post Top</option><option value="post-bottom">Post Bottom</option>
-        <option value="sidebar">Sidebar</option><option value="footer">Footer</option>
+        <option value="header">Header</option>
+        <option value="in-article">In-Article</option>
+        <option value="post-top">Post Top</option>
+        <option value="post-bottom">Post Bottom</option>
+        <option value="sidebar">Sidebar</option>
+        <option value="footer">Footer</option>
       </select>
     </div>
     <div class="field"><label>Type *</label>
@@ -874,7 +952,7 @@ function showAdModal() {
     <div class="field"><label>Content</label><textarea id="adContent" rows="4" placeholder="<div>Ad code</div>"></textarea></div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveAd()">Create</button>
+      <button class="btn btn-gold" onclick="saveAd()">Create Ad</button>
     </div>
   `;
   document.getElementById('modalBg').classList.add('active');
@@ -910,7 +988,7 @@ async function loadSubscribers() {
     const subs = await api('/subscribers');
     el.innerHTML = `
       <div class="card">
-        <div class="card-head"><h2>Subscribers <span class="count">(${subs.length})</span></h2></div>
+        <div class="card-head"><h2>✉️ Subscribers <span class="count">(${subs.length})</span></h2></div>
         ${subs.length ? `
         <div class="table-wrap">
         <table>
@@ -918,7 +996,7 @@ async function loadSubscribers() {
           <tbody>
             ${subs.map(s => `
               <tr>
-                <td><b>${esc(s.email)}</b></td>
+                <td><b style="color:#fff">${esc(s.email)}</b></td>
                 <td>${esc(s.name||'—')}</td>
                 <td><span class="badge badge-success">${s.status}</span></td>
                 <td><span class="sub-cell">${timeAgo(s.created_at)}</span></td>
@@ -942,10 +1020,10 @@ async function loadProfile() {
     const user = await api('/auth/me');
     const initials = (user.name||'A').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
     el.innerHTML = `
-      <div class="card" style="padding:24px">
+      <div class="card" style="padding:26px">
         <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
           <div style="text-align:center">
-            <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#3b82f6);display:grid;place-items:center;color:#fff;font-size:36px;font-weight:700;overflow:hidden;margin:0 auto 10px;border:3px solid #3b82f6">
+            <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#f59e0b);display:grid;place-items:center;color:#fff;font-size:38px;font-weight:700;overflow:hidden;margin:0 auto 12px;border:3px solid rgba(245,158,11,.4);box-shadow:0 0 30px rgba(245,158,11,.3)">
               ${user.avatar_url ? `<img src="${imgUrl(user.avatar_url)}" style="width:100%;height:100%;object-fit:cover">` : initials}
             </div>
             <input type="file" id="avatarFile" accept="image/*" style="display:none">
@@ -953,8 +1031,9 @@ async function loadProfile() {
           </div>
           <div style="flex:1;min-width:240px">
             <div class="field"><label>Name</label><input type="text" id="pfName" value="${esc(user.name)}"></div>
-            <div class="field"><label>Email</label><input type="email" value="${esc(user.email)}" disabled style="background:#f9fafb;color:var(--text-light)"></div>
-            <button class="btn btn-primary" onclick="saveProfile()">💾 Save</button>
+            <div class="field"><label>Email</label><input type="email" value="${esc(user.email)}" disabled style="background:rgba(15,10,30,.6);color:var(--text-dim)"></div>
+            <div class="field"><label>Role</label><input type="text" value="👑 Super Admin (Owner)" disabled style="background:rgba(15,10,30,.6);color:var(--gold)"></div>
+            <button class="btn btn-gold" onclick="saveProfile()">💾 Save Profile</button>
           </div>
         </div>
       </div>
@@ -976,6 +1055,7 @@ async function loadProfile() {
         localStorage.setItem('user', JSON.stringify(currentUser));
         toast('Photo updated ✅', 'success');
         loadProfile();
+        document.getElementById('sbAv').innerHTML = `<img src="${imgUrl(data.url)}" alt="">`;
       } catch(e) { toast(e.message, 'error'); }
     };
   } catch(e) { el.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>Failed</h3><p>${esc(e.message)}</p></div>`; }
@@ -994,18 +1074,23 @@ async function saveProfile() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// MODAL & EXPORTS
+// MODAL
 // ═══════════════════════════════════════════════════════════
 function closeModal() { document.getElementById('modalBg').classList.remove('active'); }
 document.getElementById('modalBg').onclick = (e) => { if (e.target.id === 'modalBg') closeModal(); };
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
+// ═══════════════════════════════════════════════════════════
+// EXPORTS
+// ═══════════════════════════════════════════════════════════
 window.logout = logout;
 window.toggleSidebar = toggleSidebar;
 window.show = show;
 window.setFilter = setFilter;
 window.setStatus = setStatus;
 window.toggleVerify = toggleVerify;
+window.makeAuthor = makeAuthor;
+window.makeUser = makeUser;
 window.delUser = delUser;
 window.delPost = delPost;
 window.setCmt = setCmt;
