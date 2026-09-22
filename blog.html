@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f2">
+<title>Explore Stories — InkWell</title>
+<meta name="description" content="Browse all stories on InkWell">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#faf7f2;--cream-2:#f2ece1;--paper:#ffffff;
+  --ink:#1c1917;--ink-2:#44403c;--ink-3:#78716c;--ink-4:#a8a29e;
+  --line:#e7e1d5;--line-2:#d6cebd;
+  --accent:#c2410c;--accent-2:#ea580c;--accent-soft:#fef3e6;
+  --verified:#0ea5e9;--success:#10b981;--danger:#dc2626;--warn:#f59e0b;
+  --radius:14px;--radius-lg:20px;
+}
+body.dark{
+  --cream:#0f0e0c;--cream-2:#1a1815;--paper:#181613;
+  --ink:#f5f1ea;--ink-2:#d6cebd;--ink-3:#a8a29e;--ink-4:#78716c;
+  --line:#292522;--line-2:#3a3430;--accent-soft:#2a1a0f;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Manrope',-apple-system,sans-serif;
+  background:var(--cream);color:var(--ink);
+  line-height:1.6;overflow-x:hidden;
+  transition:background .3s,color .3s;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;letter-spacing:-.02em}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;color:inherit}
+input,select{font-family:inherit;outline:none;-webkit-appearance:none;border:none}
+
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ═══════════ HEADER ═══════════ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,247,242,.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+body.dark header{background:rgba(15,14,12,.92)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px;min-width:0}
+.logo{
+  font-family:'Fraunces',serif;font-size:26px;font-weight:900;
+  letter-spacing:-.04em;display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.logo-img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.logo-text{display:flex;align-items:center;gap:2px;white-space:nowrap}
+.logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{
+  font-weight:500;font-size:14px;color:var(--ink-3);
+  transition:color .2s;position:relative;padding:4px 0;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:1.5px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .25s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);
+  display:grid;place-items:center;transition:all .2s;
+  font-size:15px;color:var(--ink);flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.btn{
+  padding:11px 22px;border-radius:100px;
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;border:1px solid transparent;cursor:pointer;
+}
+.btn i{font-size:13px}
+.btn-primary{background:var(--ink);color:var(--cream)}
+.btn-primary:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+.btn-outline{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-sm{padding:8px 16px;font-size:12.5px}
+.menu-toggle{display:none}
+
+.mobile-menu{
+  display:none;position:fixed;inset:0;
+  background:var(--cream);z-index:200;
+  padding:24px 20px;flex-direction:column;overflow-y:auto;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu .close{
+  align-self:flex-end;width:44px;height:44px;
+  border-radius:50%;background:var(--cream-2);
+  display:grid;place-items:center;font-size:20px;
+}
+.mobile-menu ul{list-style:none;margin-top:40px}
+.mobile-menu li{margin-bottom:16px}
+.mobile-menu a{
+  font-family:'Fraunces',serif;font-size:24px;font-weight:600;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.mobile-menu a i{font-size:18px;color:var(--accent);width:24px;text-align:center}
+
+/* ═══════════ PAGE HEAD ═══════════ */
+.page-head{
+  padding:56px 0 32px;
+  text-align:center;
+  background:var(--cream);
+  position:relative;overflow:hidden;
+}
+.page-head::before{
+  content:'';position:absolute;top:-150px;left:50%;
+  transform:translateX(-50%);
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(194,65,12,.06),transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+.page-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:100px;
+  background:var(--accent-soft);color:var(--accent);
+  font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:18px;
+}
+.page-head h1{
+  font-size:clamp(30px,5vw,48px);
+  font-weight:600;letter-spacing:-.03em;
+  margin-bottom:12px;line-height:1.1;
+}
+.page-head h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.page-head p{
+  max-width:520px;margin:0 auto;
+  color:var(--ink-3);font-size:15.5px;
+}
+
+/* ═══════════ TOOLBAR ═══════════ */
+.toolbar-wrap{
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  position:sticky;top:73px;z-index:50;
+  background:var(--cream);
+}
+.toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+}
+.search-box{
+  flex:1;min-width:220px;max-width:400px;
+  display:flex;align-items:center;gap:8px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:100px;
+  padding:4px 4px 4px 20px;
+  transition:all .2s;
+}
+.search-box:focus-within{border-color:var(--ink)}
+.search-box i{color:var(--ink-4);font-size:14px}
+.search-box input{
+  flex:1;background:transparent;border:none;
+  font-size:14px;color:var(--ink);
+  padding:10px 0;min-width:0;
+}
+.search-box input::placeholder{color:var(--ink-4)}
+.search-box button{
+  background:var(--ink);color:var(--cream);
+  padding:10px 18px;border-radius:100px;
+  font-weight:600;font-size:13px;
+  transition:all .2s;flex-shrink:0;
+}
+.search-box button:hover{background:var(--accent)}
+
+.toolbar-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sort-select{
+  padding:10px 16px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:100px;
+  font-size:13.5px;font-weight:500;
+  color:var(--ink);cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+}
+.sort-select:focus{border-color:var(--accent)}
+
+.filter-toggle{
+  display:none;
+  padding:10px 16px;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:100px;
+  font-size:13.5px;font-weight:600;
+  cursor:pointer;
+  align-items:center;gap:6px;
+}
+.filter-toggle i{font-size:13px;color:var(--accent)}
+
+/* ═══════════ LAYOUT ═══════════ */
+.layout{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:40px;
+  padding:40px 0 60px;
+  align-items:flex-start;
+}
+
+/* ═══════════ SIDEBAR FILTERS ═══════════ */
+.filters{
+  position:sticky;top:150px;
+  display:flex;flex-direction:column;gap:24px;
+}
+.filter-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+}
+.filter-card h3{
+  font-family:'Manrope',sans-serif;
+  font-size:12px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-4);
+  margin-bottom:14px;
+}
+.filter-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.filter-list button{
+  width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:13.5px;font-weight:500;
+  color:var(--ink-2);
+  transition:all .2s;
+  text-align:left;
+}
+.filter-list button:hover{background:var(--cream-2);color:var(--ink)}
+.filter-list button.active{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.filter-list button .count{
+  font-size:11px;color:var(--ink-4);
+  background:var(--cream-2);
+  padding:1px 7px;border-radius:100px;
+  font-weight:700;
+}
+.filter-list button.active .count{background:var(--accent);color:#fff}
+
+.tag-cloud{
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.tag-chip{
+  padding:5px 12px;
+  border-radius:100px;
+  background:var(--cream-2);
+  color:var(--ink-2);
+  font-size:12px;font-weight:600;
+  transition:all .2s;
+  cursor:pointer;
+}
+.tag-chip:hover{background:var(--accent-soft);color:var(--accent)}
+.tag-chip.active{background:var(--accent);color:#fff}
+
+.clear-filters{
+  display:block;width:100%;
+  padding:10px;border-radius:100px;
+  background:var(--cream-2);color:var(--ink-3);
+  font-size:13px;font-weight:600;
+  transition:all .2s;
+  text-align:center;cursor:pointer;
+}
+.clear-filters:hover{background:var(--ink);color:var(--cream)}
+
+/* ═══════════ RESULTS ═══════════ */
+.results-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;gap:12px;flex-wrap:wrap;
+}
+.results-count{
+  font-size:14px;color:var(--ink-3);
+}
+.results-count b{color:var(--ink);font-weight:700}
+
+.posts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:24px;
+}
+
+.post-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  cursor:pointer;
+  transition:all .3s;
+  display:flex;flex-direction:column;
+  min-width:0;
+}
+.post-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px rgba(28,25,23,.08);
+  border-color:var(--line-2);
+}
+.post-thumb{
+  height:190px;overflow:hidden;
+  background:var(--cream-2);
+}
+.post-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s;
+}
+.post-card:hover .post-thumb img{transform:scale(1.06)}
+.post-body{
+  padding:20px;flex:1;
+  display:flex;flex-direction:column;
+  min-width:0;
+}
+.post-body .tag{
+  font-size:10.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;
+  display:inline-block;
+  max-width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.post-body h3{
+  font-size:18px;margin-bottom:10px;
+  letter-spacing:-.02em;line-height:1.3;
+  transition:color .2s;font-weight:600;
+  display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;
+  word-wrap:break-word;
+}
+.post-card:hover .post-body h3{color:var(--accent)}
+.post-body p{
+  color:var(--ink-3);font-size:13.5px;
+  margin-bottom:16px;flex:1;
+  display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;
+  line-height:1.6;
+}
+.post-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-4);
+  gap:8px;flex-wrap:wrap;
+  min-width:0;
+}
+.post-meta .author{gap:10px;min-width:0;flex:1;overflow:hidden}
+.author{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-3);min-width:0}
+.avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ink),var(--accent));
+  display:grid;place-items:center;
+  color:#fff;font-weight:700;font-size:11px;
+  flex-shrink:0;overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.author-info{min-width:0;overflow:hidden}
+.author-info b{
+  color:var(--ink);font-weight:600;
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12.5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:100%;
+}
+.author-info span{
+  font-size:11.5px;color:var(--ink-4);
+  display:block;margin-top:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.meta-stats{display:flex;gap:10px;font-size:12px;white-space:nowrap;color:var(--ink-4);flex-shrink:0}
+.meta-stats span{display:inline-flex;align-items:center;gap:4px}
+.meta-stats i{font-size:11px}
+
+.verified-tick{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:14px;height:14px;min-width:14px;
+  background:var(--verified);border-radius:50%;
+  flex-shrink:0;margin-left:3px;
+  vertical-align:middle;position:relative;top:-1px;
+  box-shadow:0 0 0 1.5px var(--paper);
+}
+.verified-tick::before{
+  content:'';display:block;
+  width:2.5px;height:5.5px;
+  border:solid #fff;border-width:0 1.6px 1.6px 0;
+  transform:rotate(45deg) translate(-1px,-1px);
+}
+
+/* ═══════════ PAGINATION ═══════════ */
+.pagination{
+  display:flex;justify-content:center;gap:6px;
+  margin:44px 0 0;flex-wrap:wrap;
+}
+.page-btn{
+  min-width:42px;height:42px;padding:0 14px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  background:var(--paper);color:var(--ink);
+  font-weight:600;font-size:13.5px;
+  transition:all .2s;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+.page-btn:hover:not(:disabled){border-color:var(--ink)}
+.page-btn.active{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.page-btn:disabled{opacity:.35;cursor:not-allowed}
+.page-btn i{font-size:12px}
+
+/* ═══════════ LOADER / EMPTY ═══════════ */
+.loader{text-align:center;padding:60px 20px;color:var(--ink-4);grid-column:1/-1}
+.spinner{
+  width:36px;height:36px;
+  border:2.5px solid var(--line);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{
+  grid-column:1/-1;text-align:center;
+  padding:72px 24px;color:var(--ink-3);
+}
+.empty i{font-size:52px;opacity:.3;margin-bottom:16px;color:var(--ink-4);display:block}
+.empty h3{font-size:20px;margin-bottom:8px;color:var(--ink);font-weight:600}
+.empty p{margin-bottom:20px}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{
+  background:var(--cream-2);
+  border-top:1px solid var(--line);
+  padding:56px 0 28px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:36px;
+}
+.footer-brand .logo{margin-bottom:14px}
+.footer-brand p{
+  color:var(--ink-3);font-size:13.5px;
+  margin-bottom:20px;max-width:300px;
+  line-height:1.7;
+}
+.socials{display:flex;gap:8px}
+.socials a{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--line);
+  display:grid;place-items:center;
+  transition:all .2s;font-size:14px;color:var(--ink);
+}
+.socials a:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.footer-col h4{
+  font-family:'Manrope',sans-serif;
+  font-size:12px;margin-bottom:16px;
+  font-weight:800;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink-4);
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{color:var(--ink-2);font-size:14px;transition:color .2s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  padding-top:24px;border-top:1px solid var(--line);
+  text-align:center;color:var(--ink-4);font-size:13px;
+}
+.footer-bottom i{color:var(--accent)}
+
+/* ═══════════ TOAST ═══════════ */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  padding:14px 22px;border-radius:12px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:9999;animation:toastIn .3s;
+  max-width:90vw;
+}
+.toast.error{background:#ef4444;color:#fff}
+@keyframes toastIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:960px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .filters{
+    position:fixed;top:0;left:0;
+    width:300px;height:100vh;
+    background:var(--cream);z-index:200;
+    padding:24px 20px;
+    overflow-y:auto;
+    transform:translateX(-100%);
+    transition:transform .3s;
+    box-shadow:8px 0 24px rgba(0,0,0,.1);
+    border-right:1px solid var(--line);
+  }
+  .filters.open{transform:translateX(0)}
+  .filter-toggle{display:inline-flex}
+  .nav-links{display:none}
+  .menu-toggle{display:grid}
+}
+@media(max-width:640px){
+  .container{padding:0 20px}
+  .nav{padding:14px 0}
+  .logo{font-size:22px;gap:6px}
+  .logo-img{width:32px;height:32px}
+  .page-head{padding:36px 0 24px}
+  .page-head h1{font-size:clamp(26px,7vw,34px)}
+  .page-head p{font-size:14.5px}
+  .toolbar-wrap{padding:18px 0;top:65px}
+  .search-box{padding:3px 3px 3px 16px}
+  .search-box input{padding:9px 0;font-size:13.5px}
+  .search-box button{padding:8px 14px;font-size:12.5px}
+  .posts-grid{grid-template-columns:1fr;gap:20px}
+  .post-thumb{height:180px}
+  .post-body{padding:18px}
+  .post-body h3{font-size:17px}
+  .footer-grid{grid-template-columns:1fr;gap:28px;text-align:center}
+  .footer-brand .logo{justify-content:center}
+  .footer-brand p{margin:0 auto 20px}
+  .socials{justify-content:center}
+  .pagination{gap:4px}
+  .page-btn{min-width:38px;height:38px;padding:0 12px;font-size:13px}
+  .toast{bottom:20px;right:20px;left:20px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Ink<em>well</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html" class="active">Explore</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+      <a href="login.html" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a>
+      <button class="icon-btn menu-toggle" id="menuOpen"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" id="menuClose"><i class="fa-solid fa-xmark"></i></button>
+  <ul>
+    <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+    <li><a href="blog.html"><i class="fa-solid fa-compass"></i> Explore</a></li>
+    <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
+    <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+    <li><a href="login.html" id="writeBtnMobile"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a></li>
+  </ul>
+</div>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="container">
+    <span class="page-badge"><i class="fa-solid fa-compass"></i> Explore</span>
+    <h1>Browse all <em>stories</em></h1>
+    <p>Discover ideas, insights, and inspiration from our community of writers.</p>
+  </div>
+</section>
+
+<!-- TOOLBAR -->
+<div class="toolbar-wrap">
+  <div class="container">
+    <div class="toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search articles...">
+        <button onclick="applySearch()">Search</button>
+      </div>
+      <div class="toolbar-right">
+        <button class="filter-toggle" id="filterToggle">
+          <i class="fa-solid fa-sliders"></i> Filters
+        </button>
+        <select class="sort-select" id="sortSelect">
+          <option value="latest">Latest</option>
+          <option value="views">Most Viewed</option>
+          <option value="popular">Most Liked</option>
+          <option value="oldest">Oldest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="filters" id="filters">
+      <div class="filter-card">
+        <h3>Category</h3>
+        <ul class="filter-list" id="categoryList">
+          <li><button data-cat="" class="active">All Categories</button></li>
+        </ul>
+      </div>
+
+      <div class="filter-card">
+        <h3>Popular Tags</h3>
+        <div class="tag-cloud" id="tagCloud"></div>
+      </div>
+
+      <button class="clear-filters" onclick="clearAllFilters()">
+        <i class="fa-solid fa-rotate-left"></i> Clear All Filters
+      </button>
+    </aside>
+
+    <!-- RESULTS -->
+    <div class="results">
+      <div class="results-head">
+        <div class="results-count" id="resultsCount">Loading...</div>
+      </div>
+      <div class="posts-grid" id="postsGrid">
+        <div class="loader"><div class="spinner"></div><p>Loading articles...</p></div>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="YAHAN_APNA_LOGO_URL_PASTE_KARO" alt="InkWell" class="logo-img" onerror="this.style.display='none'">
+          <span class="logo-text">Ink<em>well</em></span>
+        </a>
+        <p>A digital publication celebrating ideas, culture, and thoughtful writing.</p>
+        <div class="socials">
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">All Posts</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Sign Up</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">© 2026 InkWell — Made with <i class="fa-solid fa-heart"></i> for curious minds.</div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const CONFIG = {
+  API_URL: 'https://gsssshilla.onrender.com/api/blog',
+  UPLOAD_URL: 'https://gsssshilla.onrender.com'
+};
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+let state = {
+  page: 1,
+  category: '',
+  tag: '',
+  search: '',
+  sort: 'latest'
+};
+let totalResults = 0;
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const $ = (id) => document.getElementById(id);
+const imgUrl = (p) => !p ? 'https://via.placeholder.com/600x400/c2410c/ffffff?text=InkWell' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const escapeHtml = (s) => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+const getInitials = (n) => (n || 'A').split(' ').map(x => x[0]).join('').slice(0,2).toUpperCase();
+const verifiedTick = () => `<span class="verified-tick"></span>`;
+const getToken = () => localStorage.getItem('token');
+const getUser = () => { try { return JSON.parse(localStorage.getItem('user')); } catch { return null; } };
+
+function timeAgo(s) {
+  if (!s) return '';
+  const t = new Date(s.includes('Z') || s.includes('+') ? s : s.replace(' ','T') + '+05:30');
+  const diff = Math.floor((Date.now() - t.getTime())/1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return t.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+async function apiFetch(endpoint) {
+  const res = await fetch(CONFIG.API_URL + endpoint);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Failed');
+  return data;
+}
+
+function showToast(msg, type = 'success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ═══════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════
+const themeToggle = $('themeToggle');
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+  themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+themeToggle.onclick = () => {
+  document.body.classList.toggle('dark');
+  const d = document.body.classList.contains('dark');
+  themeToggle.innerHTML = d ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+  localStorage.setItem('theme', d ? 'dark' : 'light');
+};
+
+$('menuOpen').onclick = () => $('mobileMenu').classList.add('open');
+$('menuClose').onclick = () => $('mobileMenu').classList.remove('open');
+$('filterToggle').onclick = () => $('filters').classList.toggle('open');
+
+// ═══════════════════════════════════════════════════════════
+// WRITE BUTTON
+// ═══════════════════════════════════════════════════════════
+(function setupWriteBtn() {
+  const user = getUser();
+  const token = getToken();
+  const btn = $('writeBtn');
+  const btnMobile = $('writeBtnMobile');
+  if (!token || !user) return;
+
+  if (user.role === 'admin') {
+    btn.href = 'superadmin.html';
+    btn.innerHTML = '<i class="fa-solid fa-crown"></i> Admin';
+    btnMobile.href = 'superadmin.html';
+    btnMobile.innerHTML = '<i class="fa-solid fa-crown"></i> Admin';
+  } else if (user.role_type === 'author') {
+    btn.href = 'dashboard.html';
+    btn.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Write';
+    btnMobile.href = 'dashboard.html';
+    btnMobile.innerHTML = '<i class="fa-solid fa-pen-nib"></i> Write';
+  } else {
+    btn.href = 'profile.html';
+    btn.innerHTML = '<i class="fa-solid fa-user"></i> ' + (user.name ? user.name.split(' ')[0] : 'Profile');
+    btnMobile.href = 'profile.html';
+    btnMobile.innerHTML = '<i class="fa-solid fa-user"></i> ' + (user.name ? user.name.split(' ')[0] : 'Profile');
+  }
+})();
+
+// ═══════════════════════════════════════════════════════════
+// INIT FROM URL
+// ═══════════════════════════════════════════════════════════
+(function initFromUrl() {
+  const p = new URLSearchParams(location.search);
+  if (p.get('category')) state.category = p.get('category');
+  if (p.get('tag')) state.tag = p.get('tag');
+  if (p.get('q') || p.get('search')) state.search = p.get('q') || p.get('search');
+  if (p.get('sort')) state.sort = p.get('sort');
+  if (state.search) $('searchInput').value = state.search;
+  $('sortSelect').value = state.sort;
+})();
+
+// ═══════════════════════════════════════════════════════════
+// LOAD CATEGORIES
+// ═══════════════════════════════════════════════════════════
+async function loadCategories() {
+  try {
+    const cats = await apiFetch('/categories');
+    const list = $('categoryList');
+    list.innerHTML = '<li><button data-cat="" class="' + (state.category === '' ? 'active' : '') + '">All Categories</button></li>';
+    cats.filter(c => c.post_count > 0).forEach(c => {
+      const li = document.createElement('li');
+      li.innerHTML = `<button data-cat="${escapeHtml(c.slug)}" class="${state.category === c.slug ? 'active' : ''}">
+        ${escapeHtml(c.name)}
+        <span class="count">${c.post_count}</span>
+      </button>`;
+      list.appendChild(li);
+    });
+    list.querySelectorAll('button[data-cat]').forEach(btn => {
+      btn.onclick = () => {
+        state.category = btn.dataset.cat;
+        state.page = 1;
+        list.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        $('filters').classList.remove('open');
+        updateUrl();
+        loadPosts();
+      };
+    });
+  } catch (e) { console.warn(e); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// LOAD TAGS
+// ═══════════════════════════════════════════════════════════
+async function loadTags() {
+  try {
+    const tags = await apiFetch('/tags');
+    const cloud = $('tagCloud');
+    cloud.innerHTML = (tags || []).slice(0, 15).map(t => `
+      <button class="tag-chip ${state.tag === t.slug ? 'active' : ''}" data-tag="${escapeHtml(t.slug)}">
+        #${escapeHtml(t.name)}
+      </button>
+    `).join('');
+    cloud.querySelectorAll('.tag-chip').forEach(btn => {
+      btn.onclick = () => {
+        state.tag = state.tag === btn.dataset.tag ? '' : btn.dataset.tag;
+        state.page = 1;
+        cloud.querySelectorAll('.tag-chip').forEach(b => b.classList.remove('active'));
+        if (state.tag) btn.classList.add('active');
+        $('filters').classList.remove('open');
+        updateUrl();
+        loadPosts();
+      };
+    });
+  } catch (e) { console.warn(e); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// LOAD POSTS
+// ═══════════════════════════════════════════════════════════
+async function loadPosts() {
+  const grid = $('postsGrid');
+  const pagination = $('pagination');
+  grid.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  pagination.innerHTML = '';
+  $('resultsCount').textContent = 'Loading...';
+
+  try {
+    const params = new URLSearchParams({
+      page: state.page,
+      limit: 9,
+      sort: state.sort
+    });
+    if (state.category) params.set('category', state.category);
+    if (state.tag) params.set('tag', state.tag);
+    if (state.search) params.set('search', state.search);
+
+    const data = await apiFetch('/posts?' + params.toString());
+    const posts = data.posts || [];
+
+    totalResults = data.pagination?.total || 0;
+
+    if (!posts.length) {
+      grid.innerHTML = `
+        <div class="empty">
+          <i class="fa-regular fa-file-lines"></i>
+          <h3>No articles found</h3>
+          <p>Try different filters or search terms.</p>
+          <button class="btn btn-primary" onclick="clearAllFilters()">
+            <i class="fa-solid fa-rotate-left"></i> Clear Filters
+          </button>
+        </div>`;
+      $('resultsCount').innerHTML = 'No results';
+      return;
+    }
+
+    grid.innerHTML = posts.map(renderCard).join('');
+
+    // Results count
+    const start = (state.page - 1) * 9 + 1;
+    const end = Math.min(state.page * 9, totalResults);
+    $('resultsCount').innerHTML = `Showing <b>${start}–${end}</b> of <b>${totalResults}</b> stories`;
+
+    // Pagination
+    renderPagination(data.pagination);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    grid.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Failed to load</h3><p>${escapeHtml(e.message)}</p></div>`;
+    $('resultsCount').textContent = 'Error';
+  }
+}
+
+function renderCard(p) {
+  const ini = getInitials(p.author_name);
+  const av = p.author_avatar
+    ? `<div class="avatar"><img src="${imgUrl(p.author_avatar)}" alt=""></div>`
+    : `<div class="avatar">${ini}</div>`;
+  return `
+    <article class="post-card" onclick="location.href='post.html?slug=${encodeURIComponent(p.slug)}'">
+      <div class="post-thumb">
+        <img src="${imgUrl(p.cover_image)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400/c2410c/ffffff?text=InkWell'">
+      </div>
+      <div class="post-body">
+        <span class="tag">${escapeHtml(p.category_name || 'Uncategorized')}</span>
+        <h3>${escapeHtml(p.title)}</h3>
+        <p>${escapeHtml(p.excerpt || 'Click to read the full article...')}</p>
+        <div class="post-meta">
+          <div class="author">
+            ${av}
+            <div class="author-info">
+              <b>${escapeHtml(p.author_name)}${p.author_verified ? verifiedTick() : ''}</b>
+              <span>${timeAgo(p.published_at)} · ${p.read_time || 1} min</span>
+            </div>
+          </div>
+          <div class="meta-stats">
+            <span><i class="fa-solid fa-heart"></i> ${p.like_count || 0}</span>
+            <span><i class="fa-solid fa-comment"></i> ${p.comment_count || 0}</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+// PAGINATION
+// ═══════════════════════════════════════════════════════════
+function renderPagination(p) {
+  const el = $('pagination');
+  if (!p || p.totalPages <= 1) { el.innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" ${p.page === 1 ? 'disabled' : ''} onclick="goPage(${p.page - 1})"><i class="fa-solid fa-chevron-left"></i></button>`;
+
+  const start = Math.max(1, p.page - 2);
+  const end = Math.min(p.totalPages, p.page + 2);
+
+  if (start > 1) {
+    html += `<button class="page-btn" onclick="goPage(1)">1</button>`;
+    if (start > 2) html += `<span style="align-self:center;color:var(--ink-4);padding:0 6px">…</span>`;
+  }
+  for (let i = start; i <= end; i++) {
+    html += `<button class="page-btn ${i === p.page ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  if (end < p.totalPages) {
+    if (end < p.totalPages - 1) html += `<span style="align-self:center;color:var(--ink-4);padding:0 6px">…</span>`;
+    html += `<button class="page-btn" onclick="goPage(${p.totalPages})">${p.totalPages}</button>`;
+  }
+
+  html += `<button class="page-btn" ${p.page === p.totalPages ? 'disabled' : ''} onclick="goPage(${p.page + 1})"><i class="fa-solid fa-chevron-right"></i></button>`;
+
+  el.innerHTML = html;
+}
+
+window.goPage = (n) => {
+  state.page = n;
+  loadPosts();
+};
+
+// ═══════════════════════════════════════════════════════════
+// SEARCH & FILTERS
+// ═══════════════════════════════════════════════════════════
+function applySearch() {
+  const q = $('searchInput').value.trim();
+  state.search = q;
+  state.page = 1;
+  updateUrl();
+  loadPosts();
+}
+
+$('searchInput').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') applySearch();
+});
+
+$('sortSelect').addEventListener('change', () => {
+  state.sort = $('sortSelect').value;
+  state.page = 1;
+  updateUrl();
+  loadPosts();
+});
+
+window.clearAllFilters = () => {
+  state = { page: 1, category: '', tag: '', search: '', sort: 'latest' };
+  $('searchInput').value = '';
+  $('sortSelect').value = 'latest';
+  document.querySelectorAll('#categoryList button').forEach(b => b.classList.remove('active'));
+  document.querySelector('#categoryList button[data-cat=""]')?.classList.add('active');
+  document.querySelectorAll('.tag-chip').forEach(b => b.classList.remove('active'));
+  updateUrl();
+  loadPosts();
+};
+
+function updateUrl() {
+  const p = new URLSearchParams();
+  if (state.category) p.set('category', state.category);
+  if (state.tag) p.set('tag', state.tag);
+  if (state.search) p.set('q', state.search);
+  if (state.sort && state.sort !== 'latest') p.set('sort', state.sort);
+  const url = p.toString() ? '?' + p.toString() : '';
+  history.replaceState(null, '', 'blog.html' + url);
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+loadCategories();
+loadTags();
+loadPosts();
+</script>
+</body>
+</html>
