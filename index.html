@@ -502,12 +502,30 @@ section{padding:36px 0}
 }
 .author-info span{font-size:12px;color:var(--ink-4);display:block;margin-top:1px}
 .verified-tick{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:15px;height:15px;
-  background:var(--verified);border-radius:50%;
-  flex-shrink:0;color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:16px;
+  height:16px;
+  min-width:16px;
+  min-height:16px;
+  background:var(--verified);
+  border-radius:50%;
+  flex-shrink:0;
+  color:#fff;
+  font-size:9px;
+  line-height:1;
+  position:relative;
+  top:-1px; /* Text baseline ke saath align */
+  margin-left:4px;
+  vertical-align:middle;
 }
-.verified-tick i{font-size:8px}
+.verified-tick i{
+  font-size:9px;
+  line-height:1;
+  display:block;
+}
+  
 .meta-stats{display:flex;gap:12px;font-size:12.5px;white-space:nowrap;color:var(--ink-4)}
 .meta-stats span{display:inline-flex;align-items:center;gap:5px}
 .meta-stats i{font-size:11px}
