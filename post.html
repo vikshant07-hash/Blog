@@ -7,13 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --primary:#4f46e5;--primary-dark:#4338ca;--primary-soft:#eef2ff;
-  --verified:#3b82f6;--success:#10b981;--danger:#ef4444;
-  --text:#111827;--text-light:#6b7280;--text-mute:#9ca3af;
-  --bg:#fff;--bg-soft:#f9fafb;--border:#e5e7eb;
-  --radius:16px;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12);
-}
+:root{--primary:#4f46e5;--primary-dark:#4338ca;--primary-soft:#eef2ff;--verified:#3b82f6;--success:#10b981;--danger:#ef4444;--text:#111827;--text-light:#6b7280;--text-mute:#9ca3af;--bg:#fff;--bg-soft:#f9fafb;--border:#e5e7eb;--radius:16px;--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 20px 50px rgba(0,0,0,.12)}
 body.dark{--text:#f1f5f9;--text-light:#94a3b8;--text-mute:#64748b;--bg:#0f172a;--bg-soft:#1e293b;--border:#334155}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s}
@@ -24,8 +18,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;outline:no
 input,textarea{font-family:inherit;outline:none;-webkit-appearance:none}
 .container{max-width:1200px;margin:0 auto;padding:0 20px}
 .container-narrow{max-width:760px;margin:0 auto;padding:0 20px}
-
-/* HEADER */
 header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 body.dark header{background:rgba(15,23,42,.92)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
@@ -47,8 +39,6 @@ body.dark header{background:rgba(15,23,42,.92)}
 .mobile-menu ul{list-style:none;margin-top:32px}
 .mobile-menu li{margin-bottom:20px}
 .mobile-menu a{font-size:22px;font-family:'Playfair Display',serif;font-weight:700}
-
-/* POST */
 .post-header{padding:40px 0 24px;text-align:center}
 .post-header .tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--primary);margin-bottom:14px}
 .post-header h1{font-size:clamp(26px,5vw,44px);margin-bottom:20px;letter-spacing:-.8px;line-height:1.15}
@@ -73,11 +63,7 @@ body.dark header{background:rgba(15,23,42,.92)}
 .post-content blockquote{border-left:4px solid var(--primary);padding:12px 20px;margin:22px 0;background:var(--bg-soft);border-radius:8px;font-style:italic;color:var(--text-light)}
 .post-content pre{background:var(--bg-soft);padding:16px;border-radius:12px;overflow-x:auto;font-size:14px;margin:18px 0;border:1px solid var(--border)}
 .post-content code{background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:.9em;font-family:'SF Mono',Monaco,monospace}
-
-/* AD */
 .ad-slot{margin:24px 0;min-height:80px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);border:1px dashed var(--border);border-radius:12px;overflow:hidden;padding:10px}
-
-/* REACTIONS */
 .reactions-bar{margin:32px 0;padding:22px 16px;background:var(--bg-soft);border-radius:var(--radius);text-align:center;border:1px solid var(--border)}
 .reaction-buttons{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .reaction-btn{display:flex;align-items:center;gap:5px;padding:9px 14px;border-radius:50px;background:var(--bg);border:2px solid var(--border);transition:all .2s;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--text)}
@@ -86,27 +72,25 @@ body.dark header{background:rgba(15,23,42,.92)}
 .reaction-btn .emoji{font-size:17px;line-height:1}
 .reaction-btn .cnt{font-size:12px;font-weight:700;min-width:12px}
 .reaction-counts{font-size:12.5px;color:var(--text-light);font-weight:500}
-
-/* POST TAGS */
 .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0}
 .post-tag{padding:6px 14px;background:var(--bg-soft);border:1px solid var(--border);border-radius:50px;font-size:12.5px;color:var(--text-light);font-weight:500;transition:all .2s}
 .post-tag:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-
-/* SHARE */
 .share-row{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:32px 0}
 .share-row span{font-size:13.5px;color:var(--text-light);font-weight:600}
 .share-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:grid;place-items:center;transition:all .2s;font-size:16px;color:var(--text)}
 .share-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px)}
-
-/* AUTHOR BOX */
 .author-box{display:flex;gap:18px;padding:22px;background:var(--bg-soft);border-radius:var(--radius);margin:36px 0;border:1px solid var(--border)}
 .author-box .avatar{width:60px;height:60px;font-size:20px}
 .author-box-info h3{font-size:18px;margin-bottom:6px;display:inline-flex;align-items:center;gap:5px}
 .author-box-info p{color:var(--text-light);font-size:14px;line-height:1.6}
-
-/* COMMENTS */
 .comments-section{margin:50px 0}
 .comments-section h2{font-size:24px;margin-bottom:22px;letter-spacing:-.5px}
+.user-badge{background:#eef2ff;padding:12px 14px;border-radius:10px;margin-bottom:14px;font-size:13.5px;color:#3730a3;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.user-badge .role-tag{background:#4f46e5;color:#fff;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.user-badge .role-tag.author{background:#7c3aed}
+.user-badge .role-tag.super{background:#111827}
+.guest-hint{background:#fef3c7;padding:12px 14px;border-radius:10px;margin-bottom:14px;font-size:13px;color:#92400e}
+.guest-hint a{color:#4f46e5;font-weight:600;text-decoration:underline}
 .comment-form{background:var(--bg-soft);padding:22px;border-radius:var(--radius);margin-bottom:28px;border:1px solid var(--border)}
 .comment-form input,.comment-form textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14.5px;background:var(--bg);color:var(--text);margin-bottom:12px;font-family:inherit;transition:border-color .2s}
 .comment-form input:focus,.comment-form textarea:focus{border-color:var(--primary)}
@@ -124,8 +108,6 @@ body.dark header{background:rgba(15,23,42,.92)}
 .comment-body .text{color:var(--text);font-size:14.5px;line-height:1.65;word-wrap:break-word}
 .comment-replies{margin-left:50px;margin-top:18px;padding-left:16px;border-left:2px solid var(--border)}
 .empty-comments{text-align:center;color:var(--text-mute);padding:32px 20px;font-size:14px}
-
-/* RELATED */
 .related{margin:50px 0;padding-top:36px;border-top:1px solid var(--border)}
 .related h2{font-size:24px;margin-bottom:22px;letter-spacing:-.5px}
 .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
@@ -135,8 +117,6 @@ body.dark header{background:rgba(15,23,42,.92)}
 .related-card-body{padding:14px}
 .related-card-body h3{font-size:15px;line-height:1.35;margin-bottom:6px}
 .related-card-body span{font-size:12px;color:var(--text-mute)}
-
-/* FOOTER */
 footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:44px 0 22px;margin-top:50px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:28px}
 .footer-brand p{color:var(--text-light);font-size:13.5px;margin:14px 0 0;max-width:280px;line-height:1.6}
@@ -146,37 +126,14 @@ footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:44px
 .footer-col a{color:var(--text-light);font-size:13.5px}
 .footer-col a:hover{color:var(--primary)}
 .footer-bottom{padding-top:22px;border-top:1px solid var(--border);text-align:center;color:var(--text-mute);font-size:13px}
-
-/* LOADER */
 .loader{text-align:center;padding:80px 20px;color:var(--text-light)}
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* NOT FOUND */
 .not-found{text-align:center;padding:100px 20px}
 .not-found h2{font-size:28px;margin-bottom:12px}
 .not-found p{color:var(--text-light);margin-bottom:24px}
-
-@media(max-width:900px){
-  .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
-}
-@media(max-width:640px){
-  .nav-links{display:none}
-  .menu-toggle{display:grid}
-  .post-header{padding:28px 0 20px}
-  .post-content{font-size:16px;line-height:1.75}
-  .post-content h2{font-size:22px;margin:28px 0 12px}
-  .post-content h3{font-size:18px;margin:22px 0 10px}
-  .reaction-btn{padding:8px 11px;font-size:12.5px;gap:4px}
-  .reaction-btn .emoji{font-size:15px}
-  .comment-form .row{grid-template-columns:1fr}
-  .comment-replies{margin-left:20px;padding-left:12px}
-  .author-box{flex-direction:column;text-align:center;align-items:center;padding:20px}
-  .footer-grid{grid-template-columns:1fr;gap:20px}
-  .footer-brand{text-align:center}
-  .footer-brand p{margin-left:auto;margin-right:auto}
-  .share-btn{width:38px;height:38px;font-size:14px}
-}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:640px){.nav-links{display:none}.menu-toggle{display:grid}.post-header{padding:28px 0 20px}.post-content{font-size:16px;line-height:1.75}.post-content h2{font-size:22px;margin:28px 0 12px}.post-content h3{font-size:18px;margin:22px 0 10px}.reaction-btn{padding:8px 11px;font-size:12.5px;gap:4px}.reaction-btn .emoji{font-size:15px}.comment-form .row{grid-template-columns:1fr}.comment-replies{margin-left:20px;padding-left:12px}.author-box{flex-direction:column;text-align:center;align-items:center;padding:20px}.footer-grid{grid-template-columns:1fr;gap:20px}.footer-brand{text-align:center}.footer-brand p{margin-left:auto;margin-right:auto}.share-btn{width:38px;height:38px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -242,7 +199,7 @@ const CONFIG = {
   UPLOAD_URL: 'https://gsssshilla.onrender.com'
 };
 
-const imgUrl = (p) => !p ? 'https://via.placeholder.com/1200x600/6366f1/ffffff?text=InkWell' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
+const imgUrl = (p) => !p ? 'https://via.placeholder.com/1200x600/4f46e5/ffffff?text=InkWell' : (p.startsWith('http') ? p : CONFIG.UPLOAD_URL + p);
 const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : '';
 const timeAgo = (d) => {
   if (!d) return '';
@@ -262,7 +219,6 @@ const readingTime = (c) => {
 };
 const verifiedTick = () => `<span class="verified-tick" title="Verified"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
 
-// DEVICE ID for reactions
 function getDeviceId() {
   let id = localStorage.getItem('inkwell_device_id');
   if (!id) {
@@ -272,6 +228,11 @@ function getDeviceId() {
   return id;
 }
 
+// Current user (if logged in)
+const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+const userToken = localStorage.getItem('token');
+const isLoggedIn = !!(userToken && currentUser);
+
 async function apiFetch(endpoint) {
   const res = await fetch(CONFIG.API_URL + endpoint);
   const data = await res.json();
@@ -279,7 +240,6 @@ async function apiFetch(endpoint) {
   return data;
 }
 
-// THEME
 const themeToggle = document.getElementById('themeToggle');
 if (localStorage.getItem('theme') === 'dark') { document.body.classList.add('dark'); themeToggle.textContent = '☀️'; }
 themeToggle.onclick = () => {
@@ -291,7 +251,6 @@ themeToggle.onclick = () => {
 document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
 document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
 
-// REACTIONS config
 const REACTIONS = [
   { type: 'like', emoji: '👍', label: 'Like' },
   { type: 'love', emoji: '❤️', label: 'Love' },
@@ -318,7 +277,6 @@ async function loadPost() {
     metaDesc.content = post.meta_description || post.excerpt || '';
     if (!document.querySelector('meta[name="description"]')) document.head.appendChild(metaDesc);
 
-    // OG tags
     const setOG = (prop, content) => {
       let el = document.querySelector(`meta[property="${prop}"]`) || document.createElement('meta');
       el.setAttribute('property', prop);
@@ -328,12 +286,45 @@ async function loadPost() {
     setOG('og:title', post.title);
     setOG('og:description', post.excerpt || '');
     setOG('og:image', imgUrl(post.cover_image));
-    setOG('og:type', 'article');
 
     const initials = getInitials(post.author_name);
     const avatarHtml = post.author_avatar
       ? `<div class="avatar"><img src="${imgUrl(post.author_avatar)}" alt=""></div>`
       : `<div class="avatar">${initials}</div>`;
+
+    // ⭐ Comment form based on role
+    let commentFormHTML = '';
+    if (isLoggedIn) {
+      const roleTag = currentUser.role === 'admin' ? 'super' : (currentUser.role_type === 'author' ? 'author' : '');
+      const roleLabel = currentUser.role === 'admin' ? '👑 Super Admin' : (currentUser.role_type === 'author' ? '✍️ Author' : '👤 Member');
+      commentFormHTML = `
+        <div class="user-badge">
+          <span>Posting as</span>
+          <b>${escapeHtml(currentUser.name)}</b>
+          ${currentUser.is_verified ? verifiedTick() : ''}
+          <span class="role-tag ${roleTag}">${roleLabel}</span>
+          <span style="margin-left:auto;color:#10b981;font-weight:600">✓ Instant post</span>
+        </div>
+        <form class="comment-form" id="commentForm">
+          <textarea name="content" placeholder="Share your thoughts..." required></textarea>
+          <button type="submit" id="commentBtn">Post Comment</button>
+        </form>
+      `;
+    } else {
+      commentFormHTML = `
+        <div class="guest-hint">
+          💡 <b>Tip:</b> <a href="admin.html">Register</a> karo turant comment karne ke liye. Guest comments moderation ke baad dikhte hain.
+        </div>
+        <form class="comment-form" id="commentForm">
+          <div class="row">
+            <input type="text" name="author_name" placeholder="Your name *" required>
+            <input type="email" name="author_email" placeholder="Your email (optional)" required>
+          </div>
+          <textarea name="content" placeholder="Share your thoughts..." required></textarea>
+          <button type="submit" id="commentBtn">Post Comment</button>
+        </form>
+      `;
+    }
 
     document.getElementById('app').innerHTML = `
       <article>
@@ -398,14 +389,7 @@ async function loadPost() {
         <div class="container-narrow">
           <section class="comments-section">
             <h2>Comments${post.comment_count ? ` (${post.comment_count})` : ''}</h2>
-            <form class="comment-form" id="commentForm">
-              <div class="row">
-                <input type="text" name="author_name" placeholder="Your name *" required>
-                <input type="email" name="author_email" placeholder="Your email *" required>
-              </div>
-              <textarea name="content" placeholder="Share your thoughts..." required></textarea>
-              <button type="submit" id="commentBtn">Post Comment</button>
-            </form>
+            ${commentFormHTML}
             <div id="commentsList"><div class="loader"><div class="spinner"></div></div></div>
           </section>
         </div>
@@ -447,7 +431,6 @@ async function loadPost() {
   }
 }
 
-// ═══════════════ REACTIONS ═══════════════
 async function loadReactions(postId) {
   const deviceId = getDeviceId();
   try {
@@ -492,7 +475,6 @@ async function reactToPost(postId, type) {
   } catch(e) { alert('Failed: ' + e.message); }
 }
 
-// ═══════════════ COMMENTS ═══════════════
 async function loadComments(postId) {
   const container = document.getElementById('commentsList');
   try {
@@ -512,7 +494,6 @@ function renderComment(c) {
   const avatarHtml = c.author_avatar
     ? `<div class="avatar"><img src="${imgUrl(c.author_avatar)}" alt=""></div>`
     : `<div class="avatar">${initials}</div>`;
-
   return `
     <div class="comment">
       ${avatarHtml}
@@ -532,20 +513,35 @@ async function submitComment(e, postId) {
   const btn = document.getElementById('commentBtn');
   btn.disabled = true; btn.textContent = 'Posting...';
 
+  let payload = { content: form.content.value };
+  if (isLoggedIn) {
+    payload.author_name = currentUser.name;
+    payload.author_email = currentUser.email;
+  } else {
+    payload.author_name = form.author_name.value;
+    payload.author_email = form.author_email.value;
+  }
+
   try {
     const res = await fetch(`${CONFIG.API_URL}/posts/${postId}/comments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        author_name: form.author_name.value,
-        author_email: form.author_email.value,
-        content: form.content.value
-      })
+      body: JSON.stringify(payload)
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error);
-    alert('✅ Comment submitted! It will appear after moderation.');
-    form.reset();
+
+    if (data.status === 'approved') {
+      alert('✅ Comment posted successfully!');
+      loadComments(postId);
+    } else {
+      alert('✅ Comment submitted! It will appear after moderation.');
+    }
+    form.content.value = '';
+    if (!isLoggedIn) {
+      form.author_name.value = '';
+      form.author_email.value = '';
+    }
   } catch(err) {
     alert('❌ ' + err.message);
   } finally {
@@ -553,12 +549,10 @@ async function submitComment(e, postId) {
   }
 }
 
-// ═══════════════ SHARE ═══════════════
 function trackShare(platform) {
   if (!currentPost) return;
   fetch(`${CONFIG.API_URL}/posts/${currentPost.id}/share`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ platform })
   }).catch(() => {});
 }
@@ -586,7 +580,6 @@ function copyLink() {
   });
 }
 
-// ═══════════════ ADS ═══════════════
 async function loadAd(id, position) {
   const el = document.getElementById(id);
   if (!el) return;
